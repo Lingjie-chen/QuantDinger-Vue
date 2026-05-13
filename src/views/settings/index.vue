@@ -326,12 +326,12 @@
               <a-alert
                 type="warning"
                 show-icon
-                :message="$t('settings.commercialLicense.title') || '商业化运营需取得商业授权'"
+                :message="$t('settings.commercialLicense.title')"
               >
                 <div slot="description" class="license-body">
-                  <p>{{ $t('settings.commercialLicense.body') || 'QuantDinger 仅供个人学习与研究使用。若您计划将本系统用于任何形式的商业化运营（包括但不限于对外提供 SaaS 服务、二次销售、代客交易、付费咨询等），必须事先获得官方书面商业授权，否则我们将依法追究相应法律责任。' }}</p>
+                  <p>{{ $t('settings.commercialLicense.body') }}</p>
                   <p class="license-contact">
-                    <span class="contact-label">{{ $t('settings.commercialLicense.contactLabel') || '商务合作联系方式' }}：</span>
+                    <span class="contact-label">{{ $t('settings.commercialLicense.contactLabel') }}:</span>
                     <a href="mailto:support@quantdinger.com" class="contact-link">
                       <a-icon type="mail" /> support@quantdinger.com
                     </a>
