@@ -512,10 +512,32 @@ export default {
   /deep/ .ant-card { background: #1f1f1f !important; border-color: rgba(255, 255, 255, 0.08) !important; }
   /deep/ .ant-card-body { background: #1f1f1f !important; }
 
+  /*
+   * type="card" 的子 tabs 在暗黑模式下不能只改文字颜色:
+   * Ant Design 默认给未激活的 card-tab 配一个 #fafafa 的浅色背景。
+   * 如果只把文字改成白色而不覆盖背景,就会出现"白底白字"看不见的情况
+   * (这是上一版的现象)。下面同时改 background + border + color。
+   */
   /deep/ .ant-tabs-bar { border-bottom-color: rgba(255, 255, 255, 0.1) !important; }
-  /deep/ .ant-tabs-nav .ant-tabs-tab { color: rgba(255, 255, 255, 0.65) !important; }
-  /deep/ .ant-tabs-nav .ant-tabs-tab-active { color: #40a9ff !important; }
-  /deep/ .ant-tabs-tab.ant-tabs-tab-active { background: #2a2a2a !important; border-color: rgba(255, 255, 255, 0.15) !important; }
+  /deep/ .ant-tabs-nav-container { color: rgba(255, 255, 255, 0.65) !important; }
+  /deep/ .ant-tabs-nav .ant-tabs-tab,
+  /deep/ .ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab {
+    background: #1a1a1a !important;
+    border-color: rgba(255, 255, 255, 0.12) !important;
+    color: rgba(255, 255, 255, 0.65) !important;
+  }
+  /deep/ .ant-tabs-nav .ant-tabs-tab:hover,
+  /deep/ .ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab:hover {
+    color: #40a9ff !important;
+  }
+  /deep/ .ant-tabs-nav .ant-tabs-tab-active,
+  /deep/ .ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab-active,
+  /deep/ .ant-tabs-tab.ant-tabs-tab-active {
+    background: #2a2a2a !important;
+    border-color: rgba(255, 255, 255, 0.18) !important;
+    color: #40a9ff !important;
+  }
+  /deep/ .ant-tabs-nav .ant-tabs-ink-bar { background-color: #40a9ff !important; }
 
   /deep/ .ant-table { background: #1f1f1f !important; color: rgba(255, 255, 255, 0.85) !important; }
   /deep/ .ant-table-thead > tr > th { background: #262626 !important; color: rgba(255, 255, 255, 0.85) !important; border-bottom-color: rgba(255, 255, 255, 0.1) !important; }
