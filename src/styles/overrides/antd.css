@@ -1,0 +1,368 @@
+/* ============================================================
+ * Ant Design 暗黑主题覆盖
+ *
+ * 来源: 合并 global.less + BasicLayout.less + qd-layout-dark-override.less
+ *       中的三路重复 Ant-Design 覆盖。
+ *
+ * 原则:
+ *   1. 使用 CSS 变量 (--bg-*, --text-*, --border-*)
+ *      让主题切换在 tokens level 完成，无需重写选择器。
+ *   2. 仅此一份，删除其他文件中的重复覆盖。
+ *   3. 仍是 !important 避免与 ant-design 源码优先级冲突。
+ * ============================================================ */
+
+/* ============================================================
+ * Part 1: 核心布局 — Sider / Header / Content
+ * ============================================================ */
+
+/* 侧栏 */
+body.dark .ant-layout-sider,
+body.dark .ant-pro-sider {
+  background: var(--bg-sidebar) !important;
+}
+body.dark .ant-layout-sider-trigger {
+  background: color-mix(in srgb, var(--bg-sidebar), #fff 5%) !important;
+  border-top: 1px solid var(--border-color) !important;
+}
+
+/* 顶栏 */
+body.dark .ant-layout-header,
+body.dark .ant-pro-top-nav-header {
+  background: var(--bg-header) !important;
+  border-bottom: 1px solid var(--border-color) !important;
+}
+
+/* 内容区 */
+body.dark .ant-layout-content,
+body.dark .ant-pro-content {
+  background: var(--bg-content) !important;
+}
+
+/* 整个 Layout 背景 */
+body.dark .ant-layout,
+body.dark .ant-pro-layout {
+  background: var(--bg-app) !important;
+}
+
+/* ============================================================
+ * Part 2: 卡片
+ * ============================================================ */
+body.dark .ant-card {
+  background: var(--bg-card) !important;
+}
+body.dark .ant-card-bordered {
+  border-color: var(--border-color) !important;
+}
+body.dark .ant-card-head {
+  background: transparent !important;
+  border-bottom-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+body.dark .ant-card-body {
+  color: var(--text-secondary) !important;
+}
+
+/* ============================================================
+ * Part 3: 表格
+ * ============================================================ */
+body.dark .ant-table {
+  background: transparent !important;
+  color: var(--text-primary) !important;
+}
+body.dark .ant-table-thead > tr > th {
+  background: var(--bg-card) !important;
+  border-bottom-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+body.dark .ant-table-tbody > tr > td {
+  border-bottom-color: var(--border-color) !important;
+  background: transparent !important;
+}
+body.dark .ant-table-tbody > tr.ant-table-row:hover > td {
+  background: var(--bg-card-hover) !important;
+}
+body.dark .ant-table-placeholder {
+  background: transparent !important;
+}
+body.dark .ant-table-expanded-row-fixed {
+  background: var(--bg-card) !important;
+}
+
+/* ============================================================
+ * Part 4: 表单
+ * ============================================================ */
+body.dark .ant-form-item-label > label {
+  color: var(--text-primary) !important;
+}
+body.dark .ant-input {
+  background: var(--bg-input) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+body.dark .ant-input:hover {
+  border-color: var(--color-primary) !important;
+}
+body.dark .ant-input:focus {
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-primary), transparent 80%) !important;
+}
+body.dark .ant-input-group-addon {
+  background: var(--bg-card) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+body.dark .ant-input-affix-wrapper {
+  background: var(--bg-input) !important;
+  border-color: var(--border-color) !important;
+}
+body.dark .ant-input-affix-wrapper:hover {
+  border-color: var(--color-primary) !important;
+}
+body.dark .ant-input-affix-wrapper-focused {
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-primary), transparent 80%) !important;
+}
+body.dark .ant-input::placeholder {
+  color: var(--text-placeholder) !important;
+}
+body.dark .ant-input-disabled {
+  background: var(--bg-disabled) !important;
+  color: var(--text-disabled) !important;
+}
+
+/* ============================================================
+ * Part 5: 弹窗 / Modal
+ * ============================================================ */
+body.dark .ant-modal-content,
+body.dark .ant-modal-header {
+  background: var(--bg-elevated) !important;
+}
+body.dark .ant-modal-header {
+  border-bottom-color: var(--border-color) !important;
+}
+body.dark .ant-modal-title {
+  color: var(--text-primary) !important;
+}
+body.dark .ant-modal-content {
+  color: var(--text-secondary) !important;
+}
+body.dark .ant-modal-footer {
+  border-top-color: var(--border-color) !important;
+}
+body.dark .ant-modal-close {
+  color: var(--text-secondary) !important;
+}
+body.dark .ant-modal-close:hover {
+  color: var(--text-primary) !important;
+}
+body.dark .ant-modal-mask {
+  background-color: rgba(0, 0, 0, 0.65) !important;
+}
+
+/* ============================================================
+ * Part 6: Tabs
+ * ============================================================ */
+body.dark .ant-tabs {
+  color: var(--text-primary) !important;
+}
+body.dark .ant-tabs-tab {
+  color: var(--text-secondary) !important;
+}
+body.dark .ant-tabs-tab-active {
+  color: var(--color-primary) !important;
+}
+body.dark .ant-tabs-ink-bar {
+  background: var(--color-primary) !important;
+}
+body.dark .ant-tabs-nav::before {
+  border-bottom-color: var(--border-color) !important;
+}
+body.dark .ant-tabs-card > .ant-tabs-nav .ant-tabs-tab {
+  background: var(--bg-card) !important;
+  border-color: var(--border-color) !important;
+}
+body.dark .ant-tabs-card > .ant-tabs-nav .ant-tabs-tab-active {
+  background: var(--bg-content) !important;
+  border-bottom-color: var(--bg-content) !important;
+}
+
+/* ============================================================
+ * Part 7: Select / Dropdown
+ * ============================================================ */
+body.dark .ant-select-selector {
+  background: var(--bg-input) !important;
+  border-color: var(--border-color) !important;
+}
+body.dark .ant-select:not(.ant-select-disabled):hover .ant-select-selector {
+  border-color: var(--color-primary) !important;
+}
+body.dark .ant-select-focused .ant-select-selector {
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-primary), transparent 80%) !important;
+}
+body.dark .ant-select-selection-placeholder {
+  color: var(--text-placeholder) !important;
+}
+body.dark .ant-select-selection-item {
+  color: var(--text-primary) !important;
+}
+body.dark .ant-select-arrow {
+  color: var(--text-secondary) !important;
+}
+body.dark .ant-select-dropdown {
+  background: var(--bg-elevated) !important;
+  border-color: var(--border-color) !important;
+}
+body.dark .ant-select-item {
+  color: var(--text-primary) !important;
+}
+body.dark .ant-select-item-option-active:not(.ant-select-item-option-disabled) {
+  background: var(--bg-card-hover) !important;
+}
+body.dark .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+  background: color-mix(in srgb, var(--color-primary), transparent 80%) !important;
+  color: var(--color-primary) !important;
+}
+
+/* ============================================================
+ * Part 8: DatePicker (继承 Select + Input)
+ * ============================================================ */
+body.dark .ant-picker {
+  background: var(--bg-input) !important;
+  border-color: var(--border-color) !important;
+}
+body.dark .ant-picker:hover {
+  border-color: var(--color-primary) !important;
+}
+body.dark .ant-picker-focused {
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-primary), transparent 80%) !important;
+}
+body.dark .ant-picker-input > input {
+  color: var(--text-primary) !important;
+}
+
+/* ============================================================
+ * Part 9: 菜单 / Menu
+ * ============================================================ */
+body.dark .ant-menu-item {
+  color: var(--text-secondary) !important;
+}
+body.dark .ant-menu-item-selected {
+  color: var(--color-primary) !important;
+}
+body.dark .ant-menu-item-active:not(.ant-menu-item-selected) {
+  color: var(--text-primary) !important;
+}
+
+/* ============================================================
+ * Part 10: 按钮
+ * ============================================================ */
+body.dark .ant-btn-default {
+  background: var(--bg-card) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+body.dark .ant-btn-default:hover {
+  border-color: var(--color-primary) !important;
+  color: var(--color-primary) !important;
+}
+body.dark .ant-btn-ghost {
+  background: transparent !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+body.dark .ant-btn-ghost:hover {
+  border-color: var(--color-primary) !important;
+  color: var(--color-primary) !important;
+}
+body.dark .ant-btn-text {
+  color: var(--text-secondary) !important;
+}
+body.dark .ant-btn-text:hover {
+  background: var(--bg-card-hover) !important;
+  color: var(--text-primary) !important;
+}
+
+/* ============================================================
+ * Part 11: 徽标 / Badge / Tag
+ * ============================================================ */
+body.dark .ant-tag {
+  background: var(--tag-bg) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-secondary) !important;
+}
+body.dark .ant-badge-count {
+  box-shadow: none !important;
+}
+
+/* ============================================================
+ * Part 12: 分页 / Pagination
+ * ============================================================ */
+body.dark .ant-pagination-item {
+  background: transparent !important;
+  border-color: var(--border-color) !important;
+}
+body.dark .ant-pagination-item a {
+  color: var(--text-secondary) !important;
+}
+body.dark .ant-pagination-item-active {
+  border-color: var(--color-primary) !important;
+}
+body.dark .ant-pagination-item-active a {
+  color: var(--color-primary) !important;
+}
+
+/* ============================================================
+ * Part 13: Alert
+ * ============================================================ */
+body.dark .ant-alert-info {
+  background: color-mix(in srgb, var(--blue-500), transparent 85%) !important;
+  border-color: color-mix(in srgb, var(--blue-500), transparent 70%) !important;
+}
+body.dark .ant-alert-success {
+  background: color-mix(in srgb, var(--green-500), transparent 85%) !important;
+  border-color: color-mix(in srgb, var(--green-500), transparent 70%) !important;
+}
+body.dark .ant-alert-warning {
+  background: color-mix(in srgb, var(--amber-500), transparent 85%) !important;
+  border-color: color-mix(in srgb, var(--amber-500), transparent 70%) !important;
+}
+body.dark .ant-alert-error {
+  background: color-mix(in srgb, var(--red-500), transparent 85%) !important;
+  border-color: color-mix(in srgb, var(--red-500), transparent 70%) !important;
+}
+
+/* ============================================================
+ * Part 14: Spin / Loading
+ * ============================================================ */
+body.dark .ant-spin {
+  color: var(--color-primary) !important;
+}
+
+/* ============================================================
+ * Part 15: 消息 / Message 通知
+ * ============================================================ */
+body.dark .ant-message-notice-content {
+  background: var(--bg-elevated) !important;
+  color: var(--text-primary) !important;
+  box-shadow: var(--shadow-lg) !important;
+}
+
+/* ============================================================
+ * Part 16: 滚动条
+ * ============================================================ */
+body.dark ::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+body.dark ::-webkit-scrollbar-track {
+  background: transparent;
+}
+body.dark ::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 3px;
+}
+body.dark ::-webkit-scrollbar-thumb:hover {
+  background: var(--text-tertiary);
+}

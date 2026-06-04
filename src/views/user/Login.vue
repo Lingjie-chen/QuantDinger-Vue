@@ -795,11 +795,20 @@ export default {
 
       if (oauthToken) {
         this.oauthProcessing = true
-        // NOTE: storage expire plugin expects an absolute timestamp (ms since epoch),
-        // not a duration. Use "now + 7 days" to avoid immediate expiration.
-        storage.set(ACCESS_TOKEN, oauthToken, new Date().getTime() + 7 * 24 * 60 * 60 * 1000)
+        const expiresAt = new Date().getTime() + 7 * 24 * 60 * 60 * 1000
+        storage.set(ACCESS_TOKEN, oauthToken, expiresAt)
+        this.$store.commit('SET_TOKEN', oauthToken)
         window.history.replaceState({}, document.title, window.location.pathname + window.location.hash.split('?')[0])
+
+        // 清除缓存的用户信息，确保 GetInfo 从 API 拉取最新数据而非使用旧缓存
+        storage.remove(USER_INFO)
+        storage.remove(USER_ROLES)
+        this.$store.commit('SET_INFO', {})
+        this.$store.commit('SET_ROLES', [])
+
         this.$store.dispatch('GetInfo').then(() => {
+          // 重置路由，确保路由根据新用户角色重新生成
+          this.$store.dispatch('ResetRoutes')
           this.$router.push({ path: '/' })
           this.$notification.success({
             message: 'Welcome',
@@ -810,6 +819,8 @@ export default {
           this.oauthError = 'Failed to get user info'
           console.error('OAuth login error:', err)
           storage.remove(ACCESS_TOKEN)
+          storage.remove(USER_INFO)
+          storage.remove(USER_ROLES)
         })
       }
     },
@@ -1030,7 +1041,8 @@ export default {
 
     validateRegPassword (rule, value, callback) {
       if (!value) { callback(); return }
-      if (value.length < 8) { callback(new Error(this.$t('user.register.pwdMinLength') || 'At least 8 characters')); return }
+      value = value.trim()
+      if (!value || value.length < 8) { callback(new Error(this.$t('user.register.pwdMinLength') || 'At least 8 characters')); return }
       if (!/[A-Z]/.test(value)) { callback(new Error(this.$t('user.register.pwdUppercase') || 'At least one uppercase letter')); return }
       if (!/[a-z]/.test(value)) { callback(new Error(this.$t('user.register.pwdLowercase') || 'At least one lowercase letter')); return }
       if (!/[0-9]/.test(value)) { callback(new Error(this.$t('user.register.pwdNumber') || 'At least one number')); return }
@@ -1100,6 +1112,7 @@ export default {
         this.registerError = ''
 
         try {
+          values.password = values.password.trim()
           const res = await register({
             email: values.email,
             code: values.code,
@@ -1157,8 +1170,8 @@ export default {
                   // 如果没有角色信息，设置一个默认角色对象，避免路由守卫卡住
                   roles = [{ id: 'default', permissionList: [] }]
                 }
-              this.$store.commit('SET_ROLES', roles)
-              storage.set(USER_ROLES, roles, expiresAt)
+                this.$store.commit('SET_ROLES', roles)
+                storage.set(USER_ROLES, roles, expiresAt)
               }
 
               // 确保 roles 已经被正确设置（使用 Vue.nextTick 确保状态已更新）

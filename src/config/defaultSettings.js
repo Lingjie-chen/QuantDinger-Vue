@@ -12,7 +12,7 @@
  *
  */
 
-export const PYTHON_API_BASE_URL = process.env.VUE_APP_PYTHON_API_BASE_URL || 'http://localhost:5000'
+export const PYTHON_API_BASE_URL = process.env.VUE_APP_PYTHON_API_BASE_URL || 'http://localhost:8000'
 
 export default {
   /** Web UI release label (footer, docs cross-reference). */
@@ -25,11 +25,10 @@ export default {
   fixSiderbar: true, // sticky siderbar - 固定左侧边栏
   colorWeak: false,
   menu: {
-    locale: true
+    locale: true,
   },
   title: 'QuantDinger',
   pwa: false,
   iconfontUrl: '',
-  production: process.env.NODE_ENV === 'production' && process.env.VUE_APP_PREVIEW !== 'true'
-
+  production: process.env.NODE_ENV === 'production' && process.env.VUE_APP_PREVIEW !== 'true',
 }

@@ -4,7 +4,7 @@ import momentCN from 'moment/locale/zh-cn'
 const components = {
   antLocale: antd,
   momentName: 'zh-cn',
-  momentLocale: momentCN
+  momentLocale: momentCN,
 }
 
 const locale = {
@@ -25,8 +25,8 @@ const locale = {
   'common.copy': '复制',
   'common.copySuccess': '复制成功',
   'common.copyFailed': '复制失败，请手动选择并复制',
-  'submit': '提交',
-  'save': '保存',
+  submit: '提交',
+  save: '保存',
   'submit.ok': '提交成功',
   'save.ok': '保存成功',
   'menu.welcome': '欢迎',
@@ -41,6 +41,7 @@ const locale = {
   'menu.dashboard.backtestCenter': '回测中心',
   'menu.dashboard.indicatorIde': '指标 IDE',
   'menu.dashboard.tradingBot': '交易机器人',
+  'menu.dashboard.factorGraph': '因子图谱',
   'menu.dashboard.brokerAccounts': '实盘券商账户',
   'menu.dashboard.scriptStrategies': 'Python 脚本策略',
   // ---- 交易机器人页 ----
@@ -108,7 +109,8 @@ const locale = {
   'trading-bot.cloneAsScript.tooltip': '将当前机器人复制为可编辑的 Python 代码策略',
   'trading-bot.cloneAsScript.noCode': '该机器人没有可复制的代码',
   'trading-bot.cloneAsScript.confirmTitle': '复制为代码策略',
-  'trading-bot.cloneAsScript.confirmContent': '将 "{name}" 复制为可编辑的 Python 代码策略？新策略默认为"仅信号"模式，不会自动实盘交易。',
+  'trading-bot.cloneAsScript.confirmContent':
+    '将 "{name}" 复制为可编辑的 Python 代码策略？新策略默认为"仅信号"模式，不会自动实盘交易。',
   'trading-bot.cloneAsScript.confirmOk': '复制',
   'trading-bot.cloneAsScript.confirmCancel': '取消',
   'trading-bot.cloneAsScript.suffix': '(代码版)',
@@ -147,12 +149,14 @@ const locale = {
   'trading-bot.detail.gridDirection': '方向',
   'trading-bot.detail.gridProfitPerGrid': '平均单格利润',
   'trading-bot.detail.gridProfitPct': '单格利润率',
-  'trading-bot.detail.gridNote': '中性网格：以中间价位为分界，下方挂买入单（做多），上方挂卖出单（做空）。价格穿越格线时触发开仓，反向穿越时平仓获利。实际买卖方向取决于启动时的市价。',
+  'trading-bot.detail.gridNote':
+    '中性网格：以中间价位为分界，下方挂买入单（做多），上方挂卖出单（做空）。价格穿越格线时触发开仓，反向穿越时平仓获利。实际买卖方向取决于启动时的市价。',
   'trading-bot.detail.triggerDrop': '价格跌至此处 → 做多',
   'trading-bot.detail.triggerRise': '价格涨至此处 → 做空',
   'trading-bot.detail.triggerEntry': '预估入场价位（取决于启动时市价）',
   'trading-bot.detail.hedgeSummary': '实时双向仓位',
-  'trading-bot.detail.hedgeSummaryHint': '网格机器人独立维护多腿与空腿。下面三栏分别展示：当前多腿数量与浮盈、当前空腿数量与浮盈、以及已实现的网格配对总利润。',
+  'trading-bot.detail.hedgeSummaryHint':
+    '网格机器人独立维护多腿与空腿。下面三栏分别展示：当前多腿数量与浮盈、当前空腿数量与浮盈、以及已实现的网格配对总利润。',
   'trading-bot.detail.longLeg': '多腿仓位',
   'trading-bot.detail.shortLeg': '空腿仓位',
   'trading-bot.detail.totalGridProfit': '网格配对总利润',
@@ -182,7 +186,8 @@ const locale = {
   'trading-bot.wizard.botType.martingale': '马丁',
   'trading-bot.wizard.botType.dca': 'DCA 定投',
   'trading-bot.wizard.botType.trend': '趋势',
-  'trading-bot.wizard.brokerCredentialRequired': '当前没有可用于{market}的券商凭证，请先去“个人中心 → 交易所/券商”里添加。',
+  'trading-bot.wizard.brokerCredentialRequired':
+    '当前没有可用于{market}的券商凭证，请先去“个人中心 → 交易所/券商”里添加。',
   'trading-bot.wizard.cryptoCredentialRequired': '请选择一个支持{market}的券商凭证。',
   'trading-bot.wizard.savedCredential': '交易所/券商账户',
   'trading-bot.wizard.selectCredential': '选择已保存的交易所账户',
@@ -213,7 +218,8 @@ const locale = {
   'trading-bot.wizard.connected': '连接成功',
   'trading-bot.wizard.connectFail': '连接失败',
   'trading-bot.wizard.liveWarning': '实盘交易风险提示',
-  'trading-bot.wizard.liveWarningDesc': '机器人创建后将以实盘模式运行，会使用真实资金在交易所下单。请确认参数正确后再创建。',
+  'trading-bot.wizard.liveWarningDesc':
+    '机器人创建后将以实盘模式运行，会使用真实资金在交易所下单。请确认参数正确后再创建。',
   'trading-bot.wizard.prev': '上一步',
   'trading-bot.wizard.next': '下一步',
   'trading-bot.wizard.create': '创建机器人',
@@ -275,7 +281,8 @@ const locale = {
   'trading-bot.grid.autoCalcHint': '已根据投入金额自动计算，手动修改后将取消联动',
   'trading-bot.grid.riskGuardsTitle': '边界与风控',
   'trading-bot.grid.adaptiveBounds': '自适应边界',
-  'trading-bot.grid.adaptiveBoundsHint': '根据近期波动（ATR）自动平移上下轨，价格贴边时扩展区间，减少长期单边行情跑出网格。',
+  'trading-bot.grid.adaptiveBoundsHint':
+    '根据近期波动（ATR）自动平移上下轨，价格贴边时扩展区间，减少长期单边行情跑出网格。',
   'trading-bot.grid.adaptiveAtrMult': 'ATR 宽度倍数',
   'trading-bot.grid.adaptiveAtrMultHint': '越大则上下轨越宽，网格更稀疏；默认 2.0。',
   'trading-bot.grid.waterfallProtection': '防瀑布（急跌暂停）',
@@ -310,7 +317,8 @@ const locale = {
   'trading-bot.martingale.shortHint': '价格上涨时逐层加仓卖出，回落到均价下方止盈',
   'trading-bot.martingale.riskGuardsTitle': '风控',
   'trading-bot.martingale.waterfallProtection': '防瀑布（急跌暂停加仓）',
-  'trading-bot.martingale.waterfallProtectionHint': '短时急跌时暂停首单与加仓，避免瀑布行情连续摊低成本；止盈/止损仍可执行。',
+  'trading-bot.martingale.waterfallProtectionHint':
+    '短时急跌时暂停首单与加仓，避免瀑布行情连续摊低成本；止盈/止损仍可执行。',
   'trading-bot.martingale.waterfallDropPct': '触发回撤幅度',
   'trading-bot.martingale.waterfallDropPctHint': '相对近期高点的回撤达到该比例时触发暂停（默认 4%）。',
 
@@ -388,7 +396,8 @@ const locale = {
   'trading-bot.ai.prompt2': '分析ETH近期走势，帮我设置定投策略',
   'trading-bot.ai.prompt3': '看看SOL最近行情，帮我设置趋势跟随策略',
   'trading-bot.ai.prompt4': 'BTC最近在回调，帮我设置逢低加仓策略',
-  'trading-bot.ai.inputPlaceholder': '描述你的交易需求，AI会自动获取实时行情分析，例如：请根据BTC最近行情帮我做网格交易...',
+  'trading-bot.ai.inputPlaceholder':
+    '描述你的交易需求，AI会自动获取实时行情分析，例如：请根据BTC最近行情帮我做网格交易...',
   'trading-bot.ai.inputHint': 'Ctrl+Enter 发送',
   'trading-bot.ai.generate': 'AI 分析',
   'trading-bot.ai.analyzing': 'AI 正在分析你的需求，生成最优配置...',
@@ -465,7 +474,8 @@ const locale = {
   'aiAssetAnalysis.batch.deselectAll': '取消全选',
   'aiAssetAnalysis.batch.schedule': '批量定时任务',
   'aiAssetAnalysis.batch.scheduleTitle': '创建批量定时分析任务',
-  'aiAssetAnalysis.batch.scheduleDesc': '将为选中的 {count} 个标的创建定时AI分析任务，系统将按设定周期自动分析并推送报告。',
+  'aiAssetAnalysis.batch.scheduleDesc':
+    '将为选中的 {count} 个标的创建定时AI分析任务，系统将按设定周期自动分析并推送报告。',
   'aiAssetAnalysis.batch.intervalLabel': '分析周期',
   'aiAssetAnalysis.batch.interval1h': '每 1 小时',
   'aiAssetAnalysis.batch.interval4h': '每 4 小时',
@@ -645,7 +655,8 @@ const locale = {
   'notice.type.notification': '系统通知',
 
   'user.initialPassword.title': '请修改初始密码',
-  'user.initialPassword.content': '您是系统首个管理员账户，仍在使用部署时的默认密码（如 123456），存在安全风险。请尽快前往个人中心修改密码；修改成功后将不再提示。（其他管理员账户不受此限制）',
+  'user.initialPassword.content':
+    '您是系统首个管理员账户，仍在使用部署时的默认密码（如 123456），存在安全风险。请尽快前往个人中心修改密码；修改成功后将不再提示。（其他管理员账户不受此限制）',
   'user.initialPassword.goChange': '去修改密码',
 
   'user.login.userName': '用户名',
@@ -679,7 +690,8 @@ const locale = {
   'user.register.get-verification-code': '获取验证码',
   'user.register.sign-in': '使用已有账户登录',
   'user.register-result.msg': '你的账户：{email} 注册成功',
-  'user.register-result.activation-email': '激活邮件已发送到你的邮箱中，邮件有效期为24小时。请及时登录邮箱，点击邮件中的链接激活账户。',
+  'user.register-result.activation-email':
+    '激活邮件已发送到你的邮箱中，邮件有效期为24小时。请及时登录邮箱，点击邮件中的链接激活账户。',
   'user.register-result.back-home': '返回首页',
   'user.register-result.view-mailbox': '查看邮箱',
   'user.email.required': '请输入邮箱地址！',
@@ -697,7 +709,8 @@ const locale = {
   'user.phone-number.wrong-format': '手机号格式错误！',
   'user.verification-code.required': '请输入验证码！',
   'user.captcha.required': '请输入图形验证码！',
-  'user.login.infos': 'QuantDinger 是一个 AI 多智能体股票分析辅助工具，不具备证券投资咨询资质。平台中的所有分析结果、评分、参考意见均由 AI 基于历史数据自动生成，仅供学习、研究与技术交流使用,不构成任何投资建议或决策依据。股票投资存在市场风险、流动性风险、政策风险等多种风险，可能导致本金损失。用户应基于自身风险承受能力独立决策，使用本工具产生的任何投资行为及其后果由用户自行承担。市场有风险，投资需谨慎。',
+  'user.login.infos':
+    'QuantDinger 是一个 AI 多智能体股票分析辅助工具，不具备证券投资咨询资质。平台中的所有分析结果、评分、参考意见均由 AI 基于历史数据自动生成，仅供学习、研究与技术交流使用,不构成任何投资建议或决策依据。股票投资存在市场风险、流动性风险、政策风险等多种风险，可能导致本金损失。用户应基于自身风险承受能力独立决策，使用本工具产生的任何投资行为及其后果由用户自行承担。市场有风险，投资需谨慎。',
   'user.login.tab-login-web3': 'Web3 登录',
   'user.login.web3.tip': '使用钱包进行签名登录',
   'user.login.web3.connect': '连接钱包并登录',
@@ -721,11 +734,13 @@ const locale = {
   'user.login.legal.collapse': '收起法律免责声明',
   'user.login.legal.agree': '我已阅读并同意法律免责声明',
   'user.login.legal.required': '请先阅读并勾选法律免责声明',
-  'user.login.legal.content': 'QuantDinger 是一个 AI 多智能体股票分析辅助工具，不具备证券投资咨询资质。平台中的所有分析结果、评分、参考意见均由 AI 基于历史数据自动生成，仅供学习、研究与技术交流使用，不构成任何投资建议或决策依据。股票投资存在市场风险、流动性风险、政策风险等多种风险，可能导致本金损失。用户应基于自身风险承受能力独立决策，使用本工具产生的任何投资行为及其后果由用户自行承担。市场有风险，投资需谨慎。',
+  'user.login.legal.content':
+    'QuantDinger 是一个 AI 多智能体股票分析辅助工具，不具备证券投资咨询资质。平台中的所有分析结果、评分、参考意见均由 AI 基于历史数据自动生成，仅供学习、研究与技术交流使用，不构成任何投资建议或决策依据。股票投资存在市场风险、流动性风险、政策风险等多种风险，可能导致本金损失。用户应基于自身风险承受能力独立决策，使用本工具产生的任何投资行为及其后果由用户自行承担。市场有风险，投资需谨慎。',
   'user.login.privacy.title': '用户隐私条款',
   'user.login.privacy.view': '查看用户隐私条款',
   'user.login.privacy.collapse': '收起用户隐私条款',
-  'user.login.privacy.content': '我们重视您的隐私与数据保护。1) 收集范围：仅收集实现功能所需的信息（如邮箱、手机号、区号、Web3 钱包地址）以及必要的日志与设备信息。2) 使用目的：用于账户登录与安全校验、服务功能提供、问题排查与合规要求。3) 存储与安全：数据加密存储，并采取必要的权限与访问控制措施，尽力防止未经授权的访问、披露或丢失。4) 共享与第三方：除法律法规要求或履行服务所必需外，不会与第三方共享您的个人信息；若涉及第三方服务（如钱包、短信服务商），仅在实现功能所需的最小范围内处理。5) Cookies/本地存储：用于登录态与必要的会话维持（如令牌、PHPSESSID），您可在浏览器中进行清理或限制。6) 个人权利：您可根据法律法规行使查询、更正、删除、撤回同意等权利。7) 变更与通知：本条款更新后将在页面显著位置提示。继续使用本服务即表示您已阅读并同意更新内容。若您不同意本条款或其中任何更新，请停止使用本服务并联系我们。',
+  'user.login.privacy.content':
+    '我们重视您的隐私与数据保护。1) 收集范围：仅收集实现功能所需的信息（如邮箱、手机号、区号、Web3 钱包地址）以及必要的日志与设备信息。2) 使用目的：用于账户登录与安全校验、服务功能提供、问题排查与合规要求。3) 存储与安全：数据加密存储，并采取必要的权限与访问控制措施，尽力防止未经授权的访问、披露或丢失。4) 共享与第三方：除法律法规要求或履行服务所必需外，不会与第三方共享您的个人信息；若涉及第三方服务（如钱包、短信服务商），仅在实现功能所需的最小范围内处理。5) Cookies/本地存储：用于登录态与必要的会话维持（如令牌、PHPSESSID），您可在浏览器中进行清理或限制。6) 个人权利：您可根据法律法规行使查询、更正、删除、撤回同意等权利。7) 变更与通知：本条款更新后将在页面显著位置提示。继续使用本服务即表示您已阅读并同意更新内容。若您不同意本条款或其中任何更新，请停止使用本服务并联系我们。',
 
   // Login page additions
   'user.login.username': '用户名',
@@ -930,7 +945,8 @@ const locale = {
   'wallet.web3Address.save': '保存钱包地址',
   'wallet.web3Address.saveSuccess': '钱包地址保存成功',
   'wallet.web3Address.saveFailed': '保存钱包地址失败',
-  'wallet.web3Address.invalidFormat': '请输入有效的Web3钱包地址（以太坊格式：0x开头42位字符，或TRC20格式：T开头34位字符）',
+  'wallet.web3Address.invalidFormat':
+    '请输入有效的Web3钱包地址（以太坊格式：0x开头42位字符，或TRC20格式：T开头34位字符）',
   'wallet.selectCoin': '选择币种',
   'wallet.selectChain': '选择链',
   'wallet.chain.eth': 'ETH(ERC20)',
@@ -1292,7 +1308,8 @@ const locale = {
   'dashboard.indicator.editor.pricePlaceholder': '请输入价格',
   'dashboard.indicator.editor.pricingHint': '免费指标虽然价格为0，但平台会根据您的指标使用量和好评率给予奖励（QDT）',
   'dashboard.indicator.editor.aiGenerate': '智能生成',
-  'dashboard.indicator.editor.aiPromptPlaceholder': '请描述你的信号逻辑（只输出 buy/sell）与绘图（plots）。仓位/风控/加减仓请在回测配置中设定。',
+  'dashboard.indicator.editor.aiPromptPlaceholder':
+    '请描述你的信号逻辑（只输出 buy/sell）与绘图（plots）。仓位/风控/加减仓请在回测配置中设定。',
   'dashboard.indicator.editor.aiGenerateBtn': 'AI生成代码',
   'dashboard.indicator.editor.aiPromptRequired': '请输入您的想法',
   'dashboard.indicator.editor.aiGenerateSuccess': '代码生成成功',
@@ -1301,9 +1318,12 @@ const locale = {
   'dashboard.indicator.editor.verifyCodeSuccess': '代码检查通过',
   'dashboard.indicator.editor.verifyCodeFailed': '代码检查未通过',
   'dashboard.indicator.editor.verifyCodeEmpty': '代码不能为空',
-  'dashboard.indicator.boundary.message': '提示：指标脚本只负责“计算 + 绘图 + buy/sell 信号”；仓位、风控、加减仓、手续费/滑点属于策略执行配置。',
-  'dashboard.indicator.boundary.indicatorRule': "指标脚本请只输出 buy/sell（并设定 df['buy']/df['sell']）。不要在脚本内撰写仓位管理、止盈止损、加减仓。",
-  'dashboard.indicator.boundary.backtestRule': '规则：同一根K线若出现主信号（buy/sell→开/平仓/反手），本K线将跳过所有加仓与减仓。',
+  'dashboard.indicator.boundary.message':
+    '提示：指标脚本只负责“计算 + 绘图 + buy/sell 信号”；仓位、风控、加减仓、手续费/滑点属于策略执行配置。',
+  'dashboard.indicator.boundary.indicatorRule':
+    "指标脚本请只输出 buy/sell（并设定 df['buy']/df['sell']）。不要在脚本内撰写仓位管理、止盈止损、加减仓。",
+  'dashboard.indicator.boundary.backtestRule':
+    '规则：同一根K线若出现主信号（buy/sell→开/平仓/反手），本K线将跳过所有加仓与减仓。',
   'dashboard.indicator.paramsConfig.title': '指标参数配置',
   'dashboard.indicator.paramsConfig.noParams': '该指标没有可配置的参数',
   'dashboard.indicator.paramsConfig.hint': '设置参数后点击确定运行指标',
@@ -1388,13 +1408,15 @@ const locale = {
   'dashboard.indicator.backtest.noIndicatorCode': '该指标没有可回测的代码',
   'dashboard.indicator.backtest.noSymbol': '请先选择交易标的',
   'dashboard.indicator.backtest.dateRangeExceeded': '回测时间范围超出限制：{timeframe}周期最多可回测{maxRange}',
-  'dashboard.indicator.backtest.dateRangeExceededDays': '回测时间范围超出限制：{timeframe}周期最多可回测{maxRange}（{maxDays}天）',
+  'dashboard.indicator.backtest.dateRangeExceededDays':
+    '回测时间范围超出限制：{timeframe}周期最多可回测{maxRange}（{maxDays}天）',
   'dashboard.indicator.backtest.metaLine': '标的：{symbol} | 市场：{market} | 周期：{timeframe}',
   'dashboard.indicator.backtest.savedRunId': '回测已保存，记录ID：{id}',
   'dashboard.indicator.backtest.historyTitle': '回测记录',
   'dashboard.indicator.backtest.historyRefresh': '刷新',
   'dashboard.indicator.backtest.historyView': '查看',
-  'dashboard.indicator.backtest.historyRowClickHint': '点击表格一行：在下方「回测结果」中展示该次回测，并自动回填当时使用的参数。',
+  'dashboard.indicator.backtest.historyRowClickHint':
+    '点击表格一行：在下方「回测结果」中展示该次回测，并自动回填当时使用的参数。',
   'dashboard.indicator.backtest.historyNoData': '暂无回测记录',
   'dashboard.indicator.backtest.historyUseCurrent': '仅目前币种/周期',
   'dashboard.indicator.backtest.historyFilterSymbol': '币种（Symbol）',
@@ -1412,7 +1434,8 @@ const locale = {
   'dashboard.indicator.backtest.historySelectedCount': '已选 {count} 条',
   'dashboard.indicator.backtest.historyAICopy': '复制结果',
   'dashboard.indicator.backtest.historyAIRetry': '重新生成',
-  'dashboard.indicator.backtest.historyAIHint': 'AI 只会基于回测结果给出参数调优建议，不会直接修改指标代码逻辑。建议按建议做 A/B 回测验证。',
+  'dashboard.indicator.backtest.historyAIHint':
+    'AI 只会基于回测结果给出参数调优建议，不会直接修改指标代码逻辑。建议按建议做 A/B 回测验证。',
   'dashboard.indicator.backtest.historyAIModeLLM': 'AI模型',
   'dashboard.indicator.backtest.historyAIModeRule': '规则建议',
   'dashboard.indicator.backtest.historyAIModeUnknown': '建议结果',
@@ -1447,40 +1470,57 @@ const locale = {
   'dashboard.indicator.backtest.field.signalTiming': '成交时机',
   'dashboard.indicator.backtest.signalTiming.nextBarOpen': '下一根 K 线开盘成交（默认，更贴近实盘）',
   'dashboard.indicator.backtest.signalTiming.sameBarClose': '当根 K 线收盘成交（与图上标记对齐，偏乐观）',
-  'dashboard.indicator.backtest.signalTiming.help': '「下一根开盘」在信号确认后顺延一根成交；「当根收盘」与 K 线买卖点同一根，但不代表真实盘口能立刻成交。',
+  'dashboard.indicator.backtest.signalTiming.help':
+    '「下一根开盘」在信号确认后顺延一根成交；「当根收盘」与 K 线买卖点同一根，但不代表真实盘口能立刻成交。',
   'dashboard.indicator.backtest.executionAssumptions.title': '本回测成交假设',
-  'dashboard.indicator.backtest.executionAssumptions.bodyNextBar': '信号在本根 K 线收盘确认后，在下一根 K 线按开盘价（加计滑点）撮合；交易记录时间多为下一根，与图上标记常差一根 K 线。',
-  'dashboard.indicator.backtest.executionAssumptions.bodySameBar': '信号在本根 K 线收盘确认后，按本根收盘价（加计滑点）撮合；时间与图上标记一致，结果通常更乐观。',
+  'dashboard.indicator.backtest.executionAssumptions.bodyNextBar':
+    '信号在本根 K 线收盘确认后，在下一根 K 线按开盘价（加计滑点）撮合；交易记录时间多为下一根，与图上标记常差一根 K 线。',
+  'dashboard.indicator.backtest.executionAssumptions.bodySameBar':
+    '信号在本根 K 线收盘确认后，按本根收盘价（加计滑点）撮合；时间与图上标记一致，结果通常更乐观。',
   'dashboard.indicator.backtest.executionAssumptions.fillOpen': '默认成交价基准：开盘价。',
   'dashboard.indicator.backtest.executionAssumptions.fillClose': '默认成交价基准：收盘价。',
-  'dashboard.indicator.backtest.executionAssumptions.bodyMtf': '多周期撮合：信号周期 {sig}，执行周期 {exec}（加密高精度路径）。',
-  'dashboard.indicator.backtest.executionAssumptions.mtfFallback': '本次未使用多周期高精度撮合（已退回标准单周期回测），原因见上方精度说明。',
-  'dashboard.indicator.backtest.executionAssumptions.mtfOffByUser': '已关闭高精度 MTF，本次为标准 K 线回测（OHLC 模拟）。',
+  'dashboard.indicator.backtest.executionAssumptions.bodyMtf':
+    '多周期撮合：信号周期 {sig}，执行周期 {exec}（加密高精度路径）。',
+  'dashboard.indicator.backtest.executionAssumptions.mtfFallback':
+    '本次未使用多周期高精度撮合（已退回标准单周期回测），原因见上方精度说明。',
+  'dashboard.indicator.backtest.executionAssumptions.mtfOffByUser':
+    '已关闭高精度 MTF，本次为标准 K 线回测（OHLC 模拟）。',
   'dashboard.indicator.backtest.executionAssumptions.legacyTitle': '历史记录说明',
-  'dashboard.indicator.backtest.executionAssumptions.legacyBody': '本条结果保存时尚未附带「成交假设」元数据。当时版本默认多为「信号确认后下一根 K 线开盘成交」；若需与图上标记严格对齐，请用「当根收盘」重新回测。',
+  'dashboard.indicator.backtest.executionAssumptions.legacyBody':
+    '本条结果保存时尚未附带「成交假设」元数据。当时版本默认多为「信号确认后下一根 K 线开盘成交」；若需与图上标记严格对齐，请用「当根收盘」重新回测。',
   'dashboard.indicator.backtest.executionAssumptions.colMode': '撮合模式',
   'dashboard.indicator.backtest.executionAssumptions.colTiming': '信号时机',
   'dashboard.indicator.backtest.executionAssumptions.colCommission': '手续费',
   'dashboard.indicator.backtest.executionAssumptions.colSlippage': '滑点',
-  'dashboard.indicator.backtest.executionAssumptions.bodyStrict': '严格模式：仅用已收盘 K 线确认买卖信号，在下一根 K 线开盘价成交（加计滑点）。与实盘「严格模式」一致，结果偏保守但更可信。',
-  'dashboard.indicator.backtest.executionAssumptions.bodyAggressive1m': '非严格模式（加密）：策略周期 {sig} 上当根确认信号，在 {exec} K 线内撮合（近似实盘 10 秒轮询）。止损/止盈可能在更细 K 线内提前触发。',
-  'dashboard.indicator.backtest.executionAssumptions.bodyAggressiveBar': '非严格模式：当根 K 线收盘确认信号并同根收盘成交（加计滑点）。结果通常比严格模式更乐观。',
-  'dashboard.indicator.backtest.executionAssumptions.aggressiveFallback': '非严格模式已启用，但本次无法使用 1 分钟子周期撮合，已退回标准 K 线当根收盘成交。',
+  'dashboard.indicator.backtest.executionAssumptions.bodyStrict':
+    '严格模式：仅用已收盘 K 线确认买卖信号，在下一根 K 线开盘价成交（加计滑点）。与实盘「严格模式」一致，结果偏保守但更可信。',
+  'dashboard.indicator.backtest.executionAssumptions.bodyAggressive1m':
+    '非严格模式（加密）：策略周期 {sig} 上当根确认信号，在 {exec} K 线内撮合（近似实盘 10 秒轮询）。止损/止盈可能在更细 K 线内提前触发。',
+  'dashboard.indicator.backtest.executionAssumptions.bodyAggressiveBar':
+    '非严格模式：当根 K 线收盘确认信号并同根收盘成交（加计滑点）。结果通常比严格模式更乐观。',
+  'dashboard.indicator.backtest.executionAssumptions.aggressiveFallback':
+    '非严格模式已启用，但本次无法使用 1 分钟子周期撮合，已退回标准 K 线当根收盘成交。',
   'dashboard.indicator.backtest.executionAssumptions.modeStrict': '严格模式（策略周期）',
   'dashboard.indicator.backtest.executionAssumptions.modeAggressive1m': '非严格 · 1m 子周期（{exec}）',
   'dashboard.indicator.backtest.executionAssumptions.modeAggressiveBar': '非严格 · 标准 K 线',
   'dashboard.indicator.backtest.executionAssumptions.timingNextBar': '下一根 K 线开盘',
   'dashboard.indicator.backtest.executionAssumptions.timingSameBar': '当根 K 线收盘',
   'dashboard.indicator.backtest.executionAssumptions.fallbackRange': '回测区间超过高精度上限，已自动退回标准回测。',
-  'dashboard.indicator.backtest.executionAssumptions.fallbackScale': '策略含加仓/减仓规则，高精度 MTF 暂不支持，已退回标准回测。',
+  'dashboard.indicator.backtest.executionAssumptions.fallbackScale':
+    '策略含加仓/减仓规则，高精度 MTF 暂不支持，已退回标准回测。',
   'dashboard.indicator.backtest.executionAssumptions.fallbackTiming': '当前成交时机设置不支持 MTF，已退回标准回测。',
-  'dashboard.indicator.backtest.executionAssumptions.fallbackNoGain': '策略周期不高于执行周期，启用 MTF 无精度增益，已使用标准回测。',
+  'dashboard.indicator.backtest.executionAssumptions.fallbackNoGain':
+    '策略周期不高于执行周期，启用 MTF 无精度增益，已使用标准回测。',
   'dashboard.indicator.backtest.executionAssumptions.fallbackUnavailable': '当前条件不满足高精度回测，已退回标准回测。',
   'dashboard.indicator.backtest.executionAssumptions.fallbackData': '无法获取细粒度 K 线，已退回标准回测。',
-  'dashboard.indicator.backtest.executionAssumptions.strictModeOnNote': '对应实盘「严格模式」：仅用已收盘 K 线决策，与回测信号最接近。',
-  'dashboard.indicator.backtest.executionAssumptions.strictModeOffNote': '对应实盘关闭严格模式：可能在 K 线中途触发信号，回测结果往往更乐观。',
-  'dashboard.indicator.backtest.executionAssumptions.tradeCountStandardNote': '指标信号次数由 K 线周期决定；在相同「标准单周期」撮合下，切换实盘对齐/理想探索（仅改手续费/滑点）时，交易次数应一致，收益会因成本不同而变化。',
-  'dashboard.indicator.backtest.executionAssumptions.tradeCountMtfNote': '指标在策略周期上的买卖信号次数不变；但高精度 MTF 会在更细 K 线内触发止损/止盈，平仓时点可能提前，从而改变后续能否再次开仓——交易次数可能与标准回测不同。',
+  'dashboard.indicator.backtest.executionAssumptions.strictModeOnNote':
+    '对应实盘「严格模式」：仅用已收盘 K 线决策，与回测信号最接近。',
+  'dashboard.indicator.backtest.executionAssumptions.strictModeOffNote':
+    '对应实盘关闭严格模式：可能在 K 线中途触发信号，回测结果往往更乐观。',
+  'dashboard.indicator.backtest.executionAssumptions.tradeCountStandardNote':
+    '指标信号次数由 K 线周期决定；在相同「标准单周期」撮合下，切换实盘对齐/理想探索（仅改手续费/滑点）时，交易次数应一致，收益会因成本不同而变化。',
+  'dashboard.indicator.backtest.executionAssumptions.tradeCountMtfNote':
+    '指标在策略周期上的买卖信号次数不变；但高精度 MTF 会在更细 K 线内触发止损/止盈，平仓时点可能提前，从而改变后续能否再次开仓——交易次数可能与标准回测不同。',
   'dashboard.indicator.backtest.historySimulationCol': '撮合',
   'dashboard.indicator.backtest.historySimulationStrict': '严格模式',
   'dashboard.indicator.backtest.historySimulationAggressive1m': '非严格 {tf}',
@@ -1672,7 +1712,8 @@ const locale = {
   'dashboard.noData': '暂无数据',
   'dashboard.noStrategyData': '暂无策略数据',
   'dashboard.setupGuide.title': '还没有运行中的实盘策略',
-  'dashboard.setupGuide.desc': '请先到“策略管理”创建策略，并在运行方式中选择“实盘自动交易”。创建后，这里会显示持仓、交易与绩效概览。',
+  'dashboard.setupGuide.desc':
+    '请先到“策略管理”创建策略，并在运行方式中选择“实盘自动交易”。创建后，这里会显示持仓、交易与绩效概览。',
   'dashboard.setupGuide.path': '创建路径：策略管理 -> 新建策略 -> 选择运行方式（仅通知 / 实盘自动交易）',
   'dashboard.setupGuide.primary': '去创建策略',
   'dashboard.setupGuide.secondary': '查看策略管理',
@@ -1798,7 +1839,8 @@ const locale = {
   'form.basic-form.phone-number.placeholder': '手机号',
   'form.basic-form.verification-code.placeholder': '验证码',
   'result.success.title': '提交成功',
-  'result.success.description': '提交结果页用于反馈一系列操作任务的处理结果， 如果仅是简单操作，使用 Message 全局提示反馈即可。 本文字区域可以展示简单的补充说明，如果有类似展示 “单据”的需求，下面这个灰色区域可以呈现比较复杂的内容。',
+  'result.success.description':
+    '提交结果页用于反馈一系列操作任务的处理结果， 如果仅是简单操作，使用 Message 全局提示反馈即可。 本文字区域可以展示简单的补充说明，如果有类似展示 “单据”的需求，下面这个灰色区域可以呈现比较复杂的内容。',
   'result.success.operate-title': '项目名称',
   'result.success.operate-id': '项目 ID',
   'result.success.principal': '负责人',
@@ -1879,9 +1921,11 @@ const locale = {
   'trading-assistant.noStrategy': '暂无策略',
   'trading-assistant.selectStrategy': '请从左侧选择一个策略查看详情',
   'trading-assistant.emptyDetail.title': '尚未选择策略',
-  'trading-assistant.emptyDetail.hint': '在左侧列表中点选一条策略，即可查看配置、持仓、交易记录与运行日志。若还没有策略，可先新建一条。',
+  'trading-assistant.emptyDetail.hint':
+    '在左侧列表中点选一条策略，即可查看配置、持仓、交易记录与运行日志。若还没有策略，可先新建一条。',
   'trading-assistant.guide.title': '创建实盘从这里开始',
-  'trading-assistant.guide.desc': '如果你想开启自动实盘，请先进入“策略管理”新建策略，再把运行方式切换为“实盘自动交易”。',
+  'trading-assistant.guide.desc':
+    '如果你想开启自动实盘，请先进入“策略管理”新建策略，再把运行方式切换为“实盘自动交易”。',
   'trading-assistant.guide.eyebrow': '新手引导',
   'trading-assistant.guide.path': '创建路径：策略管理 -> 新建策略 -> 选择运行方式（仅通知 / 实盘自动交易）',
   'trading-assistant.guide.step1Title': '先创建策略',
@@ -1898,7 +1942,8 @@ const locale = {
   'trading-assistant.empty.primary': '立即创建策略',
   'trading-assistant.startStrategy': '启动策略',
   'trading-assistant.scriptBacktestOnly': '脚本策略',
-  'trading-assistant.scriptLiveNotSupportedHint': '脚本策略按 K 线收盘逐根执行 on_bar，信号与指标策略共用同一套下单与风控。',
+  'trading-assistant.scriptLiveNotSupportedHint':
+    '脚本策略按 K 线收盘逐根执行 on_bar，信号与指标策略共用同一套下单与风控。',
   'trading-assistant.stopStrategy': '停止策略',
   'trading-assistant.editStrategy': '编辑策略',
   'trading-assistant.deleteStrategy': '删除策略',
@@ -1931,8 +1976,10 @@ const locale = {
   'trading-assistant.form.sectionStrategyMarketDesc': '策略类型、标的、资金与周期等',
   'trading-assistant.form.sectionRiskExecutionParams': '风控与仓位参数',
   'trading-assistant.form.sectionRiskExecutionParamsDesc': '止盈止损、加减仓、仓位占比与 AI 过滤',
-  'trading-assistant.form.riskFromIndicatorInfo': '止损、止盈、单次开仓仓位与移动止盈请在指标源码中用「# @strategy」注解编写（与指标 IDE 一致）；保存策略时会写入交易配置并由实盘引擎执行价格类风控。',
-  'trading-assistant.form.riskFromIndicatorMissingWarn': '当前指标中未检测到 @strategy 的止损、止盈或移动止盈。若也不在指标逻辑里通过卖出/平仓信号离场，价格剧烈波动时可能没有自动保护性平仓。',
+  'trading-assistant.form.riskFromIndicatorInfo':
+    '止损、止盈、单次开仓仓位与移动止盈请在指标源码中用「# @strategy」注解编写（与指标 IDE 一致）；保存策略时会写入交易配置并由实盘引擎执行价格类风控。',
+  'trading-assistant.form.riskFromIndicatorMissingWarn':
+    '当前指标中未检测到 @strategy 的止损、止盈或移动止盈。若也不在指标逻辑里通过卖出/平仓信号离场，价格剧烈波动时可能没有自动保护性平仓。',
   'trading-assistant.form.simpleMode': '简易模式',
   'trading-assistant.form.advancedMode': '高级模式',
   'trading-assistant.form.simpleModeHint': '保留核心参数，1分钟内完成创建',
@@ -1942,11 +1989,14 @@ const locale = {
   'trading-assistant.form.defaultStrategySuffix': '策略',
   'trading-assistant.form.strategyNameHint': '系统已生成默认名称，你也可以按自己的习惯修改',
   'trading-assistant.form.simpleModePreset': '推荐默认值',
-  'trading-assistant.form.simpleModePresetValue': '默认采用 15m / 合约 / 5x；止盈止损与仓位请在指标源码的 # @strategy 中配置。',
+  'trading-assistant.form.simpleModePresetValue':
+    '默认采用 15m / 合约 / 5x；止盈止损与仓位请在指标源码的 # @strategy 中配置。',
   'trading-assistant.form.simpleModeSectionCore': '核心交易设置',
-  'trading-assistant.form.simpleModeSectionCoreDesc': '先完成交易对与资金配置，再决定是否开启实盘；风控写在指标代码的 @strategy 中。',
+  'trading-assistant.form.simpleModeSectionCoreDesc':
+    '先完成交易对与资金配置，再决定是否开启实盘；风控写在指标代码的 @strategy 中。',
   'trading-assistant.form.step2HeroTitle': '执行前确认',
-  'trading-assistant.form.step2HeroDesc': '这里决定策略是只发信号，还是直接接入实盘；同时配置通知渠道，确保策略触发后你能第一时间收到提醒。',
+  'trading-assistant.form.step2HeroDesc':
+    '这里决定策略是只发信号，还是直接接入实盘；同时配置通知渠道，确保策略触发后你能第一时间收到提醒。',
   'trading-assistant.form.executionSectionTitle': '执行方式',
   'trading-assistant.form.executionSectionDesc': '先选择策略运行方式。若当前市场支持实盘，可直接切换为自动交易。',
   'trading-assistant.form.notificationSectionTitle': '信号通知',
@@ -1954,7 +2004,8 @@ const locale = {
   'trading-assistant.form.riskSectionTitle': '风险提示',
   'trading-assistant.form.riskSectionDesc': '开启实盘前，请再次确认交易风险与账户权限范围。',
   'trading-assistant.form.liveConnectionSectionTitle': '实盘连接',
-  'trading-assistant.form.liveConnectionSectionDesc': '选择已保存的交易所凭证，策略运行时会直接使用该账户执行真实下单。',
+  'trading-assistant.form.liveConnectionSectionDesc':
+    '选择已保存的交易所凭证，策略运行时会直接使用该账户执行真实下单。',
   'trading-assistant.form.simpleStep1': '选择指标 & 交易对',
   'trading-assistant.form.simpleStep2': '启动方式',
   'trading-assistant.form.simpleDefaultsHint': '默认参数（可展开修改）',
@@ -1998,7 +2049,8 @@ const locale = {
   'trading-assistant.form.rebalanceFrequencyHint': '策略重新调整持仓组合的频率',
   'trading-assistant.form.insertCrossSectionalTemplate': '插入截面指标模板',
   'trading-assistant.form.crossSectionalTemplateApplied': '已应用截面指标模板，保存策略时将写入该代码',
-  'trading-assistant.form.crossSectionalIndicatorWarn': '截面策略的指标代码需定义 scores 字典（对每个标的打分）。可点击上方按钮插入模板，或在指标 IDE 中编写后重新选择指标。',
+  'trading-assistant.form.crossSectionalIndicatorWarn':
+    '截面策略的指标代码需定义 scores 字典（对每个标的打分）。可点击上方按钮插入模板，或在指标 IDE 中编写后重新选择指标。',
   'trading-assistant.tag.crossSectional': '截面',
   'trading-assistant.validation.symbolListMin': '截面策略请至少选择 2 个标的',
   'trading-assistant.validation.portfolioSizeRequired': '请填写持仓组合大小',
@@ -2022,8 +2074,10 @@ const locale = {
   'trading-assistant.form.leverageHint': '合约：1-125倍，现货：固定1倍',
   'trading-assistant.form.spotLeverageFixed': '现货交易杠杆固定为1倍',
   'trading-assistant.form.spotOnlyLongHint': '现货交易仅支持做多',
-  'trading-assistant.form.longOnlyBrokerHint': 'IBKR / Alpaca 实盘执行当前仅支持做多。如需做空：加密货币请用 Binance/OKX/Bybit 等永续合约（market_type=swap），外汇请用 MT5。',
-  'trading-assistant.form.alpacaCryptoSpotOnlyHint': 'Alpaca 加密交易台仅支持现货（无永续合约、无做空）。市场类型已锁定为现货。',
+  'trading-assistant.form.longOnlyBrokerHint':
+    'IBKR / Alpaca 实盘执行当前仅支持做多。如需做空：加密货币请用 Binance/OKX/Bybit 等永续合约（market_type=swap），外汇请用 MT5。',
+  'trading-assistant.form.alpacaCryptoSpotOnlyHint':
+    'Alpaca 加密交易台仅支持现货（无永续合约、无做空）。市场类型已锁定为现货。',
   'trading-assistant.form.tradeDirection': '交易方向',
   'trading-assistant.form.tradeDirectionLong': '仅做多',
   'trading-assistant.form.tradeDirectionShort': '仅做空',
@@ -2031,7 +2085,8 @@ const locale = {
   'trading-assistant.form.timeframe': '时间周期',
   'trading-assistant.form.klinePeriod': 'K线周期',
   'trading-assistant.form.strictMode': '严格模式',
-  'trading-assistant.form.strictModeHint': '开启（推荐）：实盘仅用已收盘 K 线算信号，与回测 next_bar_open 对齐，可显著缩小回测/实盘偏差；关闭后可能在 K 线中途提前触发，结果往往更乐观但偏差更大。',
+  'trading-assistant.form.strictModeHint':
+    '开启（推荐）：实盘仅用已收盘 K 线算信号，与回测 next_bar_open 对齐，可显著缩小回测/实盘偏差；关闭后可能在 K 线中途提前触发，结果往往更乐观但偏差更大。',
   'trading-assistant.form.timeframe1m': '1分钟',
   'trading-assistant.form.timeframe5m': '5分钟',
   'trading-assistant.form.timeframe15m': '15分钟',
@@ -2052,24 +2107,26 @@ const locale = {
   'trading-assistant.form.executionModeSignal': '仅信号通知',
   'trading-assistant.form.executionModeLive': '实盘自动交易',
   'trading-assistant.form.executionModeSignalDesc': '系统只发送策略信号与提醒，由你手动决定是否下单。',
-  'trading-assistant.form.executionModeLiveDesc': '策略直接连接交易账户并自动执行真实下单，适合已经完成风控确认的场景。',
+  'trading-assistant.form.executionModeLiveDesc':
+    '策略直接连接交易账户并自动执行真实下单，适合已经完成风控确认的场景。',
   'trading-assistant.form.liveTradingCryptoOnlyHint': '实盘交易功能仅支持加密货币市场',
   'trading-assistant.form.liveTradingNotSupportedHint': '当前市场不支持实盘交易',
   'trading-assistant.form.broker': '券商',
   'trading-assistant.form.localDeploymentRequired': '⚠️ 需要本地部署运行',
-  'trading-assistant.form.localDeploymentHint': 'IBKR 和 MT5 属于外挂类实盘接口，需要本地部署运行 QuantDinger，不支持云端 SaaS 模式。请确保您已在本地安装并配置相关交易软件（TWS/IB Gateway 或 MT5 终端）。',
+  'trading-assistant.form.localDeploymentHint':
+    'IBKR 和 MT5 属于外挂类实盘接口，需要本地部署运行 QuantDinger，不支持云端 SaaS 模式。请确保您已在本地安装并配置相关交易软件（TWS/IB Gateway 或 MT5 终端）。',
   'trading-assistant.form.ibkrConnectionTitle': '盈透证券连接配置',
   'trading-assistant.form.ibkrConnectionHint': '请确保 TWS 或 IB Gateway 已启动并启用 API 连接',
   'trading-assistant.validation.brokerRequired': '请选择券商',
   'trading-assistant.placeholders.selectBroker': '选择券商',
   'trading-assistant.brokerNames': {
-    'ibkr': '盈透证券 (Interactive Brokers)',
-    'mt5': 'MetaTrader 5 (MT5)',
-    'mt4': 'MetaTrader 4 (MT4)',
-    'futu': '富途证券 (Futu)',
-    'tiger': '老虎证券 (Tiger Brokers)',
-    'td': 'TD Ameritrade',
-    'schwab': 'Charles Schwab'
+    ibkr: '盈透证券 (Interactive Brokers)',
+    mt5: 'MetaTrader 5 (MT5)',
+    mt4: 'MetaTrader 4 (MT4)',
+    futu: '富途证券 (Futu)',
+    tiger: '老虎证券 (Tiger Brokers)',
+    td: 'TD Ameritrade',
+    schwab: 'Charles Schwab',
   },
   'trading-assistant.form.ibkrHost': '主机地址',
   'trading-assistant.form.ibkrPort': '端口',
@@ -2090,7 +2147,8 @@ const locale = {
   'trading-assistant.form.mt5Login': '账户号',
   'trading-assistant.form.mt5Password': '密码',
   'trading-assistant.form.mt5TerminalPath': 'MT5 终端路径（可选）',
-  'trading-assistant.form.mt5TerminalPathHint': '如果 MT5 终端未安装在默认位置，请指定 terminal64.exe 的完整路径（例如：C:\\Program Files\\MetaTrader 5\\terminal64.exe）',
+  'trading-assistant.form.mt5TerminalPathHint':
+    '如果 MT5 终端未安装在默认位置，请指定 terminal64.exe 的完整路径（例如：C:\\Program Files\\MetaTrader 5\\terminal64.exe）',
   'trading-assistant.placeholders.mt5Server': '例如：ICMarkets-Demo',
   'trading-assistant.placeholders.mt5Login': '例如：12345678',
   'trading-assistant.placeholders.mt5Password': '您的 MT5 密码',
@@ -2295,46 +2353,46 @@ const locale = {
   'trading-assistant.indicatorType.python': 'Python',
   'trading-assistant.indicatorType.pine': 'Pine Script',
   'trading-assistant.exchangeNames': {
-    'okx': 'OKX',
-    'binance': '币安',
-    'hyperliquid': 'Hyperliquid',
-    'blockchaincom': 'Blockchain.com',
-    'coinbaseexchange': 'Coinbase',
-    'gate': 'Gate.io',
-    'mexc': 'MEXC',
-    'kraken': 'Kraken',
-    'bitfinex': 'Bitfinex',
-    'bybit': 'Bybit',
-    'kucoin': 'KuCoin',
-    'huobi': '火币',
-    'bitget': 'Bitget',
-    'bitmex': 'BitMEX',
-    'deribit': 'Deribit',
-    'phemex': 'Phemex',
-    'bitmart': 'BitMart',
-    'bitstamp': 'Bitstamp',
-    'bittrex': 'Bittrex',
-    'poloniex': 'Poloniex',
-    'gemini': 'Gemini',
-    'cryptocom': 'Crypto.com',
-    'bitflyer': 'bitFlyer',
-    'upbit': 'Upbit',
-    'bithumb': 'Bithumb',
-    'coinone': 'Coinone',
-    'zb': 'ZB',
-    'lbank': 'LBank',
-    'bibox': 'Bibox',
-    'bigone': 'BigONE',
-    'bitrue': 'Bitrue',
-    'coinex': 'CoinEx',
-    'digifinex': 'DigiFinex',
-    'ftx': 'FTX',
-    'ftxus': 'FTX US',
-    'binanceus': 'Binance US',
-    'binancecoinm': 'Binance COIN-M',
-    'binanceusdm': 'Binance USDⓈ-M',
-    'ibkr': '盈透证券 (IBKR)',
-    'deepcoin': 'Deepcoin'
+    okx: 'OKX',
+    binance: '币安',
+    hyperliquid: 'Hyperliquid',
+    blockchaincom: 'Blockchain.com',
+    coinbaseexchange: 'Coinbase',
+    gate: 'Gate.io',
+    mexc: 'MEXC',
+    kraken: 'Kraken',
+    bitfinex: 'Bitfinex',
+    bybit: 'Bybit',
+    kucoin: 'KuCoin',
+    huobi: '火币',
+    bitget: 'Bitget',
+    bitmex: 'BitMEX',
+    deribit: 'Deribit',
+    phemex: 'Phemex',
+    bitmart: 'BitMart',
+    bitstamp: 'Bitstamp',
+    bittrex: 'Bittrex',
+    poloniex: 'Poloniex',
+    gemini: 'Gemini',
+    cryptocom: 'Crypto.com',
+    bitflyer: 'bitFlyer',
+    upbit: 'Upbit',
+    bithumb: 'Bithumb',
+    coinone: 'Coinone',
+    zb: 'ZB',
+    lbank: 'LBank',
+    bibox: 'Bibox',
+    bigone: 'BigONE',
+    bitrue: 'Bitrue',
+    coinex: 'CoinEx',
+    digifinex: 'DigiFinex',
+    ftx: 'FTX',
+    ftxus: 'FTX US',
+    binanceus: 'Binance US',
+    binancecoinm: 'Binance COIN-M',
+    binanceusdm: 'Binance USDⓈ-M',
+    ibkr: '盈透证券 (IBKR)',
+    deepcoin: 'Deepcoin',
   },
   'ai-trading-assistant.title': 'AI交易助手',
   'ai-trading-assistant.strategyList': '策略列表',
@@ -2371,7 +2429,8 @@ const locale = {
   'ai-trading-assistant.form.startDate': '开始日期',
   'ai-trading-assistant.form.endDate': '结束日期',
   'ai-trading-assistant.form.qdtCostTitle': 'QDT扣费说明',
-  'ai-trading-assistant.form.qdtCostHint': '每次AI决策将扣费 {cost} 个QDT，请确保账户有足够的QDT余额。策略运行期间，每次决策都会实时扣费。',
+  'ai-trading-assistant.form.qdtCostHint':
+    '每次AI决策将扣费 {cost} 个QDT，请确保账户有足够的QDT余额。策略运行期间，每次决策都会实时扣费。',
   'ai-trading-assistant.form.apiKey': 'API Key',
   'ai-trading-assistant.form.exchange': '选择交易所',
   'ai-trading-assistant.form.secretKey': 'Secret Key',
@@ -2594,7 +2653,7 @@ const locale = {
   'invite.task.telegram.desc': '加入我们的官方 Telegram 社区群组',
   'invite.task.discord.title': '加入 Discord 服务器',
   'invite.task.discord.desc': '加入我们的 Discord 社区服务器',
-  'message': '-',
+  message: '-',
   'layouts.usermenu.dialog.title': '信息',
   'layouts.usermenu.dialog.content': '您确定要注销吗？',
   'layouts.userLayout.title': '于不确定中，寻见真理',
@@ -2621,11 +2680,14 @@ const locale = {
   'settings.field.BRAND_COPYRIGHT': '底部版权文字',
   'settings.desc.BRAND_COPYRIGHT': '所有页面底部显示的纯文本版权行。',
   'settings.field.BRAND_LOGO_LIGHT_URL': '浅色主题 Logo URL',
-  'settings.desc.BRAND_LOGO_LIGHT_URL': '浅色主题用的宽幅 Logo 图片 URL。推荐尺寸 240×60 px（PNG / SVG / WebP，约 4:1 宽高比，透明背景）。留空则使用内置默认（src/assets/logo.png）。',
+  'settings.desc.BRAND_LOGO_LIGHT_URL':
+    '浅色主题用的宽幅 Logo 图片 URL。推荐尺寸 240×60 px（PNG / SVG / WebP，约 4:1 宽高比，透明背景）。留空则使用内置默认（src/assets/logo.png）。',
   'settings.field.BRAND_LOGO_DARK_URL': '深色主题 Logo URL',
-  'settings.desc.BRAND_LOGO_DARK_URL': '深色主题用的宽幅 Logo 图片 URL。推荐尺寸 240×60 px（PNG / SVG / WebP，约 4:1 宽高比，透明背景）。留空则使用内置默认 logo_w.png。',
+  'settings.desc.BRAND_LOGO_DARK_URL':
+    '深色主题用的宽幅 Logo 图片 URL。推荐尺寸 240×60 px（PNG / SVG / WebP，约 4:1 宽高比，透明背景）。留空则使用内置默认 logo_w.png。',
   'settings.field.BRAND_LOGO_COLLAPSED_URL': '折叠侧栏 Logo URL',
-  'settings.desc.BRAND_LOGO_COLLAPSED_URL': '侧栏收起时显示的方形 / Mark Logo URL。推荐尺寸 64×64 px（PNG / SVG，1:1 宽高比）。',
+  'settings.desc.BRAND_LOGO_COLLAPSED_URL':
+    '侧栏收起时显示的方形 / Mark Logo URL。推荐尺寸 64×64 px（PNG / SVG，1:1 宽高比）。',
   'settings.field.BRAND_FAVICON_URL': 'Favicon URL',
   'settings.desc.BRAND_FAVICON_URL': '浏览器标签页图标 URL。推荐尺寸 32×32 px（PNG 或 ICO 格式）。',
 
@@ -2653,7 +2715,8 @@ const locale = {
 
   // ===== Legal / Mobile App fields =====
   'settings.field.BRAND_LEGAL_USER_AGREEMENT_URL': '用户协议 URL',
-  'settings.desc.BRAND_LEGAL_USER_AGREEMENT_URL': '外部用户协议页面 URL。优先级最高 —— 配置后"用户协议"链接会直接新窗口打开此地址。留空则使用下方内联文本或内置默认文案。',
+  'settings.desc.BRAND_LEGAL_USER_AGREEMENT_URL':
+    '外部用户协议页面 URL。优先级最高 —— 配置后"用户协议"链接会直接新窗口打开此地址。留空则使用下方内联文本或内置默认文案。',
   'settings.field.BRAND_LEGAL_USER_AGREEMENT_TEXT': '用户协议内容（内联文本）',
   'settings.desc.BRAND_LEGAL_USER_AGREEMENT_TEXT': '用户协议弹窗显示的内联文本。仅当上方 URL 为空时生效。',
   'settings.field.BRAND_LEGAL_PRIVACY_POLICY_URL': '隐私政策 URL',
@@ -2675,7 +2738,8 @@ const locale = {
   'request.unauthorizedDesc': '登录已失效，请重新登录。',
   'settings.openrouterBalance': 'OpenRouter 账户余额',
   'settings.commercialLicense.title': '商业化运营需取得商业授权',
-  'settings.commercialLicense.body': 'QuantDinger 仅供个人学习与研究使用。若您计划将本系统用于任何形式的商业化运营（包括但不限于对外提供 SaaS 服务、二次销售、代客交易、付费咨询、私募服务等），必须事先获得官方书面商业授权，否则我们将依法追究相应法律责任。',
+  'settings.commercialLicense.body':
+    'QuantDinger 仅供个人学习与研究使用。若您计划将本系统用于任何形式的商业化运营（包括但不限于对外提供 SaaS 服务、二次销售、代客交易、付费咨询、私募服务等），必须事先获得官方书面商业授权，否则我们将依法追究相应法律责任。',
   'settings.commercialLicense.contactLabel': '商务合作联系方式',
   'settings.queryBalance': '查询余额',
   'settings.balanceUsage': '已使用',
@@ -3114,7 +3178,8 @@ const locale = {
 
   // Agent tokens (admin)
   'agentTokens.title': 'Agent 令牌',
-  'agentTokens.description': '签发并管理可调用 /api/agent/v1 的令牌，用于让外部 AI 代理（Cursor、Claude Code、Codex、MCP、自建机器人等）安全访问本实例。',
+  'agentTokens.description':
+    '签发并管理可调用 /api/agent/v1 的令牌，用于让外部 AI 代理（Cursor、Claude Code、Codex、MCP、自建机器人等）安全访问本实例。',
   'agentTokens.tabTokens': '令牌',
   'agentTokens.tabAudit': '审计日志',
   'agentTokens.issueToken': '签发令牌',
@@ -3286,7 +3351,8 @@ const locale = {
   'profile.notifications.discordHint': '在 Discord 服务器设置中创建 Webhook',
   'profile.notifications.webhookUrl': 'Webhook URL',
   'profile.notifications.webhookPlaceholder': 'https://your-server.com/webhook',
-  'profile.notifications.webhookHint': '自定义 Webhook 地址，将以 POST JSON 方式推送通知。系统会自动识别飞书 / 钉钉 / 企微 / Slack 链接并转换为对应格式。',
+  'profile.notifications.webhookHint':
+    '自定义 Webhook 地址，将以 POST JSON 方式推送通知。系统会自动识别飞书 / 钉钉 / 企微 / Slack 链接并转换为对应格式。',
   'profile.notifications.webhookToken': 'Webhook Token（可选）',
   'profile.notifications.webhookTokenPlaceholder': '用于验证请求的 Bearer Token',
   'profile.notifications.webhookTokenHint': '将作为 Authorization: Bearer Token 发送到 Webhook',
@@ -3300,9 +3366,12 @@ const locale = {
   'profile.notifications.webhookSigningSecretPlaceholder': '加签密钥（可选）',
   'profile.notifications.signingFeishuTag': '（飞书加签）',
   'profile.notifications.signingDingtalkTag': '（钉钉加签）',
-  'profile.notifications.signingFeishuHint': '飞书机器人「安全设置 → 签名校验」处生成的 secret。系统会按飞书算法把 timestamp + sign 写入消息 body。',
-  'profile.notifications.signingDingtalkHint': '钉钉机器人「安全设置 → 加签」处生成的 secret。系统会按钉钉算法把 timestamp 和 sign 追加到 URL。',
-  'profile.notifications.signingGenericHint': '可选。用于 HMAC-SHA256 签名，作为 X-QD-Signature 头部下发，接收端可验签防伪造。',
+  'profile.notifications.signingFeishuHint':
+    '飞书机器人「安全设置 → 签名校验」处生成的 secret。系统会按飞书算法把 timestamp + sign 写入消息 body。',
+  'profile.notifications.signingDingtalkHint':
+    '钉钉机器人「安全设置 → 加签」处生成的 secret。系统会按钉钉算法把 timestamp 和 sign 追加到 URL。',
+  'profile.notifications.signingGenericHint':
+    '可选。用于 HMAC-SHA256 签名，作为 X-QD-Signature 头部下发，接收端可验签防伪造。',
   'profile.notifications.testBtn': '发送测试通知',
   'profile.notifications.saveSuccess': '通知设置保存成功',
   'profile.notifications.selectChannel': '请至少选择一个通知渠道',
@@ -3315,7 +3384,8 @@ const locale = {
   'profile.notifications.testSent': '测试通知已发送，请检查各渠道',
   'profile.notifications.testFailed': '测试通知发送失败',
   'profile.notifications.testPartial': '部分渠道发送失败',
-  'profile.notifications.errSmtpHost': '邮件：服务器未配置发信 SMTP（请管理员在系统设置中配置 SMTP_HOST、SMTP_USER、SMTP_PASSWORD 等）',
+  'profile.notifications.errSmtpHost':
+    '邮件：服务器未配置发信 SMTP（请管理员在系统设置中配置 SMTP_HOST、SMTP_USER、SMTP_PASSWORD 等）',
   'profile.notifications.errSmtpFrom': '邮件：未配置发件人 SMTP_FROM',
   'profile.notifications.errEmailTarget': '邮件：未填写通知邮箱且账号未绑定邮箱',
 
@@ -3339,11 +3409,13 @@ const locale = {
   'profile.exchange.signupSectionCrypto': '加密货币交易所',
   'profile.exchange.signupSectionCryptoHint': '用于在本平台绑定 API，进行加密现货 / 合约交易。',
   'profile.exchange.signupSectionForex': '外汇 / CFD（TMGM）',
-  'profile.exchange.signupSectionForexHint': '通过 TMGM 开户后，使用 MetaTrader 5 终端连接，与上方加密货币 API 绑定方式不同。',
+  'profile.exchange.signupSectionForexHint':
+    '通过 TMGM 开户后，使用 MetaTrader 5 终端连接，与上方加密货币 API 绑定方式不同。',
   'profile.exchange.signupSectionDivider': '或',
   'profile.exchange.signupTagApi': 'API 密钥',
   'profile.exchange.signupTagTerminal': '终端',
-  'profile.exchange.signupMt5Note': '在 TMGM 完成开户后，请安装 MT5，并在「个人中心 → 交易所」或「实盘券商账户」中填写服务器与账号。',
+  'profile.exchange.signupMt5Note':
+    '在 TMGM 完成开户后，请安装 MT5，并在「个人中心 → 交易所」或「实盘券商账户」中填写服务器与账号。',
   'profile.exchange.openAccountHint': '选择支持的交易所开户链接，跳转后即可按你的邀请关系完成注册。',
   'profile.exchange.openAccountGo': '前往注册',
   'profile.exchange.openAccountUnavailable': '待补充开户链接',
@@ -3358,11 +3430,13 @@ const locale = {
   'profile.exchange.passphrase': 'Passphrase',
   'profile.exchange.demoTrading': '模拟交易',
   'profile.exchange.demoTag': '测试网',
-  'profile.exchange.demoTradingHint': '开启后连接各交易所模拟/测试环境（如 Binance 演示域名、Bybit 测试网、OKX 模拟盘请求头等）。Bitget、Kraken 现货、Bitfinex 等与主站同域时，请在平台内创建模拟盘 API 密钥并勾选此项以统一标记。',
+  'profile.exchange.demoTradingHint':
+    '开启后连接各交易所模拟/测试环境（如 Binance 演示域名、Bybit 测试网、OKX 模拟盘请求头等）。Bitget、Kraken 现货、Bitfinex 等与主站同域时，请在平台内创建模拟盘 API 密钥并勾选此项以统一标记。',
   'profile.exchange.whitelistIpLabel': 'API 白名单 IP（服务器出网）',
   'profile.exchange.whitelistIpv4': 'IPv4',
   'profile.exchange.whitelistIpv6': 'IPv6',
-  'profile.exchange.whitelistIpHint': '请按交易所要求将 IPv4 和/或 IPv6 加入 API 密钥白名单（可同时添加）。此为后端出网地址，与您电脑浏览器的公网 IP 通常不同；若某项显示为「—」表示当前环境无该协议出网。',
+  'profile.exchange.whitelistIpHint':
+    '请按交易所要求将 IPv4 和/或 IPv6 加入 API 密钥白名单（可同时添加）。此为后端出网地址，与您电脑浏览器的公网 IP 通常不同；若某项显示为「—」表示当前环境无该协议出网。',
   'profile.exchange.whitelistIpCopy': '复制',
   'profile.exchange.whitelistIpRefresh': '刷新',
   'profile.exchange.whitelistIpCopied': '已复制到剪贴板',
@@ -3395,15 +3469,18 @@ const locale = {
   'profile.exchange.typeIBKR': '美股券商 (IBKR)',
   'profile.exchange.typeMT5': '外汇 (MetaTrader 5)',
   'profile.exchange.alpacaNoLocalTitle': '无需本地部署',
-  'profile.exchange.alpacaNoLocalHint': 'Alpaca 通过云端 REST API 直连，无需 TWS / MT5 终端，是 SaaS 部署下推荐的美股 / 加密券商。在 https://alpaca.markets 申请 API Key，本系统按前缀自动路由：PK* 走 paper-api（模拟），AK* 走 api（实盘）。',
+  'profile.exchange.alpacaNoLocalHint':
+    'Alpaca 通过云端 REST API 直连，无需 TWS / MT5 终端，是 SaaS 部署下推荐的美股 / 加密券商。在 https://alpaca.markets 申请 API Key，本系统按前缀自动路由：PK* 走 paper-api（模拟），AK* 走 api（实盘）。',
   'profile.exchange.alpacaApiKeyPh': 'PKxxxxxxxx（paper） 或 AKxxxxxxxx（live）',
   'profile.exchange.alpacaSecretKeyPh': 'API Secret',
   'profile.exchange.alpacaBaseUrlOptional': '自定义 Base URL（可选）',
-  'profile.exchange.alpacaBaseUrlHint': '默认按 API Key 前缀自动判断：PK* 走 paper-api.alpaca.markets，AK* 走 api.alpaca.markets。仅在你需要走特定网关代理时填写。',
+  'profile.exchange.alpacaBaseUrlHint':
+    '默认按 API Key 前缀自动判断：PK* 走 paper-api.alpaca.markets，AK* 走 api.alpaca.markets。仅在你需要走特定网关代理时填写。',
   'profile.exchange.localDeploymentRequired': '需要本地部署',
   'profile.exchange.localDeploymentHint': '此券商需要在本地部署 QuantDinger 才能使用。',
   'profile.exchange.desktopBrokersDisabledTitle': '当前环境不支持 IBKR / MT5',
-  'profile.exchange.desktopBrokersDisabledFallback': '请在个人电脑或私有服务器本地部署本系统，并安装 TWS、IB Gateway 或 MetaTrader 5。',
+  'profile.exchange.desktopBrokersDisabledFallback':
+    '请在个人电脑或私有服务器本地部署本系统，并安装 TWS、IB Gateway 或 MetaTrader 5。',
   'profile.exchange.desktopBrokersOptionSuffix': '云端不可用',
   'profile.exchange.goToManage': '前往个人中心 → 交易所配置管理',
   'profile.exchange.noCredentialHint': '请先在个人中心添加交易所账户',
@@ -3527,16 +3604,22 @@ const locale = {
   'settings.desc.MEMBERSHIP_YEARLY_PRICE_USD': '包年会员的价格（USD）。当前为模拟支付，后续可接入真实支付网关。',
   'settings.desc.MEMBERSHIP_YEARLY_CREDITS': '购买包年会员后立即赠送到账号的积分数量。',
   'settings.desc.MEMBERSHIP_LIFETIME_PRICE_USD': '永久会员的价格（USD）。当前为模拟支付，后续可接入真实支付网关。',
-  'settings.desc.MEMBERSHIP_LIFETIME_MONTHLY_CREDITS': '永久会员每30天自动发放一次的积分数量（首次购买会立刻发放一次）。',
-  'settings.desc.USDT_PAY_ENABLED': '开启后，会员购买页会提供 USDT 扫码支付（多链单地址 + 金额尾数标识订单 + 后台自动对账）。',
-  'settings.desc.USDT_PAY_ENABLED_CHAINS': '允许在前端展示的链，用英文逗号分隔。可选值：TRC20 / BEP20 / ERC20 / SOL。不在此列表中的链即使配置了地址也会被隐藏。',
+  'settings.desc.MEMBERSHIP_LIFETIME_MONTHLY_CREDITS':
+    '永久会员每30天自动发放一次的积分数量（首次购买会立刻发放一次）。',
+  'settings.desc.USDT_PAY_ENABLED':
+    '开启后，会员购买页会提供 USDT 扫码支付（多链单地址 + 金额尾数标识订单 + 后台自动对账）。',
+  'settings.desc.USDT_PAY_ENABLED_CHAINS':
+    '允许在前端展示的链，用英文逗号分隔。可选值：TRC20 / BEP20 / ERC20 / SOL。不在此列表中的链即使配置了地址也会被隐藏。',
   'settings.desc.USDT_TRC20_ADDRESS': '你的 TRON 收款地址（T 开头）。留空则前端不显示 TRC20 选项。',
   'settings.desc.USDT_BEP20_ADDRESS': '你的 BSC 收款地址（0x 开头）。BEP20 默认使用公共 BSC 节点对账，不需要 API Key。',
-  'settings.desc.USDT_ERC20_ADDRESS': '你的以太坊收款地址（0x 开头）。ERC20 默认走 Etherscan V2（免费档覆盖 ETH 主网），失败时自动切换到公共 ETH RPC。',
+  'settings.desc.USDT_ERC20_ADDRESS':
+    '你的以太坊收款地址（0x 开头）。ERC20 默认走 Etherscan V2（免费档覆盖 ETH 主网），失败时自动切换到公共 ETH RPC。',
   'settings.desc.USDT_SOL_ADDRESS': '你的 Solana 钱包地址（base58）。SPL USDT 的关联代币账户由用户钱包自动派生。',
   'settings.desc.TRONGRID_API_KEY': '可选。用于提高 TRC20 对账时的 TronGrid 调用配额和稳定性。可在 trongrid.io 申请。',
-  'settings.desc.ETHERSCAN_API_KEY': '可选。仅 ERC20 对账会用到（Etherscan V2 免费档覆盖以太坊主网）。BEP20 不使用此 Key，走公共 BSC RPC。可在 etherscan.io/myapikey 申请。',
-  'settings.desc.USDT_PAY_CONFIRM_SECONDS': '检测到链上转账后，等待指定秒数再标记“已确认”并开通会员，降低极端回滚风险。',
+  'settings.desc.ETHERSCAN_API_KEY':
+    '可选。仅 ERC20 对账会用到（Etherscan V2 免费档覆盖以太坊主网）。BEP20 不使用此 Key，走公共 BSC RPC。可在 etherscan.io/myapikey 申请。',
+  'settings.desc.USDT_PAY_CONFIRM_SECONDS':
+    '检测到链上转账后，等待指定秒数再标记“已确认”并开通会员，降低极端回滚风险。',
   'settings.desc.USDT_PAY_EXPIRE_MINUTES': '用户扫码支付的订单有效期，过期后用户重新打开支付弹窗会生成新的金额尾数。',
   'settings.desc.USDT_WORKER_POLL_INTERVAL': '后台对账 worker 多久扫一次未完成订单的链上状态。',
 
@@ -3606,7 +3689,8 @@ const locale = {
 
   // Trading Assistant
   'trading-assistant.form.notificationFromProfile': '通知将发送到您在个人中心配置的地址。',
-  'trading-assistant.form.notificationConfigMissing': '您选中的渠道还未配置参数（{channels}），将无法接收通知。请前往个人中心进行配置。',
+  'trading-assistant.form.notificationConfigMissing':
+    '您选中的渠道还未配置参数（{channels}），将无法接收通知。请前往个人中心进行配置。',
   'trading-assistant.form.goToProfile': '前往配置',
 
   // Indicator Community
@@ -3855,10 +3939,13 @@ const locale = {
   'fastAnalysis.outlookBull': '看多',
   'fastAnalysis.outlookBear': '看空',
   'fastAnalysis.outlookNeutral': '震荡 / 中性',
-  'fastAnalysis.stopLossHintShort': '做空止损：价格位于现价上方，上涨触及即亏损离场（与多单止损方向相反）。数值来自后端 trading_plan。',
-  'fastAnalysis.takeProfitHintShort': '做空止盈：价格位于现价下方，下跌触及即盈利目标（与多单止盈方向相反）。数值来自后端 trading_plan。',
+  'fastAnalysis.stopLossHintShort':
+    '做空止损：价格位于现价上方，上涨触及即亏损离场（与多单止损方向相反）。数值来自后端 trading_plan。',
+  'fastAnalysis.takeProfitHintShort':
+    '做空止盈：价格位于现价下方，下跌触及即盈利目标（与多单止盈方向相反）。数值来自后端 trading_plan。',
   'fastAnalysis.indicatorsProBadge': 'PRO',
-  'fastAnalysis.indicatorsProSubtitle': '以下与后端 MarketDataCollector._calculate_indicators 一致（便于对照主流终端）：RSI(14) 为 Wilder 平滑；MACD(12,26,9) 的 EMA 首值均为前 N 根 SMA，DIF 自第 26 根 K 起，DEA 为 DIF 的 EMA9（至少约 34 根 K 才有完整信号线）；MA 为 SMA；枢轴取上一根 H/L/C；摆动为近 20 根 H/L 极值；布林为 SMA(20)±2×总体 σ，合成价位用 BB_upper/BB_lower；ATR(14) 为 Wilder 递推至最新 K；量比与区间位置定义见文档 INDICATOR_DEFINITIONS_CN.md。',
+  'fastAnalysis.indicatorsProSubtitle':
+    '以下与后端 MarketDataCollector._calculate_indicators 一致（便于对照主流终端）：RSI(14) 为 Wilder 平滑；MACD(12,26,9) 的 EMA 首值均为前 N 根 SMA，DIF 自第 26 根 K 起，DEA 为 DIF 的 EMA9（至少约 34 根 K 才有完整信号线）；MA 为 SMA；枢轴取上一根 H/L/C；摆动为近 20 根 H/L 极值；布林为 SMA(20)±2×总体 σ，合成价位用 BB_upper/BB_lower；ATR(14) 为 Wilder 递推至最新 K；量比与区间位置定义见文档 INDICATOR_DEFINITIONS_CN.md。',
   'fastAnalysis.indicatorsProTableTitle': '量化参数明细（机构常用口径）',
   'fastAnalysis.macdDif': 'MACD DIF（快线）',
   'fastAnalysis.macdDea': 'MACD DEA（信号线）',
@@ -4010,7 +4097,8 @@ const locale = {
   'aiQuant.hint.takeProfitEnforced': '强制止盈，AI不可修改',
   'aiQuant.hint.aiPromptOnly': 'AI仅根据提示词判断方向，不会修改您设置的风控参数',
   'aiQuant.aiLimitWarning': 'AI权限限制',
-  'aiQuant.aiLimitDescription': 'AI只能判断交易方向(买入/卖出/持有)，杠杆倍数、下单金额、止盈止损等风控参数由您完全控制，AI无法修改。',
+  'aiQuant.aiLimitDescription':
+    'AI只能判断交易方向(买入/卖出/持有)，杠杆倍数、下单金额、止盈止损等风控参数由您完全控制，AI无法修改。',
   'aiQuant.userStopLoss': '您的止损',
   'aiQuant.userTakeProfit': '您的止盈',
   'aiQuant.userLeverage': '您的杠杆',
@@ -4025,12 +4113,14 @@ const locale = {
   'aiQuant.template.swing': '🔄 波段交易',
   'aiQuant.template.news': '📰 新闻驱动',
   'aiQuant.template.custom': '✏️ 自定义',
-  'aiQuant.hint.dataProvided': '系统自动提供：实时价格、技术指标(RSI/MACD/均线)、最近新闻、宏观数据。AI将基于这些数据和您的提示词判断方向。',
+  'aiQuant.hint.dataProvided':
+    '系统自动提供：实时价格、技术指标(RSI/MACD/均线)、最近新闻、宏观数据。AI将基于这些数据和您的提示词判断方向。',
   'aiQuant.hint.liveWarning': '实盘模式将使用真实资金交易，请确保已配置交易所API并充分了解风险！',
 
   // 交易助手 - 实盘免责声明
   'trading-assistant.liveDisclaimer.title': '实盘交易免责声明',
-  'trading-assistant.liveDisclaimer.content': '实盘交易存在较高风险，可能导致部分或全部资金损失。平台不保证收益、不承诺盈利。你需自行评估风险并对交易结果承担全部责任。',
+  'trading-assistant.liveDisclaimer.content':
+    '实盘交易存在较高风险，可能导致部分或全部资金损失。平台不保证收益、不承诺盈利。你需自行评估风险并对交易结果承担全部责任。',
   'trading-assistant.liveDisclaimer.agree': '我已阅读并理解上述免责声明，仍选择开启实盘交易',
   'trading-assistant.liveDisclaimer.required': '开启实盘前请先勾选免责声明确认',
   'trading-assistant.liveDisclaimer.blockTitle': '请先确认免责声明',
@@ -4041,8 +4131,10 @@ const locale = {
   'trading-assistant.strategyMode.script': 'Python 脚本策略',
   'trading-assistant.strategyMode.signalBadge': '更适合快速上手',
   'trading-assistant.strategyMode.scriptBadge': '更适合复杂策略',
-  'trading-assistant.strategyMode.signalDesc': '基于现有指标做买卖信号；风控与仓位在指标源码的 # @strategy 中配置，无需单独表单。',
-  'trading-assistant.strategyMode.scriptDesc': '直接使用 Python 编写完整交易逻辑，适合网格、马丁、DCA、突破等更复杂的自动化策略。',
+  'trading-assistant.strategyMode.signalDesc':
+    '基于现有指标做买卖信号；风控与仓位在指标源码的 # @strategy 中配置，无需单独表单。',
+  'trading-assistant.strategyMode.scriptDesc':
+    '直接使用 Python 编写完整交易逻辑，适合网格、马丁、DCA、突破等更复杂的自动化策略。',
   'trading-assistant.strategyMode.signalFeature1': '无需写代码，选指标即可开始',
   'trading-assistant.strategyMode.signalFeature2': '在指标代码中用 @strategy 配置止盈止损与仓位',
   'trading-assistant.strategyMode.signalFeature3': '适合趋势、择时、信号提醒类策略',
@@ -4050,7 +4142,8 @@ const locale = {
   'trading-assistant.strategyMode.scriptFeature2': '追踪止损、分批加仓、分批止盈等状态管理模板',
   'trading-assistant.strategyMode.scriptFeature3': '适合需要参数化、复杂仓位管理的策略',
   'trading-assistant.selectMode': '选择创建方式',
-  'trading-assistant.selectModeHint': '如果你想先快速跑起来，优先选“指标信号策略”；如果要做网格、马丁或自定义逻辑，选“Python 脚本策略”。',
+  'trading-assistant.selectModeHint':
+    '如果你想先快速跑起来，优先选“指标信号策略”；如果要做网格、马丁或自定义逻辑，选“Python 脚本策略”。',
   'trading-assistant.fromTemplate': '或从模板快速创建',
   'trading-assistant.useThisMode': '选择此模式',
 
@@ -4061,7 +4154,8 @@ const locale = {
   'trading-assistant.template.martingale': '马丁格尔',
   'trading-assistant.template.martingaleDesc': '亏损加倍下注，控制最大层数，逆势补仓策略',
   'trading-assistant.template.grid': '网格交易',
-  'trading-assistant.template.gridDesc': '按 K 线收盘价模拟网格成交（非交易所「预先挂满限价单」模式）；适合震荡；可用模板参数选择中性/多/空网格',
+  'trading-assistant.template.gridDesc':
+    '按 K 线收盘价模拟网格成交（非交易所「预先挂满限价单」模式）；适合震荡；可用模板参数选择中性/多/空网格',
   'trading-assistant.template.dca': 'DCA 定投',
   'trading-assistant.template.dcaDesc': '定时/条件触发分批建仓，摊平持仓成本',
   'trading-assistant.template.meanReversion': '均值回归',
@@ -4081,7 +4175,8 @@ const locale = {
   'trading-assistant.editor.verifyFailed': '代码验证失败',
   'trading-assistant.editor.aiGenerate': 'AI 生成策略',
   'trading-assistant.editor.aiGenerateBtn': '生成',
-  'trading-assistant.editor.aiPromptPlaceholder': '描述您想要的策略逻辑，例如：帮我写一个BTC网格策略，价格区间60000-70000，网格10层...',
+  'trading-assistant.editor.aiPromptPlaceholder':
+    '描述您想要的策略逻辑，例如：帮我写一个BTC网格策略，价格区间60000-70000，网格10层...',
   'trading-assistant.editor.apiDocs': 'API 文档',
   'trading-assistant.editor.templates': '模板库',
   'trading-assistant.editor.aiTab': 'AI 助手',
@@ -4091,7 +4186,8 @@ const locale = {
   'trading-assistant.editor.codeHint': '编写策略代码，使用 ctx 对象访问交易API',
   'trading-assistant.editor.generating': '正在生成策略代码...',
   'trading-assistant.editor.templateIntroTitle': '脚本起步',
-  'trading-assistant.editor.templateIntroDesc': '从空白脚本开始，或选用下方带仓位/止损状态管理的模板。RSI、MACD、均线交叉等信号类策略请用指标 IDE。',
+  'trading-assistant.editor.templateIntroDesc':
+    '从空白脚本开始，或选用下方带仓位/止损状态管理的模板。RSI、MACD、均线交叉等信号类策略请用指标 IDE。',
   'trading-assistant.editor.blankTemplate': '空白脚本',
   'trading-assistant.editor.blankTemplateDesc': '仅含 on_init / on_bar 骨架，自由编写逻辑',
   'trading-assistant.editor.statefulTemplateBadge': '状态管理',
@@ -4104,9 +4200,11 @@ const locale = {
   'trading-assistant.editor.applyTemplateParams': '应用到代码',
   'trading-assistant.editor.paramsEmpty': '请先在“模板”页选择一个脚本模板',
   'trading-assistant.editor.templateApplied': '模板参数已应用到代码',
-  'trading-assistant.editor.aiHint': '可先选模板，再用「智能调整参数」按自然语言修改定投金额、间隔等；需要大改逻辑时用「生成完整代码」。',
+  'trading-assistant.editor.aiHint':
+    '可先选模板，再用「智能调整参数」按自然语言修改定投金额、间隔等；需要大改逻辑时用「生成完整代码」。',
   'trading-assistant.editor.docsIntroTitle': '内置 API 参考',
-  'trading-assistant.editor.docsIntroDesc': '这里展示的是 QuantDinger 脚本策略可用的常用 API 与生命周期说明，方便你边写边查。',
+  'trading-assistant.editor.docsIntroDesc':
+    '这里展示的是 QuantDinger 脚本策略可用的常用 API 与生命周期说明，方便你边写边查。',
   'trading-assistant.editor.aiPromptRequired': '请先输入想让 AI 生成或修改的策略说明',
   'trading-assistant.editor.aiGenerateSuccess': 'AI 已生成策略代码',
   'trading-assistant.editor.aiGenerateFailed': 'AI 生成失败',
@@ -4169,7 +4267,8 @@ const locale = {
   'trading-assistant.templateParam.grid_levels.label': '网格数量',
   'trading-assistant.templateParam.grid_levels.desc': '区间内切分的网格层数，越多越密。',
   'trading-assistant.templateParam.grid_mode.label': '网格类型',
-  'trading-assistant.templateParam.grid_mode.desc': '中性：低位买、高位卖（合约且交易方向为双向时，净空后可按逻辑做空）；做多：仅多做网格循环；做空：按「涨卖开、跌买平」的空单网格（请配合合约与交易方向）。',
+  'trading-assistant.templateParam.grid_mode.desc':
+    '中性：低位买、高位卖（合约且交易方向为双向时，净空后可按逻辑做空）；做多：仅多做网格循环；做空：按「涨卖开、跌买平」的空单网格（请配合合约与交易方向）。',
   'trading-assistant.templateParam.grid_mode.optionNeutral': '中性',
   'trading-assistant.templateParam.grid_mode.optionLong': '做多',
   'trading-assistant.templateParam.grid_mode.optionShort': '做空',
@@ -4221,7 +4320,8 @@ const locale = {
   'trading-assistant.performance.noData': '暂无绩效数据，请先启动策略',
   'trading-assistant.performance.loadFailed': '获取绩效数据失败',
   'trading-assistant.performance.dryRunDeviation': '实盘 vs 回测偏差',
-  'trading-assistant.performance.dryRunDeviationHint': '把每笔成交价与「上一根 K 线收盘价（回测信号价）」对比，量化滑点、延迟与累计成本。',
+  'trading-assistant.performance.dryRunDeviationHint':
+    '把每笔成交价与「上一根 K 线收盘价（回测信号价）」对比，量化滑点、延迟与累计成本。',
   'trading-assistant.performance.dryRunAvgSlippage': '平均滑点',
   'trading-assistant.performance.dryRunMedianSlippage': '中位滑点',
   'trading-assistant.performance.dryRunP90Slippage': 'P90 滑点',
@@ -4309,9 +4409,11 @@ const locale = {
   'billing.usdt.noChainsDesc': '请联系管理员在服务端 .env 配置 USDT_*_ADDRESS，配置后该链将自动出现在此处。',
   'billing.usdt.amountSuffixHint': '请按精确金额付款 —— 末尾高亮的尾数用于识别您的订单。',
   'billing.usdt.walletCompat': '钱包提示',
-  'billing.usdt.compat.evm': 'MetaMask、TrustWallet、TokenPocket、imToken、OKX 与 Coinbase 在扫描该二维码时会自动带入地址与金额。',
+  'billing.usdt.compat.evm':
+    'MetaMask、TrustWallet、TokenPocket、imToken、OKX 与 Coinbase 在扫描该二维码时会自动带入地址与金额。',
   'billing.usdt.compat.solana': 'Phantom、Solflare、TokenPocket 与 OKX 在扫描该二维码时会自动带入地址与金额。',
-  'billing.usdt.compat.tron': 'TokenPocket 与 imToken 会自动带入地址与金额。旧版 TronLink 只识别地址 —— 请从右侧高亮区域复制金额。',
+  'billing.usdt.compat.tron':
+    'TokenPocket 与 imToken 会自动带入地址与金额。旧版 TronLink 只识别地址 —— 请从右侧高亮区域复制金额。',
   'billing.usdt.reusedHint': '检测到您还有一笔未支付的订单，已为您继续展示',
 
   // Community
@@ -4334,7 +4436,8 @@ const locale = {
   'quickTrade.swapAvailable': '合约可用',
   'quickTrade.spotAvailable': '现货可用',
   'quickTrade.balanceFetchPartial': '部分余额获取失败，请检查 API 权限或稍后重试',
-  'quickTrade.errorBitgetIpWhitelist': 'Bitget 拒绝连接：出口 IP {ip} 未加入 API 白名单。请到 Bitget → API 管理 → 编辑密钥 → 绑定 IP 中添加该地址，或关闭 IP 限制后重试。',
+  'quickTrade.errorBitgetIpWhitelist':
+    'Bitget 拒绝连接：出口 IP {ip} 未加入 API 白名单。请到 Bitget → API 管理 → 编辑密钥 → 绑定 IP 中添加该地址，或关闭 IP 限制后重试。',
   'quickTrade.errorHints.ipWhitelist': 'API IP 白名单限制',
   'quickTrade.spotHold': '持有',
   'quickTrade.sellSpot': '卖出',
@@ -4353,7 +4456,8 @@ const locale = {
   'quickTrade.marginMode': '保证金模式',
   'quickTrade.crossMargin': '全仓',
   'quickTrade.isolatedMargin': '逐仓',
-  'quickTrade.marginModeHint': '下单前会请求交易所切换该交易对的全仓/逐仓（若已有挂单或交易所限制可能失败，以交易所为准）。',
+  'quickTrade.marginModeHint':
+    '下单前会请求交易所切换该交易对的全仓/逐仓（若已有挂单或交易所限制可能失败，以交易所为准）。',
   'quickTrade.spotModeTitle': '现货模式（1× 杠杆）',
   'quickTrade.spotModeHint': '杠杆为 1× 时使用现货接口；调至 2× 及以上将切换为 U 本位合约。',
   'quickTrade.switchToContract': '切换到合约模式',
@@ -4363,7 +4467,8 @@ const locale = {
   'quickTrade.sl': '止损价格',
   'quickTrade.tpPlaceholder': '输入止盈价格',
   'quickTrade.slPlaceholder': '输入止损价格',
-  'quickTrade.tpslRecordOnlyHint': '说明：止盈/止损价格仅写入本系统交易记录，不会在交易所自动挂条件单或触发平仓；若需交易所原生止盈止损，请在交易所端设置。',
+  'quickTrade.tpslRecordOnlyHint':
+    '说明：止盈/止损价格仅写入本系统交易记录，不会在交易所自动挂条件单或触发平仓；若需交易所原生止盈止损，请在交易所端设置。',
   'quickTrade.optional': '可选',
   'quickTrade.buyLong': '买入/做多',
   'quickTrade.sellShort': '卖出/做空',
@@ -4377,7 +4482,8 @@ const locale = {
   'quickTrade.closeScopeLabel': '平仓范围（合约）',
   'quickTrade.closeScopeFull': '全部持仓',
   'quickTrade.closeScopeSystem': '仅闪电记录部分',
-  'quickTrade.closeScopeSystemHint': '按本系统「闪电交易」里已成交的买卖数量估算可平张数，并与交易所当前持仓取较小值；若您在交易所自行加减过仓，估算可能不准，请谨慎使用。',
+  'quickTrade.closeScopeSystemHint':
+    '按本系统「闪电交易」里已成交的买卖数量估算可平张数，并与交易所当前持仓取较小值；若您在交易所自行加减过仓，估算可能不准，请谨慎使用。',
   'quickTrade.noPosition': '暂无持仓',
   'quickTrade.noPositionHint': '当前交易对暂无持仓',
   'quickTrade.recentTrades': '最近交易',
@@ -4419,7 +4525,8 @@ const locale = {
   'indicatorIde.commission': '手续费 (%)',
   'indicatorIde.fundingRateAnnual': '资金费率(年化)',
   'indicatorIde.fundingIntervalHours': '资金费率结算周期(小时)',
-  'indicatorIde.fundingRateHint': '永续合约持仓每个结算周期都会被扣资金费率。0 表示关闭；填 0.1 代表年化 10%（也可填 10 自动按百分比解析）。正值=多头付/空头收。',
+  'indicatorIde.fundingRateHint':
+    '永续合约持仓每个结算周期都会被扣资金费率。0 表示关闭；填 0.1 代表年化 10%（也可填 10 自动按百分比解析）。正值=多头付/空头收。',
   'indicatorIde.oosScore': 'OOS 分',
   'indicatorIde.oosDegradation': '退化',
   'indicatorIde.oosOverfitTag': '疑似过拟合',
@@ -4428,12 +4535,16 @@ const locale = {
   'indicatorIde.isPanelTitle': '训练段（前 70%）',
   'indicatorIde.oosPanelTitle': '验证段（后 30%）',
   'indicatorIde.oosNotAvailable': '该候选未做 OOS 验证',
-  'indicatorIde.oosOverfitWarning': '疑似过拟合：OOS 分较 IS 退化 {degrade}%。直接在完整窗口跑，效果很可能与头条数字差别很大。',
+  'indicatorIde.oosOverfitWarning':
+    '疑似过拟合：OOS 分较 IS 退化 {degrade}%。直接在完整窗口跑，效果很可能与头条数字差别很大。',
   'indicatorIde.applyAndVerifyOnTrain': '应用并在训练段验证',
   'indicatorIde.applyAndRunOnFull': '应用并在完整窗口跑',
-  'indicatorIde.applyAndVerifyHint': '把候选参数写回代码并在训练段（前 70%）上跑一次回测，结果应能复现扫参头条 IS 分数。',
-  'indicatorIde.applyAndRunFullHint': '把候选参数写回代码并在你选定的完整时间段（100%）上跑，与主回测面板口径一致。结果可能和扫参头条 IS 分数差别很大。',
-  'indicatorIde.oosBanner': '为防过拟合，扫参把你的回测窗口切成训练段（前 70%）+ OOS 验证段（后 30%）：下方 IS 卡的指标对应 {trainStart} ~ {trainEnd}，OOS 卡的指标对应 {oosStart} ~ {oosEnd}。如需与主回测面板（完整窗口）的数字对齐，请用「应用并在完整窗口跑」。',
+  'indicatorIde.applyAndVerifyHint':
+    '把候选参数写回代码并在训练段（前 70%）上跑一次回测，结果应能复现扫参头条 IS 分数。',
+  'indicatorIde.applyAndRunFullHint':
+    '把候选参数写回代码并在你选定的完整时间段（100%）上跑，与主回测面板口径一致。结果可能和扫参头条 IS 分数差别很大。',
+  'indicatorIde.oosBanner':
+    '为防过拟合，扫参把你的回测窗口切成训练段（前 70%）+ OOS 验证段（后 30%）：下方 IS 卡的指标对应 {trainStart} ~ {trainEnd}，OOS 卡的指标对应 {oosStart} ~ {oosEnd}。如需与主回测面板（完整窗口）的数字对齐，请用「应用并在完整窗口跑」。',
   'indicatorIde.sweepDimensionsTitle': '可调维度',
   'indicatorIde.sweepDimEnabledLabel': '已启用',
   'indicatorIde.sweepCartesianLabel': '笛卡尔积',
@@ -4445,7 +4556,8 @@ const locale = {
   'indicatorIde.sweepSource_leverage': '杠杆',
   'indicatorIde.sweepSource_indicator_declared': '@param',
   'indicatorIde.sweepSource_indicator_inferred': '自动推断',
-  'indicatorIde.sweepDimensionsTip': '在指标里写 `# @param rsi_len int 14 RSI周期`，会自动加入扫参；想自定义范围加 `range=7:21:2` 后缀。',
+  'indicatorIde.sweepDimensionsTip':
+    '在指标里写 `# @param rsi_len int 14 RSI周期`，会自动加入扫参；想自定义范围加 `range=7:21:2` 后缀。',
   'indicatorIde.slippage': '滑点 (%)',
   'indicatorIde.strictModeLabel': '严格模式',
   'indicatorIde.strictModeOnShort': '严格',
@@ -4461,9 +4573,12 @@ const locale = {
   'indicatorIde.backtestPreset.label': '回测模式',
   'indicatorIde.backtestPreset.liveAligned': '实盘对齐（推荐）',
   'indicatorIde.backtestPreset.exploration': '理想探索',
-  'indicatorIde.backtestPreset.liveAlignedHint': '仅填入手续费/滑点 0.05%。不改变 MTF 勾选；撮合引擎由下方「高精度多时间框架」单独控制。',
-  'indicatorIde.backtestPreset.explorationHint': '仅填入手续费 0.1%、滑点 0。不改变 MTF；适合快速对比信号，收益往往比实盘更乐观。',
-  'indicatorIde.mtfFallbackToast': '已勾选高精度 MTF，但本次实际走标准 K 线回测，结果可能与取消勾选时相同。请查看结果区「执行假设」。',
+  'indicatorIde.backtestPreset.liveAlignedHint':
+    '仅填入手续费/滑点 0.05%。不改变 MTF 勾选；撮合引擎由下方「高精度多时间框架」单独控制。',
+  'indicatorIde.backtestPreset.explorationHint':
+    '仅填入手续费 0.1%、滑点 0。不改变 MTF；适合快速对比信号，收益往往比实盘更乐观。',
+  'indicatorIde.mtfFallbackToast':
+    '已勾选高精度 MTF，但本次实际走标准 K 线回测，结果可能与取消勾选时相同。请查看结果区「执行假设」。',
   'indicatorIde.mtfFallbackToastWithReason': '高精度 MTF 未生效：{reason}。本次为标准 K 线回测。',
   'indicatorIde.risk': '风控',
   'indicatorIde.stopLoss': '止损 (%)',
@@ -4489,7 +4604,8 @@ const locale = {
   'indicatorIde.tuningMovedToTabHint': '调参功能已移至右侧「智能调参」标签页。',
   'indicatorIde.tuningLaunchTitle': '智能调参',
   'indicatorIde.tuningLaunchDesc': '自动搜索最优策略参数。选择运行方式后点击执行。',
-  'indicatorIde.structuredTuneExplain': '对代码中 @strategy 标注的止盈、止损、仓位等参数进行网格或随机采样，批量回测后按收益排序。适合参数范围明确的策略。',
+  'indicatorIde.structuredTuneExplain':
+    '对代码中 @strategy 标注的止盈、止损、仓位等参数进行网格或随机采样，批量回测后按收益排序。适合参数范围明确的策略。',
   'indicatorIde.aiTuneExplain': 'AI 自动分析回测结果，多轮迭代寻找最佳参数组合。无需手动设定范围，适合快速探索。',
   'indicatorIde.runTune': '执行',
   'indicatorIde.tuneModeLabel': '运行方式',
@@ -4544,7 +4660,8 @@ const locale = {
   'indicatorIde.purchasedBadge': '已购',
   'indicatorIde.purchasedReadOnlyTag': '已购唯读',
   'indicatorIde.purchasedIndicatorHintTitle': '该指标来自指标市场购买',
-  'indicatorIde.purchasedIndicatorHintDesc': '为保护作者权益，购买副本不可直接修改保存。你可在此查看源码、在 K 线上运行、做回测与智能调参；若要改代码，请点「另存为新指标」生成自己的副本后再编辑。',
+  'indicatorIde.purchasedIndicatorHintDesc':
+    '为保护作者权益，购买副本不可直接修改保存。你可在此查看源码、在 K 线上运行、做回测与智能调参；若要改代码，请点「另存为新指标」生成自己的副本后再编辑。',
   'indicatorIde.saveBlockedPurchased': '已购指标不可覆盖保存，请使用「另存为新指标」复制后再改',
   'indicatorIde.publishBlockedPurchased': '已购指标不可再次发布到社区',
   'indicatorIde.aiGenBlockedPurchased': '已购指标为唯读，请先「另存为新指标」再使用 AI 改代码',
@@ -4589,10 +4706,11 @@ const locale = {
   'indicatorIde.quality.MISSING_INDICATOR_DESCRIPTION': '建议补充 my_indicator_description，便于理解与发布',
   'indicatorIde.quality.MISSING_DF_COPY': '建议首行对 df 使用 df = df.copy()，避免下游修改副作用',
   'indicatorIde.quality.MISSING_OUTPUT': '未检测到 output = { ... }，图表与校验会失败',
-  'indicatorIde.quality.MISSING_BUY_SELL_COLUMNS': '未检测到 df[\'buy\'] / df[\'sell\']，回测将无法产生交易信号',
+  'indicatorIde.quality.MISSING_BUY_SELL_COLUMNS': "未检测到 df['buy'] / df['sell']，回测将无法产生交易信号",
   'indicatorIde.quality.UNKNOWN_STRATEGY_KEY': '存在无效的 @strategy 键「{key}」，系统不会解析',
   'indicatorIde.quality.NO_STRATEGY_ANNOTATIONS': '有交易信号但未发现 # @strategy，建议在顶部补充止盈止损与仓位注解',
-  'indicatorIde.quality.NO_STOP_AND_TAKE_PROFIT': '未设置止损与止盈（# @strategy stopLossPct / takeProfitPct），回测风控仅依赖信号平仓',
+  'indicatorIde.quality.NO_STOP_AND_TAKE_PROFIT':
+    '未设置止损与止盈（# @strategy stopLossPct / takeProfitPct），回测风控仅依赖信号平仓',
   'indicatorIde.quality.NO_STOP_LOSS': '未设置 # @strategy stopLossPct',
   'indicatorIde.quality.NO_TAKE_PROFIT': '未设置 # @strategy takeProfitPct',
   'indicatorIde.quality.ZERO_STOP_AND_TAKE_PROFIT': '止损与止盈均为 0，等价于不在引擎层做止盈止损',
@@ -4601,10 +4719,13 @@ const locale = {
   'indicatorIde.quality.HIGH_LEVERAGE': '杠杆 {leverage}x 较高，请确认与风险承受一致',
   'indicatorIde.quality.TRAILING_NO_PCT': '已启用 trailingEnabled 但未设置有效的 trailingStopPct',
   'indicatorIde.quality.EMPTY_PLOTS_AND_SIGNALS': 'plots 与 signals 均为空列表，图表上可能看不到任何线与标记',
-  'indicatorIde.quality.NDARRAY_PANDAS_METHOD_MISUSE': '在 ndarray 上调用了 pandas 方法：{symbol}.{method}(...)。请用 pd.Series(arr, index=df.index) 包装回 Series，或改用 .where/.clip/.abs',
-  'indicatorIde.quality.HELPER_RETURNS_NDARRAY': '自定义函数返回 ndarray：{names_str}。下游调用 .rolling/.fillna/.shift 等会 AttributeError，建议让 helper 直接返回 Series',
+  'indicatorIde.quality.NDARRAY_PANDAS_METHOD_MISUSE':
+    '在 ndarray 上调用了 pandas 方法：{symbol}.{method}(...)。请用 pd.Series(arr, index=df.index) 包装回 Series，或改用 .where/.clip/.abs',
+  'indicatorIde.quality.HELPER_RETURNS_NDARRAY':
+    '自定义函数返回 ndarray：{names_str}。下游调用 .rolling/.fillna/.shift 等会 AttributeError，建议让 helper 直接返回 Series',
   'indicatorIde.quality.RUNTIME_ERROR_ON_VERIFY': '沙箱试跑抛出 {error_type}：{detail}',
-  'indicatorIde.quality.FUTURE_DATA_LEAK': '检测到未来数据泄露（{kind}）：{snippet}。回测会读取尚未发生的K线，实盘永远无法复现。请改用 .shift(N) 正数或 iloc[i-N]。',
+  'indicatorIde.quality.FUTURE_DATA_LEAK':
+    '检测到未来数据泄露（{kind}）：{snippet}。回测会读取尚未发生的K线，实盘永远无法复现。请改用 .shift(N) 正数或 iloc[i-N]。',
   'indicatorIde.aiNoCode': '未生成任何代码，请尝试更详细的描述',
   'indicatorIde.aiGenerateFailed': 'AI 生成失败',
   'indicatorIde.quickTradeReuseHint': '这里直接复用系统原有的闪电交易抽屉，交易逻辑与原模块保持一致。',
@@ -4626,21 +4747,25 @@ const locale = {
   'indicatorIde.aiExperimentRunning': '正在多轮回测与优选参数…',
   'indicatorIde.aiExperimentDone': '智能调参完成',
   'indicatorIde.aiExperimentFailed': '智能调参失败',
-  'indicatorIde.aiExperimentEmpty': '在「运行方式」下拉中选择「结构化扫参」（网格/随机批量回测）或「AI 调参」（让 AI 提议候选），点击执行。结果仅供参考，请结合样本外与风控验证。',
+  'indicatorIde.aiExperimentEmpty':
+    '在「运行方式」下拉中选择「结构化扫参」（网格/随机批量回测）或「AI 调参」（让 AI 提议候选），点击执行。结果仅供参考，请结合样本外与风控验证。',
   'indicatorIde.aiExperimentNeedBacktestParams': '请先选择标的并准备好代码与回测区间',
   'indicatorIde.aiExperimentTab': '智能调参',
   'indicatorIde.runStructuredTune': '结构化扫参',
   'indicatorIde.structuredTuneGrid': '网格',
   'indicatorIde.structuredTuneRandom': '随机',
   'indicatorIde.structuredTuneDe': '差分进化',
-  'indicatorIde.structuredTuneDeHint': '差分进化（DE）：把每次回测当作适应度，迭代逼近最优组合。预算约 24–48 次回测时收益最明显。',
+  'indicatorIde.structuredTuneDeHint':
+    '差分进化（DE）：把每次回测当作适应度，迭代逼近最优组合。预算约 24–48 次回测时收益最明显。',
   'indicatorIde.structuredTuneTpe': '贝叶斯/TPE',
-  'indicatorIde.structuredTuneTpeHint': 'TPE 贝叶斯采样：根据历史好坏样本动态决定下一个候选，比纯随机更快锁定有希望的区域。',
+  'indicatorIde.structuredTuneTpeHint':
+    'TPE 贝叶斯采样：根据历史好坏样本动态决定下一个候选，比纯随机更快锁定有希望的区域。',
   'indicatorIde.aiTuneFeature1': 'LLM 自动提议候选',
   'indicatorIde.aiTuneFeature2': '多轮迭代寻优',
   'indicatorIde.aiTuneFeature3': '内置 OOS 校验',
   'indicatorIde.aiTuneCta': '让 AI 直接给出多组高质量候选，无需手工指定参数范围。',
-  'indicatorIde.structuredTuneGridHint': '网格遍历：穷举所有参数组合，结果稳定可复现，适合参数维度较少（≤4 个）时使用。',
+  'indicatorIde.structuredTuneGridHint':
+    '网格遍历：穷举所有参数组合，结果稳定可复现，适合参数维度较少（≤4 个）时使用。',
   'indicatorIde.structuredTuneRandomHint': '随机采样：在参数空间内均匀抽样，预算可控，是高维场景的稳健基线。',
   'indicatorIde.structuredTuneBadgeBasic': '基础',
   'indicatorIde.structuredTuneBadgePro': '进阶',
@@ -4653,7 +4778,8 @@ const locale = {
   'indicatorIde.analyticsNoRadar': '暂无评分维度数据',
   'indicatorIde.scoringProfile': '评分权重',
   'indicatorIde.stability': '稳定性',
-  'indicatorIde.structuredTuneHint': '在代码 @strategy 止盈/止损/仓位附近取值并批量回测；可与上方「运行智能调参」先后对比。',
+  'indicatorIde.structuredTuneHint':
+    '在代码 @strategy 止盈/止损/仓位附近取值并批量回测；可与上方「运行智能调参」先后对比。',
   'indicatorIde.structuredTuneRunning': '正在批量回测参数组合…',
   'indicatorIde.structuredTuneDone': '结构化扫参完成',
   'indicatorIde.structuredTuneFailed': '结构化扫参失败',
@@ -4667,7 +4793,8 @@ const locale = {
   'indicatorIde.score': '评分',
   'indicatorIde.grade': '等级',
   'indicatorIde.applyBestParams': '应用最佳参数',
-  'indicatorIde.bestParamsApplied': '已将候选参数写入指标代码（# @strategy / # @param）。请保存指标后再回测；创建实盘时直接选用该指标即可。',
+  'indicatorIde.bestParamsApplied':
+    '已将候选参数写入指标代码（# @strategy / # @param）。请保存指标后再回测；创建实盘时直接选用该指标即可。',
   'indicatorIde.bestParamsAppliedCount': '已应用 {count} 项参数变更。',
   'indicatorIde.applyCandidateNoChanges': '与当前代码一致，未做修改。',
   'indicatorIde.applyCandidateNoOverrides': '该候选没有可写入的参数。',
@@ -4708,7 +4835,8 @@ const locale = {
   'indicatorIde.scoreStability': '稳定性得分',
   'indicatorIde.scoreSampleSize': '样本量得分',
   'indicatorIde.scoreRegimeFit': '状态适配得分',
-  'indicatorIde.experimentPromptHint': '当前市场处于「{regime}」，优先考虑 {families} 相关策略族，并结合风控参数做筛选。',
+  'indicatorIde.experimentPromptHint':
+    '当前市场处于「{regime}」，优先考虑 {families} 相关策略族，并结合风控参数做筛选。',
   'indicatorIde.regimeBullTrend': '多头趋势',
   'indicatorIde.regimeBearTrend': '空头趋势',
   'indicatorIde.regimeRangeCompression': '震荡压缩',
@@ -4747,7 +4875,8 @@ const locale = {
   'indicatorIde.goToStrategyManagement': '前往策略管理',
   'indicatorIde.strategyAnnotationsApplied': '已从代码同步 {count} 项 @strategy（如交易方向）到当前界面',
   'indicatorIde.strategyAnnotationsHint': '此指标包含 @strategy 注解；回测风控与仓位以代码为准。',
-  'indicatorIde.strategyFromCodeHint': '止损、止盈、仓位与追踪止损等请在代码中用 # @strategy 声明；成交时机固定为下一根 K 线开盘（贴近实盘）。',
+  'indicatorIde.strategyFromCodeHint':
+    '止损、止盈、仓位与追踪止损等请在代码中用 # @strategy 声明；成交时机固定为下一根 K 线开盘（贴近实盘）。',
   'indicatorIde.newIndicatorUnsavedTitle': '当前指标有未保存修改',
   'indicatorIde.newIndicatorUnsavedContent': '新建会保留服务器上已保存的版本；未保存的本地修改将丢失。是否继续新建？',
   'indicatorIde.newIndicatorConfirmOk': '继续新建',
@@ -4797,10 +4926,12 @@ const locale = {
   'adminOrders.manualConfirmedNoNote': '管理员已手动确认此订单',
   'adminOrders.manualConfirmTitle': '手动确认 USDT 订单',
   'adminOrders.manualConfirmWarnTitle': '即将为该用户开通会员',
-  'adminOrders.manualConfirmWarnDesc': '本操作会跳过链上自动对账。请务必先到对应区块浏览器核实买家的确把正确金额支付到了下方的收款地址,再继续。',
+  'adminOrders.manualConfirmWarnDesc':
+    '本操作会跳过链上自动对账。请务必先到对应区块浏览器核实买家的确把正确金额支付到了下方的收款地址,再继续。',
   'adminOrders.manualConfirmOk': '确认并开通',
   'adminOrders.manualConfirmFinalTitle': '确定立刻为该用户开通会员吗?',
-  'adminOrders.manualConfirmFinalDesc': '提交后会立刻为用户开通对应会员权益,UI 上无法撤销。请确认买家确实已经完成链上支付。',
+  'adminOrders.manualConfirmFinalDesc':
+    '提交后会立刻为用户开通对应会员权益,UI 上无法撤销。请确认买家确实已经完成链上支付。',
   'adminOrders.manualConfirmSuccess': '订单已确认,会员已开通',
   'adminOrders.manualConfirmFailed': '订单确认失败',
   'adminOrders.txHashLabel': '链上交易哈希 / 签名',
@@ -4881,7 +5012,8 @@ const locale = {
   'indicatorIde.strategyDirectives.title': '风控参数（来自代码）',
   'indicatorIde.strategyDirectives.empty': '本指标尚未声明任何 # @strategy 默认值。',
   'indicatorIde.strategyDirectives.alertTitle': '关于风控、仓位与追踪止损',
-  'indicatorIde.strategyDirectives.alertDesc': '止损、止盈、单次开仓比例与追踪止损统一在指标代码中以 # @strategy 注释声明 —— 这是唯一来源，回测面板不会覆盖。',
+  'indicatorIde.strategyDirectives.alertDesc':
+    '止损、止盈、单次开仓比例与追踪止损统一在指标代码中以 # @strategy 注释声明 —— 这是唯一来源，回测面板不会覆盖。',
   'indicatorIde.strategyDirectives.viewDocs': '查看 # @strategy 全部指令',
   'indicatorIde.strategyDirectives.editAction': '编辑',
   'indicatorIde.strategyDirectives.editHint': '点击任意一行跳转到代码编辑器对应位置',
@@ -4928,9 +5060,11 @@ const locale = {
 
   // ---- 实盘券商账户（Broker Accounts）----
   'brokerAccounts.title': '实盘券商账户',
-  'brokerAccounts.subtitle': '集中管理你的加密交易所凭据，以及 Alpaca / Interactive Brokers / MetaTrader 5 的实时连接、账户、持仓与挂单。',
+  'brokerAccounts.subtitle':
+    '集中管理你的加密交易所凭据，以及 Alpaca / Interactive Brokers / MetaTrader 5 的实时连接、账户、持仓与挂单。',
   'brokerAccounts.cryptoSection.title': '加密交易所账户',
-  'brokerAccounts.cryptoSection.subtitle': '这些账户以加密方式保存在数据库，交易机器人与策略实盘下单时按账户名调用。支持 Binance / OKX / Bybit / HTX / Bitget / Coinbase / Kraken / KuCoin / Gate.io / Bitfinex / Deepcoin。',
+  'brokerAccounts.cryptoSection.subtitle':
+    '这些账户以加密方式保存在数据库，交易机器人与策略实盘下单时按账户名调用。支持 Binance / OKX / Bybit / HTX / Bitget / Coinbase / Kraken / KuCoin / Gate.io / Bitfinex / Deepcoin。',
   'brokerAccounts.cryptoSection.addAccount': '添加交易所账户',
   'brokerAccounts.cryptoSection.empty': '暂无加密交易所账户',
   'brokerAccounts.cryptoSection.emptyCta': '点击添加你的第一个交易所账户',
@@ -4965,7 +5099,8 @@ const locale = {
   'brokerAccounts.noAccount': '暂无账户数据',
   'brokerAccounts.positionsCount': '共 {count} 个持仓',
   'brokerAccounts.ordersCount': '共 {count} 个未结订单',
-  'brokerAccounts.cloudOnlyAlert': '当前部署禁用了本地桌面型券商（IBKR / MT5），仅 Alpaca REST 可用。如需本地券商，请将后端 ALLOW_LOCAL_DESKTOP_BROKERS 设为 true。',
+  'brokerAccounts.cloudOnlyAlert':
+    '当前部署禁用了本地桌面型券商（IBKR / MT5），仅 Alpaca REST 可用。如需本地券商，请将后端 ALLOW_LOCAL_DESKTOP_BROKERS 设为 true。',
   'brokerAccounts.cloudBlockedAlert': '{broker} 需要本地终端，但当前部署禁用了桌面券商。',
   'brokerAccounts.tabConnect': '连接配置',
   'brokerAccounts.tabAccount': '账户概览',
@@ -4990,7 +5125,8 @@ const locale = {
   'brokerAccounts.ibkr.readonly': '只读模式',
   'brokerAccounts.ibkr.readonlyHint': '只读模式下无法下单，仅用于查询。',
   'brokerAccounts.ibkr.presets': '常用配置',
-  'brokerAccounts.ibkr.helpText': 'IBKR 需要在本机或可达网络运行 TWS / IB Gateway。请确保已在 TWS 中启用 API 访问。{docs}',
+  'brokerAccounts.ibkr.helpText':
+    'IBKR 需要在本机或可达网络运行 TWS / IB Gateway。请确保已在 TWS 中启用 API 访问。{docs}',
   'brokerAccounts.ibkr.docsLabel': 'IBKR TWS 下载与配置 →',
   'brokerAccounts.mt5.name': 'MetaTrader 5',
   'brokerAccounts.mt5.login': '账号',
@@ -5083,10 +5219,10 @@ const locale = {
   'profile.loginLogs.newDevice': '新设备',
   'profile.loginLogs.newRegion': '新地区',
   'profile.loginLogs.total': '共 {total} 条',
-  'profile.loginLogs.loadFailed': '加载登录日志失败'
+  'profile.loginLogs.loadFailed': '加载登录日志失败',
 }
 
 export default {
   ...components,
-  ...locale
+  ...locale,
 }

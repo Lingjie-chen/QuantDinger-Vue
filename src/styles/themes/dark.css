@@ -1,0 +1,36 @@
+/* ============================================================
+ * 暗黑主题 — 覆盖 tokens.css 中的 --bg-*, --text-*, --border-*
+ *
+ * 用法: import './styles/themes/dark.css' (或由切换逻辑动态加载)
+ * ============================================================ */
+
+.theme-dark {
+  /* Backgrounds */
+  --bg-app: #0a0a0a;
+  --bg-content: #141414;
+  --bg-sidebar: #0a0a0a;
+  --bg-header: #111111;
+  --bg-card: #1c1c1c;
+  --bg-card-hover: #252525;
+  --bg-elevated: #1c1c1c;
+  --bg-input: #1c1c1c;
+  --bg-disabled: #1a1a1a;
+
+  /* Borders */
+  --border-color: #2a2a2a;
+  --border-color-light: #333333;
+  --border-color-lighter: #2a2a2a;
+
+  /* Text */
+  --text-primary: rgba(255, 255, 255, 0.85);
+  --text-secondary: #888888;
+  --text-tertiary: rgba(255, 255, 255, 0.30);
+  --text-disabled: rgba(255, 255, 255, 0.20);
+  --text-placeholder: rgba(255, 255, 255, 0.25);
+
+  /* Tag / badge backgrounds */
+  --tag-bg: #2a2a2a;
+
+  /* Chart grid lines */
+  --chart-grid: #2a2a2a;
+}

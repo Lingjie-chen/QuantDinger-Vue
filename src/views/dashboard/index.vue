@@ -330,185 +330,20 @@
 
     <!-- 数据表格区域 -->
     <div class="table-row">
-      <!-- 当前持仓 -->
-      <div class="table-panel">
-        <div class="panel-header">
-          <div class="panel-title">
-            <a-icon type="stock" />
-            <span>{{ $t('dashboard.currentPositions') }}</span>
-          </div>
-          <div class="panel-badge">{{ (summary.current_positions || []).length }}</div>
-        </div>
-        <a-table
-          :columns="positionColumns"
-          :data-source="summary.current_positions"
-          rowKey="id"
-          :pagination="false"
-          size="small"
-          :scroll="{ x: 'max-content' }"
-          class="pro-table"
-        >
-          <template slot="symbol" slot-scope="text, record">
-            <div class="symbol-cell">
-              <span class="symbol-name">{{ text }}</span>
-              <span class="symbol-strategy">{{ record.strategy_name }}</span>
-            </div>
-          </template>
-          <template slot="side" slot-scope="text">
-            <span class="side-tag" :class="text === 'long' ? 'long' : 'short'">
-              {{ text === 'long' ? 'LONG' : 'SHORT' }}
-            </span>
-          </template>
-          <template slot="unrealized_pnl" slot-scope="text, record">
-            <div class="pnl-cell">
-              <span :class="text >= 0 ? 'positive' : 'negative'">
-                {{ text >= 0 ? '+' : '' }}${{ formatNumber(text) }}
-              </span>
-              <span class="pnl-percent" :class="record.pnl_percent >= 0 ? 'positive' : 'negative'">
-                {{ record.pnl_percent >= 0 ? '+' : '' }}{{ formatNumber(record.pnl_percent) }}%
-              </span>
-            </div>
-          </template>
-        </a-table>
-      </div>
-
-      <!-- 最近交易 -->
-      <div class="table-panel">
-        <div class="panel-header">
-          <div class="panel-title">
-            <a-icon type="history" />
-            <span>{{ $t('dashboard.recentTrades') }}</span>
-          </div>
-        </div>
-        <a-table
-          :columns="columns"
-          :data-source="summary.recent_trades"
-          rowKey="id"
-          :pagination="{ pageSize: 8, size: 'small' }"
-          size="small"
-          :scroll="{ x: 'max-content' }"
-          class="pro-table"
-        >
-          <template slot="type" slot-scope="text">
-            <span class="type-tag" :class="getTypeClass(text)">
-              {{ getSignalTypeText(text) }}
-            </span>
-          </template>
-          <template slot="profit" slot-scope="text, record">
-            <span :class="formatProfitValue(text, record) !== '--' ? (text >= 0 ? 'positive' : 'negative') : ''">
-              {{ formatProfitValue(text, record) }}
-            </span>
-          </template>
-          <template slot="time" slot-scope="text">
-            <span class="time-cell">{{ formatTime(text) }}</span>
-          </template>
-        </a-table>
-      </div>
+      <PositionTable :data-source="summary.current_positions" />
+      <RecentTradesTable :data-source="summary.recent_trades" />
     </div>
 
-    <!-- 订单执行记录 -->
-    <div class="chart-panel orders-panel">
-      <div class="panel-header">
-        <div class="panel-title">
-          <a-icon type="unordered-list" />
-          <span>{{ $t('dashboard.pendingOrders') }}</span>
-          <a-tooltip :title="soundEnabled ? $t('dashboard.clickToMute') : $t('dashboard.clickToUnmute')">
-            <a-icon
-              :type="soundEnabled ? 'sound' : 'audio-muted'"
-              class="sound-toggle"
-              :class="{ 'sound-off': !soundEnabled }"
-              @click="toggleSound"
-            />
-          </a-tooltip>
-        </div>
-        <div class="panel-badge">{{ ordersPagination.total }}</div>
-      </div>
-      <a-table
-        :columns="orderColumns"
-        :data-source="pendingOrders"
-        rowKey="id"
-        :pagination="{
-          current: ordersPagination.current,
-          pageSize: ordersPagination.pageSize,
-          total: ordersPagination.total,
-          showSizeChanger: true,
-          size: 'small',
-          showTotal: (total) => $t('dashboard.totalOrders', { total })
-        }"
-        size="small"
-        :loading="ordersLoading"
-        :scroll="{ x: 1200 }"
-        class="pro-table"
-        @change="handleOrdersTableChange"
-      >
-        <template slot="strategy_name" slot-scope="text, record">
-          <div class="symbol-cell">
-            <span class="symbol-name">{{ text || '-' }}</span>
-            <span class="symbol-strategy">ID: {{ record.strategy_id }}</span>
-          </div>
-        </template>
-        <template slot="symbol" slot-scope="text">
-          <span class="symbol-tag">{{ text }}</span>
-        </template>
-        <template slot="signal_type" slot-scope="text">
-          <span class="type-tag" :class="getTypeClass(text)">
-            {{ getSignalTypeText(text) }}
-          </span>
-        </template>
-        <template slot="exchange" slot-scope="text, record">
-          <span
-            v-if="(record && (record.exchange_display || record.exchange_id || text))"
-            class="exchange-tag"
-            :class="(record.exchange_display || record.exchange_id || text).toLowerCase()"
-          >
-            {{ String(record.exchange_display || record.exchange_id || text).toUpperCase() }}
-          </span>
-          <span v-else class="text-muted">-</span>
-          <div v-if="record && record.market_type" class="market-type">
-            {{ String(record.market_type).toUpperCase() }}
-          </div>
-        </template>
-        <template slot="notify" slot-scope="text, record">
-          <div class="notify-icons">
-            <a-tooltip
-              v-for="ch in (record && record.notify_channels ? record.notify_channels : [])"
-              :key="`${record.id}-${ch}`"
-              :title="String(ch)"
-            >
-              <a-icon :type="getNotifyIconType(ch)" class="notify-icon" />
-            </a-tooltip>
-            <span v-if="!record || !record.notify_channels || record.notify_channels.length === 0" class="text-muted">-</span>
-          </div>
-        </template>
-        <template slot="status" slot-scope="text, record">
-          <span class="status-tag" :class="text">
-            {{ getStatusText(text) }}
-          </span>
-          <div v-if="text === 'failed' && record.error_message" class="error-hint">
-            <a-tooltip :title="record.error_message">
-              <a-icon type="exclamation-circle" />
-              <span>{{ $t('dashboard.viewError') }}</span>
-            </a-tooltip>
-          </div>
-        </template>
-        <template slot="amount" slot-scope="text, record">
-          <div>{{ formatNumber(text, 8) }}</div>
-          <div v-if="record.filled_amount" class="sub-text">
-            {{ $t('dashboard.filled') }}: {{ formatNumber(record.filled_amount, 8) }}
-          </div>
-        </template>
-        <template slot="price" slot-scope="text, record">
-          <div v-if="record.filled_price">{{ formatNumber(record.filled_price) }}</div>
-          <div v-else class="text-muted">-</div>
-        </template>
-        <template slot="time_info" slot-scope="text, record">
-          <div class="time-cell">{{ formatTime(record.created_at) }}</div>
-          <div v-if="record.executed_at" class="sub-text">
-            {{ formatTime(record.executed_at) }}
-          </div>
-        </template>
-      </a-table>
-    </div>
+    <PendingOrdersTable
+      :data-source="pendingOrders"
+      :loading="ordersLoading"
+      :pagination="ordersPagination"
+      :sound-enabled="soundEnabled"
+      :strategy-filters="orderStrategyFilters"
+      :total-count="ordersPagination.total"
+      @change="handleOrdersTableChange"
+      @toggle-sound="toggleSound"
+    />
   </div>
 </template>
 
@@ -517,6 +352,7 @@ import * as echarts from 'echarts'
 import { getDashboardSummary, getPendingOrders } from '@/api/dashboard'
 import { mapState } from 'vuex'
 import { formatUserDateTime } from '@/utils/userTime'
+import { PositionTable, RecentTradesTable, PendingOrdersTable } from './components'
 
 export default {
   name: 'Dashboard',
@@ -525,6 +361,11 @@ export default {
       type: Boolean,
       default: false
     }
+  },
+  components: {
+    PositionTable,
+    RecentTradesTable,
+    PendingOrdersTable
   },
   data () {
     return {
@@ -628,131 +469,6 @@ export default {
         map.set(String(id), { text, value: String(id) })
       }
       return Array.from(map.values()).sort((a, b) => String(a.text).localeCompare(String(b.text)))
-    },
-    columns () {
-      return [
-        {
-          title: this.$t('dashboard.table.time'),
-          dataIndex: 'created_at',
-          scopedSlots: { customRender: 'time' },
-          width: 150
-        },
-        {
-          title: this.$t('dashboard.table.symbol'),
-          dataIndex: 'symbol',
-          width: 100
-        },
-        {
-          title: this.$t('dashboard.table.type'),
-          dataIndex: 'type',
-          scopedSlots: { customRender: 'type' },
-          width: 90
-        },
-        {
-          title: this.$t('dashboard.table.price'),
-          dataIndex: 'price',
-          customRender: (text) => this.formatNumber(text),
-          width: 100
-        },
-        {
-          title: this.$t('dashboard.table.profit'),
-          dataIndex: 'profit',
-          scopedSlots: { customRender: 'profit' },
-          align: 'right',
-          width: 100
-        }
-      ]
-    },
-    positionColumns () {
-      return [
-        {
-          title: this.$t('dashboard.table.symbol'),
-          dataIndex: 'symbol',
-          scopedSlots: { customRender: 'symbol' }
-        },
-        {
-          title: this.$t('dashboard.table.side'),
-          dataIndex: 'side',
-          scopedSlots: { customRender: 'side' }
-        },
-        {
-          title: this.$t('dashboard.table.size'),
-          dataIndex: 'size',
-          customRender: (text) => this.formatNumber(text, 4)
-        },
-        {
-          title: this.$t('dashboard.table.entryPrice'),
-          dataIndex: 'entry_price',
-          customRender: (text) => this.formatNumber(text)
-        },
-        {
-          title: this.$t('dashboard.table.pnl'),
-          dataIndex: 'unrealized_pnl',
-          scopedSlots: { customRender: 'unrealized_pnl' },
-          align: 'right'
-        }
-      ]
-    },
-    orderColumns () {
-      return [
-        {
-          title: this.$t('dashboard.orderTable.strategy'),
-          dataIndex: 'strategy_name',
-          scopedSlots: { customRender: 'strategy_name' },
-          filters: this.orderStrategyFilters,
-          filterMultiple: true,
-          onFilter: (value, record) => String(record && record.strategy_id) === String(value),
-          width: 150
-        },
-        {
-          title: this.$t('dashboard.orderTable.exchange'),
-          dataIndex: 'exchange_id',
-          scopedSlots: { customRender: 'exchange' },
-          width: 120
-        },
-        {
-          title: this.$t('dashboard.orderTable.notify'),
-          dataIndex: 'notify_channels',
-          scopedSlots: { customRender: 'notify' },
-          width: 100
-        },
-        {
-          title: this.$t('dashboard.orderTable.symbol'),
-          dataIndex: 'symbol',
-          scopedSlots: { customRender: 'symbol' },
-          width: 110
-        },
-        {
-          title: this.$t('dashboard.orderTable.signalType'),
-          dataIndex: 'signal_type',
-          scopedSlots: { customRender: 'signal_type' },
-          width: 100
-        },
-        {
-          title: this.$t('dashboard.orderTable.amount'),
-          dataIndex: 'amount',
-          scopedSlots: { customRender: 'amount' },
-          width: 130
-        },
-        {
-          title: this.$t('dashboard.orderTable.price'),
-          dataIndex: 'filled_price',
-          scopedSlots: { customRender: 'price' },
-          width: 100
-        },
-        {
-          title: this.$t('dashboard.orderTable.status'),
-          dataIndex: 'status',
-          scopedSlots: { customRender: 'status' },
-          width: 130
-        },
-        {
-          title: this.$t('dashboard.orderTable.timeInfo'),
-          dataIndex: 'created_at',
-          scopedSlots: { customRender: 'time_info' },
-          width: 160
-        }
-      ]
     }
   },
   mounted () {
@@ -913,117 +629,7 @@ export default {
       this.ordersPagination.pageSize = pageSize
       this.fetchPendingOrders(current, pageSize)
     },
-    getTypeClass (type) {
-      if (!type) return ''
-      const t = type.toLowerCase()
-      if (t.includes('open_long') || t.includes('add_long')) return 'long'
-      if (t.includes('open_short') || t.includes('add_short')) return 'short'
-      if (t.includes('close_long')) return 'close-long'
-      if (t.includes('close_short')) return 'close-short'
-      return ''
-    },
-    getSignalTypeColor (type) {
-      if (!type) return 'default'
-      type = type.toLowerCase()
-      if (type.includes('open_long') || type.includes('add_long')) return 'green'
-      if (type.includes('open_short') || type.includes('add_short')) return 'red'
-      if (type.includes('close_long')) return 'orange'
-      if (type.includes('close_short')) return 'purple'
-      return 'blue'
-    },
-    getSignalTypeText (type) {
-      if (!type) return '-'
-      const typeMap = {
-        'open_long': this.$t('dashboard.signalType.openLong'),
-        'open_short': this.$t('dashboard.signalType.openShort'),
-        'close_long': this.$t('dashboard.signalType.closeLong'),
-        'close_short': this.$t('dashboard.signalType.closeShort'),
-        'add_long': this.$t('dashboard.signalType.addLong'),
-        'add_short': this.$t('dashboard.signalType.addShort')
-      }
-      return typeMap[type.toLowerCase()] || type.toUpperCase()
-    },
-    getStatusColor (status) {
-      const colorMap = {
-        'pending': 'orange',
-        'processing': 'blue',
-        'completed': 'green',
-        'failed': 'red',
-        'cancelled': 'default'
-      }
-      return colorMap[status] || 'default'
-    },
-    getStatusText (status) {
-      if (!status) return '-'
-      const statusMap = {
-        'pending': this.$t('dashboard.status.pending'),
-        'processing': this.$t('dashboard.status.processing'),
-        'completed': this.$t('dashboard.status.completed'),
-        'failed': this.$t('dashboard.status.failed'),
-        'cancelled': this.$t('dashboard.status.cancelled')
-      }
-      return statusMap[status.toLowerCase()] || status.toUpperCase()
-    },
-    getNotifyIconType (channel) {
-      const c = String(channel || '').trim().toLowerCase()
-      const map = {
-        browser: 'bell',
-        webhook: 'link',
-        discord: 'comment',
-        telegram: 'message',
-        tg: 'message',
-        tele: 'message',
-        email: 'mail',
-        phone: 'phone'
-      }
-      return map[c] || 'notification'
-    },
-    getExchangeTagColor (exchange) {
-      const ex = String(exchange || '').trim().toLowerCase()
-      const map = {
-        binance: 'gold',
-        okx: 'purple',
-        bitget: 'cyan',
-        signal: 'geekblue'
-      }
-      return map[ex] || 'blue'
-    },
-    formatNumber (num, digits = 2) {
-      if (num === undefined || num === null) return '0.00'
-      return Number(num).toLocaleString('en-US', { minimumFractionDigits: digits, maximumFractionDigits: digits })
-    },
-    // 格式化盈亏值（处理信号模式下没有实盘的情况）
-    formatProfitValue (value, record) {
-      if (value === null || value === undefined) return '--'
 
-      const numValue = parseFloat(value)
-
-      // 如果值为0且是开仓信号（open_long/open_short），显示--
-      const openTypes = ['open_long', 'open_short', 'add_long', 'add_short']
-      if (numValue === 0 && record && openTypes.includes(record.type)) {
-        return '--'
-      }
-
-      // 如果值极小（科学计数法如0E-8），视为0
-      if (Math.abs(numValue) < 0.000001) {
-        if (record && openTypes.includes(record.type)) {
-          return '--'
-        }
-        return '$0.00'
-      }
-
-      // 正常显示
-      const sign = numValue >= 0 ? '+' : ''
-      return `${sign}$${this.formatNumber(numValue)}`
-    },
-    formatCompactNumber (num) {
-      if (num === undefined || num === null) return '0'
-      const abs = Math.abs(num)
-      if (abs >= 1000000) return (num / 1000000).toFixed(1) + 'M'
-      if (abs >= 1000) return (num / 1000).toFixed(1) + 'k'
-      if (abs >= 100) return Math.round(num)
-      return num.toFixed(0)
-    },
     prevMonth () {
       if (this.currentCalendarIndex < this.calendarMonths.length - 1) {
         this.currentCalendarIndex++
@@ -1052,6 +658,21 @@ export default {
       const loc = (this.$i18n && this.$i18n.locale) ? this.$i18n.locale : 'zh-CN'
       const s = formatUserDateTime(timestamp, { locale: loc, fallback: '-' })
       return s || '-'
+    },
+    formatNumber (value, decimals = 2) {
+      if (value === null || value === undefined) return '—'
+      const num = Number(value)
+      if (isNaN(num)) return '—'
+      return num.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals })
+    },
+    formatCompactNumber (value) {
+      if (value === null || value === undefined) return '—'
+      const num = Number(value)
+      if (isNaN(num)) return '—'
+      if (Math.abs(num) >= 1000000) return (num / 1000000).toFixed(1) + 'M'
+      if (Math.abs(num) >= 10000) return (num / 10000).toFixed(1) + 'W'
+      if (Math.abs(num) >= 1000) return (num / 1000).toFixed(1) + 'K'
+      return num.toFixed(0)
     },
     initCharts () {
       this.initPieChart()
@@ -1128,7 +749,7 @@ export default {
           textStyle: { color: isDark ? '#f3f4f6' : '#1f2937' },
           formatter: (p) => {
             const sv = (p && p.data && typeof p.data.signedValue === 'number') ? p.data.signedValue : 0
-            const svStr = (sv >= 0 ? '+' : '') + this.formatNumber(sv, 2)
+            const svStr = (sv >= 0 ? '+' : '') + Number(sv).toFixed(2)
             const svColor = sv >= 0 ? '#10b981' : '#ef4444'
             return `
               <div style="padding: 4px 0;">
@@ -1233,7 +854,7 @@ export default {
             const p = Array.isArray(params) ? params[0] : null
             const date = p ? p.axisValue : ''
             const v = p ? Number(p.data || 0) : 0
-            const vStr = this.formatNumber(Math.abs(v), 2)
+            const vStr = Number(Math.abs(v)).toFixed(2)
             const pctOfMax = maxDdValue !== 0 ? Math.abs((v / maxDdValue) * 100).toFixed(0) : 0
             return `
               <div style="min-width: 140px;">
@@ -1373,7 +994,7 @@ export default {
               if (p.seriesName === profitLabel) profit = p.data || 0
             }
             const profitColor = profit >= 0 ? '#10b981' : '#ef4444'
-            const profitStr = (profit >= 0 ? '+' : '') + this.formatNumber(profit, 2)
+            const profitStr = (profit >= 0 ? '+' : '') + Number(profit).toFixed(2)
             return `
               <div style="padding: 4px 0;">
                 <div style="font-weight:600;margin-bottom:6px;">${hour}</div>

@@ -4,7 +4,7 @@ import momentEU from 'moment/locale/eu'
 const components = {
   antLocale: antdEnUS,
   momentName: 'eu',
-  momentLocale: momentEU
+  momentLocale: momentEU,
 }
 
 const locale = {
@@ -25,8 +25,8 @@ const locale = {
   'common.copy': 'Copy',
   'common.copySuccess': 'Copied',
   'common.copyFailed': 'Copy failed, please select and copy manually',
-  'submit': 'Submit',
-  'save': 'Save',
+  submit: 'Submit',
+  save: 'Save',
   'submit.ok': 'Submit successfully',
   'save.ok': 'Saved successfully',
   'menu.welcome': 'Welcome',
@@ -41,6 +41,7 @@ const locale = {
   'menu.dashboard.backtestCenter': 'Backtest Center',
   'menu.dashboard.indicatorIde': 'Indicator IDE',
   'menu.dashboard.tradingBot': 'Trading Bot',
+  'menu.dashboard.factorGraph': 'Factor Graph',
   'menu.dashboard.brokerAccounts': 'Live Broker Accounts',
   'menu.dashboard.scriptStrategies': 'Python Script Strategies',
   // ---- Trading Bot Page ----
@@ -91,12 +92,14 @@ const locale = {
   'trading-bot.cloneAsScript.tooltip': 'Clone this bot as an editable Python script strategy',
   'trading-bot.cloneAsScript.noCode': 'This bot has no code to clone',
   'trading-bot.cloneAsScript.confirmTitle': 'Clone as Script Strategy',
-  'trading-bot.cloneAsScript.confirmContent': 'Clone "{name}" as an editable Python script strategy? The new strategy will start in signal-only mode and will not auto-trade live.',
+  'trading-bot.cloneAsScript.confirmContent':
+    'Clone "{name}" as an editable Python script strategy? The new strategy will start in signal-only mode and will not auto-trade live.',
   'trading-bot.cloneAsScript.confirmOk': 'Clone',
   'trading-bot.cloneAsScript.confirmCancel': 'Cancel',
   'trading-bot.cloneAsScript.suffix': '(Script Copy)',
   'trading-bot.cloneAsScript.successTitle': 'Cloned as script strategy',
-  'trading-bot.cloneAsScript.successDesc': 'The new strategy was created in signal-only mode. Review the code before switching to live trading.',
+  'trading-bot.cloneAsScript.successDesc':
+    'The new strategy was created in signal-only mode. Review the code before switching to live trading.',
   'trading-bot.cloneAsScript.openLink': 'Open new strategy',
   'trading-bot.cloneAsScript.failed': 'Clone failed',
   'trading-bot.advanced.scriptEntry.prefix': 'Need full control?',
@@ -126,12 +129,14 @@ const locale = {
   'trading-bot.detail.gridDirection': 'Direction',
   'trading-bot.detail.gridProfitPerGrid': 'Avg Profit / Grid',
   'trading-bot.detail.gridProfitPct': 'Profit / Grid',
-  'trading-bot.detail.gridNote': 'Neutral grid: Levels below midpoint are buy orders (long), above are sell orders (short). Orders trigger when price crosses a grid line, and close for profit when price reverses. Actual sides depend on market price at startup.',
+  'trading-bot.detail.gridNote':
+    'Neutral grid: Levels below midpoint are buy orders (long), above are sell orders (short). Orders trigger when price crosses a grid line, and close for profit when price reverses. Actual sides depend on market price at startup.',
   'trading-bot.detail.triggerDrop': 'Price drops here → Long',
   'trading-bot.detail.triggerRise': 'Price rises here → Short',
   'trading-bot.detail.triggerEntry': 'Est. entry level (depends on market price)',
   'trading-bot.detail.hedgeSummary': 'Live Hedge Positions',
-  'trading-bot.detail.hedgeSummaryHint': 'Grid bots track long and short legs independently. The three cells below show: current long size + unrealised PnL, current short size + unrealised PnL, and realised grid-matched profit.',
+  'trading-bot.detail.hedgeSummaryHint':
+    'Grid bots track long and short legs independently. The three cells below show: current long size + unrealised PnL, current short size + unrealised PnL, and realised grid-matched profit.',
   'trading-bot.detail.longLeg': 'Long Leg',
   'trading-bot.detail.shortLeg': 'Short Leg',
   'trading-bot.detail.totalGridProfit': 'Realised Grid Profit',
@@ -152,14 +157,18 @@ const locale = {
   'trading-bot.wizard.marketCrypto': 'Crypto',
   'trading-bot.wizard.marketUSStock': 'US Stocks',
   'trading-bot.wizard.marketForex': 'Forex',
-  'trading-bot.wizard.marketCategoryHint': 'Pick the market this bot will trade. Strategy template, broker list and symbol list update accordingly.',
-  'trading-bot.wizard.botTypeNotSupportedOnMarket': 'This bot type is not supported on {market}. Switch market or pick a different bot.',
-  'trading-bot.wizard.marketDisabledForBot': 'Current bot type does not support {market}. To trade this market, switch to: {alts}.',
+  'trading-bot.wizard.marketCategoryHint':
+    'Pick the market this bot will trade. Strategy template, broker list and symbol list update accordingly.',
+  'trading-bot.wizard.botTypeNotSupportedOnMarket':
+    'This bot type is not supported on {market}. Switch market or pick a different bot.',
+  'trading-bot.wizard.marketDisabledForBot':
+    'Current bot type does not support {market}. To trade this market, switch to: {alts}.',
   'trading-bot.wizard.botType.grid': 'Grid',
   'trading-bot.wizard.botType.martingale': 'Martingale',
   'trading-bot.wizard.botType.dca': 'DCA',
   'trading-bot.wizard.botType.trend': 'Trend',
-  'trading-bot.wizard.brokerCredentialRequired': 'No matching broker credential found for {market}. Add one in Profile -> Exchange.',
+  'trading-bot.wizard.brokerCredentialRequired':
+    'No matching broker credential found for {market}. Add one in Profile -> Exchange.',
   'trading-bot.wizard.cryptoCredentialRequired': 'Please select a credential whose broker supports {market}.',
   'trading-bot.wizard.savedCredential': 'Exchange / Broker Account',
   'trading-bot.wizard.selectCredential': 'Select a saved exchange account',
@@ -180,7 +189,8 @@ const locale = {
   'trading-bot.wizard.capitalReq': 'Please enter investment capital (min 10 USDT)',
   'trading-bot.wizard.timeframe': 'Timeframe',
   'trading-bot.wizard.gridTickMode': 'Real-time Tick Mode (no timeframe needed)',
-  'trading-bot.wizard.gridTickModeHint': 'Grid / Martingale bots trigger on real-time price — orders are placed instantly when price hits a grid level',
+  'trading-bot.wizard.gridTickModeHint':
+    'Grid / Martingale bots trigger on real-time price — orders are placed instantly when price hits a grid level',
   'trading-bot.wizard.marketType': 'Market Type',
   'trading-bot.wizard.futures': 'Futures',
   'trading-bot.wizard.spot': 'Spot',
@@ -190,7 +200,8 @@ const locale = {
   'trading-bot.wizard.connected': 'Connected',
   'trading-bot.wizard.connectFail': 'Connection Failed',
   'trading-bot.wizard.liveWarning': 'Live Trading Risk Warning',
-  'trading-bot.wizard.liveWarningDesc': 'This bot will trade with real funds on the exchange once created. Please verify all parameters before proceeding.',
+  'trading-bot.wizard.liveWarningDesc':
+    'This bot will trade with real funds on the exchange once created. Please verify all parameters before proceeding.',
   'trading-bot.wizard.prev': 'Previous',
   'trading-bot.wizard.next': 'Next',
   'trading-bot.wizard.create': 'Create Bot',
@@ -242,12 +253,15 @@ const locale = {
   'trading-bot.grid.orderType': 'Order Type',
   'trading-bot.grid.limitOrder': 'Limit Order (Recommended)',
   'trading-bot.grid.marketOrder': 'Market Order',
-  'trading-bot.grid.limitOrderHint': 'Maker limit orders, lower fees (typically 0~0.02%), auto fallback to market if unfilled',
-  'trading-bot.grid.marketOrderHint': 'Taker market orders, higher fees (typically 0.04~0.1%), frequent trades accumulate significant fees',
+  'trading-bot.grid.limitOrderHint':
+    'Maker limit orders, lower fees (typically 0~0.02%), auto fallback to market if unfilled',
+  'trading-bot.grid.marketOrderHint':
+    'Taker market orders, higher fees (typically 0.04~0.1%), frequent trades accumulate significant fees',
   'trading-bot.grid.autoCalcHint': 'Auto-calculated from investment capital. Manual edit will break the link.',
   'trading-bot.grid.riskGuardsTitle': 'Bounds & risk',
   'trading-bot.grid.adaptiveBounds': 'Adaptive bounds',
-  'trading-bot.grid.adaptiveBoundsHint': 'Shift upper/lower bounds with recent ATR volatility; widen when price hugs an edge.',
+  'trading-bot.grid.adaptiveBoundsHint':
+    'Shift upper/lower bounds with recent ATR volatility; widen when price hugs an edge.',
   'trading-bot.grid.adaptiveAtrMult': 'ATR width multiplier',
   'trading-bot.grid.adaptiveAtrMultHint': 'Higher = wider band and sparser grid. Default 2.0.',
   'trading-bot.grid.waterfallProtection': 'Waterfall protection',
@@ -276,11 +290,14 @@ const locale = {
   'trading-bot.martingale.direction': 'Direction',
   'trading-bot.martingale.long': 'Long (Buy the Dip)',
   'trading-bot.martingale.short': 'Short (Sell the Rip)',
-  'trading-bot.martingale.longHint': 'Add long positions as price drops; take profit when price rebounds above avg entry',
-  'trading-bot.martingale.shortHint': 'Add short positions as price rises; take profit when price drops below avg entry',
+  'trading-bot.martingale.longHint':
+    'Add long positions as price drops; take profit when price rebounds above avg entry',
+  'trading-bot.martingale.shortHint':
+    'Add short positions as price rises; take profit when price drops below avg entry',
   'trading-bot.martingale.riskGuardsTitle': 'Risk controls',
   'trading-bot.martingale.waterfallProtection': 'Waterfall protection',
-  'trading-bot.martingale.waterfallProtectionHint': 'Pause first entry and add-ons on fast drawdowns; TP/SL still allowed.',
+  'trading-bot.martingale.waterfallProtectionHint':
+    'Pause first entry and add-ons on fast drawdowns; TP/SL still allowed.',
   'trading-bot.martingale.waterfallDropPct': 'Trigger drawdown %',
   'trading-bot.martingale.waterfallDropPctHint': 'Pause when price falls this % from recent peak (default 4%).',
   'trading-bot.trend.maPeriod': 'MA Period',
@@ -344,13 +361,15 @@ const locale = {
   'trading-bot.ai.cardDesc': 'Describe your trading idea, AI generates the optimal bot configuration',
   'trading-bot.ai.startBtn': 'Start Creating',
   'trading-bot.ai.dialogTitle': 'AI Smart Bot Creator',
-  'trading-bot.ai.dialogDesc': 'Describe your trading needs in plain language, AI picks the best strategy and parameters',
+  'trading-bot.ai.dialogDesc':
+    'Describe your trading needs in plain language, AI picks the best strategy and parameters',
   'trading-bot.ai.quickPrompts': 'Quick Prompts',
   'trading-bot.ai.prompt1': 'Analyze BTC recent trend and set up a grid bot for me',
   'trading-bot.ai.prompt2': 'Check ETH recent price action and create a DCA strategy',
   'trading-bot.ai.prompt3': 'Analyze SOL trend and set up a trend following bot',
   'trading-bot.ai.prompt4': 'BTC is dipping recently, help me buy the dip gradually',
-  'trading-bot.ai.inputPlaceholder': 'Describe your trading needs. AI will fetch real-time market data for analysis, e.g. Analyze BTC trend and set up a grid bot...',
+  'trading-bot.ai.inputPlaceholder':
+    'Describe your trading needs. AI will fetch real-time market data for analysis, e.g. Analyze BTC trend and set up a grid bot...',
   'trading-bot.ai.inputHint': 'Ctrl+Enter to send',
   'trading-bot.ai.generate': 'AI Analyze',
   'trading-bot.ai.analyzing': 'AI is analyzing your needs and generating optimal configuration...',
@@ -372,7 +391,8 @@ const locale = {
   'menu.dashboard.monitor': 'Monitor',
   'menu.dashboard.workplace': 'Workplace',
   'aiAssetAnalysis.title': 'AI Asset Analysis',
-  'aiAssetAnalysis.subtitle': 'Unify portfolio monitoring, instant analysis, and scheduled tasks into one smooth workflow.',
+  'aiAssetAnalysis.subtitle':
+    'Unify portfolio monitoring, instant analysis, and scheduled tasks into one smooth workflow.',
   'aiAssetAnalysis.actions.quickAnalysis': 'Start Analysis Now',
   'aiAssetAnalysis.actions.monitorTasks': 'Manage Monitor Tasks',
   'aiAssetAnalysis.actions.openStandalone': 'Open Standalone Page',
@@ -427,17 +447,20 @@ const locale = {
   'aiAssetAnalysis.batch.deselectAll': 'Deselect All',
   'aiAssetAnalysis.batch.schedule': 'Batch Schedule',
   'aiAssetAnalysis.batch.scheduleTitle': 'Create Batch Scheduled Analysis',
-  'aiAssetAnalysis.batch.scheduleDesc': 'Will create scheduled AI analysis tasks for {count} selected symbols. Reports will be auto-generated and pushed on schedule.',
+  'aiAssetAnalysis.batch.scheduleDesc':
+    'Will create scheduled AI analysis tasks for {count} selected symbols. Reports will be auto-generated and pushed on schedule.',
   'aiAssetAnalysis.batch.intervalLabel': 'Analysis Interval',
   'aiAssetAnalysis.batch.interval1h': 'Every 1 hour',
   'aiAssetAnalysis.batch.interval4h': 'Every 4 hours',
   'aiAssetAnalysis.batch.interval12h': 'Every 12 hours',
   'aiAssetAnalysis.batch.interval24h': 'Every 24 hours',
   'aiAssetAnalysis.batch.notifyLabel': 'Notification Channels (push after analysis)',
-  'aiAssetAnalysis.batch.scheduleTip': 'Tasks start automatically once created. You can pause/resume them anytime from the watchlist.',
+  'aiAssetAnalysis.batch.scheduleTip':
+    'Tasks start automatically once created. You can pause/resume them anytime from the watchlist.',
   'aiAssetAnalysis.batch.done': 'Batch scheduled tasks created',
   'aiAssetAnalysis.placeholder.title': 'AI Analysis Engine',
-  'aiAssetAnalysis.placeholder.subtitle': 'Multi-source data driven · Institutional-grade insights · Real-time market pulse',
+  'aiAssetAnalysis.placeholder.subtitle':
+    'Multi-source data driven · Institutional-grade insights · Real-time market pulse',
   'aiAssetAnalysis.placeholder.feature1': 'Multi-horizon Outlook',
   'aiAssetAnalysis.placeholder.feature1Desc': 'Blends 4 timeframe AI consensus',
   'aiAssetAnalysis.placeholder.feature2': 'Pro Indicator Matrix',
@@ -448,7 +471,8 @@ const locale = {
   'fastAnalysis.multiPeriodTitle': 'Multi-horizon Forecast',
   'fastAnalysis.technicalIndicatorsTitle': 'Pro Indicator Matrix',
   'aiAssetAnalysis.tabLead.quick': 'Best for ad-hoc decisions: select a symbol and analyze immediately.',
-  'aiAssetAnalysis.tabLead.monitor': 'Best for continuous tracking: maintain positions and set monitor ranges/frequency.',
+  'aiAssetAnalysis.tabLead.monitor':
+    'Best for continuous tracking: maintain positions and set monitor ranges/frequency.',
   // AI Asset Analysis - Performance Stats
   'aiAssetAnalysis.stats.totalAnalyses': 'Total Analyses',
   'aiAssetAnalysis.stats.accuracy': 'Accuracy',
@@ -492,7 +516,8 @@ const locale = {
   // AI Asset Analysis - Portfolio Checkup
   'aiAssetAnalysis.checkup.title': 'Portfolio Checkup',
   'aiAssetAnalysis.checkup.btn': 'Checkup',
-  'aiAssetAnalysis.checkup.desc': 'Run AI analysis on all positions in your portfolio to quickly understand the current status and get recommendations for each asset.',
+  'aiAssetAnalysis.checkup.desc':
+    'Run AI analysis on all positions in your portfolio to quickly understand the current status and get recommendations for each asset.',
   'aiAssetAnalysis.checkup.start': 'Start Checkup',
   'aiAssetAnalysis.checkup.progress': 'Analyzing {current}/{total}...',
   'aiAssetAnalysis.checkup.noPositions': 'No positions in your portfolio. Please add assets first.',
@@ -627,7 +652,8 @@ const locale = {
   'user.login.email.send-success': 'Verification code sent successfully, please check your email',
   'user.login.sms.send-success': 'Verification code sent successfully, please check your SMS',
   'user.initialPassword.title': 'Change your initial password',
-  'user.initialPassword.content': 'You are the first system administrator and still use the default deployment password (e.g. 123456). Please change it in Profile for security. This reminder stops after you update your password. (Other admin accounts are not affected.)',
+  'user.initialPassword.content':
+    'You are the first system administrator and still use the default deployment password (e.g. 123456). Please change it in Profile for security. This reminder stops after you update your password. (Other admin accounts are not affected.)',
   'user.initialPassword.goChange': 'Change password',
 
   'user.login.remember-me': 'Remember me',
@@ -638,12 +664,14 @@ const locale = {
   'user.register.register': 'Register',
   'user.register.email.placeholder': 'Email',
   'user.register.password.placeholder': 'Password ',
-  'user.register.password.popover-message': 'Please enter at least 6 characters. Please do not use passwords that are easy to guess. ',
+  'user.register.password.popover-message':
+    'Please enter at least 6 characters. Please do not use passwords that are easy to guess. ',
   'user.register.confirm-password.placeholder': 'Confirm password',
   'user.register.get-verification-code': 'Get code',
   'user.register.sign-in': 'Already have an account?',
   'user.register-result.msg': 'Account：registered at {email}',
-  'user.register-result.activation-email': 'The activation email has been sent to your email address and is valid for 24 hours. Please log in to the email in time and click on the link in the email to activate the account.',
+  'user.register-result.activation-email':
+    'The activation email has been sent to your email address and is valid for 24 hours. Please log in to the email in time and click on the link in the email to activate the account.',
   'user.register-result.back-home': 'Back to home',
   'user.register-result.view-mailbox': 'View mailbox',
   'user.email.required': 'Please enter your email!',
@@ -661,7 +689,8 @@ const locale = {
   'user.phone-number.wrong-format': 'Please enter a valid phone number',
   'user.verification-code.required': 'Please enter the verification code!',
   'user.captcha.required': 'Please enter captcha!',
-  'user.login.infos': 'QuantDinger is an AI multi-agent stock analysis tool that does not have securities investment consulting qualifications. All analysis results, scores, and reference opinions on the platform are automatically generated by AI based on historical data, and are only for learning, research, and technical exchanges, and do not constitute any investment advice or decision-making basis. Stock investment involves market risk, liquidity risk, policy risk and other risks, which may lead to losses of principal. Users should make independent decisions based on their risk tolerance capacity, and bear the consequences of any investment behavior and its results using this tool. Market risk, investment needs to be cautious.',
+  'user.login.infos':
+    'QuantDinger is an AI multi-agent stock analysis tool that does not have securities investment consulting qualifications. All analysis results, scores, and reference opinions on the platform are automatically generated by AI based on historical data, and are only for learning, research, and technical exchanges, and do not constitute any investment advice or decision-making basis. Stock investment involves market risk, liquidity risk, policy risk and other risks, which may lead to losses of principal. Users should make independent decisions based on their risk tolerance capacity, and bear the consequences of any investment behavior and its results using this tool. Market risk, investment needs to be cautious.',
   'user.login.tab-login-web3': 'Web3 Login',
   'user.login.web3.tip': 'Sign in with your wallet via signature',
   'user.login.web3.connect': 'Connect wallet and login',
@@ -685,11 +714,13 @@ const locale = {
   'user.login.legal.collapse': 'Hide Legal Disclaimer',
   'user.login.legal.agree': 'I have read and agree to the Legal Disclaimer',
   'user.login.legal.required': 'Please read and check the Legal Disclaimer first',
-  'user.login.legal.content': 'QuantDinger is an AI multi-agent stock analysis tool and does not provide investment advice. All analysis results, scores, and references are generated by AI based on historical data and are for learning, research, and technical exchange only. They do not constitute investment advice or a basis for decision-making. Stock investments involve market, liquidity, and policy risks, which may lead to loss of principal. Users should make independent decisions based on their risk tolerance and bear the consequences of any investment behavior and results using this tool.',
+  'user.login.legal.content':
+    'QuantDinger is an AI multi-agent stock analysis tool and does not provide investment advice. All analysis results, scores, and references are generated by AI based on historical data and are for learning, research, and technical exchange only. They do not constitute investment advice or a basis for decision-making. Stock investments involve market, liquidity, and policy risks, which may lead to loss of principal. Users should make independent decisions based on their risk tolerance and bear the consequences of any investment behavior and results using this tool.',
   'user.login.privacy.title': 'Privacy Policy',
   'user.login.privacy.view': 'View Privacy Policy',
   'user.login.privacy.collapse': 'Hide Privacy Policy',
-  'user.login.privacy.content': 'We value your privacy and data protection. (1) Scope of collection: We only collect information necessary to provide the service (e.g., email, mobile number, country code, Web3 wallet address) and limited logs/device data. (2) Purpose of use: Account login and security verification, feature provisioning, troubleshooting, and compliance requirements. (3) Storage & security: Data is encrypted and access-controlled to prevent unauthorized access, disclosure, or loss. (4) Sharing & third parties: We do not share personal data with third parties except as required by law or to deliver the service; where third-party services are involved (e.g., wallets, SMS providers), processing is limited to the minimum scope required. (5) Cookies/local storage: Used for session and login state (e.g., tokens, PHPSESSID). You may clear or restrict them in your browser. (6) Your rights: You may exercise rights of access, correction, deletion, and consent withdrawal as permitted by law. (7) Changes & notices: We will provide prominent notice for updates. Continued use indicates that you have read and agreed to the updated terms. If you do not agree, please stop using the service and contact us.',
+  'user.login.privacy.content':
+    'We value your privacy and data protection. (1) Scope of collection: We only collect information necessary to provide the service (e.g., email, mobile number, country code, Web3 wallet address) and limited logs/device data. (2) Purpose of use: Account login and security verification, feature provisioning, troubleshooting, and compliance requirements. (3) Storage & security: Data is encrypted and access-controlled to prevent unauthorized access, disclosure, or loss. (4) Sharing & third parties: We do not share personal data with third parties except as required by law or to deliver the service; where third-party services are involved (e.g., wallets, SMS providers), processing is limited to the minimum scope required. (5) Cookies/local storage: Used for session and login state (e.g., tokens, PHPSESSID). You may clear or restrict them in your browser. (6) Your rights: You may exercise rights of access, correction, deletion, and consent withdrawal as permitted by law. (7) Changes & notices: We will provide prominent notice for updates. Continued use indicates that you have read and agreed to the updated terms. If you do not agree, please stop using the service and contact us.',
 
   // Login page additions
   'user.login.username': 'Username',
@@ -775,7 +806,8 @@ const locale = {
   'user.security.retry': 'Retry',
 
   // Profile - change password
-  'profile.passwordHintNew': 'For security, email verification is required to change password. Password must be at least 8 characters with uppercase, lowercase, and number.',
+  'profile.passwordHintNew':
+    'For security, email verification is required to change password. Password must be at least 8 characters with uppercase, lowercase, and number.',
   'profile.verificationCode': 'Verification Code',
   'profile.codeRequired': 'Please enter verification code',
   'profile.codePlaceholder': 'Enter verification code',
@@ -889,12 +921,14 @@ const locale = {
   'wallet.moneyLogType.income': 'Income',
   'wallet.moneyLogType.commission': 'Commission',
   'wallet.web3Address.required': 'Please fill in Web3 wallet address first',
-  'wallet.web3Address.requiredDescription': 'You need to bind your Web3 wallet address before recharging to receive deposits',
+  'wallet.web3Address.requiredDescription':
+    'You need to bind your Web3 wallet address before recharging to receive deposits',
   'wallet.web3Address.placeholder': 'Please enter your Web3 wallet address (starts with 0x)',
   'wallet.web3Address.save': 'Save Wallet Address',
   'wallet.web3Address.saveSuccess': 'Wallet address saved successfully',
   'wallet.web3Address.saveFailed': 'Failed to save wallet address',
-  'wallet.web3Address.invalidFormat': 'Please enter a valid Web3 wallet address (Ethereum format: 42 characters starting with 0x, or TRC20 format: 34 characters starting with T)',
+  'wallet.web3Address.invalidFormat':
+    'Please enter a valid Web3 wallet address (Ethereum format: 42 characters starting with 0x, or TRC20 format: 34 characters starting with T)',
   'wallet.selectCoin': 'Select Coin',
   'wallet.selectChain': 'Select Chain',
   'wallet.chain.eth': 'ETH(ERC20)',
@@ -941,9 +975,11 @@ const locale = {
   'dashboard.analysis.tab.debate': 'Debate',
   'dashboard.analysis.tab.decision': 'Final Decision',
   'dashboard.analysis.empty.selectSymbol': 'Select Symbol to Start Analysis',
-  'dashboard.analysis.empty.selectSymbolDesc': 'Select from watchlist or enter symbol code to get multi-dimensional AI analysis report',
+  'dashboard.analysis.empty.selectSymbolDesc':
+    'Select from watchlist or enter symbol code to get multi-dimensional AI analysis report',
   'dashboard.analysis.empty.startAnalysis': 'Click "Start Analysis" button to perform multi-dimensional analysis',
-  'dashboard.analysis.empty.startAnalysisDesc': 'We will provide comprehensive analysis from multiple dimensions including fundamental, technical, news, sentiment and risk',
+  'dashboard.analysis.empty.startAnalysisDesc':
+    'We will provide comprehensive analysis from multiple dimensions including fundamental, technical, news, sentiment and risk',
   'dashboard.analysis.empty.noData': 'No {type} analysis data available, please perform comprehensive analysis first',
   'dashboard.analysis.empty.noWatchlist': 'No watchlist items',
   'dashboard.analysis.empty.noHistory': 'No history records',
@@ -1015,8 +1051,10 @@ const locale = {
   'dashboard.analysis.modal.addStock.symbolPlaceholder': 'e.g.: AAPL, TSLA, GOOGL, 000001, BTC',
   'dashboard.analysis.modal.addStock.symbolRequired': 'Please enter symbol code',
   'dashboard.analysis.modal.addStock.searchPlaceholder': 'Search symbol code or name',
-  'dashboard.analysis.modal.addStock.searchOrInputPlaceholder': 'Search or enter symbol code (e.g.: AAPL, BTC/USDT, EUR/USD)',
-  'dashboard.analysis.modal.addStock.searchOrInputHint': 'Search in database or enter code directly (name will be fetched automatically)',
+  'dashboard.analysis.modal.addStock.searchOrInputPlaceholder':
+    'Search or enter symbol code (e.g.: AAPL, BTC/USDT, EUR/USD)',
+  'dashboard.analysis.modal.addStock.searchOrInputHint':
+    'Search in database or enter code directly (name will be fetched automatically)',
   'dashboard.analysis.modal.addStock.search': 'Search',
   'dashboard.analysis.modal.addStock.searchResults': 'Search Results',
   'dashboard.analysis.modal.addStock.hotSymbols': 'Hot Symbols',
@@ -1097,7 +1135,8 @@ const locale = {
   'dashboard.indicator.selectSymbol': 'Select or enter symbol code',
   'dashboard.indicator.emptyWatchlistHint': 'No watchlist, please add first',
   'dashboard.indicator.hint.selectSymbol': 'Please select a symbol to start analysis',
-  'dashboard.indicator.hint.selectSymbolDesc': 'Select or enter stock code in the search box above to view K-line chart and technical indicators',
+  'dashboard.indicator.hint.selectSymbolDesc':
+    'Select or enter stock code in the search box above to view K-line chart and technical indicators',
   'dashboard.indicator.retry': 'Retry',
   'dashboard.indicator.panel.title': 'Technical Indicators',
   'dashboard.indicator.panel.realtimeOn': 'Turn off real-time update',
@@ -1128,7 +1167,8 @@ const locale = {
   'dashboard.indicator.expiry.expired': 'Expired: {date}',
   'dashboard.indicator.expiry.expiresOn': 'Expires: {date}',
   'dashboard.indicator.delete.confirmTitle': 'Confirm Deletion',
-  'dashboard.indicator.delete.confirmContent': 'Are you sure you want to delete indicator "{name}"? This action cannot be undone.',
+  'dashboard.indicator.delete.confirmContent':
+    'Are you sure you want to delete indicator "{name}"? This action cannot be undone.',
   'dashboard.indicator.delete.confirmOk': 'Delete',
   'dashboard.indicator.delete.confirmCancel': 'Cancel',
   'dashboard.indicator.delete.success': 'Deleted successfully',
@@ -1137,13 +1177,15 @@ const locale = {
   'dashboard.indicator.save.failed': 'Failed to save',
   'dashboard.indicator.publish.title': 'Publish to Community',
   'dashboard.indicator.publish.editTitle': 'Manage Publication',
-  'dashboard.indicator.publish.hint': 'After publishing, other users can view and purchase your indicator in the "Indicator Community"',
+  'dashboard.indicator.publish.hint':
+    'After publishing, other users can view and purchase your indicator in the "Indicator Community"',
   'dashboard.indicator.publish.pricingType': 'Pricing Type',
   'dashboard.indicator.publish.free': 'Free',
   'dashboard.indicator.publish.paid': 'Paid',
   'dashboard.indicator.publish.price': 'Price',
   'dashboard.indicator.publish.description': 'Description',
-  'dashboard.indicator.publish.descriptionPlaceholder': 'Enter a detailed description to help others understand your indicator...',
+  'dashboard.indicator.publish.descriptionPlaceholder':
+    'Enter a detailed description to help others understand your indicator...',
   'dashboard.indicator.publish.confirm': 'Publish',
   'dashboard.indicator.publish.update': 'Update',
   'dashboard.indicator.publish.unpublish': 'Unpublish',
@@ -1152,7 +1194,8 @@ const locale = {
   'dashboard.indicator.publish.unpublishSuccess': 'Unpublished successfully',
   'dashboard.indicator.publish.unpublishFailed': 'Failed to unpublish',
   'dashboard.indicator.error.loadWatchlistFailed': 'Failed to load watchlist',
-  'dashboard.indicator.error.chartNotReady': 'Chart component not initialized, please select a symbol and wait for the chart to load',
+  'dashboard.indicator.error.chartNotReady':
+    'Chart component not initialized, please select a symbol and wait for the chart to load',
   'dashboard.indicator.error.chartMethodNotReady': 'Chart component method not ready, please try again later',
   'dashboard.indicator.error.chartExecuteNotReady': 'Chart component execute method not ready, please try again later',
   'dashboard.indicator.error.parseFailed': 'Failed to parse Python code',
@@ -1162,13 +1205,16 @@ const locale = {
   'dashboard.indicator.error.pleaseLogin': 'Please login first',
   'dashboard.indicator.error.loadDataFailed': 'Failed to load data',
   'dashboard.indicator.error.loadDataFailedDesc': 'Please check network connection',
-  'dashboard.indicator.error.tiingoSubscription': 'Forex 1-minute data requires Tiingo paid subscription. Please use other timeframes or upgrade your subscription.',
-  'dashboard.indicator.error.pythonEngineFailed': 'Python engine failed to load, indicator functionality may be unavailable',
+  'dashboard.indicator.error.tiingoSubscription':
+    'Forex 1-minute data requires Tiingo paid subscription. Please use other timeframes or upgrade your subscription.',
+  'dashboard.indicator.error.pythonEngineFailed':
+    'Python engine failed to load, indicator functionality may be unavailable',
   'dashboard.indicator.error.chartInitFailed': 'Chart initialization failed',
   'dashboard.indicator.warning.enterCode': 'Please enter indicator code first',
   'dashboard.indicator.warning.chartNotInitialized': 'Chart not initialized, cannot use drawing tools',
   'dashboard.indicator.warning.pyodideLoadFailed': 'Python Engine Load Failed',
-  'dashboard.indicator.warning.pyodideLoadFailedDesc': 'Your current region or network environment cannot use this feature',
+  'dashboard.indicator.warning.pyodideLoadFailedDesc':
+    'Your current region or network environment cannot use this feature',
   'dashboard.indicator.success.runIndicator': 'Indicator ran successfully',
   'dashboard.indicator.success.clearDrawings': 'All drawings cleared',
   'dashboard.indicator.sma': 'SMA (Moving Average Group)',
@@ -1240,7 +1286,8 @@ const locale = {
   'dashboard.indicator.editor.cancel': 'Cancel',
   'dashboard.indicator.editor.unnamed': 'Unnamed Indicator',
   'dashboard.indicator.editor.publishToCommunity': 'Publish to Community',
-  'dashboard.indicator.editor.publishToCommunityHint': 'After publishing, other users can view and use your indicator in the community',
+  'dashboard.indicator.editor.publishToCommunityHint':
+    'After publishing, other users can view and use your indicator in the community',
   'dashboard.indicator.editor.indicatorType': 'Indicator Type',
   'dashboard.indicator.editor.indicatorTypeRequired': 'Please select indicator type',
   'dashboard.indicator.editor.indicatorTypePlaceholder': 'Please select indicator type',
@@ -1254,12 +1301,17 @@ const locale = {
   'dashboard.indicator.editor.price': 'Price',
   'dashboard.indicator.editor.priceRequired': 'Please enter price',
   'dashboard.indicator.editor.pricePlaceholder': 'Please enter price',
-  'dashboard.indicator.editor.pricingHint': 'Free indicators (price 0) will still receive platform rewards based on usage and ratings (QDT)',
+  'dashboard.indicator.editor.pricingHint':
+    'Free indicators (price 0) will still receive platform rewards based on usage and ratings (QDT)',
   'dashboard.indicator.editor.aiGenerate': 'AI Generate',
-  'dashboard.indicator.editor.aiPromptPlaceholder': 'Describe your signal logic (buy/sell only) and plots. Position sizing, risk, scaling, fees/slippage are configured in backtest.',
-  'dashboard.indicator.boundary.message': 'Note: The indicator script only computes plots + buy/sell signals. Position sizing, risk, scaling, fees/slippage belong to execution config.',
-  'dashboard.indicator.boundary.indicatorRule': "Keep the script to buy/sell only (and set df['buy']/df['sell']). Do NOT implement position management, TP/SL, scaling in the script.",
-  'dashboard.indicator.boundary.backtestRule': 'Rule: If a bar has a main signal (buy/sell → open/close/reverse), scaling in/out is skipped on the same bar.',
+  'dashboard.indicator.editor.aiPromptPlaceholder':
+    'Describe your signal logic (buy/sell only) and plots. Position sizing, risk, scaling, fees/slippage are configured in backtest.',
+  'dashboard.indicator.boundary.message':
+    'Note: The indicator script only computes plots + buy/sell signals. Position sizing, risk, scaling, fees/slippage belong to execution config.',
+  'dashboard.indicator.boundary.indicatorRule':
+    "Keep the script to buy/sell only (and set df['buy']/df['sell']). Do NOT implement position management, TP/SL, scaling in the script.",
+  'dashboard.indicator.boundary.backtestRule':
+    'Rule: If a bar has a main signal (buy/sell → open/close/reverse), scaling in/out is skipped on the same bar.',
   'dashboard.indicator.editor.aiGenerateBtn': 'AI Generate Code',
   'dashboard.indicator.editor.aiPromptRequired': 'Please enter your idea',
   'dashboard.indicator.editor.aiGenerateSuccess': 'Code generated successfully',
@@ -1269,37 +1321,53 @@ const locale = {
   'dashboard.indicator.editor.verifyCodeFailed': 'Verification Failed',
   'dashboard.indicator.editor.verifyCodeEmpty': 'Code cannot be empty',
   'dashboard.indicator.guide.title': 'Python Indicator & Strategy Development Guide',
-  'dashboard.indicator.guide.intro': 'This platform supports writing custom technical indicators and trading signals using Python. The system includes built-in pandas and numpy data analysis libraries. You can use standard DataFrame operations to process K-line data and draw charts or mark buy/sell signals.',
+  'dashboard.indicator.guide.intro':
+    'This platform supports writing custom technical indicators and trading signals using Python. The system includes built-in pandas and numpy data analysis libraries. You can use standard DataFrame operations to process K-line data and draw charts or mark buy/sell signals.',
   'dashboard.indicator.guide.section1.title': '1. Runtime Environment & Predefined Variables',
   'dashboard.indicator.guide.section1.env': 'Your code runs in a browser-based Python environment (Pyodide).',
   'dashboard.indicator.guide.section1.libs': 'Pre-installed Libraries',
-  'dashboard.indicator.guide.section1.libsDesc': 'The following libraries are imported by default, no need to import again:',
-  'dashboard.indicator.guide.section1.libsList': '<code>pandas</code> (pd), <code>numpy</code> (np), <code>math</code>, <code>json</code>',
+  'dashboard.indicator.guide.section1.libsDesc':
+    'The following libraries are imported by default, no need to import again:',
+  'dashboard.indicator.guide.section1.libsList':
+    '<code>pandas</code> (pd), <code>numpy</code> (np), <code>math</code>, <code>json</code>',
   'dashboard.indicator.guide.section1.data': 'Input Data: df',
-  'dashboard.indicator.guide.section1.dataDesc': 'The system automatically converts current K-line data into a Pandas DataFrame object, variable name is <code>df</code>.',
+  'dashboard.indicator.guide.section1.dataDesc':
+    'The system automatically converts current K-line data into a Pandas DataFrame object, variable name is <code>df</code>.',
   'dashboard.indicator.guide.section1.dataColumns': '<code>df</code> contains the following columns (all float type):',
-  'dashboard.indicator.guide.section1.dataColumnsList': '<code>time</code> (timestamp, seconds), <code>open</code>, <code>high</code>, <code>low</code>, <code>close</code>, <code>volume</code>',
-  'dashboard.indicator.guide.section1.dataNote': 'Data index is arranged from old to new (0 is the earliest data, last row is the latest data).',
-  'dashboard.indicator.guide.section1.dataIndex': 'Important: df index is timestamp (DatetimeIndex), please preserve the index, avoid using <code>.values</code> which loses the index.',
+  'dashboard.indicator.guide.section1.dataColumnsList':
+    '<code>time</code> (timestamp, seconds), <code>open</code>, <code>high</code>, <code>low</code>, <code>close</code>, <code>volume</code>',
+  'dashboard.indicator.guide.section1.dataNote':
+    'Data index is arranged from old to new (0 is the earliest data, last row is the latest data).',
+  'dashboard.indicator.guide.section1.dataIndex':
+    'Important: df index is timestamp (DatetimeIndex), please preserve the index, avoid using <code>.values</code> which loses the index.',
   'dashboard.indicator.guide.section2.title': '2. Parameter Definition',
-  'dashboard.indicator.guide.section2.desc': 'You can define variables as parameters at the beginning of your code. The system will try to parse statements like <code>variable = value</code> as adjustable parameters.',
+  'dashboard.indicator.guide.section2.desc':
+    'You can define variables as parameters at the beginning of your code. The system will try to parse statements like <code>variable = value</code> as adjustable parameters.',
   'dashboard.indicator.guide.section2.example': 'Parameter Example',
   'dashboard.indicator.guide.section2.exampleCode': '<code>span = 20</code> or <code>multiplier = 2.0</code>',
   'dashboard.indicator.guide.section3.title': '3. Backtest Signal Setup (Important!)',
-  'dashboard.indicator.guide.section3.desc': 'If you want your indicator to support backtesting, you <strong>must</strong> set the following two columns in your code:',
+  'dashboard.indicator.guide.section3.desc':
+    'If you want your indicator to support backtesting, you <strong>must</strong> set the following two columns in your code:',
   'dashboard.indicator.guide.section3.backtestRequired': '<strong>Required for Backtesting:</strong>',
-  'dashboard.indicator.guide.section3.backtestBuySignal': "<code>df['buy_signal']</code> - Boolean Series, True indicates buy signal",
-  'dashboard.indicator.guide.section3.backtestSellSignal': "<code>df['sell_signal']</code> - Boolean Series, True indicates sell signal",
+  'dashboard.indicator.guide.section3.backtestBuySignal':
+    "<code>df['buy_signal']</code> - Boolean Series, True indicates buy signal",
+  'dashboard.indicator.guide.section3.backtestSellSignal':
+    "<code>df['sell_signal']</code> - Boolean Series, True indicates sell signal",
   'dashboard.indicator.guide.section3.backtestExample': 'Example:',
-  'dashboard.indicator.guide.section3.backtestExampleCode': "<code>df['buy_signal'] = condition_buy</code><br/><code>df['sell_signal'] = condition_sell</code>",
-  'dashboard.indicator.guide.section3.backtestNote': 'Note: Even if you only set <code>output.signals</code> for chart display, you must set these two columns to enable backtesting.',
+  'dashboard.indicator.guide.section3.backtestExampleCode':
+    "<code>df['buy_signal'] = condition_buy</code><br/><code>df['sell_signal'] = condition_sell</code>",
+  'dashboard.indicator.guide.section3.backtestNote':
+    'Note: Even if you only set <code>output.signals</code> for chart display, you must set these two columns to enable backtesting.',
   'dashboard.indicator.guide.section4.title': '4. Output Requirements: output',
-  'dashboard.indicator.guide.section4.desc': 'At the end of code execution, you must define a dictionary named <code>output</code> to tell the chart how to display results.',
+  'dashboard.indicator.guide.section4.desc':
+    'At the end of code execution, you must define a dictionary named <code>output</code> to tell the chart how to display results.',
   'dashboard.indicator.guide.section4.fields': 'The <code>output</code> dictionary contains the following fields:',
   'dashboard.indicator.guide.section4.plots': '<code>plots</code> - For drawing lines (e.g., moving averages, RSI)',
-  'dashboard.indicator.guide.section4.signals': '<code>signals</code> - For marking buy/sell signals (e.g., arrows, labels)',
+  'dashboard.indicator.guide.section4.signals':
+    '<code>signals</code> - For marking buy/sell signals (e.g., arrows, labels)',
   'dashboard.indicator.guide.section4.name': '<code>name</code> - Indicator name (optional)',
-  'dashboard.indicator.guide.section4.calculatedVars': '<code>calculatedVars</code> - Calculated variables (optional, for displaying additional information)',
+  'dashboard.indicator.guide.section4.calculatedVars':
+    '<code>calculatedVars</code> - Calculated variables (optional, for displaying additional information)',
   'dashboard.indicator.guide.section5.title': '5. Plot Configuration (Plots)',
   'dashboard.indicator.guide.section5.desc': 'Each object in the <code>plots</code> list represents a line.',
   'dashboard.indicator.guide.section5.table.field': 'Field',
@@ -1309,36 +1377,48 @@ const locale = {
   'dashboard.indicator.guide.section5.table.requiredNo': 'No',
   'dashboard.indicator.guide.section5.table.desc': 'Description',
   'dashboard.indicator.guide.section5.table.name': 'The name of the indicator line, displayed in the legend',
-  'dashboard.indicator.guide.section5.table.data': 'Data list, length must match the number of rows in df. Recommended to use <code>series.tolist()</code>',
-  'dashboard.indicator.guide.section5.table.color': "Line color (Hex format, e.g. '#ff0000'). If not filled, the system will automatically assign",
+  'dashboard.indicator.guide.section5.table.data':
+    'Data list, length must match the number of rows in df. Recommended to use <code>series.tolist()</code>',
+  'dashboard.indicator.guide.section5.table.color':
+    "Line color (Hex format, e.g. '#ff0000'). If not filled, the system will automatically assign",
   'dashboard.indicator.guide.section5.table.typeDesc': "Chart type, default is 'line'",
-  'dashboard.indicator.guide.section5.table.overlay': '<strong>Important.</strong> True means display on main chart (with K-line), False means display on sub-chart (independent area)',
+  'dashboard.indicator.guide.section5.table.overlay':
+    '<strong>Important.</strong> True means display on main chart (with K-line), False means display on sub-chart (independent area)',
   'dashboard.indicator.guide.section5.example': 'Example: Draw Simple Moving Average (SMA)',
   'dashboard.indicator.guide.section5.exampleCalc': 'Calculate SMA',
   'dashboard.indicator.guide.section5.exampleOutput': 'Construct Output',
   'dashboard.indicator.guide.section5.exampleOverlay': 'Display on main chart',
   'dashboard.indicator.guide.section6.title': '6. Signal Markers (Signals)',
-  'dashboard.indicator.guide.section6.desc': "<code>signals</code> are used to mark buy/sell points on specific K-lines through icons or text. <strong>Note:</strong> This is only for chart display. The backtest system uses <code>df['buy_signal']</code> and <code>df['sell_signal']</code>.",
-  'dashboard.indicator.guide.section6.table.type': "Signal type: 'buy' (buy, marked below K-line) or 'sell' (sell, marked above K-line)",
-  'dashboard.indicator.guide.section6.table.data': 'Signal data list. Fill price value at signal positions, fill None (or np.nan) at non-signal positions',
+  'dashboard.indicator.guide.section6.desc':
+    "<code>signals</code> are used to mark buy/sell points on specific K-lines through icons or text. <strong>Note:</strong> This is only for chart display. The backtest system uses <code>df['buy_signal']</code> and <code>df['sell_signal']</code>.",
+  'dashboard.indicator.guide.section6.table.type':
+    "Signal type: 'buy' (buy, marked below K-line) or 'sell' (sell, marked above K-line)",
+  'dashboard.indicator.guide.section6.table.data':
+    'Signal data list. Fill price value at signal positions, fill None (or np.nan) at non-signal positions',
   'dashboard.indicator.guide.section6.table.text': 'Text displayed on the label (e.g. "B", "S", "Buy", "Sell")',
   'dashboard.indicator.guide.section6.table.color': 'Marker color',
   'dashboard.indicator.guide.section6.hint': 'The system automatically handles positioning.',
-  'dashboard.indicator.guide.section6.buy': 'Markers will be automatically positioned below the Low of the current K-line',
-  'dashboard.indicator.guide.section6.sell': 'Markers will be automatically positioned above the High of the current K-line',
+  'dashboard.indicator.guide.section6.buy':
+    'Markers will be automatically positioned below the Low of the current K-line',
+  'dashboard.indicator.guide.section6.sell':
+    'Markers will be automatically positioned above the High of the current K-line',
   'dashboard.indicator.guide.section6.example': 'Example: Draw Buy/Sell Signals',
   'dashboard.indicator.guide.section6.exampleInit': 'Initialize signal list, fill all with None',
-  'dashboard.indicator.guide.section6.exampleLogic': 'Simple logic: mark buy when close price is greater than open price',
+  'dashboard.indicator.guide.section6.exampleLogic':
+    'Simple logic: mark buy when close price is greater than open price',
   'dashboard.indicator.guide.section6.exampleNote': 'In actual logic, please use loops or vectorized operations',
   'dashboard.indicator.guide.section6.examplePrice': 'Record price',
   'dashboard.indicator.guide.section6.exampleText': 'Buy',
   'dashboard.indicator.guide.section7.title': '7. Complete Code Examples',
   'dashboard.indicator.guide.section7.exampleA': 'Example A: Dual EMA Strategy (Supports Backtesting)',
-  'dashboard.indicator.guide.section7.exampleACode': "# 1. Calculate indicators<br/>df['ema_fast'] = df['close'].ewm(span=5, adjust=False).mean()<br/>df['ema_slow'] = df['close'].ewm(span=13, adjust=False).mean()<br/><br/># 2. Calculate crossover signals<br/>cross_up = (df['ema_fast'] > df['ema_slow']) & (df['ema_fast'].shift(1) <= df['ema_slow'].shift(1))<br/>cross_down = (df['ema_fast'] < df['ema_slow']) & (df['ema_fast'].shift(1) >= df['ema_slow'].shift(1))<br/><br/># 3. 【Important】Set NEW backtest signal columns (bool)<br/>df['open_long'] = cross_up<br/>df['close_long'] = cross_down<br/>df['open_short'] = cross_down<br/>df['close_short'] = cross_up<br/><br/># 4. Generate signal data for chart display<br/>buy_signals = [df['low'].iloc[i] * 0.995 if cross_up.iloc[i] else None for i in range(len(df))]<br/>sell_signals = [df['high'].iloc[i] * 1.005 if cross_down.iloc[i] else None for i in range(len(df))]<br/><br/># 5. Build output<br/>output = {<br/>  \"name\": \"Dual EMA Strategy\",<br/>  \"plots\": [<br/>    {\"name\": \"EMA 5\", \"data\": df['ema_fast'].tolist(), \"color\": \"#FF6B6B\", \"overlay\": True},<br/>    {\"name\": \"EMA 13\", \"data\": df['ema_slow'].tolist(), \"color\": \"#4ECDC4\", \"overlay\": True}<br/>  ],<br/>  \"signals\": [<br/>    {\"type\": \"buy\", \"text\": \"BUY\", \"data\": buy_signals, \"color\": \"#00E676\"},<br/>    {\"type\": \"sell\", \"text\": \"SELL\", \"data\": sell_signals, \"color\": \"#FF5252\"}<br/>  ]<br/>}",
+  'dashboard.indicator.guide.section7.exampleACode':
+    '# 1. Calculate indicators<br/>df[\'ema_fast\'] = df[\'close\'].ewm(span=5, adjust=False).mean()<br/>df[\'ema_slow\'] = df[\'close\'].ewm(span=13, adjust=False).mean()<br/><br/># 2. Calculate crossover signals<br/>cross_up = (df[\'ema_fast\'] > df[\'ema_slow\']) & (df[\'ema_fast\'].shift(1) <= df[\'ema_slow\'].shift(1))<br/>cross_down = (df[\'ema_fast\'] < df[\'ema_slow\']) & (df[\'ema_fast\'].shift(1) >= df[\'ema_slow\'].shift(1))<br/><br/># 3. 【Important】Set NEW backtest signal columns (bool)<br/>df[\'open_long\'] = cross_up<br/>df[\'close_long\'] = cross_down<br/>df[\'open_short\'] = cross_down<br/>df[\'close_short\'] = cross_up<br/><br/># 4. Generate signal data for chart display<br/>buy_signals = [df[\'low\'].iloc[i] * 0.995 if cross_up.iloc[i] else None for i in range(len(df))]<br/>sell_signals = [df[\'high\'].iloc[i] * 1.005 if cross_down.iloc[i] else None for i in range(len(df))]<br/><br/># 5. Build output<br/>output = {<br/>  "name": "Dual EMA Strategy",<br/>  "plots": [<br/>    {"name": "EMA 5", "data": df[\'ema_fast\'].tolist(), "color": "#FF6B6B", "overlay": True},<br/>    {"name": "EMA 13", "data": df[\'ema_slow\'].tolist(), "color": "#4ECDC4", "overlay": True}<br/>  ],<br/>  "signals": [<br/>    {"type": "buy", "text": "BUY", "data": buy_signals, "color": "#00E676"},<br/>    {"type": "sell", "text": "SELL", "data": sell_signals, "color": "#FF5252"}<br/>  ]<br/>}',
   'dashboard.indicator.guide.section7.exampleB': 'Example B: Bollinger Bands - Chart Display Only',
-  'dashboard.indicator.guide.section7.exampleBCode': "# Calculate Bollinger Bands (chart display only, no backtesting)<br/>length = 20<br/>mult = 2.0<br/>df['sma'] = df['close'].rolling(length).mean()<br/>df['std'] = df['close'].rolling(length).std()<br/>df['upper'] = df['sma'] + mult * df['std']<br/>df['lower'] = df['sma'] - mult * df['std']<br/><br/>output = {<br/>  \"name\": \"Bollinger Bands\",<br/>  \"plots\": [<br/>    {\"name\": \"Upper\", \"data\": df['upper'].tolist(), \"color\": \"#FF5252\", \"overlay\": True},<br/>    {\"name\": \"Middle\", \"data\": df['sma'].tolist(), \"color\": \"#2196F3\", \"overlay\": True},<br/>    {\"name\": \"Lower\", \"data\": df['lower'].tolist(), \"color\": \"#00E676\", \"overlay\": True}<br/>  ]<br/>}",
+  'dashboard.indicator.guide.section7.exampleBCode':
+    '# Calculate Bollinger Bands (chart display only, no backtesting)<br/>length = 20<br/>mult = 2.0<br/>df[\'sma\'] = df[\'close\'].rolling(length).mean()<br/>df[\'std\'] = df[\'close\'].rolling(length).std()<br/>df[\'upper\'] = df[\'sma\'] + mult * df[\'std\']<br/>df[\'lower\'] = df[\'sma\'] - mult * df[\'std\']<br/><br/>output = {<br/>  "name": "Bollinger Bands",<br/>  "plots": [<br/>    {"name": "Upper", "data": df[\'upper\'].tolist(), "color": "#FF5252", "overlay": True},<br/>    {"name": "Middle", "data": df[\'sma\'].tolist(), "color": "#2196F3", "overlay": True},<br/>    {"name": "Lower", "data": df[\'lower\'].tolist(), "color": "#00E676", "overlay": True}<br/>  ]<br/>}',
   'dashboard.indicator.guide.section7.exampleC': 'Example C: RSI Strategy (Supports Backtesting)',
-  'dashboard.indicator.guide.section7.exampleCCode': "# Calculate RSI<br/>delta = df['close'].diff()<br/>up = delta.clip(lower=0)<br/>down = -1 * delta.clip(upper=0)<br/>ema_up = up.ewm(com=13, adjust=False).mean()<br/>ema_down = down.ewm(com=13, adjust=False).mean()<br/>rs = ema_up / ema_down<br/>df['rsi'] = 100 - (100 / (1 + rs))<br/><br/># Generate trading signals<br/>buy_condition = df['rsi'] < 30  # Oversold buy<br/>sell_condition = df['rsi'] > 70  # Overbought sell<br/><br/># 【Important】Set NEW backtest signal columns (bool)<br/>df['open_long'] = buy_condition<br/>df['close_long'] = sell_condition<br/>df['open_short'] = sell_condition<br/>df['close_short'] = buy_condition<br/><br/># Generate chart signals<br/>buy_signals = [df['low'].iloc[i] * 0.995 if buy_condition.iloc[i] else None for i in range(len(df))]<br/>sell_signals = [df['high'].iloc[i] * 1.005 if sell_condition.iloc[i] else None for i in range(len(df))]<br/><br/>output = {<br/>  \"name\": \"RSI Strategy\",<br/>  \"plots\": [<br/>    {\"name\": \"RSI\", \"data\": df['rsi'].tolist(), \"color\": \"#9C27B0\", \"overlay\": False},<br/>    {\"name\": \"Overbought\", \"data\": [70] * len(df), \"color\": \"#FF5252\", \"style\": \"dashed\", \"overlay\": False},<br/>    {\"name\": \"Oversold\", \"data\": [30] * len(df), \"color\": \"#00E676\", \"style\": \"dashed\", \"overlay\": False}<br/>  ],<br/>  \"signals\": [<br/>    {\"type\": \"buy\", \"text\": \"BUY\", \"data\": buy_signals, \"color\": \"#00E676\"},<br/>    {\"type\": \"sell\", \"text\": \"SELL\", \"data\": sell_signals, \"color\": \"#FF5252\"}<br/>  ]<br/>}",
+  'dashboard.indicator.guide.section7.exampleCCode':
+    '# Calculate RSI<br/>delta = df[\'close\'].diff()<br/>up = delta.clip(lower=0)<br/>down = -1 * delta.clip(upper=0)<br/>ema_up = up.ewm(com=13, adjust=False).mean()<br/>ema_down = down.ewm(com=13, adjust=False).mean()<br/>rs = ema_up / ema_down<br/>df[\'rsi\'] = 100 - (100 / (1 + rs))<br/><br/># Generate trading signals<br/>buy_condition = df[\'rsi\'] < 30  # Oversold buy<br/>sell_condition = df[\'rsi\'] > 70  # Overbought sell<br/><br/># 【Important】Set NEW backtest signal columns (bool)<br/>df[\'open_long\'] = buy_condition<br/>df[\'close_long\'] = sell_condition<br/>df[\'open_short\'] = sell_condition<br/>df[\'close_short\'] = buy_condition<br/><br/># Generate chart signals<br/>buy_signals = [df[\'low\'].iloc[i] * 0.995 if buy_condition.iloc[i] else None for i in range(len(df))]<br/>sell_signals = [df[\'high\'].iloc[i] * 1.005 if sell_condition.iloc[i] else None for i in range(len(df))]<br/><br/>output = {<br/>  "name": "RSI Strategy",<br/>  "plots": [<br/>    {"name": "RSI", "data": df[\'rsi\'].tolist(), "color": "#9C27B0", "overlay": False},<br/>    {"name": "Overbought", "data": [70] * len(df), "color": "#FF5252", "style": "dashed", "overlay": False},<br/>    {"name": "Oversold", "data": [30] * len(df), "color": "#00E676", "style": "dashed", "overlay": False}<br/>  ],<br/>  "signals": [<br/>    {"type": "buy", "text": "BUY", "data": buy_signals, "color": "#00E676"},<br/>    {"type": "sell", "text": "SELL", "data": sell_signals, "color": "#FF5252"}<br/>  ]<br/>}',
   'dashboard.indicator.guide.section6.param': 'Parameters',
   'dashboard.indicator.guide.section6.calc': 'Calculate',
   'dashboard.indicator.guide.section6.output': 'Output',
@@ -1346,19 +1426,26 @@ const locale = {
   'dashboard.indicator.guide.section6.subchart': 'Display on sub-chart',
   'dashboard.indicator.guide.section8.title': '8. Frequently Asked Questions (FAQ)',
   'dashboard.indicator.guide.section8.q1': "Q: Why can't my indicator be backtested?",
-  'dashboard.indicator.guide.section8.a1': "A: The backtest system requires NEW signal columns: <code>df['open_long']</code>, <code>df['close_long']</code>, <code>df['open_short']</code>, <code>df['close_short']</code> (boolean). Even if you set <code>output.signals</code> for chart display, you must set these columns to enable backtesting.",
+  'dashboard.indicator.guide.section8.a1':
+    "A: The backtest system requires NEW signal columns: <code>df['open_long']</code>, <code>df['close_long']</code>, <code>df['open_short']</code>, <code>df['close_short']</code> (boolean). Even if you set <code>output.signals</code> for chart display, you must set these columns to enable backtesting.",
   'dashboard.indicator.guide.section8.q2': 'Q: Data length mismatch?',
-  'dashboard.indicator.guide.section8.a2': "A: The <code>data</code> list in <code>plots</code> and <code>signals</code> must have exactly the same length as the K-line data. If you use <code>df['xxx'].tolist()</code>, there is usually no problem.",
+  'dashboard.indicator.guide.section8.a2':
+    "A: The <code>data</code> list in <code>plots</code> and <code>signals</code> must have exactly the same length as the K-line data. If you use <code>df['xxx'].tolist()</code>, there is usually no problem.",
   'dashboard.indicator.guide.section8.q3': 'Q: How to handle NaN (empty values)?',
-  'dashboard.indicator.guide.section8.a3': "A: Pandas calculations (such as rolling mean) will produce NaN at the beginning. The system will automatically convert NaN to null for chart rendering. You don't need to manually clean it, but if you need specific logic, you can use <code>df.fillna(0)</code> or other methods.",
+  'dashboard.indicator.guide.section8.a3':
+    "A: Pandas calculations (such as rolling mean) will produce NaN at the beginning. The system will automatically convert NaN to null for chart rendering. You don't need to manually clean it, but if you need specific logic, you can use <code>df.fillna(0)</code> or other methods.",
   'dashboard.indicator.guide.section8.q4': 'Q: Index mismatch causing all signals to be NaN?',
-  'dashboard.indicator.guide.section8.a4': "A: Please ensure you preserve the original df index (timestamp). Avoid using <code>.values</code> to create new Series. Use columns directly like <code>df['close']</code> for operations.",
+  'dashboard.indicator.guide.section8.a4':
+    "A: Please ensure you preserve the original df index (timestamp). Avoid using <code>.values</code> to create new Series. Use columns directly like <code>df['close']</code> for operations.",
   'dashboard.indicator.guide.section8.q5': 'Q: Can I use third-party network libraries?',
-  'dashboard.indicator.guide.section8.a5': 'A: No. The runtime environment is a browser sandbox and cannot use libraries like requests to request external APIs, nor can it install additional pip packages. Limited to built-in libraries such as pandas, numpy, math, json.',
+  'dashboard.indicator.guide.section8.a5':
+    'A: No. The runtime environment is a browser sandbox and cannot use libraries like requests to request external APIs, nor can it install additional pip packages. Limited to built-in libraries such as pandas, numpy, math, json.',
   'dashboard.indicator.guide.section8.q6': 'Q: How to debug code?',
-  'dashboard.indicator.guide.section8.a6': 'A: If the chart does not display indicators, it is usually because the Python code has an error. Please check for syntax errors or array index out of bounds. It is recommended to debug the algorithm logic in a local Python environment first, then copy it in.',
+  'dashboard.indicator.guide.section8.a6':
+    'A: If the chart does not display indicators, it is usually because the Python code has an error. Please check for syntax errors or array index out of bounds. It is recommended to debug the algorithm logic in a local Python environment first, then copy it in.',
   'dashboard.indicator.guide.section8.q7': 'Q: Backtest shows 0 signals?',
-  'dashboard.indicator.guide.section8.a7': "A: Please check the data type of <code>df['open_long']</code>/<code>df['close_long']</code>/<code>df['open_short']</code>/<code>df['close_short']</code>. They should be boolean (True/False), not numeric. Use <code>condition.fillna(False).astype(bool)</code> to ensure correct type.",
+  'dashboard.indicator.guide.section8.a7':
+    "A: Please check the data type of <code>df['open_long']</code>/<code>df['close_long']</code>/<code>df['open_short']</code>/<code>df['close_short']</code>. They should be boolean (True/False), not numeric. Use <code>condition.fillna(False).astype(bool)</code> to ensure correct type.",
   'dashboard.indicator.paramsConfig.title': 'Indicator Parameters',
   'dashboard.indicator.paramsConfig.noParams': 'No configurable parameters for this indicator',
   'dashboard.indicator.paramsConfig.hint': 'Configure parameters and click OK to run the indicator',
@@ -1373,7 +1460,8 @@ const locale = {
   'dashboard.indicator.backtest.initialCapital': 'Initial Capital',
   'dashboard.indicator.backtest.initialCapitalRequired': 'Please enter initial capital',
   'dashboard.indicator.backtest.commission': 'Commission Rate (%)',
-  'dashboard.indicator.backtest.commissionHint': 'Charged on notional value (incl. leverage) per trade; both entry & exit are deducted from balance.',
+  'dashboard.indicator.backtest.commissionHint':
+    'Charged on notional value (incl. leverage) per trade; both entry & exit are deducted from balance.',
   'dashboard.indicator.backtest.leverage': 'Leverage',
   'dashboard.indicator.backtest.timeframe': 'Timeframe',
   'dashboard.indicator.backtest.tradeDirection': 'Trade Direction',
@@ -1456,21 +1544,27 @@ const locale = {
   // Multi-timeframe backtest precision hints
   'dashboard.indicator.backtest.precisionMode': 'Backtest Precision Mode',
   'dashboard.indicator.backtest.estimatedCandles': 'Est. {count} candles to process',
-  'dashboard.indicator.backtest.highPrecisionDesc': 'Using 1-minute candles for high-precision backtest, stop-loss/take-profit triggers are more accurate',
-  'dashboard.indicator.backtest.mediumPrecisionDesc': 'Range exceeds 30 days, using 5-minute candles to balance precision and performance',
+  'dashboard.indicator.backtest.highPrecisionDesc':
+    'Using 1-minute candles for high-precision backtest, stop-loss/take-profit triggers are more accurate',
+  'dashboard.indicator.backtest.mediumPrecisionDesc':
+    'Range exceeds 30 days, using 5-minute candles to balance precision and performance',
   'dashboard.indicator.backtest.standardModeWarning': 'Using Standard Backtest Mode',
-  'dashboard.indicator.backtest.standardModeDesc': 'Current config does not support high-precision backtest, using strategy timeframe',
+  'dashboard.indicator.backtest.standardModeDesc':
+    'Current config does not support high-precision backtest, using strategy timeframe',
   'dashboard.indicator.backtest.onlyCryptoSupported': 'High-precision backtest only supports cryptocurrency market',
   'dashboard.indicator.backtest.noIndicatorCode': 'This indicator has no backtestable code',
   'dashboard.indicator.backtest.noSymbol': 'Please select a trading symbol first',
-  'dashboard.indicator.backtest.dateRangeExceeded': 'Backtest date range exceeded: {timeframe} timeframe allows max {maxRange}',
-  'dashboard.indicator.backtest.dateRangeExceededDays': 'Backtest range exceeds limit: {timeframe} max {maxRange} ({maxDays} days)',
+  'dashboard.indicator.backtest.dateRangeExceeded':
+    'Backtest date range exceeded: {timeframe} timeframe allows max {maxRange}',
+  'dashboard.indicator.backtest.dateRangeExceededDays':
+    'Backtest range exceeds limit: {timeframe} max {maxRange} ({maxDays} days)',
   'dashboard.indicator.backtest.metaLine': 'Symbol: {symbol} | Market: {market} | Timeframe: {timeframe}',
   'dashboard.indicator.backtest.savedRunId': 'Backtest saved. Run ID: {id}',
   'dashboard.indicator.backtest.historyTitle': 'Backtest History',
   'dashboard.indicator.backtest.historyRefresh': 'Refresh',
   'dashboard.indicator.backtest.historyView': 'View',
-  'dashboard.indicator.backtest.historyRowClickHint': 'Click a row: show that run in Backtest Results below and restore the parameters used.',
+  'dashboard.indicator.backtest.historyRowClickHint':
+    'Click a row: show that run in Backtest Results below and restore the parameters used.',
   'dashboard.indicator.backtest.historyNoData': 'No backtest history',
   'dashboard.indicator.backtest.historyUseCurrent': 'Only current symbol/timeframe',
   'dashboard.indicator.backtest.historyFilterSymbol': 'Symbol',
@@ -1481,14 +1575,17 @@ const locale = {
   'dashboard.indicator.backtest.historyAISuggest': 'AI Backtest Suggestions',
   'dashboard.indicator.backtest.historyAISuggestShort': 'AI Suggest',
   'dashboard.indicator.backtest.historyAISuggestTitle': 'AI Backtest Correction Suggestions',
-  'dashboard.indicator.backtest.historyAISuggestLoading': 'Analyzing backtest data, generating parameter suggestions...',
+  'dashboard.indicator.backtest.historyAISuggestLoading':
+    'Analyzing backtest data, generating parameter suggestions...',
   'dashboard.indicator.backtest.historyNoAIResult': 'No AI analysis result',
-  'dashboard.indicator.backtest.historyAISelectPrompt': 'Please select at least one backtest run, or click the row-level AI suggestion action',
+  'dashboard.indicator.backtest.historyAISelectPrompt':
+    'Please select at least one backtest run, or click the row-level AI suggestion action',
   'dashboard.indicator.backtest.historyAIFailed': 'Failed to generate AI backtest suggestions. Please try again later.',
   'dashboard.indicator.backtest.historySelectedCount': '{count} selected',
   'dashboard.indicator.backtest.historyAICopy': 'Copy',
   'dashboard.indicator.backtest.historyAIRetry': 'Regenerate',
-  'dashboard.indicator.backtest.historyAIHint': 'AI only provides parameter tuning suggestions based on backtest results. It does not rewrite indicator logic directly. Validate suggestions with A/B backtests.',
+  'dashboard.indicator.backtest.historyAIHint':
+    'AI only provides parameter tuning suggestions based on backtest results. It does not rewrite indicator logic directly. Validate suggestions with A/B backtests.',
   'dashboard.indicator.backtest.historyAIModeLLM': 'AI Model',
   'dashboard.indicator.backtest.historyAIModeRule': 'Rule-Based',
   'dashboard.indicator.backtest.historyAIModeUnknown': 'Suggestion',
@@ -1522,41 +1619,63 @@ const locale = {
   'dashboard.indicator.backtest.field.slippage': 'Slippage (%)',
   'dashboard.indicator.backtest.field.signalTiming': 'Fill timing',
   'dashboard.indicator.backtest.signalTiming.nextBarOpen': 'Next bar open (default, closer to live trading)',
-  'dashboard.indicator.backtest.signalTiming.sameBarClose': 'Same bar close (aligns with chart markers, more optimistic)',
-  'dashboard.indicator.backtest.signalTiming.help': '“Next open” fills on the bar after the signal bar closes. “Same close” fills on the signal bar close and matches markers, but is not always realistic.',
+  'dashboard.indicator.backtest.signalTiming.sameBarClose':
+    'Same bar close (aligns with chart markers, more optimistic)',
+  'dashboard.indicator.backtest.signalTiming.help':
+    '“Next open” fills on the bar after the signal bar closes. “Same close” fills on the signal bar close and matches markers, but is not always realistic.',
   'dashboard.indicator.backtest.executionAssumptions.title': 'Execution assumptions',
-  'dashboard.indicator.backtest.executionAssumptions.bodyNextBar': 'After the signal is confirmed at a bar’s close, fills use the next bar’s open (plus slippage). Trade timestamps often shift one bar vs markers on the chart.',
-  'dashboard.indicator.backtest.executionAssumptions.bodySameBar': 'After the signal is confirmed at a bar’s close, fills use that bar’s close (plus slippage). Timestamps align with chart markers; results are usually more optimistic.',
+  'dashboard.indicator.backtest.executionAssumptions.bodyNextBar':
+    'After the signal is confirmed at a bar’s close, fills use the next bar’s open (plus slippage). Trade timestamps often shift one bar vs markers on the chart.',
+  'dashboard.indicator.backtest.executionAssumptions.bodySameBar':
+    'After the signal is confirmed at a bar’s close, fills use that bar’s close (plus slippage). Timestamps align with chart markers; results are usually more optimistic.',
   'dashboard.indicator.backtest.executionAssumptions.fillOpen': 'Default fill reference: open price.',
   'dashboard.indicator.backtest.executionAssumptions.fillClose': 'Default fill reference: close price.',
-  'dashboard.indicator.backtest.executionAssumptions.bodyMtf': 'Multi-timeframe path: signal timeframe {sig}, execution timeframe {exec}.',
-  'dashboard.indicator.backtest.executionAssumptions.mtfFallback': 'High-precision multi-timeframe simulation was not used (fell back to standard backtest); see precision note above.',
-  'dashboard.indicator.backtest.executionAssumptions.mtfOffByUser': 'High-precision MTF is off — standard single-timeframe OHLC backtest.',
+  'dashboard.indicator.backtest.executionAssumptions.bodyMtf':
+    'Multi-timeframe path: signal timeframe {sig}, execution timeframe {exec}.',
+  'dashboard.indicator.backtest.executionAssumptions.mtfFallback':
+    'High-precision multi-timeframe simulation was not used (fell back to standard backtest); see precision note above.',
+  'dashboard.indicator.backtest.executionAssumptions.mtfOffByUser':
+    'High-precision MTF is off — standard single-timeframe OHLC backtest.',
   'dashboard.indicator.backtest.executionAssumptions.legacyTitle': 'About this saved run',
-  'dashboard.indicator.backtest.executionAssumptions.legacyBody': 'This run was saved before execution metadata existed. Older runs typically assume fills on the next bar open after the signal bar closes. Re-run with “same bar close” if you need chart-aligned timestamps.',
+  'dashboard.indicator.backtest.executionAssumptions.legacyBody':
+    'This run was saved before execution metadata existed. Older runs typically assume fills on the next bar open after the signal bar closes. Re-run with “same bar close” if you need chart-aligned timestamps.',
   'dashboard.indicator.backtest.executionAssumptions.colMode': 'Simulation',
   'dashboard.indicator.backtest.executionAssumptions.colTiming': 'Signal timing',
   'dashboard.indicator.backtest.executionAssumptions.colCommission': 'Commission',
   'dashboard.indicator.backtest.executionAssumptions.colSlippage': 'Slippage',
-  'dashboard.indicator.backtest.executionAssumptions.bodyStrict': 'Strict mode: signals only on closed bars, filled at the next bar open (plus slippage). Matches live strict mode — conservative but more realistic.',
-  'dashboard.indicator.backtest.executionAssumptions.bodyAggressive1m': 'Aggressive (crypto): same-bar signals on strategy TF {sig}, filled inside {exec} bars (≈10s live polling). SL/TP may trigger earlier on sub-bars.',
-  'dashboard.indicator.backtest.executionAssumptions.bodyAggressiveBar': 'Aggressive: same-bar close confirmation and fill (plus slippage). Usually more optimistic than strict mode.',
-  'dashboard.indicator.backtest.executionAssumptions.aggressiveFallback': 'Aggressive mode is on, but 1m sub-bar simulation was unavailable — fell back to standard same-bar close.',
+  'dashboard.indicator.backtest.executionAssumptions.bodyStrict':
+    'Strict mode: signals only on closed bars, filled at the next bar open (plus slippage). Matches live strict mode — conservative but more realistic.',
+  'dashboard.indicator.backtest.executionAssumptions.bodyAggressive1m':
+    'Aggressive (crypto): same-bar signals on strategy TF {sig}, filled inside {exec} bars (≈10s live polling). SL/TP may trigger earlier on sub-bars.',
+  'dashboard.indicator.backtest.executionAssumptions.bodyAggressiveBar':
+    'Aggressive: same-bar close confirmation and fill (plus slippage). Usually more optimistic than strict mode.',
+  'dashboard.indicator.backtest.executionAssumptions.aggressiveFallback':
+    'Aggressive mode is on, but 1m sub-bar simulation was unavailable — fell back to standard same-bar close.',
   'dashboard.indicator.backtest.executionAssumptions.modeStrict': 'Strict (strategy TF)',
   'dashboard.indicator.backtest.executionAssumptions.modeAggressive1m': 'Aggressive · 1m sub-bars ({exec})',
   'dashboard.indicator.backtest.executionAssumptions.modeAggressiveBar': 'Aggressive · standard bars',
   'dashboard.indicator.backtest.executionAssumptions.timingNextBar': 'Next bar open',
   'dashboard.indicator.backtest.executionAssumptions.timingSameBar': 'Same bar close',
-  'dashboard.indicator.backtest.executionAssumptions.fallbackRange': 'Date range exceeds the high-precision cap — fell back to standard backtest.',
-  'dashboard.indicator.backtest.executionAssumptions.fallbackScale': 'Scale-in/out rules are enabled — MTF is unavailable, using standard backtest.',
-  'dashboard.indicator.backtest.executionAssumptions.fallbackTiming': 'Current fill-timing setting is not supported in MTF — using standard backtest.',
-  'dashboard.indicator.backtest.executionAssumptions.fallbackNoGain': 'Strategy timeframe is not coarser than exec TF — no MTF gain, using standard backtest.',
-  'dashboard.indicator.backtest.executionAssumptions.fallbackUnavailable': 'High-precision backtest unavailable — fell back to standard backtest.',
-  'dashboard.indicator.backtest.executionAssumptions.fallbackData': 'Could not fetch fine-grained candles — fell back to standard backtest.',
-  'dashboard.indicator.backtest.executionAssumptions.strictModeOnNote': 'Matches live strict mode: closed-bar signals only — closest to backtest assumptions.',
-  'dashboard.indicator.backtest.executionAssumptions.strictModeOffNote': 'Matches live with strict mode off: intra-bar signals may fire — backtest often looks better than live.',
-  'dashboard.indicator.backtest.executionAssumptions.tradeCountStandardNote': 'Signal count is fixed by your bar timeframe. With the same standard engine, live-aligned vs exploration (fees/slippage only) should yield the same trade count; PnL differs.',
-  'dashboard.indicator.backtest.executionAssumptions.tradeCountMtfNote': 'Buy/sell signals on the strategy timeframe are unchanged. MTF may trigger stop/take-profit on finer bars, shifting exit timing and sometimes the trade count vs standard backtest.',
+  'dashboard.indicator.backtest.executionAssumptions.fallbackRange':
+    'Date range exceeds the high-precision cap — fell back to standard backtest.',
+  'dashboard.indicator.backtest.executionAssumptions.fallbackScale':
+    'Scale-in/out rules are enabled — MTF is unavailable, using standard backtest.',
+  'dashboard.indicator.backtest.executionAssumptions.fallbackTiming':
+    'Current fill-timing setting is not supported in MTF — using standard backtest.',
+  'dashboard.indicator.backtest.executionAssumptions.fallbackNoGain':
+    'Strategy timeframe is not coarser than exec TF — no MTF gain, using standard backtest.',
+  'dashboard.indicator.backtest.executionAssumptions.fallbackUnavailable':
+    'High-precision backtest unavailable — fell back to standard backtest.',
+  'dashboard.indicator.backtest.executionAssumptions.fallbackData':
+    'Could not fetch fine-grained candles — fell back to standard backtest.',
+  'dashboard.indicator.backtest.executionAssumptions.strictModeOnNote':
+    'Matches live strict mode: closed-bar signals only — closest to backtest assumptions.',
+  'dashboard.indicator.backtest.executionAssumptions.strictModeOffNote':
+    'Matches live with strict mode off: intra-bar signals may fire — backtest often looks better than live.',
+  'dashboard.indicator.backtest.executionAssumptions.tradeCountStandardNote':
+    'Signal count is fixed by your bar timeframe. With the same standard engine, live-aligned vs exploration (fees/slippage only) should yield the same trade count; PnL differs.',
+  'dashboard.indicator.backtest.executionAssumptions.tradeCountMtfNote':
+    'Buy/sell signals on the strategy timeframe are unchanged. MTF may trigger stop/take-profit on finer bars, shifting exit timing and sometimes the trade count vs standard backtest.',
   'dashboard.indicator.backtest.historySimulationCol': 'Simulation',
   'dashboard.indicator.backtest.historySimulationStrict': 'Strict',
   'dashboard.indicator.backtest.historySimulationAggressive1m': 'Aggressive {tf}',
@@ -1610,7 +1729,8 @@ const locale = {
   'backtest-center.empty': 'Select an indicator or strategy from the left to start backtesting',
   'backtest-center.running': 'Running backtest...',
   'backtest-center.emptyTitle': 'Configure and Run Backtest',
-  'backtest-center.emptyDesc': 'Select an indicator and symbol on the left, configure parameters, then click Run to see results',
+  'backtest-center.emptyDesc':
+    'Select an indicator and symbol on the left, configure parameters, then click Run to see results',
   'backtest-center.config.symbol': 'Symbol',
   'backtest-center.config.marketPlaceholder': 'Select market',
   'backtest-center.config.watchlistPlaceholder': 'Select from watchlist',
@@ -1633,7 +1753,8 @@ const locale = {
   'backtest-center.config.signalTiming': 'Fill timing',
   'backtest-center.config.signalTimingNext': 'Next bar open',
   'backtest-center.config.signalTimingSame': 'Same bar close',
-  'backtest-center.config.signalTimingHelp': 'Same as indicator backtest: next open is more realistic; same close aligns with chart markers.',
+  'backtest-center.config.signalTimingHelp':
+    'Same as indicator backtest: next open is more realistic; same close aligns with chart markers.',
   'backtest-center.config.direction': 'Trade Direction',
   'backtest-center.config.long': 'Long Only',
   'backtest-center.config.short': 'Short Only',
@@ -1727,8 +1848,10 @@ const locale = {
   'dashboard.noData': 'No Data',
   'dashboard.noStrategyData': 'No strategy data',
   'dashboard.setupGuide.title': 'No live strategy is running yet',
-  'dashboard.setupGuide.desc': 'Go to "Strategy Management" first, create a strategy, and switch its execution mode to "Live Trading". Positions, trades, and performance will show up here afterwards.',
-  'dashboard.setupGuide.path': 'Path: Strategy Management -> Create Strategy -> Choose execution mode (Signal Only / Live Trading)',
+  'dashboard.setupGuide.desc':
+    'Go to "Strategy Management" first, create a strategy, and switch its execution mode to "Live Trading". Positions, trades, and performance will show up here afterwards.',
+  'dashboard.setupGuide.path':
+    'Path: Strategy Management -> Create Strategy -> Choose execution mode (Signal Only / Live Trading)',
   'dashboard.setupGuide.primary': 'Create Strategy',
   'dashboard.setupGuide.secondary': 'Open Strategy Management',
   // Ranking labels
@@ -1798,7 +1921,8 @@ const locale = {
   'dashboard.status.cancelled': 'Cancelled',
   'dashboard.table.pnl': 'Unrealized P&L',
   'form.basic-form.basic.title': 'Basic form',
-  'form.basic-form.basic.description': 'Form pages are used to collect or verify information to users, and basic forms are common in scenarios where there are fewer data items.',
+  'form.basic-form.basic.description':
+    'Form pages are used to collect or verify information to users, and basic forms are common in scenarios where there are fewer data items.',
   'form.basic-form.title.label': 'Title',
   'form.basic-form.title.placeholder': 'Give the target a name',
   'form.basic-form.title.required': 'Please enter a title',
@@ -1814,7 +1938,8 @@ const locale = {
   'form.basic-form.standard.required': 'Please enter a metric',
   'form.basic-form.client.label': 'Client',
   'form.basic-form.label.tooltip': 'Target service object',
-  'form.basic-form.client.placeholder': 'Please describe your customer service, internal customers directly @ Name / job number',
+  'form.basic-form.client.placeholder':
+    'Please describe your customer service, internal customers directly @ Name / job number',
   'form.basic-form.client.required': 'Please describe the customers you serve',
   'form.basic-form.invites.label': 'Inviting critics',
   'form.basic-form.invites.placeholder': 'Please direct @ Name / job number, you can invite up to 5 people',
@@ -1853,7 +1978,8 @@ const locale = {
   'form.basic-form.phone-number.placeholder': 'Phone number',
   'form.basic-form.verification-code.placeholder': 'Verification code',
   'result.success.title': 'Submission Success',
-  'result.success.description': 'The submission results page is used to feed back the results of a series of operational tasks. If it is a simple operation, use the Message global prompt feedback. This text area can show a simple supplementary explanation. If there is a similar requirement for displaying “documents”, the following gray area can present more complicated content.',
+  'result.success.description':
+    'The submission results page is used to feed back the results of a series of operational tasks. If it is a simple operation, use the Message global prompt feedback. This text area can show a simple supplementary explanation. If there is a similar requirement for displaying “documents”, the following gray area can present more complicated content.',
   'result.success.operate-title': 'Project Name',
   'result.success.operate-id': 'Project ID',
   'result.success.principal': 'Principal',
@@ -1905,7 +2031,8 @@ const locale = {
   'account.settings.security.phone': 'Security Phone',
   'account.settings.security.phone-description': 'Bound phone：',
   'account.settings.security.question': 'Security Question',
-  'account.settings.security.question-description': 'The security question is not set, and the security policy can effectively protect the account security',
+  'account.settings.security.question-description':
+    'The security question is not set, and the security policy can effectively protect the account security',
   'account.settings.security.email': 'Bound Email',
   'account.settings.security.email-description': 'Bound Email：',
   'account.settings.security.mfa': 'MFA Device',
@@ -1921,11 +2048,14 @@ const locale = {
   'account.settings.binding.dingding-description': 'Currently unbound DingTalk account',
   'account.settings.binding.bind': 'Bind',
   'account.settings.notification.password': 'Account Password',
-  'account.settings.notification.password-description': 'Messages from other users will be notified in the form of a station letter',
+  'account.settings.notification.password-description':
+    'Messages from other users will be notified in the form of a station letter',
   'account.settings.notification.messages': 'System Messages',
-  'account.settings.notification.messages-description': 'System messages will be notified in the form of a station letter',
+  'account.settings.notification.messages-description':
+    'System messages will be notified in the form of a station letter',
   'account.settings.notification.todo': 'To-do Notification',
-  'account.settings.notification.todo-description': 'The to-do list will be notified in the form of a letter from the station',
+  'account.settings.notification.todo-description':
+    'The to-do list will be notified in the form of a letter from the station',
   'account.settings.settings.open': 'Open',
   'account.settings.settings.close': 'Close',
   'trading-assistant.title': 'Trading Assistant',
@@ -1934,11 +2064,14 @@ const locale = {
   'trading-assistant.noStrategy': 'No strategies',
   'trading-assistant.selectStrategy': 'Please select a strategy from the left to view details',
   'trading-assistant.emptyDetail.title': 'No strategy selected',
-  'trading-assistant.emptyDetail.hint': 'Pick a strategy in the list on the left to see its config, positions, trades, and logs. Create one first if the list is empty.',
+  'trading-assistant.emptyDetail.hint':
+    'Pick a strategy in the list on the left to see its config, positions, trades, and logs. Create one first if the list is empty.',
   'trading-assistant.guide.title': 'Start live trading from here',
-  'trading-assistant.guide.desc': 'To enable automated live trading, go to "Strategy Management", create a strategy, then switch its execution mode to "Live Trading".',
+  'trading-assistant.guide.desc':
+    'To enable automated live trading, go to "Strategy Management", create a strategy, then switch its execution mode to "Live Trading".',
   'trading-assistant.guide.eyebrow': 'Quick Start',
-  'trading-assistant.guide.path': 'Path: Strategy Management -> Create Strategy -> Choose execution mode (Signal Only / Live Trading)',
+  'trading-assistant.guide.path':
+    'Path: Strategy Management -> Create Strategy -> Choose execution mode (Signal Only / Live Trading)',
   'trading-assistant.guide.step1Title': 'Create a strategy',
   'trading-assistant.guide.step1Desc': 'Open Strategy Management and create your first strategy.',
   'trading-assistant.guide.step2Title': 'Switch to live mode',
@@ -1948,12 +2081,14 @@ const locale = {
   'trading-assistant.guide.primary': 'New Strategy / Create Live Setup',
   'trading-assistant.guide.secondary': 'Open Strategy Management',
   'trading-assistant.empty.title': 'No strategy yet',
-  'trading-assistant.empty.desc': 'Create a strategy and pick how it runs — live ones show under Live Overview. Add exchange & notifications when you need them.',
+  'trading-assistant.empty.desc':
+    'Create a strategy and pick how it runs — live ones show under Live Overview. Add exchange & notifications when you need them.',
   'trading-assistant.empty.path': '',
   'trading-assistant.empty.primary': 'Create First Strategy',
   'trading-assistant.startStrategy': 'Start Strategy',
   'trading-assistant.scriptBacktestOnly': 'Script strategy',
-  'trading-assistant.scriptLiveNotSupportedHint': 'Script strategies run on_bar once per closed bar; orders use the same execution and risk path as indicator strategies.',
+  'trading-assistant.scriptLiveNotSupportedHint':
+    'Script strategies run on_bar once per closed bar; orders use the same execution and risk path as indicator strategies.',
   'trading-assistant.stopStrategy': 'Stop Strategy',
   'trading-assistant.editStrategy': 'Edit Strategy',
   'trading-assistant.deleteStrategy': 'Delete Strategy',
@@ -1986,8 +2121,10 @@ const locale = {
   'trading-assistant.form.sectionStrategyMarketDesc': 'Strategy type, symbols, capital, and timeframe',
   'trading-assistant.form.sectionRiskExecutionParams': 'Risk & position',
   'trading-assistant.form.sectionRiskExecutionParamsDesc': 'TP/SL, scaling, position size, and optional AI filter',
-  'trading-assistant.form.riskFromIndicatorInfo': 'Stop-loss, take-profit, per-entry position size, and trailing stops are configured in the indicator source via `# @strategy` lines (same as the Indicator IDE). Saving a strategy writes these into trading config for live price-based risk handling.',
-  'trading-assistant.form.riskFromIndicatorMissingWarn': 'No `@strategy` stop-loss, take-profit, or trailing stop was detected. If you also do not exit via sell/close signals in the indicator logic, large moves may not trigger a protective exit.',
+  'trading-assistant.form.riskFromIndicatorInfo':
+    'Stop-loss, take-profit, per-entry position size, and trailing stops are configured in the indicator source via `# @strategy` lines (same as the Indicator IDE). Saving a strategy writes these into trading config for live price-based risk handling.',
+  'trading-assistant.form.riskFromIndicatorMissingWarn':
+    'No `@strategy` stop-loss, take-profit, or trailing stop was detected. If you also do not exit via sell/close signals in the indicator logic, large moves may not trigger a protective exit.',
   'trading-assistant.form.simpleMode': 'Simple',
   'trading-assistant.form.advancedMode': 'Advanced',
   'trading-assistant.form.simpleModeHint': 'Keep only the essentials and finish setup in about a minute',
@@ -1997,39 +2134,51 @@ const locale = {
   'trading-assistant.form.defaultStrategySuffix': ' Strategy',
   'trading-assistant.form.strategyNameHint': 'A default name has been generated for you, but you can change it anytime',
   'trading-assistant.form.simpleModePreset': 'Recommended defaults',
-  'trading-assistant.form.simpleModePresetValue': 'Starts with 15m / Futures / 5x. Configure TP/SL and position size in the indicator code using `# @strategy`.',
+  'trading-assistant.form.simpleModePresetValue':
+    'Starts with 15m / Futures / 5x. Configure TP/SL and position size in the indicator code using `# @strategy`.',
   'trading-assistant.form.simpleModeSectionCore': 'Core trading setup',
-  'trading-assistant.form.simpleModeSectionCoreDesc': 'Finish pair and capital settings first, then decide whether to enable live trading; risk lives in `@strategy` inside the indicator code.',
+  'trading-assistant.form.simpleModeSectionCoreDesc':
+    'Finish pair and capital settings first, then decide whether to enable live trading; risk lives in `@strategy` inside the indicator code.',
   'trading-assistant.form.step2HeroTitle': 'Final execution setup',
-  'trading-assistant.form.step2HeroDesc': 'Choose whether this strategy should only send signals or connect to live trading, then configure notification channels so you never miss an alert.',
+  'trading-assistant.form.step2HeroDesc':
+    'Choose whether this strategy should only send signals or connect to live trading, then configure notification channels so you never miss an alert.',
   'trading-assistant.form.executionSectionTitle': 'Execution mode',
-  'trading-assistant.form.executionSectionDesc': 'Pick how the strategy should run. If the market supports it, you can switch directly to automated live trading.',
+  'trading-assistant.form.executionSectionDesc':
+    'Pick how the strategy should run. If the market supports it, you can switch directly to automated live trading.',
   'trading-assistant.form.notificationSectionTitle': 'Signal notifications',
-  'trading-assistant.form.notificationSectionDesc': 'Keep at least one instant notification channel enabled so you can react quickly to entries and exits.',
+  'trading-assistant.form.notificationSectionDesc':
+    'Keep at least one instant notification channel enabled so you can react quickly to entries and exits.',
   'trading-assistant.form.riskSectionTitle': 'Risk notice',
-  'trading-assistant.form.riskSectionDesc': 'Before enabling live trading, double-check the trading risk and your account permission scope.',
+  'trading-assistant.form.riskSectionDesc':
+    'Before enabling live trading, double-check the trading risk and your account permission scope.',
   'trading-assistant.form.liveConnectionSectionTitle': 'Live connection',
-  'trading-assistant.form.liveConnectionSectionDesc': 'Select a saved exchange credential. The strategy will use this account for real order execution.',
+  'trading-assistant.form.liveConnectionSectionDesc':
+    'Select a saved exchange credential. The strategy will use this account for real order execution.',
   'trading-assistant.form.simpleStep1': 'Select Indicator & Pair',
   'trading-assistant.form.simpleStep2': 'Launch Mode',
   'trading-assistant.form.simpleDefaultsHint': 'Defaults (expand to customize)',
   'trading-assistant.form.marketCategory': 'Market Category',
-  'trading-assistant.form.marketCategoryHint': 'Select a market first. Only Crypto can enable live trading; other markets are signal-only.',
+  'trading-assistant.form.marketCategoryHint':
+    'Select a market first. Only Crypto can enable live trading; other markets are signal-only.',
   'trading-assistant.market.USStock': 'US Stock',
   'trading-assistant.market.Crypto': 'Crypto',
   'trading-assistant.market.Forex': 'Forex',
   'trading-assistant.form.indicator': 'Select Indicator',
   'trading-assistant.form.indicatorHint': 'You can only select indicators you have purchased or created',
   'trading-assistant.indicatorEmpty.title': 'No indicators available',
-  'trading-assistant.indicatorEmpty.desc': 'Create or purchase a technical indicator on the Charts & Indicators page, then return here to select it.',
+  'trading-assistant.indicatorEmpty.desc':
+    'Create or purchase a technical indicator on the Charts & Indicators page, then return here to select it.',
   'trading-assistant.indicatorEmpty.cta': 'Go to Charts & Indicators',
   'trading-assistant.noCredentialForLive.title': 'No saved accounts for this market',
-  'trading-assistant.noCredentialForLive.desc': 'Add an exchange account here; it will appear in the dropdown after saving.',
-  'trading-assistant.form.qdtCostHints': 'Using strategies will consume QDT, please ensure your account has sufficient QDT balance',
+  'trading-assistant.noCredentialForLive.desc':
+    'Add an exchange account here; it will appear in the dropdown after saving.',
+  'trading-assistant.form.qdtCostHints':
+    'Using strategies will consume QDT, please ensure your account has sufficient QDT balance',
   'trading-assistant.form.indicatorDescription': 'Indicator Description',
   'trading-assistant.form.noDescription': 'No description',
   'trading-assistant.form.indicatorParams': 'Indicator Parameters',
-  'trading-assistant.form.indicatorParamsHint': 'These parameters will be passed to the indicator code. Different strategies can use different parameter values.',
+  'trading-assistant.form.indicatorParamsHint':
+    'These parameters will be passed to the indicator code. Different strategies can use different parameter values.',
   'trading-assistant.form.exchange': 'Select Exchange',
   'trading-assistant.form.apiKey': 'API Key',
   'trading-assistant.form.secretKey': 'Secret Key',
@@ -2043,9 +2192,11 @@ const locale = {
   'trading-assistant.form.strategyType': 'Strategy Type',
   'trading-assistant.form.strategyTypeSingle': 'Single Symbol Strategy',
   'trading-assistant.form.strategyTypeCrossSectional': 'Cross-Sectional Strategy',
-  'trading-assistant.form.strategyTypeHint': 'Single Symbol: Trade a single symbol; Cross-Sectional: Manage a portfolio of multiple symbols',
+  'trading-assistant.form.strategyTypeHint':
+    'Single Symbol: Trade a single symbol; Cross-Sectional: Manage a portfolio of multiple symbols',
   'trading-assistant.form.symbolList': 'Symbol List',
-  'trading-assistant.form.symbolListHint': 'Select multiple symbols, strategy will rank and rebalance based on indicator scores',
+  'trading-assistant.form.symbolListHint':
+    'Select multiple symbols, strategy will rank and rebalance based on indicator scores',
   'trading-assistant.form.portfolioSize': 'Portfolio Size',
   'trading-assistant.form.portfolioSizeHint': 'Number of symbols to hold simultaneously',
   'trading-assistant.form.longRatio': 'Long Ratio',
@@ -2056,8 +2207,10 @@ const locale = {
   'trading-assistant.form.rebalanceMonthly': 'Monthly',
   'trading-assistant.form.rebalanceFrequencyHint': 'Frequency of portfolio rebalancing',
   'trading-assistant.form.insertCrossSectionalTemplate': 'Insert cross-sectional indicator template',
-  'trading-assistant.form.crossSectionalTemplateApplied': 'Cross-sectional template applied; it will be saved with the strategy',
-  'trading-assistant.form.crossSectionalIndicatorWarn': 'Cross-sectional strategies require indicator code that defines a scores dict. Insert the template above or author one in the Indicator IDE.',
+  'trading-assistant.form.crossSectionalTemplateApplied':
+    'Cross-sectional template applied; it will be saved with the strategy',
+  'trading-assistant.form.crossSectionalIndicatorWarn':
+    'Cross-sectional strategies require indicator code that defines a scores dict. Insert the template above or author one in the Indicator IDE.',
   'trading-assistant.tag.crossSectional': 'Cross-sectional',
   'trading-assistant.validation.symbolListMin': 'Select at least 2 symbols for a cross-sectional strategy',
   'trading-assistant.validation.portfolioSizeRequired': 'Portfolio size is required',
@@ -2078,13 +2231,16 @@ const locale = {
   'trading-assistant.form.marketType': 'Market Type',
   'trading-assistant.form.marketTypeFutures': 'Futures',
   'trading-assistant.form.marketTypeSpot': 'Spot',
-  'trading-assistant.form.marketTypeHint': 'Futures support bidirectional trading and leverage, spot only supports long positions with fixed 1x leverage',
+  'trading-assistant.form.marketTypeHint':
+    'Futures support bidirectional trading and leverage, spot only supports long positions with fixed 1x leverage',
   'trading-assistant.form.leverage': 'Leverage',
   'trading-assistant.form.leverageHint': 'Futures: 1-125x, Spot: Fixed 1x',
   'trading-assistant.form.spotLeverageFixed': 'Spot trading leverage is fixed at 1x',
   'trading-assistant.form.spotOnlyLongHint': 'Spot trading only supports long positions',
-  'trading-assistant.form.longOnlyBrokerHint': 'IBKR / Alpaca live execution is currently long-only. To go short: use a perpetual-swap crypto exchange (Binance/OKX/Bybit) for crypto, or MT5 for forex.',
-  'trading-assistant.form.alpacaCryptoSpotOnlyHint': 'Alpaca crypto desk is spot-only (no perpetual swaps, no shorting). Market type locked to Spot.',
+  'trading-assistant.form.longOnlyBrokerHint':
+    'IBKR / Alpaca live execution is currently long-only. To go short: use a perpetual-swap crypto exchange (Binance/OKX/Bybit) for crypto, or MT5 for forex.',
+  'trading-assistant.form.alpacaCryptoSpotOnlyHint':
+    'Alpaca crypto desk is spot-only (no perpetual swaps, no shorting). Market type locked to Spot.',
   'trading-assistant.form.tradeDirection': 'Trade Direction',
   'trading-assistant.form.tradeDirectionLong': 'Long Only',
   'trading-assistant.form.tradeDirectionShort': 'Short Only',
@@ -2092,7 +2248,8 @@ const locale = {
   'trading-assistant.form.timeframe': 'Timeframe',
   'trading-assistant.form.klinePeriod': 'K-Line Period',
   'trading-assistant.form.strictMode': 'Strict mode',
-  'trading-assistant.form.strictModeHint': 'On (recommended): live uses closed bars only, aligned with backtest next_bar_open — much smaller backtest/live gap. Off may fire intra-bar and often looks better in backtest but drifts more in live.',
+  'trading-assistant.form.strictModeHint':
+    'On (recommended): live uses closed bars only, aligned with backtest next_bar_open — much smaller backtest/live gap. Off may fire intra-bar and often looks better in backtest but drifts more in live.',
   'trading-assistant.form.timeframe1m': '1 Minute',
   'trading-assistant.form.timeframe5m': '5 Minutes',
   'trading-assistant.form.timeframe15m': '15 Minutes',
@@ -2106,29 +2263,35 @@ const locale = {
   'trading-assistant.form.aiStrategy': 'AI Strategy',
   'trading-assistant.form.aiStrategyDesc': 'Automated trading strategy based on AI intelligent decision-making',
   'trading-assistant.form.enableAiFilter': 'Enable AI Intelligent Decision Filter',
-  'trading-assistant.form.enableAiFilterHint': 'When enabled, indicator signals will be filtered by AI to improve trading quality',
+  'trading-assistant.form.enableAiFilterHint':
+    'When enabled, indicator signals will be filtered by AI to improve trading quality',
   'trading-assistant.form.aiFilterPrompt': 'Custom Prompt',
-  'trading-assistant.form.aiFilterPromptHint': 'Provide custom instructions for AI filtering, leave blank to use system default',
+  'trading-assistant.form.aiFilterPromptHint':
+    'Provide custom instructions for AI filtering, leave blank to use system default',
   'trading-assistant.validation.strategyTypeRequired': 'Please select a strategy type',
   'trading-assistant.validation.marketCategoryRequired': 'Please select a market category',
   'trading-assistant.form.advancedSettings': 'Advanced Settings',
   'trading-assistant.form.orderMode': 'Order Mode',
   'trading-assistant.form.orderModeMaker': 'Maker (Limit)',
   'trading-assistant.form.orderModeTaker': 'Taker (Market)',
-  'trading-assistant.form.orderModeHint': 'Maker mode uses limit orders with lower fees; Taker mode executes immediately with higher fees',
+  'trading-assistant.form.orderModeHint':
+    'Maker mode uses limit orders with lower fees; Taker mode executes immediately with higher fees',
   'trading-assistant.form.makerWaitSec': 'Maker Wait Time (seconds)',
   'trading-assistant.form.makerWaitSecHint': 'Time to wait for order fill before canceling and retrying',
   'trading-assistant.form.makerRetries': 'Maker Retries',
   'trading-assistant.form.makerRetriesHint': 'Maximum number of retries when maker order is not filled',
   'trading-assistant.form.fallbackToMarket': 'Fallback to Market on failure',
-  'trading-assistant.form.fallbackToMarketHint': 'If limit order (open/close) is not filled, downgrade to market order to ensure execution',
+  'trading-assistant.form.fallbackToMarketHint':
+    'If limit order (open/close) is not filled, downgrade to market order to ensure execution',
   'trading-assistant.form.marginMode': 'Margin Mode',
   'trading-assistant.form.marginModeCross': 'Cross Margin',
   'trading-assistant.form.marginModeIsolated': 'Isolated Margin',
   'trading-assistant.form.stopLossPct': 'Stop Loss (%)',
-  'trading-assistant.form.stopLossPctHint': 'Triggers on underlying price move — independent of leverage (leverage only affects PnL and liquidation). 0 disables.',
+  'trading-assistant.form.stopLossPctHint':
+    'Triggers on underlying price move — independent of leverage (leverage only affects PnL and liquidation). 0 disables.',
   'trading-assistant.form.takeProfitPct': 'Take Profit (%)',
-  'trading-assistant.form.takeProfitPctHint': 'Triggers on underlying price move — independent of leverage. 0 disables.',
+  'trading-assistant.form.takeProfitPctHint':
+    'Triggers on underlying price move — independent of leverage. 0 disables.',
   'trading-assistant.form.commission': 'Commission (%)',
   'trading-assistant.form.commissionHint': 'Trading fee percentage (optional)',
   'trading-assistant.form.slippage': 'Slippage (%)',
@@ -2136,36 +2299,42 @@ const locale = {
   'trading-assistant.form.executionMode': 'Execution',
   'trading-assistant.form.executionModeSignal': 'Signal only (push notifications)',
   'trading-assistant.form.executionModeLive': 'Live trading',
-  'trading-assistant.form.executionModeSignalDesc': 'The system only sends strategy alerts and signals. You decide whether to place the order manually.',
-  'trading-assistant.form.executionModeLiveDesc': 'The strategy connects to your trading account and places real orders automatically after you confirm the risk setup.',
-  'trading-assistant.form.liveTradingCryptoOnlyHint': 'Live trading is available for Crypto only. Other markets can only push signals.',
+  'trading-assistant.form.executionModeSignalDesc':
+    'The system only sends strategy alerts and signals. You decide whether to place the order manually.',
+  'trading-assistant.form.executionModeLiveDesc':
+    'The strategy connects to your trading account and places real orders automatically after you confirm the risk setup.',
+  'trading-assistant.form.liveTradingCryptoOnlyHint':
+    'Live trading is available for Crypto only. Other markets can only push signals.',
   'trading-assistant.form.liveTradingNotSupportedHint': 'Live trading is not available for this market',
   'trading-assistant.form.broker': 'Broker',
   'trading-assistant.form.localDeploymentRequired': '⚠️ Local Deployment Required',
-  'trading-assistant.form.localDeploymentHint': 'IBKR and MT5 are external trading interfaces that require local deployment of QuantDinger. Cloud SaaS mode is not supported. Please ensure you have installed and configured the trading software (TWS/IB Gateway or MT5 terminal) on your local machine.',
+  'trading-assistant.form.localDeploymentHint':
+    'IBKR and MT5 are external trading interfaces that require local deployment of QuantDinger. Cloud SaaS mode is not supported. Please ensure you have installed and configured the trading software (TWS/IB Gateway or MT5 terminal) on your local machine.',
   'trading-assistant.form.ibkrConnectionTitle': 'Interactive Brokers Connection',
   'trading-assistant.form.ibkrConnectionHint': 'Make sure TWS or IB Gateway is running with API enabled',
   'trading-assistant.validation.brokerRequired': 'Please select a broker',
   'trading-assistant.placeholders.selectBroker': 'Select broker',
   'trading-assistant.brokerNames': {
-    'ibkr': 'Interactive Brokers (IBKR)',
-    'mt5': 'MetaTrader 5 (MT5)',
-    'mt4': 'MetaTrader 4 (MT4)',
-    'futu': 'Futu Securities',
-    'tiger': 'Tiger Brokers',
-    'td': 'TD Ameritrade',
-    'schwab': 'Charles Schwab'
+    ibkr: 'Interactive Brokers (IBKR)',
+    mt5: 'MetaTrader 5 (MT5)',
+    mt4: 'MetaTrader 4 (MT4)',
+    futu: 'Futu Securities',
+    tiger: 'Tiger Brokers',
+    td: 'TD Ameritrade',
+    schwab: 'Charles Schwab',
   },
   'trading-assistant.form.ibkrHost': 'Host',
   'trading-assistant.form.ibkrPort': 'Port',
   'trading-assistant.form.ibkrPortHint': 'TWS Live:7497, TWS Paper:7496, Gateway Live:4001, Gateway Paper:4002',
   'trading-assistant.form.ibkrClientId': 'Client ID',
   'trading-assistant.form.ibkrAccount': 'Account',
-  'trading-assistant.form.ibkrAccountHint': 'Leave empty to auto-select first account. Specify for multi-account users.',
+  'trading-assistant.form.ibkrAccountHint':
+    'Leave empty to auto-select first account. Specify for multi-account users.',
   'trading-assistant.placeholders.ibkrAccount': 'Optional, e.g. U1234567',
   'trading-assistant.exchange.ibkrConnectionSuccess': 'IBKR connected successfully',
   'trading-assistant.exchange.ibkrConnectionFailed': 'IBKR connection failed. Please check if TWS/Gateway is running.',
-  'trading-assistant.exchange.checkLocalDeployment': 'Please ensure you are running locally. Cloud SaaS does not support external trading interfaces.',
+  'trading-assistant.exchange.checkLocalDeployment':
+    'Please ensure you are running locally. Cloud SaaS does not support external trading interfaces.',
   // MT5/Forex configuration
   'trading-assistant.form.forexBroker': 'Forex Broker',
   'trading-assistant.form.mt5ConnectionTitle': 'MetaTrader 5 Connection',
@@ -2175,7 +2344,8 @@ const locale = {
   'trading-assistant.form.mt5Login': 'Account Number',
   'trading-assistant.form.mt5Password': 'Password',
   'trading-assistant.form.mt5TerminalPath': 'MT5 Terminal Path (Optional)',
-  'trading-assistant.form.mt5TerminalPathHint': 'If MT5 terminal is not installed in the default location, specify the full path to terminal64.exe (e.g., C:\\Program Files\\MetaTrader 5\\terminal64.exe)',
+  'trading-assistant.form.mt5TerminalPathHint':
+    'If MT5 terminal is not installed in the default location, specify the full path to terminal64.exe (e.g., C:\\Program Files\\MetaTrader 5\\terminal64.exe)',
   'trading-assistant.placeholders.mt5Server': 'e.g., ICMarkets-Demo',
   'trading-assistant.placeholders.mt5Login': 'e.g., 12345678',
   'trading-assistant.placeholders.mt5Password': 'Your MT5 password',
@@ -2201,7 +2371,8 @@ const locale = {
   'trading-assistant.form.notifyDiscord': 'Discord (webhook url)',
   'trading-assistant.form.notifyWebhook': 'Webhook URL',
   'trading-assistant.form.liveTradingConfigTitle': 'Exchange Credentials',
-  'trading-assistant.form.liveTradingConfigHint': 'Provide your exchange API credentials. You can test the connection before saving.',
+  'trading-assistant.form.liveTradingConfigHint':
+    'Provide your exchange API credentials. You can test the connection before saving.',
   'trading-assistant.form.savedCredential': 'Saved credential',
   'trading-assistant.form.savedCredentialHint': 'Select a saved credential to auto-fill API keys (optional).',
   'trading-assistant.form.saveCredential': 'Save this credential for future use',
@@ -2209,7 +2380,8 @@ const locale = {
   'trading-assistant.form.signalMode': 'Signal Mode',
   'trading-assistant.form.signalModeConfirmed': 'Confirmed',
   'trading-assistant.form.signalModeAggressive': 'Aggressive',
-  'trading-assistant.form.signalModeHint': 'Confirmed: only check completed candles; Aggressive: also check forming candles',
+  'trading-assistant.form.signalModeHint':
+    'Confirmed: only check completed candles; Aggressive: also check forming candles',
   'trading-assistant.form.cancel': 'Cancel',
   'trading-assistant.form.prev': 'Previous',
   'trading-assistant.form.next': 'Next',
@@ -2227,8 +2399,10 @@ const locale = {
   'trading-assistant.messages.stopFailed': 'Failed to stop strategy',
   'trading-assistant.messages.loadFailed': 'Failed to load strategy list',
   'trading-assistant.messages.runningWarning': 'Strategy is running, please stop it before editing',
-  'trading-assistant.messages.deleteConfirmWithName': 'Are you sure you want to delete strategy "{name}"? This action cannot be undone.',
-  'trading-assistant.messages.deleteConfirm': 'Are you sure you want to delete this strategy? This action cannot be undone.',
+  'trading-assistant.messages.deleteConfirmWithName':
+    'Are you sure you want to delete strategy "{name}"? This action cannot be undone.',
+  'trading-assistant.messages.deleteConfirm':
+    'Are you sure you want to delete this strategy? This action cannot be undone.',
   'trading-assistant.messages.loadTradesFailed': 'Failed to load trading records',
   'trading-assistant.messages.loadPositionsFailed': 'Failed to load position records',
   'trading-assistant.messages.loadEquityFailed': 'Failed to load equity curve',
@@ -2242,7 +2416,8 @@ const locale = {
   'trading-assistant.messages.batchStopFailed': 'Failed to stop strategies',
   'trading-assistant.messages.batchDeleteSuccess': 'Successfully deleted {count} strategies',
   'trading-assistant.messages.batchDeleteFailed': 'Failed to delete strategies',
-  'trading-assistant.messages.batchDeleteConfirm': 'Are you sure you want to delete {count} strategies in group "{name}"? This action cannot be undone.',
+  'trading-assistant.messages.batchDeleteConfirm':
+    'Are you sure you want to delete {count} strategies in group "{name}"? This action cannot be undone.',
   'trading-assistant.placeholders.selectIndicator': 'Please select an indicator',
   'trading-assistant.placeholders.selectExchange': 'Please select an exchange',
   'trading-assistant.placeholders.selectMarketCategory': 'Please select market category',
@@ -2269,9 +2444,12 @@ const locale = {
   'trading-assistant.validation.secretKeyRequired': 'Please enter Secret Key',
   'trading-assistant.validation.passphraseRequired': 'Please enter Passphrase',
   'trading-assistant.validation.exchangeConfigIncomplete': 'Please fill in complete exchange configuration information',
-  'trading-assistant.validation.testConnectionRequired': 'Please click "Test Connection" button and ensure the connection is successful',
-  'trading-assistant.validation.testConnectionFailed': 'Connection test failed, please check the configuration and test again',
-  'trading-assistant.validation.credentialRequired': 'Please add and test exchange credentials in Personal Center first',
+  'trading-assistant.validation.testConnectionRequired':
+    'Please click "Test Connection" button and ensure the connection is successful',
+  'trading-assistant.validation.testConnectionFailed':
+    'Connection test failed, please check the configuration and test again',
+  'trading-assistant.validation.credentialRequired':
+    'Please add and test exchange credentials in Personal Center first',
   'trading-assistant.validation.strategyNameRequired': 'Please enter strategy name',
   'trading-assistant.validation.symbolRequired': 'Please select trading pair',
   'trading-assistant.validation.symbolsRequired': 'Please select at least one trading pair',
@@ -2349,7 +2527,8 @@ const locale = {
   'trading-assistant.exchange.connectionFailed': 'Connection failed',
   'trading-assistant.exchange.testFailed': 'Connection test failed',
   'trading-assistant.exchange.fillComplete': 'Please fill in complete exchange configuration information',
-  'trading-assistant.exchange.ipWhitelistTip': 'Please add the following IPs to the whitelist in your exchange API settings:',
+  'trading-assistant.exchange.ipWhitelistTip':
+    'Please add the following IPs to the whitelist in your exchange API settings:',
   'trading-assistant.strategyTypeOptions.ai': 'AI-Driven Strategy',
   'trading-assistant.strategyTypeOptions.indicator': 'Indicator Strategy',
   'trading-assistant.strategyTypeOptions.aiDeveloping': 'AI-Driven Strategy feature is under development, stay tuned',
@@ -2362,46 +2541,46 @@ const locale = {
   'trading-assistant.indicatorType.python': 'Python',
   'trading-assistant.indicatorType.pine': 'Pine Script',
   'trading-assistant.exchangeNames': {
-    'okx': 'OKX',
-    'binance': 'Binance',
-    'hyperliquid': 'Hyperliquid',
-    'blockchaincom': 'Blockchain.com',
-    'coinbaseexchange': 'Coinbase',
-    'gate': 'Gate.io',
-    'mexc': 'MEXC',
-    'kraken': 'Kraken',
-    'bitfinex': 'Bitfinex',
-    'bybit': 'Bybit',
-    'kucoin': 'KuCoin',
-    'huobi': 'Huobi',
-    'bitget': 'Bitget',
-    'bitmex': 'BitMEX',
-    'deribit': 'Deribit',
-    'phemex': 'Phemex',
-    'bitmart': 'BitMart',
-    'bitstamp': 'Bitstamp',
-    'bittrex': 'Bittrex',
-    'poloniex': 'Poloniex',
-    'gemini': 'Gemini',
-    'cryptocom': 'Crypto.com',
-    'bitflyer': 'bitFlyer',
-    'upbit': 'Upbit',
-    'bithumb': 'Bithumb',
-    'coinone': 'Coinone',
-    'zb': 'ZB',
-    'lbank': 'LBank',
-    'bibox': 'Bibox',
-    'bigone': 'BigONE',
-    'bitrue': 'Bitrue',
-    'coinex': 'CoinEx',
-    'digifinex': 'DigiFinex',
-    'ftx': 'FTX',
-    'ftxus': 'FTX US',
-    'binanceus': 'Binance US',
-    'binancecoinm': 'Binance COIN-M',
-    'binanceusdm': 'Binance USDⓈ-M',
-    'ibkr': 'Interactive Brokers (IBKR)',
-    'deepcoin': 'Deepcoin'
+    okx: 'OKX',
+    binance: 'Binance',
+    hyperliquid: 'Hyperliquid',
+    blockchaincom: 'Blockchain.com',
+    coinbaseexchange: 'Coinbase',
+    gate: 'Gate.io',
+    mexc: 'MEXC',
+    kraken: 'Kraken',
+    bitfinex: 'Bitfinex',
+    bybit: 'Bybit',
+    kucoin: 'KuCoin',
+    huobi: 'Huobi',
+    bitget: 'Bitget',
+    bitmex: 'BitMEX',
+    deribit: 'Deribit',
+    phemex: 'Phemex',
+    bitmart: 'BitMart',
+    bitstamp: 'Bitstamp',
+    bittrex: 'Bittrex',
+    poloniex: 'Poloniex',
+    gemini: 'Gemini',
+    cryptocom: 'Crypto.com',
+    bitflyer: 'bitFlyer',
+    upbit: 'Upbit',
+    bithumb: 'Bithumb',
+    coinone: 'Coinone',
+    zb: 'ZB',
+    lbank: 'LBank',
+    bibox: 'Bibox',
+    bigone: 'BigONE',
+    bitrue: 'Bitrue',
+    coinex: 'CoinEx',
+    digifinex: 'DigiFinex',
+    ftx: 'FTX',
+    ftxus: 'FTX US',
+    binanceus: 'Binance US',
+    binancecoinm: 'Binance COIN-M',
+    binanceusdm: 'Binance USDⓈ-M',
+    ibkr: 'Interactive Brokers (IBKR)',
+    deepcoin: 'Deepcoin',
   },
   'ai-trading-assistant.title': 'AI Trading Assistant',
   'ai-trading-assistant.strategyList': 'Strategy List',
@@ -2438,7 +2617,8 @@ const locale = {
   'ai-trading-assistant.form.startDate': 'Start Date',
   'ai-trading-assistant.form.endDate': 'End Date',
   'ai-trading-assistant.form.qdtCostTitle': 'QDT Cost Notice',
-  'ai-trading-assistant.form.qdtCostHint': 'Each AI decision will cost {cost} QDT. Please ensure your account has sufficient QDT balance. During strategy execution, each decision will be charged in real-time.',
+  'ai-trading-assistant.form.qdtCostHint':
+    'Each AI decision will cost {cost} QDT. Please ensure your account has sufficient QDT balance. During strategy execution, each decision will be charged in real-time.',
   'ai-trading-assistant.form.apiKey': 'API Key',
   'ai-trading-assistant.form.exchange': 'Select Exchange',
   'ai-trading-assistant.form.secretKey': 'Secret Key',
@@ -2479,7 +2659,8 @@ const locale = {
   'ai-trading-assistant.messages.stopFailed': 'Failed to stop strategy',
   'ai-trading-assistant.messages.loadFailed': 'Failed to load strategy list',
   'ai-trading-assistant.messages.loadDecisionsFailed': 'Failed to load AI decision records',
-  'ai-trading-assistant.messages.deleteConfirm': 'Are you sure you want to delete this strategy? This action cannot be undone.',
+  'ai-trading-assistant.messages.deleteConfirm':
+    'Are you sure you want to delete this strategy? This action cannot be undone.',
   'ai-trading-assistant.placeholders.inputStrategyName': 'Please enter strategy name',
   'ai-trading-assistant.placeholders.selectModelId': 'Please select AI model',
   'ai-trading-assistant.placeholders.selectDecideInterval': 'Please select decision interval',
@@ -2543,13 +2724,15 @@ const locale = {
   'ai-trading-assistant.form.orderMode': 'Order Mode',
   'ai-trading-assistant.form.orderModeMaker': 'Maker (Limit)',
   'ai-trading-assistant.form.orderModeTaker': 'Taker (Market)',
-  'ai-trading-assistant.form.orderModeHint': 'Maker mode uses limit orders with lower fees; Taker mode executes immediately with higher fees',
+  'ai-trading-assistant.form.orderModeHint':
+    'Maker mode uses limit orders with lower fees; Taker mode executes immediately with higher fees',
   'ai-trading-assistant.form.makerWaitSec': 'Maker Wait Time (seconds)',
   'ai-trading-assistant.form.makerWaitSecHint': 'Time to wait for order fill before canceling and retrying',
   'ai-trading-assistant.form.makerRetries': 'Maker Retries',
   'ai-trading-assistant.form.makerRetriesHint': 'Maximum number of retries when maker order is not filled',
   'ai-trading-assistant.form.fallbackToMarket': 'Fallback to Market on failure',
-  'ai-trading-assistant.form.fallbackToMarketHint': 'If limit order (open/close) is not filled, downgrade to market order to ensure execution',
+  'ai-trading-assistant.form.fallbackToMarketHint':
+    'If limit order (open/close) is not filled, downgrade to market order to ensure execution',
   'ai-trading-assistant.form.marginMode': 'Margin Mode',
   'ai-trading-assistant.form.marginModeCross': 'Cross Margin',
   'ai-trading-assistant.form.marginModeIsolated': 'Isolated Margin',
@@ -2661,7 +2844,7 @@ const locale = {
   'invite.task.telegram.desc': 'Join our official Telegram community group',
   'invite.task.discord.title': 'Join Discord Server',
   'invite.task.discord.desc': 'Join our Discord community server',
-  'message': '-',
+  message: '-',
   'layouts.usermenu.dialog.title': 'Message',
   'layouts.usermenu.dialog.content': 'Are you sure you would like to logout?',
   'layouts.userLayout.title': 'Clarity from Uncertainty',
@@ -2792,7 +2975,8 @@ const locale = {
   'signal-robot.risk.trailingStopDisabledHint': 'Trailing stop disabled',
   'signal-robot.risk.otherExitTitle': 'Other Exit Rules',
   'signal-robot.risk.signalExit': 'Allow Signal Exit',
-  'signal-robot.risk.signalExitHint': 'Close position immediately when reverse signal appears (e.g. close long when short signal appears)',
+  'signal-robot.risk.signalExitHint':
+    'Close position immediately when reverse signal appears (e.g. close long when short signal appears)',
   'signal-robot.notify.alert': 'Configure notification methods when signal is triggered',
   'signal-robot.notify.channelTitle': 'Notification Channels',
   'signal-robot.notify.discordWebhook': 'Discord Webhook',
@@ -2838,7 +3022,8 @@ const locale = {
   'request.unauthorizedDesc': 'Token invalid or expired, please login again.',
   'settings.openrouterBalance': 'OpenRouter Account Balance',
   'settings.commercialLicense.title': 'Commercial use requires a paid license',
-  'settings.commercialLicense.body': 'QuantDinger is provided for personal study and research only. Any form of commercial use — including but not limited to running it as a public SaaS, reselling it, offering managed-trading services, paid advisory or fund-management products — requires a written commercial license from us beforehand. Unauthorized commercial deployments will be pursued through legal channels.',
+  'settings.commercialLicense.body':
+    'QuantDinger is provided for personal study and research only. Any form of commercial use — including but not limited to running it as a public SaaS, reselling it, offering managed-trading services, paid advisory or fund-management products — requires a written commercial license from us beforehand. Unauthorized commercial deployments will be pursued through legal channels.',
   'settings.commercialLicense.contactLabel': 'Licensing contact',
   'settings.queryBalance': 'Query Balance',
   'settings.balanceUsage': 'Used',
@@ -3034,7 +3219,8 @@ const locale = {
   // Settings descriptions (config item descriptions)
   // Note: These are optional since backend already provides English descriptions
   'settings.desc.LLM_PROVIDER': 'Select your preferred LLM provider for chat and analysis',
-  'settings.desc.AI_CODE_GEN_MODEL': 'Optional model ID for AI code generation. Leave empty to use the provider default model',
+  'settings.desc.AI_CODE_GEN_MODEL':
+    'Optional model ID for AI code generation. Leave empty to use the provider default model',
   'settings.desc.OPENAI_API_KEY': 'OpenAI official API key',
   'settings.desc.OPENAI_MODEL': 'Model name: gpt-4o, gpt-4o-mini, gpt-4-turbo, etc.',
   'settings.desc.OPENAI_BASE_URL': 'Custom API endpoint (for proxies or Azure OpenAI)',
@@ -3046,7 +3232,8 @@ const locale = {
   'settings.desc.GROK_API_KEY': 'xAI Grok API key',
   'settings.desc.GROK_MODEL': 'Model: grok-beta, grok-2, etc.',
   'settings.desc.GROK_BASE_URL': 'xAI Grok API endpoint URL',
-  'settings.desc.AI_ANALYSIS_CONSENSUS_TIMEFRAMES': 'Multi-timeframe consensus for fast AI analysis. Comma-separated, e.g. 1D,4H',
+  'settings.desc.AI_ANALYSIS_CONSENSUS_TIMEFRAMES':
+    'Multi-timeframe consensus for fast AI analysis. Comma-separated, e.g. 1D,4H',
   'settings.desc.ENABLE_REFLECTION_WORKER': 'Enable background worker for automatic trade reflection and calibration',
   'settings.desc.REFLECTION_WORKER_INTERVAL_SEC': 'Reflection worker run interval in seconds (86400 = 1 day)',
   'settings.desc.REFLECTION_MIN_AGE_DAYS': 'Only validate analyses older than N days',
@@ -3106,9 +3293,11 @@ const locale = {
   'portfolio.monitors.runNow': 'Run Now',
   'portfolio.monitors.analysisResult': 'AI Analysis Result',
   'portfolio.monitors.runningTitle': 'AI Analysis Started',
-  'portfolio.monitors.runningDesc': 'Analysis is running in background. Results will be pushed via notification. Analyzing multiple positions may take a few minutes.',
+  'portfolio.monitors.runningDesc':
+    'Analysis is running in background. Results will be pushed via notification. Analyzing multiple positions may take a few minutes.',
   'portfolio.monitors.timeoutTitle': 'Request Timeout',
-  'portfolio.monitors.timeoutDesc': 'Analysis may still be running in background. Please check notifications for results later. If no notification is received, please try again.',
+  'portfolio.monitors.timeoutDesc':
+    'Analysis may still be running in background. Please check notifications for results later. If no notification is received, please try again.',
   'portfolio.modal.addPosition': 'Add Position',
   'portfolio.modal.editPosition': 'Edit Position',
   'portfolio.modal.addMonitor': 'Add Monitor',
@@ -3213,7 +3402,8 @@ const locale = {
 
   // Agent tokens (admin)
   'agentTokens.title': 'Agent Tokens',
-  'agentTokens.description': 'Issue and manage tokens that let external AI agents (Cursor, Claude Code, Codex, MCP, custom bots) call this QuantDinger instance through /api/agent/v1.',
+  'agentTokens.description':
+    'Issue and manage tokens that let external AI agents (Cursor, Claude Code, Codex, MCP, custom bots) call this QuantDinger instance through /api/agent/v1.',
   'agentTokens.tabTokens': 'Tokens',
   'agentTokens.tabAudit': 'Audit log',
   'agentTokens.issueToken': 'Issue Token',
@@ -3235,7 +3425,8 @@ const locale = {
   'agentTokens.expiresHint': '0 = no expiry. Default 30 is recommended.',
   'agentTokens.paperOnly': 'Paper-only',
   'agentTokens.paperOnHint': 'Recommended. Trades are simulated and never touch exchange credentials.',
-  'agentTokens.paperOff_T': 'Live trading also requires AGENT_LIVE_TRADING_ENABLED=true on the server. Until then T-class calls still record paper orders.',
+  'agentTokens.paperOff_T':
+    'Live trading also requires AGENT_LIVE_TRADING_ENABLED=true on the server. Until then T-class calls still record paper orders.',
   'agentTokens.live': 'live-eligible',
   'agentTokens.status': 'Status',
   'agentTokens.prefix': 'Prefix',
@@ -3282,7 +3473,7 @@ const locale = {
   'userManage.rolePlaceholder': 'Select role',
   'userManage.statusPlaceholder': 'Select status',
   'userManage.resetPassword': 'Reset Password',
-  'userManage.resetPasswordWarning': 'This will reset the user\'s password',
+  'userManage.resetPasswordWarning': "This will reset the user's password",
   'userManage.newPassword': 'New Password',
   'userManage.newPasswordPlaceholder': 'Enter new password',
   'userManage.confirmDelete': 'Are you sure to delete this user?',
@@ -3327,7 +3518,8 @@ const locale = {
   'profile.credits.vipExpires': 'VIP expires on',
   'profile.credits.vipExpired': 'VIP expired',
   'profile.credits.noVip': 'Not a VIP',
-  'profile.credits.hint': 'AI analysis/backtest/monitoring will consume credits; VIP only makes VIP-free indicators free to use.',
+  'profile.credits.hint':
+    'AI analysis/backtest/monitoring will consume credits; VIP only makes VIP-free indicators free to use.',
 
   // Profile - Credits Log
   'profile.creditsLog': 'Credits History',
@@ -3366,7 +3558,8 @@ const locale = {
 
   // Profile - Notification Settings
   'profile.notifications.title': 'Notification Settings',
-  'profile.notifications.hint': 'Configure your default notification methods, which will be used automatically when creating asset monitors and alerts',
+  'profile.notifications.hint':
+    'Configure your default notification methods, which will be used automatically when creating asset monitors and alerts',
   'profile.notifications.defaultChannels': 'Default Notification Channels',
   'profile.notifications.browser': 'In-App Notification',
   'profile.notifications.email': 'Email',
@@ -3387,7 +3580,8 @@ const locale = {
   'profile.notifications.discordHint': 'Create Webhook in Discord server settings',
   'profile.notifications.webhookUrl': 'Webhook URL',
   'profile.notifications.webhookPlaceholder': 'https://your-server.com/webhook',
-  'profile.notifications.webhookHint': 'Custom webhook URL receiving POST JSON. Feishu / DingTalk / WeCom / Slack URLs are auto-detected and the payload converted to the platform format.',
+  'profile.notifications.webhookHint':
+    'Custom webhook URL receiving POST JSON. Feishu / DingTalk / WeCom / Slack URLs are auto-detected and the payload converted to the platform format.',
   'profile.notifications.webhookToken': 'Webhook Token (Optional)',
   'profile.notifications.webhookTokenPlaceholder': 'Bearer Token for request authentication',
   'profile.notifications.webhookTokenHint': 'Sent as Authorization: Bearer Token to Webhook',
@@ -3401,9 +3595,12 @@ const locale = {
   'profile.notifications.webhookSigningSecretPlaceholder': 'Signing secret (optional)',
   'profile.notifications.signingFeishuTag': ' (Feishu signing)',
   'profile.notifications.signingDingtalkTag': ' (DingTalk signing)',
-  'profile.notifications.signingFeishuHint': "Secret from your Feishu bot's Security → Signature verification settings. We add the required timestamp + sign fields to the message body using Feishu's algorithm.",
-  'profile.notifications.signingDingtalkHint': "Secret from your DingTalk bot's Security → Sign settings. We append timestamp and sign as URL query parameters using DingTalk's algorithm.",
-  'profile.notifications.signingGenericHint': 'Optional. HMAC-SHA256 signature delivered as the X-QD-Signature header so your endpoint can verify the request authenticity.',
+  'profile.notifications.signingFeishuHint':
+    "Secret from your Feishu bot's Security → Signature verification settings. We add the required timestamp + sign fields to the message body using Feishu's algorithm.",
+  'profile.notifications.signingDingtalkHint':
+    "Secret from your DingTalk bot's Security → Sign settings. We append timestamp and sign as URL query parameters using DingTalk's algorithm.",
+  'profile.notifications.signingGenericHint':
+    'Optional. HMAC-SHA256 signature delivered as the X-QD-Signature header so your endpoint can verify the request authenticity.',
   'profile.notifications.testBtn': 'Send Test Notification',
   'profile.notifications.saveSuccess': 'Notification settings saved successfully',
   'profile.notifications.selectChannel': 'Please select at least one notification channel',
@@ -3416,7 +3613,8 @@ const locale = {
   'profile.notifications.testSent': 'Test notification sent, please check your notification channels',
   'profile.notifications.testFailed': 'Failed to send test notification',
   'profile.notifications.testPartial': 'Some channels failed',
-  'profile.notifications.errSmtpHost': 'Email: server SMTP not configured (admin: set SMTP_HOST, SMTP_USER, SMTP_PASSWORD in system settings)',
+  'profile.notifications.errSmtpHost':
+    'Email: server SMTP not configured (admin: set SMTP_HOST, SMTP_USER, SMTP_PASSWORD in system settings)',
   'profile.notifications.errSmtpFrom': 'Email: SMTP_FROM is not set',
   'profile.notifications.errEmailTarget': 'Email: no notification address and account has no email',
 
@@ -3528,7 +3726,8 @@ const locale = {
   'settings.desc.BILLING_COST_STRATEGY_RUN': 'Credits consumed when starting a strategy',
   'settings.desc.BILLING_COST_BACKTEST': 'Credits consumed per backtest run',
   'settings.desc.BILLING_COST_PORTFOLIO_MONITOR': 'Credits consumed per portfolio AI monitoring run',
-  'settings.desc.BILLING_COST_AI_CODE_GEN': 'Credits consumed per AI strategy or indicator code generation (higher token usage)',
+  'settings.desc.BILLING_COST_AI_CODE_GEN':
+    'Credits consumed per AI strategy or indicator code generation (higher token usage)',
   'settings.desc.CREDITS_REGISTER_BONUS': 'Credits awarded to new users on registration',
   'settings.desc.CREDITS_REFERRAL_BONUS': 'Credits awarded to referrer when someone signs up with their referral code',
   'settings.desc.VERIFICATION_CODE_MAX_ATTEMPTS': 'Maximum attempts to verify a code before lockout',
@@ -3539,18 +3738,30 @@ const locale = {
   'settings.desc.MEMBERSHIP_YEARLY_PRICE_USD': 'Yearly membership price in USD (mock payment in current version).',
   'settings.desc.MEMBERSHIP_YEARLY_CREDITS': 'Credits granted immediately after purchasing yearly membership.',
   'settings.desc.MEMBERSHIP_LIFETIME_PRICE_USD': 'Lifetime membership price in USD (mock payment in current version).',
-  'settings.desc.MEMBERSHIP_LIFETIME_MONTHLY_CREDITS': 'Credits granted every 30 days for lifetime members (first grant happens immediately on purchase).',
-  'settings.desc.USDT_PAY_ENABLED': 'Master switch for USDT scan-to-pay (one fixed address per chain + unique amount suffix + background reconciliation).',
-  'settings.desc.USDT_PAY_ENABLED_CHAINS': 'Comma-separated chain whitelist (TRC20 / BEP20 / ERC20 / SOL). Chains not listed here are hidden in the picker even if an address is set.',
-  'settings.desc.USDT_TRC20_ADDRESS': 'Your TRON wallet address (starts with T...). Leave blank to hide TRC20 from the chain picker.',
-  'settings.desc.USDT_BEP20_ADDRESS': 'Your BSC wallet address (0x...). BEP20 reconciles on public BSC RPC by default — no API key needed.',
-  'settings.desc.USDT_ERC20_ADDRESS': 'Your Ethereum wallet address (0x...). ERC20 prefers Etherscan V2 (free plan covers ETH mainnet), with public ETH RPC as fallback.',
-  'settings.desc.USDT_SOL_ADDRESS': 'Your Solana wallet address (base58). The SPL USDT mint ATA is derived on-chain by the sender wallet.',
-  'settings.desc.TRONGRID_API_KEY': 'Optional. Improves TRC20 reconciliation rate-limit / stability. Get one at https://www.trongrid.io.',
-  'settings.desc.ETHERSCAN_API_KEY': 'Optional, ERC20 only — used via Etherscan V2 (free plan covers Ethereum mainnet). BEP20 ignores this and uses public BSC RPC. Get a key at https://etherscan.io/myapikey.',
-  'settings.desc.USDT_PAY_CONFIRM_SECONDS': 'After a transfer is detected, wait N seconds before marking the order confirmed and activating membership.',
-  'settings.desc.USDT_PAY_EXPIRE_MINUTES': 'Order expiration time. Users can re-open the payment modal to get a fresh amount suffix afterwards.',
-  'settings.desc.USDT_WORKER_POLL_INTERVAL': 'How often the background worker re-scans pending/paid orders against on-chain transfers.',
+  'settings.desc.MEMBERSHIP_LIFETIME_MONTHLY_CREDITS':
+    'Credits granted every 30 days for lifetime members (first grant happens immediately on purchase).',
+  'settings.desc.USDT_PAY_ENABLED':
+    'Master switch for USDT scan-to-pay (one fixed address per chain + unique amount suffix + background reconciliation).',
+  'settings.desc.USDT_PAY_ENABLED_CHAINS':
+    'Comma-separated chain whitelist (TRC20 / BEP20 / ERC20 / SOL). Chains not listed here are hidden in the picker even if an address is set.',
+  'settings.desc.USDT_TRC20_ADDRESS':
+    'Your TRON wallet address (starts with T...). Leave blank to hide TRC20 from the chain picker.',
+  'settings.desc.USDT_BEP20_ADDRESS':
+    'Your BSC wallet address (0x...). BEP20 reconciles on public BSC RPC by default — no API key needed.',
+  'settings.desc.USDT_ERC20_ADDRESS':
+    'Your Ethereum wallet address (0x...). ERC20 prefers Etherscan V2 (free plan covers ETH mainnet), with public ETH RPC as fallback.',
+  'settings.desc.USDT_SOL_ADDRESS':
+    'Your Solana wallet address (base58). The SPL USDT mint ATA is derived on-chain by the sender wallet.',
+  'settings.desc.TRONGRID_API_KEY':
+    'Optional. Improves TRC20 reconciliation rate-limit / stability. Get one at https://www.trongrid.io.',
+  'settings.desc.ETHERSCAN_API_KEY':
+    'Optional, ERC20 only — used via Etherscan V2 (free plan covers Ethereum mainnet). BEP20 ignores this and uses public BSC RPC. Get a key at https://etherscan.io/myapikey.',
+  'settings.desc.USDT_PAY_CONFIRM_SECONDS':
+    'After a transfer is detected, wait N seconds before marking the order confirmed and activating membership.',
+  'settings.desc.USDT_PAY_EXPIRE_MINUTES':
+    'Order expiration time. Users can re-open the payment modal to get a fresh amount suffix afterwards.',
+  'settings.desc.USDT_WORKER_POLL_INTERVAL':
+    'How often the background worker re-scans pending/paid orders against on-chain transfers.',
 
   // Global Market
   'globalMarket.title': 'Global Market Dashboard',
@@ -3617,8 +3828,10 @@ const locale = {
   'globalMarket.releasedEvents': 'Released Data',
 
   // Trading Assistant
-  'trading-assistant.form.notificationFromProfile': 'Notifications will be sent to the address configured in your profile.',
-  'trading-assistant.form.notificationConfigMissing': 'You have not configured parameters for selected channels ({channels}). Please go to your profile to configure them.',
+  'trading-assistant.form.notificationFromProfile':
+    'Notifications will be sent to the address configured in your profile.',
+  'trading-assistant.form.notificationConfigMissing':
+    'You have not configured parameters for selected channels ({channels}). Please go to your profile to configure them.',
   'trading-assistant.form.goToProfile': 'Go to Profile',
 
   // Indicator Community
@@ -3648,7 +3861,8 @@ const locale = {
   'community.equityCurveTitle': 'Equity Curve',
   'community.equityCurveHint': "Sourced from this indicator's best-scoring backtest. For reference only.",
   'community.equityCurveMissing': 'No equity curve available yet (not enough backtest data).',
-  'community.scoreTooltipBase': 'Composite score weighs backtest return / Sharpe / drawdown / win rate / profit factor / stability.',
+  'community.scoreTooltipBase':
+    'Composite score weighs backtest return / Sharpe / drawdown / win rate / profit factor / stability.',
   'community.scoreTooltipSample': 'Based on {n} backtest sample(s).',
   'community.overfitRisk.title': 'Overfit Risk',
   'community.overfitRisk.low': 'Low',
@@ -3662,8 +3876,10 @@ const locale = {
   'community.overfitRisk.level.extreme': 'Extreme',
   'community.overfitRisk.hintMedium': 'Strong backtest stats — validate across more symbols and samples.',
   'community.overfitRisk.hintHigh': 'Returns look unusually high; overfitting is possible.',
-  'community.overfitRisk.hintExtreme': 'Extremely high backtest returns — likely overfit. Verify on multiple symbols before live use.',
-  'community.overfitRisk.tooltip': 'Heuristic risk score ({score}/100) from backtest KPIs, {n} sample(s). Not a guarantee of future performance.',
+  'community.overfitRisk.hintExtreme':
+    'Extremely high backtest returns — likely overfit. Verify on multiple symbols before live use.',
+  'community.overfitRisk.tooltip':
+    'Heuristic risk score ({score}/100) from backtest KPIs, {n} sample(s). Not a guarantee of future performance.',
   'community.myPurchases': 'My Purchases',
   'community.noIndicators': 'No indicators yet',
   'community.createFirst': 'Create Your First Indicator',
@@ -3726,14 +3942,16 @@ const locale = {
   'community.currentPrice': 'Current price',
   'community.syncCode': 'Sync Code',
   'community.syncingCode': 'Syncing...',
-  'community.syncCodeTooltip': 'Pull the publisher\'s latest code into your local copy',
+  'community.syncCodeTooltip': "Pull the publisher's latest code into your local copy",
   'community.syncCodeSuccess': 'Synced to the latest version',
   'community.syncCodeFailed': 'Failed to sync code',
   'community.syncCodeConfirmTitle': 'Sync latest code?',
-  'community.syncCodeConfirmContent': 'Your local code will be overwritten with the publisher\'s latest version. Unsaved local changes will be lost. Continue?',
+  'community.syncCodeConfirmContent':
+    "Your local code will be overwritten with the publisher's latest version. Unsaved local changes will be lost. Continue?",
   'community.hasUpdate': 'Update available',
   'community.already_latest': 'Your local copy is already up to date',
-  'community.local_copy_not_found': 'Could not find your local copy — it may have been deleted. Please purchase it again.',
+  'community.local_copy_not_found':
+    'Could not find your local copy — it may have been deleted. Please purchase it again.',
   'community.indicator_unpublished': 'This indicator has been unpublished',
 
   // Admin Review
@@ -3848,7 +4066,8 @@ const locale = {
   'fastAnalysis.analysisInProgress': 'An analysis is already running for this symbol. Please wait and try again.',
   'fastAnalysis.analysisInProgressTitle': 'Analysis in progress',
   'fastAnalysis.insufficientCredits': 'Insufficient credits',
-  'fastAnalysis.insufficientCreditsDetail': 'Insufficient credits: need {required}, you have {current}, short by {shortage}.',
+  'fastAnalysis.insufficientCreditsDetail':
+    'Insufficient credits: need {required}, you have {current}, short by {shortage}.',
   'fastAnalysis.analysisCompleteWithCredits': 'Analysis complete. Remaining credits: {remaining}',
   'fastAnalysis.analysisSubmitted': 'Analysis task submitted. You can check progress in History.',
   'fastAnalysis.analysisSubmittedWithCredits': 'Task submitted. Remaining credits: {remaining}',
@@ -3865,10 +4084,13 @@ const locale = {
   'fastAnalysis.outlookBull': 'Bullish',
   'fastAnalysis.outlookBear': 'Bearish',
   'fastAnalysis.outlookNeutral': 'Neutral / range',
-  'fastAnalysis.stopLossHintShort': 'Short stop-loss: above current price (loss if price rises). Values from backend trading_plan.',
-  'fastAnalysis.takeProfitHintShort': 'Short take-profit: below current price (profit if price falls). Values from backend trading_plan.',
+  'fastAnalysis.stopLossHintShort':
+    'Short stop-loss: above current price (loss if price rises). Values from backend trading_plan.',
+  'fastAnalysis.takeProfitHintShort':
+    'Short take-profit: below current price (profit if price falls). Values from backend trading_plan.',
   'fastAnalysis.indicatorsProBadge': 'PRO',
-  'fastAnalysis.indicatorsProSubtitle': 'Aligned with backend `MarketDataCollector._calculate_indicators` (mainstream-style): RSI(14) is Wilder-smoothed. MACD(12,26,9) uses SMA-seeded EMAs on closes; DIF from bar 26 onward; DEA = EMA9 of the DIF series (~34+ bars for a full signal line). MAs are SMAs. Pivot uses previous bar H/L/C. Swing = 20-bar high/low extremes. Bollinger = SMA(20) ± 2×population σ; aggregated levels use BB_upper/BB_lower. ATR(14) is Wilder, chained to the latest bar. See docs/INDICATOR_DEFINITIONS_CN.md for volume ratio and range position.',
+  'fastAnalysis.indicatorsProSubtitle':
+    'Aligned with backend `MarketDataCollector._calculate_indicators` (mainstream-style): RSI(14) is Wilder-smoothed. MACD(12,26,9) uses SMA-seeded EMAs on closes; DIF from bar 26 onward; DEA = EMA9 of the DIF series (~34+ bars for a full signal line). MAs are SMAs. Pivot uses previous bar H/L/C. Swing = 20-bar high/low extremes. Bollinger = SMA(20) ± 2×population σ; aggregated levels use BB_upper/BB_lower. ATR(14) is Wilder, chained to the latest bar. See docs/INDICATOR_DEFINITIONS_CN.md for volume ratio and range position.',
   'fastAnalysis.indicatorsProTableTitle': 'Quant parameters (institutional-style)',
   'fastAnalysis.macdDif': 'MACD DIF',
   'fastAnalysis.macdDea': 'MACD DEA (signal)',
@@ -4020,7 +4242,8 @@ const locale = {
   'aiQuant.hint.takeProfitEnforced': 'Enforced take profit, AI cannot modify',
   'aiQuant.hint.aiPromptOnly': 'AI only determines direction based on prompt, will not modify your risk settings',
   'aiQuant.aiLimitWarning': 'AI Permission Restricted',
-  'aiQuant.aiLimitDescription': 'AI can ONLY determine trade direction (BUY/SELL/HOLD). Leverage, position size, stop loss/take profit are fully controlled by you and CANNOT be modified by AI.',
+  'aiQuant.aiLimitDescription':
+    'AI can ONLY determine trade direction (BUY/SELL/HOLD). Leverage, position size, stop loss/take profit are fully controlled by you and CANNOT be modified by AI.',
   'aiQuant.userStopLoss': 'Your Stop Loss',
   'aiQuant.userTakeProfit': 'Your Take Profit',
   'aiQuant.userLeverage': 'Your Leverage',
@@ -4035,24 +4258,31 @@ const locale = {
   'aiQuant.template.swing': '🔄 Swing Trading',
   'aiQuant.template.news': '📰 News Driven',
   'aiQuant.template.custom': '✏️ Custom',
-  'aiQuant.hint.dataProvided': 'System auto-provides: real-time price, indicators (RSI/MACD/MA), recent news, macro data. AI analyzes these with your prompt to determine direction.',
-  'aiQuant.hint.liveWarning': 'Live mode will trade with REAL money! Make sure you have configured exchange API and understand the risks!',
+  'aiQuant.hint.dataProvided':
+    'System auto-provides: real-time price, indicators (RSI/MACD/MA), recent news, macro data. AI analyzes these with your prompt to determine direction.',
+  'aiQuant.hint.liveWarning':
+    'Live mode will trade with REAL money! Make sure you have configured exchange API and understand the risks!',
 
   // Trading Assistant - Live Trading Disclaimer
   'trading-assistant.liveDisclaimer.title': 'Live Trading Disclaimer',
-  'trading-assistant.liveDisclaimer.content': 'Live trading involves significant risk and may result in partial or total loss of funds. The platform does not guarantee returns or profits. You are responsible for your own decisions and outcomes.',
-  'trading-assistant.liveDisclaimer.agree': 'I have read and understood the disclaimer and still want to enable live trading',
+  'trading-assistant.liveDisclaimer.content':
+    'Live trading involves significant risk and may result in partial or total loss of funds. The platform does not guarantee returns or profits. You are responsible for your own decisions and outcomes.',
+  'trading-assistant.liveDisclaimer.agree':
+    'I have read and understood the disclaimer and still want to enable live trading',
   'trading-assistant.liveDisclaimer.required': 'Please accept the disclaimer before enabling live trading',
   'trading-assistant.liveDisclaimer.blockTitle': 'Please accept the disclaimer first',
-  'trading-assistant.liveDisclaimer.blockDesc': 'You must accept the disclaimer to configure live trading connection and order settings.',
+  'trading-assistant.liveDisclaimer.blockDesc':
+    'You must accept the disclaimer to configure live trading connection and order settings.',
 
   // ===== Strategy Mode =====
   'trading-assistant.strategyMode.signal': 'Indicator Signal Strategy',
   'trading-assistant.strategyMode.script': 'Python Script Strategy',
   'trading-assistant.strategyMode.signalBadge': 'Best for quick start',
   'trading-assistant.strategyMode.scriptBadge': 'Best for complex logic',
-  'trading-assistant.strategyMode.signalDesc': 'Build from existing indicators; configure risk and position in `# @strategy` inside the indicator source—no separate risk form.',
-  'trading-assistant.strategyMode.scriptDesc': 'Write the full strategy in Python. Best for grid, martingale, DCA, breakout, and other advanced automated trading logic.',
+  'trading-assistant.strategyMode.signalDesc':
+    'Build from existing indicators; configure risk and position in `# @strategy` inside the indicator source—no separate risk form.',
+  'trading-assistant.strategyMode.scriptDesc':
+    'Write the full strategy in Python. Best for grid, martingale, DCA, breakout, and other advanced automated trading logic.',
   'trading-assistant.strategyMode.signalFeature1': 'No coding: select indicators and configure rules',
   'trading-assistant.strategyMode.signalFeature2': 'TP/SL and position via `@strategy` in indicator code',
   'trading-assistant.strategyMode.signalFeature3': 'Great for trend, timing, and signal-alert strategies',
@@ -4060,18 +4290,21 @@ const locale = {
   'trading-assistant.strategyMode.scriptFeature2': 'Stateful templates: trailing stop, scale-in, take-profit ladder',
   'trading-assistant.strategyMode.scriptFeature3': 'Best for parameterized strategies and complex position control',
   'trading-assistant.selectMode': 'Choose How to Create',
-  'trading-assistant.selectModeHint': 'If you want the fastest setup, choose Indicator Signal Strategy. If you need grid, martingale, or custom trading logic, choose Python Script Strategy.',
+  'trading-assistant.selectModeHint':
+    'If you want the fastest setup, choose Indicator Signal Strategy. If you need grid, martingale, or custom trading logic, choose Python Script Strategy.',
   'trading-assistant.fromTemplate': 'Or quick-start from a template',
   'trading-assistant.useThisMode': 'Use This Mode',
 
   // ===== Strategy Templates =====
   'trading-assistant.template.title': 'Strategy Templates',
   'trading-assistant.template.trendFollowing': 'Trend Following',
-  'trading-assistant.template.trendFollowingDesc': 'Moving average crossover + dynamic stop-loss, captures mid-to-long trends',
+  'trading-assistant.template.trendFollowingDesc':
+    'Moving average crossover + dynamic stop-loss, captures mid-to-long trends',
   'trading-assistant.template.martingale': 'Martingale',
   'trading-assistant.template.martingaleDesc': 'Double down on losses with max-layer control, counter-trend averaging',
   'trading-assistant.template.grid': 'Grid Trading',
-  'trading-assistant.template.gridDesc': 'Bar-based grid simulation (close price vs levels), not an exchange ladder of pre-placed limits; pick neutral / long / short in template params',
+  'trading-assistant.template.gridDesc':
+    'Bar-based grid simulation (close price vs levels), not an exchange ladder of pre-placed limits; pick neutral / long / short in template params',
   'trading-assistant.template.dca': 'DCA',
   'trading-assistant.template.dcaDesc': 'Time/condition-based batch entries, dollar-cost averaging',
   'trading-assistant.template.meanReversion': 'Mean Reversion',
@@ -4091,7 +4324,8 @@ const locale = {
   'trading-assistant.editor.verifyFailed': 'Code verification failed',
   'trading-assistant.editor.aiGenerate': 'AI Generate Strategy',
   'trading-assistant.editor.aiGenerateBtn': 'Generate',
-  'trading-assistant.editor.aiPromptPlaceholder': 'Describe the strategy you want, e.g.: Write a BTC grid strategy with price range 60000-70000, 10 grid levels...',
+  'trading-assistant.editor.aiPromptPlaceholder':
+    'Describe the strategy you want, e.g.: Write a BTC grid strategy with price range 60000-70000, 10 grid levels...',
   'trading-assistant.editor.apiDocs': 'API Docs',
   'trading-assistant.editor.templates': 'Templates',
   'trading-assistant.editor.aiTab': 'AI Assistant',
@@ -4101,31 +4335,39 @@ const locale = {
   'trading-assistant.editor.codeHint': 'Write strategy code using the ctx object for trading API',
   'trading-assistant.editor.generating': 'Generating strategy code...',
   'trading-assistant.editor.templateIntroTitle': 'Get started with a script',
-  'trading-assistant.editor.templateIntroDesc': 'Start from a blank script, or pick a stateful template below for position/stop management. For RSI, MACD, MA crossovers and other signal strategies, use Indicator IDE.',
+  'trading-assistant.editor.templateIntroDesc':
+    'Start from a blank script, or pick a stateful template below for position/stop management. For RSI, MACD, MA crossovers and other signal strategies, use Indicator IDE.',
   'trading-assistant.editor.blankTemplate': 'Blank script',
   'trading-assistant.editor.blankTemplateDesc': 'Minimal on_init / on_bar skeleton — write your own logic',
   'trading-assistant.editor.statefulTemplateBadge': 'Stateful',
   'trading-assistant.editor.statefulTemplateSection': 'Stateful templates',
   'trading-assistant.editor.indicatorRedirectTitle': 'Signal-based strategy?',
-  'trading-assistant.editor.indicatorRedirectDesc': 'Use Indicator IDE for RSI / MACD / MA crossovers, then create an Indicator Signal Strategy',
+  'trading-assistant.editor.indicatorRedirectDesc':
+    'Use Indicator IDE for RSI / MACD / MA crossovers, then create an Indicator Signal Strategy',
   'trading-assistant.editor.paramCountLabel': 'params',
-  'trading-assistant.editor.paramsHint': 'After changing parameters, click "Apply to Code" to regenerate the template defaults in code.',
+  'trading-assistant.editor.paramsHint':
+    'After changing parameters, click "Apply to Code" to regenerate the template defaults in code.',
   'trading-assistant.editor.resetTemplateParams': 'Reset Defaults',
   'trading-assistant.editor.applyTemplateParams': 'Apply to Code',
   'trading-assistant.editor.paramsEmpty': 'Select a script template first from the Templates tab',
   'trading-assistant.editor.templateApplied': 'Template parameters applied to code',
-  'trading-assistant.editor.aiHint': 'Pick a template first, then use “Adjust template parameters” for natural‑language tweaks (amounts, intervals, etc.). Use “Generate full code” when you need larger logic changes.',
+  'trading-assistant.editor.aiHint':
+    'Pick a template first, then use “Adjust template parameters” for natural‑language tweaks (amounts, intervals, etc.). Use “Generate full code” when you need larger logic changes.',
   'trading-assistant.editor.docsIntroTitle': 'Built-in API Reference',
-  'trading-assistant.editor.docsIntroDesc': 'These are the commonly used QuantDinger script strategy APIs and lifecycle hooks, so you can code and look up usage side by side.',
+  'trading-assistant.editor.docsIntroDesc':
+    'These are the commonly used QuantDinger script strategy APIs and lifecycle hooks, so you can code and look up usage side by side.',
   'trading-assistant.editor.aiPromptRequired': 'Please describe what you want AI to generate or revise first',
   'trading-assistant.editor.aiGenerateSuccess': 'AI generated strategy code',
   'trading-assistant.editor.aiGenerateFailed': 'AI generation failed',
   'trading-assistant.editor.aiSuggestionImprove': 'Improve current template',
-  'trading-assistant.editor.aiSuggestionImprovePrompt': 'Please improve the current template, clean up the structure, add better logs, and make it easier to maintain.',
+  'trading-assistant.editor.aiSuggestionImprovePrompt':
+    'Please improve the current template, clean up the structure, add better logs, and make it easier to maintain.',
   'trading-assistant.editor.aiSuggestionRisk': 'Add better risk control',
-  'trading-assistant.editor.aiSuggestionRiskPrompt': 'Please add more complete take-profit, stop-loss, position sizing, and exception protection to the current strategy.',
+  'trading-assistant.editor.aiSuggestionRiskPrompt':
+    'Please add more complete take-profit, stop-loss, position sizing, and exception protection to the current strategy.',
   'trading-assistant.editor.aiSuggestionExplain': 'Explain this code',
-  'trading-assistant.editor.aiSuggestionExplainPrompt': 'Please explain this strategy code section by section, including parameters, trading logic, and risks.',
+  'trading-assistant.editor.aiSuggestionExplainPrompt':
+    'Please explain this strategy code section by section, including parameters, trading logic, and risks.',
   'trading-assistant.editor.aiPromptTemplateHint': 'Please continue optimizing this template:',
   'trading-assistant.editor.paramType.number': 'Number',
   'trading-assistant.editor.paramType.integer': 'Integer',
@@ -4179,7 +4421,8 @@ const locale = {
   'trading-assistant.templateParam.grid_levels.label': 'Grid levels',
   'trading-assistant.templateParam.grid_levels.desc': 'How many grid slices to divide the range into.',
   'trading-assistant.templateParam.grid_mode.label': 'Grid mode',
-  'trading-assistant.templateParam.grid_mode.desc': 'Neutral: buy dips / sell rallies (futures + both may add shorts after flat). Long: long-biased grid. Short: sell-to-add on rallies, buy-to-cover on dips (use futures + appropriate trade direction).',
+  'trading-assistant.templateParam.grid_mode.desc':
+    'Neutral: buy dips / sell rallies (futures + both may add shorts after flat). Long: long-biased grid. Short: sell-to-add on rallies, buy-to-cover on dips (use futures + appropriate trade direction).',
   'trading-assistant.templateParam.grid_mode.optionNeutral': 'Neutral',
   'trading-assistant.templateParam.grid_mode.optionLong': 'Long',
   'trading-assistant.templateParam.grid_mode.optionShort': 'Short',
@@ -4188,7 +4431,8 @@ const locale = {
   'trading-assistant.templateParam.buy_amount.label': 'DCA amount',
   'trading-assistant.templateParam.buy_amount.desc': 'Base amount used for each DCA purchase.',
   'trading-assistant.templateParam.dip_threshold.label': 'Dip threshold',
-  'trading-assistant.templateParam.dip_threshold.desc': 'Trigger an extra buy when price drops this much from the previous buy.',
+  'trading-assistant.templateParam.dip_threshold.desc':
+    'Trigger an extra buy when price drops this much from the previous buy.',
   'trading-assistant.templateParam.dip_multiplier.label': 'Dip multiplier',
   'trading-assistant.templateParam.dip_multiplier.desc': 'Multiplier applied to the base amount during dip buys.',
   'trading-assistant.templateParam.buy_interval.label': 'Buy interval',
@@ -4231,7 +4475,8 @@ const locale = {
   'trading-assistant.performance.noData': 'No performance data yet, please start the strategy first',
   'trading-assistant.performance.loadFailed': 'Failed to load performance data',
   'trading-assistant.performance.dryRunDeviation': 'Live vs backtest deviation',
-  'trading-assistant.performance.dryRunDeviationHint': 'Compares every fill price against the prior bar close (the backtest signal price) to quantify slippage, latency and cumulative cost.',
+  'trading-assistant.performance.dryRunDeviationHint':
+    'Compares every fill price against the prior bar close (the backtest signal price) to quantify slippage, latency and cumulative cost.',
   'trading-assistant.performance.dryRunAvgSlippage': 'Avg slippage',
   'trading-assistant.performance.dryRunMedianSlippage': 'Median slippage',
   'trading-assistant.performance.dryRunP90Slippage': 'P90 slippage',
@@ -4244,9 +4489,12 @@ const locale = {
   'trading-assistant.performance.dryRunVerdictWarn': 'Elevated',
   'trading-assistant.performance.dryRunVerdictBad': 'Excessive',
   'trading-assistant.performance.dryRunVerdictUnknown': 'Insufficient sample',
-  'trading-assistant.performance.dryRunVerdict.good': 'Average slippage stays under 5 bps — live execution matches the backtest closely.',
-  'trading-assistant.performance.dryRunVerdict.warn': 'Slippage has crept up. Re-check order pricing, spread and server-side latency.',
-  'trading-assistant.performance.dryRunVerdict.bad': 'Slippage is far outside acceptable range. Backtest assumptions are no longer realistic — audit the execution path.',
+  'trading-assistant.performance.dryRunVerdict.good':
+    'Average slippage stays under 5 bps — live execution matches the backtest closely.',
+  'trading-assistant.performance.dryRunVerdict.warn':
+    'Slippage has crept up. Re-check order pricing, spread and server-side latency.',
+  'trading-assistant.performance.dryRunVerdict.bad':
+    'Slippage is far outside acceptable range. Backtest assumptions are no longer realistic — audit the execution path.',
   'trading-assistant.performance.dryRunVerdict.unknown': 'Not enough trades sampled to judge.',
 
   // ===== Strategy Logs =====
@@ -4275,9 +4523,11 @@ const locale = {
   'billing.snapshot.notVip': 'Not VIP',
   'billing.snapshot.lifetime': 'Lifetime member',
   'billing.snapshot.expires': 'Expires',
-  'billing.lifetimeTopupHint': 'You are a lifetime member — buying a monthly/yearly plan tops up your credits without changing your lifetime status.',
+  'billing.lifetimeTopupHint':
+    'You are a lifetime member — buying a monthly/yearly plan tops up your credits without changing your lifetime status.',
   'billing.vipRule.title': 'VIP Benefit',
-  'billing.vipRule.desc': 'VIP has only one special permission: VIP-free indicators can be used without credits deduction. Other paid features/indicators still consume credits.',
+  'billing.vipRule.desc':
+    'VIP has only one special permission: VIP-free indicators can be used without credits deduction. Other paid features/indicators still consume credits.',
   'billing.plan.monthly': 'Monthly',
   'billing.plan.yearly': 'Yearly',
   'billing.plan.lifetime': 'Lifetime',
@@ -4291,7 +4541,8 @@ const locale = {
   'billing.purchaseFailed': 'Purchase failed',
   'billing.usdt.title': 'USDT Scan to Pay',
   'billing.usdt.hintTitle': 'Scan with your wallet and send USDT',
-  'billing.usdt.hintDesc': 'Send the exact amount on the selected network. Your membership will be activated automatically once the transfer is confirmed.',
+  'billing.usdt.hintDesc':
+    'Send the exact amount on the selected network. Your membership will be activated automatically once the transfer is confirmed.',
   'billing.usdt.chain': 'Chain',
   'billing.usdt.amount': 'Amount',
   'billing.usdt.address': 'Deposit Address',
@@ -4306,7 +4557,8 @@ const locale = {
   'billing.usdt.status.expired': 'Expired',
   'billing.usdt.status.cancelled': 'Cancelled',
   'billing.usdt.status.failed': 'Failed',
-  'billing.usdt.expiredHint': 'Order expired. If you already paid, please contact support with your TxHash and payment screenshot.',
+  'billing.usdt.expiredHint':
+    'Order expired. If you already paid, please contact support with your TxHash and payment screenshot.',
   'billing.usdt.confirmedHint': 'Payment confirmed, membership activated! Thank you for your purchase.',
   // v3.0.6+ multi-chain + amount-suffix payment flow
   'billing.usdt.pickChainTitle': 'Select payment network',
@@ -4316,12 +4568,16 @@ const locale = {
   'billing.usdt.continueToPay': 'Continue to pay',
   'billing.usdt.chainListFailed': 'Failed to load payment networks',
   'billing.usdt.noChainsTitle': 'No payment networks configured',
-  'billing.usdt.noChainsDesc': 'Ask the administrator to set USDT_*_ADDRESS in the server .env so a network can be selected here.',
+  'billing.usdt.noChainsDesc':
+    'Ask the administrator to set USDT_*_ADDRESS in the server .env so a network can be selected here.',
   'billing.usdt.amountSuffixHint': 'Pay this exact amount — the highlighted trailing digits identify your order.',
   'billing.usdt.walletCompat': 'Wallet hint',
-  'billing.usdt.compat.evm': 'MetaMask, TrustWallet, TokenPocket, imToken, OKX and Coinbase will auto-fill both the address and the amount when they scan this QR.',
-  'billing.usdt.compat.solana': 'Phantom, Solflare, TokenPocket and OKX will auto-fill both the address and the amount when they scan this QR.',
-  'billing.usdt.compat.tron': 'TokenPocket and imToken auto-fill both fields. Older TronLink builds only pick up the address — copy the amount from the highlighted field on the right.',
+  'billing.usdt.compat.evm':
+    'MetaMask, TrustWallet, TokenPocket, imToken, OKX and Coinbase will auto-fill both the address and the amount when they scan this QR.',
+  'billing.usdt.compat.solana':
+    'Phantom, Solflare, TokenPocket and OKX will auto-fill both the address and the amount when they scan this QR.',
+  'billing.usdt.compat.tron':
+    'TokenPocket and imToken auto-fill both fields. Older TronLink builds only pick up the address — copy the amount from the highlighted field on the right.',
   'billing.usdt.reusedHint': 'Resuming your previous unpaid order.',
 
   // Community
@@ -4329,7 +4585,8 @@ const locale = {
 
   // Indicator publish
   'dashboard.indicator.publish.vipFree': 'VIP Free',
-  'dashboard.indicator.publish.vipFreeHint': 'When enabled: VIP users can use this indicator for free (non-VIP still need to purchase).',
+  'dashboard.indicator.publish.vipFreeHint':
+    'When enabled: VIP users can use this indicator for free (non-VIP still need to purchase).',
 
   // Quick Trade Panel
   'quickTrade.title': 'Quick Trade',
@@ -4344,7 +4601,8 @@ const locale = {
   'quickTrade.swapAvailable': 'Futures available',
   'quickTrade.spotAvailable': 'Spot available',
   'quickTrade.balanceFetchPartial': 'Could not load some balances. Check API permissions or retry.',
-  'quickTrade.errorBitgetIpWhitelist': 'Bitget rejected the request: outbound IP {ip} is not on your API whitelist. Add it under Bitget → API Management → Edit key → IP allowlist, or disable IP restriction.',
+  'quickTrade.errorBitgetIpWhitelist':
+    'Bitget rejected the request: outbound IP {ip} is not on your API whitelist. Add it under Bitget → API Management → Edit key → IP allowlist, or disable IP restriction.',
   'quickTrade.errorHints.ipWhitelist': 'API IP allowlist',
   'quickTrade.spotHold': 'Hold',
   'quickTrade.sellSpot': 'Sell',
@@ -4363,7 +4621,8 @@ const locale = {
   'quickTrade.marginMode': 'Margin mode',
   'quickTrade.crossMargin': 'Cross',
   'quickTrade.isolatedMargin': 'Isolated',
-  'quickTrade.marginModeHint': 'We request the exchange to set cross/isolated for this symbol before placing the order (may fail if orders exist or the exchange rejects).',
+  'quickTrade.marginModeHint':
+    'We request the exchange to set cross/isolated for this symbol before placing the order (may fail if orders exist or the exchange rejects).',
   'quickTrade.spotModeTitle': 'Spot (1× leverage)',
   'quickTrade.spotModeHint': 'At 1× leverage orders use spot. At 2× or higher, USDT-margined perpetuals are used.',
   'quickTrade.shortDisabledSpot': 'Spot does not support opening a short. Use futures (leverage ≥ 2×).',
@@ -4372,7 +4631,8 @@ const locale = {
   'quickTrade.sl': 'Stop Loss Price',
   'quickTrade.tpPlaceholder': 'Enter TP price',
   'quickTrade.slPlaceholder': 'Enter SL price',
-  'quickTrade.tpslRecordOnlyHint': 'Note: TP/SL prices are saved in QuantDinger trade records only. They are not sent to the exchange as native TP/SL or trigger orders. Set exchange-side TP/SL on the exchange if you need that.',
+  'quickTrade.tpslRecordOnlyHint':
+    'Note: TP/SL prices are saved in QuantDinger trade records only. They are not sent to the exchange as native TP/SL or trigger orders. Set exchange-side TP/SL on the exchange if you need that.',
   'quickTrade.optional': 'Optional',
   'quickTrade.buyLong': 'Buy / Long',
   'quickTrade.sellShort': 'Sell / Short',
@@ -4386,7 +4646,8 @@ const locale = {
   'quickTrade.closeScopeLabel': 'Close scope (perp)',
   'quickTrade.closeScopeFull': 'Full position',
   'quickTrade.closeScopeSystem': 'Quick Trade estimate',
-  'quickTrade.closeScopeSystemHint': 'Uses filled buy/sell base qty from Quick Trade history and closes min(that net, exchange position). Wrong if you changed size on the exchange or outside this app; use with care.',
+  'quickTrade.closeScopeSystemHint':
+    'Uses filled buy/sell base qty from Quick Trade history and closes min(that net, exchange position). Wrong if you changed size on the exchange or outside this app; use with care.',
   'quickTrade.noPosition': 'No Position',
   'quickTrade.noPositionHint': 'No position for current trading pair',
   'quickTrade.recentTrades': 'Recent Trades',
@@ -4395,13 +4656,17 @@ const locale = {
   'quickTrade.positionClosed': 'Position closed!',
   'quickTrade.openPanel': 'Quick Trade',
   'quickTrade.tradeNow': 'Trade Now',
-  'quickTrade.errorHints.insufficientBalance': 'Insufficient available margin. Please deposit funds or reduce the order amount.',
-  'quickTrade.errorHints.invalidSize': 'Order size does not meet exchange requirements (below minimum or invalid precision). Please adjust the amount.',
+  'quickTrade.errorHints.insufficientBalance':
+    'Insufficient available margin. Please deposit funds or reduce the order amount.',
+  'quickTrade.errorHints.invalidSize':
+    'Order size does not meet exchange requirements (below minimum or invalid precision). Please adjust the amount.',
   'quickTrade.errorHints.invalidPrice': 'Limit price exceeds the allowed deviation. Please check the price.',
   'quickTrade.errorHints.rateLimit': 'Too many requests. Please try again later.',
-  'quickTrade.errorHints.authError': 'API key is invalid or lacks permissions. Please check your exchange account settings.',
+  'quickTrade.errorHints.authError':
+    'API key is invalid or lacks permissions. Please check your exchange account settings.',
   'quickTrade.errorHints.positionConflict': 'No position to close, or position side mismatch.',
-  'quickTrade.errorHints.networkError': 'Failed to connect to the exchange. Please check your network or try again later.',
+  'quickTrade.errorHints.networkError':
+    'Failed to connect to the exchange. Please check your network or try again later.',
   'quickTrade.errorHints.exchangeMaintenance': 'The exchange is under maintenance. Please try again later.',
 
   // ==================== Indicator IDE ====================
@@ -4414,7 +4679,8 @@ const locale = {
   'indicatorIde.codeEditor': 'Code Editor',
   'indicatorIde.modified': 'Modified',
   'indicatorIde.aiGenerate': 'AI Generate',
-  'indicatorIde.aiAssistHint': 'Describe your indicator idea in natural language, then save, backtest, publish it to the indicator market, or turn it into a strategy.',
+  'indicatorIde.aiAssistHint':
+    'Describe your indicator idea in natural language, then save, backtest, publish it to the indicator market, or turn it into a strategy.',
   'indicatorIde.aiPromptPlaceholder': 'Describe the indicator you want to generate...',
   'indicatorIde.generating': 'Generating...',
   'indicatorIde.generateCode': 'Generate Code',
@@ -4428,7 +4694,8 @@ const locale = {
   'indicatorIde.commission': 'Commission (%)',
   'indicatorIde.fundingRateAnnual': 'Funding rate (annual)',
   'indicatorIde.fundingIntervalHours': 'Funding interval (hours)',
-  'indicatorIde.fundingRateHint': 'Perpetual contracts charge funding each interval. 0 disables. Use 0.1 for 10%/yr — or 10, auto-detected as percent. Positive = long pays / short receives.',
+  'indicatorIde.fundingRateHint':
+    'Perpetual contracts charge funding each interval. 0 disables. Use 0.1 for 10%/yr — or 10, auto-detected as percent. Positive = long pays / short receives.',
   'indicatorIde.oosScore': 'OOS score',
   'indicatorIde.oosDegradation': 'Degrade',
   'indicatorIde.oosOverfitTag': 'Likely overfit',
@@ -4437,42 +4704,54 @@ const locale = {
   'indicatorIde.isPanelTitle': 'In-sample (training)',
   'indicatorIde.oosPanelTitle': 'Out-of-sample (holdout)',
   'indicatorIde.oosNotAvailable': 'OOS not evaluated for this candidate.',
-  'indicatorIde.oosOverfitWarning': 'Likely overfit: OOS score collapsed by {degrade}% vs IS. Running on your full window will probably look very different from the IS headline.',
+  'indicatorIde.oosOverfitWarning':
+    'Likely overfit: OOS score collapsed by {degrade}% vs IS. Running on your full window will probably look very different from the IS headline.',
   'indicatorIde.applyAndVerifyOnTrain': 'Apply & verify on training window',
   'indicatorIde.applyAndRunOnFull': 'Apply & run on full window',
-  'indicatorIde.applyAndVerifyHint': 'Writes the candidate params back into the code and reruns the backtest on the training window (first 70%). Should reproduce the headline IS numbers.',
-  'indicatorIde.applyAndRunFullHint': 'Writes the candidate params back into the code and reruns on your full selected window (100%) — same as the main backtest panel. Numbers will differ from the headline IS score.',
-  'indicatorIde.oosBanner': 'To prevent overfitting, the tuner splits your backtest window into a training segment (first 70%) and an OOS holdout (last 30%): the IS card below covers {trainStart} → {trainEnd}, and the OOS card covers {oosStart} → {oosEnd}. To match the main backtest panel (full window), use "Apply & run on full window".',
+  'indicatorIde.applyAndVerifyHint':
+    'Writes the candidate params back into the code and reruns the backtest on the training window (first 70%). Should reproduce the headline IS numbers.',
+  'indicatorIde.applyAndRunFullHint':
+    'Writes the candidate params back into the code and reruns on your full selected window (100%) — same as the main backtest panel. Numbers will differ from the headline IS score.',
+  'indicatorIde.oosBanner':
+    'To prevent overfitting, the tuner splits your backtest window into a training segment (first 70%) and an OOS holdout (last 30%): the IS card below covers {trainStart} → {trainEnd}, and the OOS card covers {oosStart} → {oosEnd}. To match the main backtest panel (full window), use "Apply & run on full window".',
   'indicatorIde.sweepDimensionsTitle': 'Tunable Dimensions',
   'indicatorIde.sweepDimEnabledLabel': 'enabled',
   'indicatorIde.sweepCartesianLabel': 'Cartesian',
   'indicatorIde.sweepBudgetLabel': 'sampled',
-  'indicatorIde.sweepMethodAutoSwitchHint': 'Cartesian product ({size}) far exceeds the 48-candidate budget — auto-switched to DE for smarter coverage.',
-  'indicatorIde.sweepDimensionsEmpty': 'No tunable dimensions detected. Add `@param name int 14 ...` lines to your indicator.',
+  'indicatorIde.sweepMethodAutoSwitchHint':
+    'Cartesian product ({size}) far exceeds the 48-candidate budget — auto-switched to DE for smarter coverage.',
+  'indicatorIde.sweepDimensionsEmpty':
+    'No tunable dimensions detected. Add `@param name int 14 ...` lines to your indicator.',
   'indicatorIde.sweepSource_risk': 'Risk',
   'indicatorIde.sweepSource_position': 'Position',
   'indicatorIde.sweepSource_leverage': 'Leverage',
   'indicatorIde.sweepSource_indicator_declared': '@param',
   'indicatorIde.sweepSource_indicator_inferred': 'inferred',
-  'indicatorIde.sweepDimensionsTip': 'Add `# @param rsi_len int 14 RSI period` to your indicator and it auto-joins the sweep; append `range=7:21:2` for an explicit range.',
+  'indicatorIde.sweepDimensionsTip':
+    'Add `# @param rsi_len int 14 RSI period` to your indicator and it auto-joins the sweep; append `range=7:21:2` for an explicit range.',
   'indicatorIde.slippage': 'Slippage (%)',
   'indicatorIde.strictModeLabel': 'Strict mode',
   'indicatorIde.strictModeOnShort': 'Strict',
   'indicatorIde.strictModeOffShort': 'Aggressive',
-  'indicatorIde.strictModeOnHint': 'On: signals only on closed bars, filled at next bar open. Matches live strict mode.',
-  'indicatorIde.strictModeOffHint': 'Off: same-bar signals with finer-bar fills (≈ live polling). Usually more optimistic.',
+  'indicatorIde.strictModeOnHint':
+    'On: signals only on closed bars, filled at next bar open. Matches live strict mode.',
+  'indicatorIde.strictModeOffHint':
+    'Off: same-bar signals with finer-bar fills (≈ live polling). Usually more optimistic.',
   'indicatorIde.direction': 'Trade Direction',
   'indicatorIde.long': 'Long',
   'indicatorIde.short': 'Short',
   'indicatorIde.both': 'Both',
   'indicatorIde.highPrecisionMtf': 'High-Precision MTF',
-  'indicatorIde.mtfHint': 'Multi-timeframe backtesting uses lower timeframes for precision. Disabling makes backtests much faster.',
+  'indicatorIde.mtfHint':
+    'Multi-timeframe backtesting uses lower timeframes for precision. Disabling makes backtests much faster.',
   'indicatorIde.backtestPreset.label': 'Backtest mode',
   'indicatorIde.backtestPreset.liveAligned': 'Live-aligned (recommended)',
   'indicatorIde.backtestPreset.exploration': 'Ideal exploration',
-  'indicatorIde.backtestPreset.liveAlignedHint': 'Fills in 0.05% fee/slippage only. Does not change MTF — use the checkbox below.',
+  'indicatorIde.backtestPreset.liveAlignedHint':
+    'Fills in 0.05% fee/slippage only. Does not change MTF — use the checkbox below.',
   'indicatorIde.backtestPreset.explorationHint': 'Fills in 0.1% fee and 0 slippage only. Does not change MTF.',
-  'indicatorIde.mtfFallbackToast': 'MTF was requested but standard backtest ran — results may match MTF off. See Execution assumptions.',
+  'indicatorIde.mtfFallbackToast':
+    'MTF was requested but standard backtest ran — results may match MTF off. See Execution assumptions.',
   'indicatorIde.mtfFallbackToastWithReason': 'MTF not used: {reason}. Standard backtest ran instead.',
   'indicatorIde.risk': 'Risk',
   'indicatorIde.stopLoss': 'Stop Loss (%)',
@@ -4499,9 +4778,12 @@ const locale = {
   'indicatorIde.devGuideTooltip': 'Read the strategy/indicator coding tutorial',
   'indicatorIde.tuningMovedToTabHint': 'Tuning has moved to the Smart Tuning tab on the right.',
   'indicatorIde.tuningLaunchTitle': 'Smart Tuning',
-  'indicatorIde.tuningLaunchDesc': 'Automatically search for optimal strategy parameters. Pick a run mode and click Execute.',
-  'indicatorIde.structuredTuneExplain': 'Grid or random sampling of stop-loss, take-profit, and position-size parameters annotated with @strategy in your code. Results are ranked by return. Best for strategies with well-defined parameter ranges.',
-  'indicatorIde.aiTuneExplain': 'AI analyzes backtest results and iteratively searches for the best parameter combination across multiple rounds. No manual range setup needed — ideal for quick exploration.',
+  'indicatorIde.tuningLaunchDesc':
+    'Automatically search for optimal strategy parameters. Pick a run mode and click Execute.',
+  'indicatorIde.structuredTuneExplain':
+    'Grid or random sampling of stop-loss, take-profit, and position-size parameters annotated with @strategy in your code. Results are ranked by return. Best for strategies with well-defined parameter ranges.',
+  'indicatorIde.aiTuneExplain':
+    'AI analyzes backtest results and iteratively searches for the best parameter combination across multiple rounds. No manual range setup needed — ideal for quick exploration.',
   'indicatorIde.runTune': 'Execute',
   'indicatorIde.tuneModeLabel': 'Run Mode',
   'indicatorIde.tuneModeStructured': 'Structured Scan',
@@ -4520,7 +4802,8 @@ const locale = {
   'indicatorIde.clearSignalsDone': 'Cleared backtest B/S markers on the chart',
   'indicatorIde.backtestMarkerFill': 'Fill bar (solid)',
   'indicatorIde.backtestMarkerSignal': 'Signal bar (dashed)',
-  'indicatorIde.backtestMarkerHint': 'In strict mode the signal confirms on the prior bar and fills at the next open; SL/TP on the same bar show solid only.',
+  'indicatorIde.backtestMarkerHint':
+    'In strict mode the signal confirms on the prior bar and fills at the next open; SL/TP on the same bar show solid only.',
   'indicatorIde.backtestMarkerSignalPrefix': 'Sig·',
   'indicatorIde.backtestMarkerAction.openLong': 'Long',
   'indicatorIde.backtestMarkerAction.addLong': 'Add L',
@@ -4555,10 +4838,13 @@ const locale = {
   'indicatorIde.purchasedBadge': 'Purchased',
   'indicatorIde.purchasedReadOnlyTag': 'Purchased (read-only)',
   'indicatorIde.purchasedIndicatorHintTitle': 'This indicator is from the Indicator Market',
-  'indicatorIde.purchasedIndicatorHintDesc': 'Purchased copies cannot overwrite the original. You can view code, run on the chart, backtest, and use smart tuning. To edit code, use “Save as new indicator” to fork your own copy first.',
-  'indicatorIde.saveBlockedPurchased': 'Purchased indicators cannot be saved in place. Use “Save as new indicator” to fork a copy.',
+  'indicatorIde.purchasedIndicatorHintDesc':
+    'Purchased copies cannot overwrite the original. You can view code, run on the chart, backtest, and use smart tuning. To edit code, use “Save as new indicator” to fork your own copy first.',
+  'indicatorIde.saveBlockedPurchased':
+    'Purchased indicators cannot be saved in place. Use “Save as new indicator” to fork a copy.',
   'indicatorIde.publishBlockedPurchased': 'Purchased indicators cannot be published to the community',
-  'indicatorIde.aiGenBlockedPurchased': 'This copy is read-only. Save as a new indicator before using AI to change code.',
+  'indicatorIde.aiGenBlockedPurchased':
+    'This copy is read-only. Save as a new indicator before using AI to change code.',
   'indicatorIde.equityCurve': 'Equity Curve',
   'indicatorIde.trades': 'Trades',
   'indicatorIde.history': 'History',
@@ -4598,10 +4884,12 @@ const locale = {
   'indicatorIde.quality.MISSING_INDICATOR_DESCRIPTION': 'Consider adding my_indicator_description',
   'indicatorIde.quality.MISSING_DF_COPY': 'Prefer starting with df = df.copy()',
   'indicatorIde.quality.MISSING_OUTPUT': 'Missing output = { ... } (required for chart/verify)',
-  'indicatorIde.quality.MISSING_BUY_SELL_COLUMNS': 'Missing df[\'buy\']/df[\'sell\'] (backtest needs boolean signals)',
+  'indicatorIde.quality.MISSING_BUY_SELL_COLUMNS': "Missing df['buy']/df['sell'] (backtest needs boolean signals)",
   'indicatorIde.quality.UNKNOWN_STRATEGY_KEY': 'Unknown @strategy key "{key}" (ignored by parser)',
-  'indicatorIde.quality.NO_STRATEGY_ANNOTATIONS': 'Trading signals present but no # @strategy block; add TP/SL/sizing hints',
-  'indicatorIde.quality.NO_STOP_AND_TAKE_PROFIT': 'No stopLossPct/takeProfitPct in @strategy; risk exits rely on signals only',
+  'indicatorIde.quality.NO_STRATEGY_ANNOTATIONS':
+    'Trading signals present but no # @strategy block; add TP/SL/sizing hints',
+  'indicatorIde.quality.NO_STOP_AND_TAKE_PROFIT':
+    'No stopLossPct/takeProfitPct in @strategy; risk exits rely on signals only',
   'indicatorIde.quality.NO_STOP_LOSS': 'No # @strategy stopLossPct',
   'indicatorIde.quality.NO_TAKE_PROFIT': 'No # @strategy takeProfitPct',
   'indicatorIde.quality.ZERO_STOP_AND_TAKE_PROFIT': 'Stop and take-profit set to 0 (no engine-level TP/SL)',
@@ -4610,13 +4898,17 @@ const locale = {
   'indicatorIde.quality.HIGH_LEVERAGE': 'Leverage {leverage}x is high — double-check risk',
   'indicatorIde.quality.TRAILING_NO_PCT': 'trailingEnabled true but trailingStopPct missing/zero',
   'indicatorIde.quality.EMPTY_PLOTS_AND_SIGNALS': 'plots and signals are both empty — chart may look blank',
-  'indicatorIde.quality.NDARRAY_PANDAS_METHOD_MISUSE': 'Pandas method called on numpy ndarray: {symbol}.{method}(...). Wrap with pd.Series(arr, index=df.index), or rewrite using .where/.clip/.abs',
-  'indicatorIde.quality.HELPER_RETURNS_NDARRAY': 'User helper returns ndarray: {names_str}. Calling .rolling/.fillna/.shift on the result will AttributeError; return a Series instead',
+  'indicatorIde.quality.NDARRAY_PANDAS_METHOD_MISUSE':
+    'Pandas method called on numpy ndarray: {symbol}.{method}(...). Wrap with pd.Series(arr, index=df.index), or rewrite using .where/.clip/.abs',
+  'indicatorIde.quality.HELPER_RETURNS_NDARRAY':
+    'User helper returns ndarray: {names_str}. Calling .rolling/.fillna/.shift on the result will AttributeError; return a Series instead',
   'indicatorIde.quality.RUNTIME_ERROR_ON_VERIFY': 'Sandbox dry-run raised {error_type}: {detail}',
-  'indicatorIde.quality.FUTURE_DATA_LEAK': 'Future data leak detected ({kind}): {snippet}. Backtest reads bars that have not happened yet — cannot be reproduced live. Use .shift(N) with positive N or iloc[i-N] instead.',
+  'indicatorIde.quality.FUTURE_DATA_LEAK':
+    'Future data leak detected ({kind}): {snippet}. Backtest reads bars that have not happened yet — cannot be reproduced live. Use .shift(N) with positive N or iloc[i-N] instead.',
   'indicatorIde.aiNoCode': 'No code generated. Try a more detailed prompt.',
   'indicatorIde.aiGenerateFailed': 'AI generation failed',
-  'indicatorIde.quickTradeReuseHint': 'This entry now reuses the original Quick Trade drawer so the trading behavior stays identical to the existing module.',
+  'indicatorIde.quickTradeReuseHint':
+    'This entry now reuses the original Quick Trade drawer so the trading behavior stays identical to the existing module.',
   'indicatorIde.toolbar.watchlist': 'Watchlist',
   'indicatorIde.toolbar.timeframe': 'Timeframe',
   'indicatorIde.toolbar.indicator': 'Indicator',
@@ -4635,22 +4927,28 @@ const locale = {
   'indicatorIde.aiExperimentRunning': 'Running multi-round backtests…',
   'indicatorIde.aiExperimentDone': 'Smart tuning finished',
   'indicatorIde.aiExperimentFailed': 'Smart tuning failed',
-  'indicatorIde.aiExperimentEmpty': 'Choose Structured Scan (grid / random batch backtests) or AI Tuning (let the LLM propose candidates) from the Run Mode dropdown, then click Execute. Results are advisory — validate with out-of-sample and risk controls.',
+  'indicatorIde.aiExperimentEmpty':
+    'Choose Structured Scan (grid / random batch backtests) or AI Tuning (let the LLM propose candidates) from the Run Mode dropdown, then click Execute. Results are advisory — validate with out-of-sample and risk controls.',
   'indicatorIde.aiExperimentNeedBacktestParams': 'Please prepare code, symbol, and backtest range first',
   'indicatorIde.aiExperimentTab': 'Smart Tuning',
   'indicatorIde.runStructuredTune': 'Structured Scan',
   'indicatorIde.structuredTuneGrid': 'Grid',
   'indicatorIde.structuredTuneRandom': 'Random',
   'indicatorIde.structuredTuneDe': 'DE',
-  'indicatorIde.structuredTuneDeHint': 'Differential Evolution treats each backtest score as fitness and iteratively converges on the best combo. Strongest payoff on a 24–48-eval budget.',
+  'indicatorIde.structuredTuneDeHint':
+    'Differential Evolution treats each backtest score as fitness and iteratively converges on the best combo. Strongest payoff on a 24–48-eval budget.',
   'indicatorIde.structuredTuneTpe': 'Bayesian / TPE',
-  'indicatorIde.structuredTuneTpeHint': 'TPE Bayesian sampling picks the next candidate from the density of past good vs. bad trials — typically finds promising regions faster than pure random.',
+  'indicatorIde.structuredTuneTpeHint':
+    'TPE Bayesian sampling picks the next candidate from the density of past good vs. bad trials — typically finds promising regions faster than pure random.',
   'indicatorIde.aiTuneFeature1': 'LLM proposes candidates',
   'indicatorIde.aiTuneFeature2': 'Multi-round refinement',
   'indicatorIde.aiTuneFeature3': 'Built-in OOS check',
-  'indicatorIde.aiTuneCta': 'Let the LLM produce several high-quality candidates — no manual parameter ranges required.',
-  'indicatorIde.structuredTuneGridHint': 'Grid sweep enumerates every parameter combo — fully reproducible. Best when ≤4 parameters are being tuned.',
-  'indicatorIde.structuredTuneRandomHint': 'Random sampling distributes trials uniformly. A robust baseline for high-dimensional spaces with a fixed budget.',
+  'indicatorIde.aiTuneCta':
+    'Let the LLM produce several high-quality candidates — no manual parameter ranges required.',
+  'indicatorIde.structuredTuneGridHint':
+    'Grid sweep enumerates every parameter combo — fully reproducible. Best when ≤4 parameters are being tuned.',
+  'indicatorIde.structuredTuneRandomHint':
+    'Random sampling distributes trials uniformly. A robust baseline for high-dimensional spaces with a fixed budget.',
   'indicatorIde.structuredTuneBadgeBasic': 'Basic',
   'indicatorIde.structuredTuneBadgePro': 'Pro',
   'indicatorIde.analyticsRiskReturn': 'Risk vs return',
@@ -4662,13 +4960,15 @@ const locale = {
   'indicatorIde.analyticsNoRadar': 'No component scores available',
   'indicatorIde.scoringProfile': 'Scoring weights',
   'indicatorIde.stability': 'Stability',
-  'indicatorIde.structuredTuneHint': 'Samples stop/take-profit/size near your @strategy values and batch-backtests them. Run before or after Smart Tuning above.',
+  'indicatorIde.structuredTuneHint':
+    'Samples stop/take-profit/size near your @strategy values and batch-backtests them. Run before or after Smart Tuning above.',
   'indicatorIde.structuredTuneRunning': 'Running batch backtests…',
   'indicatorIde.structuredTuneDone': 'Structured scan finished',
   'indicatorIde.structuredTuneFailed': 'Structured scan failed',
   'indicatorIde.rerunAiTuning': 'Run AI tuning again',
   'indicatorIde.rerunStructuredTuning': 'Run structured scan again',
-  'indicatorIde.structuredTuneResultHint': 'Ranked results from structured scan (grid/random). Run a single backtest after applying params to verify.',
+  'indicatorIde.structuredTuneResultHint':
+    'Ranked results from structured scan (grid/random). Run a single backtest after applying params to verify.',
   'indicatorIde.marketRegime': 'Market Regime',
   'indicatorIde.bestStrategyOutput': 'Best Strategy Output',
   'indicatorIde.strategyRanking': 'Strategy Ranking',
@@ -4676,13 +4976,15 @@ const locale = {
   'indicatorIde.score': 'Score',
   'indicatorIde.grade': 'Grade',
   'indicatorIde.applyBestParams': 'Apply Best Params',
-  'indicatorIde.bestParamsApplied': 'Candidate values written into indicator code (# @strategy / # @param). Save the indicator, then backtest; for live trading, select this indicator.',
+  'indicatorIde.bestParamsApplied':
+    'Candidate values written into indicator code (# @strategy / # @param). Save the indicator, then backtest; for live trading, select this indicator.',
   'indicatorIde.bestParamsAppliedCount': 'Applied {count} parameter changes.',
   'indicatorIde.applyCandidateNoChanges': 'Already matches current code; nothing changed.',
   'indicatorIde.applyCandidateNoOverrides': 'This candidate has no parameters to apply.',
   'indicatorIde.tuningChangesTitle': 'Parameter Changes',
   'indicatorIde.tuningChangesHint': 'Compared with your current code and backtest panel settings',
-  'indicatorIde.tuningChangesAlreadyApplied': 'This candidate already matches your current code and backtest panel settings.',
+  'indicatorIde.tuningChangesAlreadyApplied':
+    'This candidate already matches your current code and backtest panel settings.',
   'indicatorIde.lastAppliedParamsTitle': 'Recently Applied Params',
   'indicatorIde.lastAppliedParamsFrom': 'from {name}',
   'indicatorIde.moreParams': '+{count} more',
@@ -4717,7 +5019,8 @@ const locale = {
   'indicatorIde.scoreStability': 'Stability Score',
   'indicatorIde.scoreSampleSize': 'Sample Size Score',
   'indicatorIde.scoreRegimeFit': 'Regime Fit Score',
-  'indicatorIde.experimentPromptHint': 'The market is currently in "{regime}". Prioritize {families} style strategy families and screen them with risk controls.',
+  'indicatorIde.experimentPromptHint':
+    'The market is currently in "{regime}". Prioritize {families} style strategy families and screen them with risk controls.',
   'indicatorIde.regimeBullTrend': 'Bull Trend',
   'indicatorIde.regimeBearTrend': 'Bear Trend',
   'indicatorIde.regimeRangeCompression': 'Range Compression',
@@ -4756,22 +5059,27 @@ const locale = {
   'indicatorIde.goToStrategyManagement': 'Go to Strategy Management',
   'indicatorIde.strategyAnnotationsApplied': 'Synced {count} @strategy field(s) from code (e.g. trade direction)',
   'indicatorIde.strategyAnnotationsHint': 'This indicator has @strategy lines; backtest risk/position come from code.',
-  'indicatorIde.strategyFromCodeHint': 'Set stop-loss, take-profit, sizing and trailing via # @strategy in code. Fills always use next bar open (live-like).',
+  'indicatorIde.strategyFromCodeHint':
+    'Set stop-loss, take-profit, sizing and trailing via # @strategy in code. Fills always use next bar open (live-like).',
   'indicatorIde.newIndicatorUnsavedTitle': 'Unsaved changes on current indicator',
-  'indicatorIde.newIndicatorUnsavedContent': 'Creating new will keep the last saved version on the server; unsaved local edits will be lost. Continue?',
+  'indicatorIde.newIndicatorUnsavedContent':
+    'Creating new will keep the last saved version on the server; unsaved local edits will be lost. Continue?',
   'indicatorIde.newIndicatorConfirmOk': 'Create new',
   'indicatorIde.newIndicatorConfirmCancel': 'Cancel',
   'indicatorIde.newIndicatorCreated': 'New indicator created and loaded in the editor. Edit and click Save when ready.',
   'indicatorIde.newIndicatorFailed': 'Failed to create indicator',
   'indicatorIde.historyRunLoaded': 'Historical run loaded below; parameters restored',
   'indicatorIde.historyRunBannerTitle': 'Historical run #{id} · {symbol} · {timeframe} · {range}',
-  'indicatorIde.historyRunBannerDesc': 'Backtest parameters on the left match this run. Re-run backtest after any edits.',
+  'indicatorIde.historyRunBannerDesc':
+    'Backtest parameters on the left match this run. Re-run backtest after any edits.',
   'indicatorIde.historyRunSwitchedIndicator': 'Switched to the indicator for this run (ID {id})',
-  'indicatorIde.historyRunIndicatorMissing': 'Indicator ID {id} is not in your list; parameters and results are still loaded',
+  'indicatorIde.historyRunIndicatorMissing':
+    'Indicator ID {id} is not in your list; parameters and results are still loaded',
 
   // Profile - Exchange Configuration
   'profile.exchange.title': 'Exchange Config',
-  'profile.exchange.hint': 'Manage your exchange API keys and broker connections. They can be used in Trading Assistant and Quick Trade.',
+  'profile.exchange.hint':
+    'Manage your exchange API keys and broker connections. They can be used in Trading Assistant and Quick Trade.',
   'profile.exchange.addAccount': 'Add Exchange Account',
   'profile.exchange.noAccounts': 'No exchange accounts yet. Click the button above to add one.',
   'profile.exchange.colExchange': 'Exchange',
@@ -4789,11 +5097,13 @@ const locale = {
   'profile.exchange.signupSectionCrypto': 'Crypto Exchanges',
   'profile.exchange.signupSectionCryptoHint': 'For API keys used in crypto spot & futures trading on this platform.',
   'profile.exchange.signupSectionForex': 'Forex & CFD (TMGM)',
-  'profile.exchange.signupSectionForexHint': 'Register with TMGM, then connect via MetaTrader 5 — different from crypto exchange API keys.',
+  'profile.exchange.signupSectionForexHint':
+    'Register with TMGM, then connect via MetaTrader 5 — different from crypto exchange API keys.',
   'profile.exchange.signupSectionDivider': 'or',
   'profile.exchange.signupTagApi': 'API',
   'profile.exchange.signupTagTerminal': 'Terminal',
-  'profile.exchange.signupMt5Note': 'After opening a TMGM account, install MT5 and bind server/login under Profile → Exchange or Broker Accounts.',
+  'profile.exchange.signupMt5Note':
+    'After opening a TMGM account, install MT5 and bind server/login under Profile → Exchange or Broker Accounts.',
   'profile.exchange.openAccountHint': 'Pick a supported referral link and jump to the exchange registration page.',
   'profile.exchange.openAccountGo': 'Register Now',
   'profile.exchange.openAccountUnavailable': 'Referral link pending',
@@ -4808,17 +5118,20 @@ const locale = {
   'profile.exchange.passphrase': 'Passphrase',
   'profile.exchange.demoTrading': 'Demo / testnet trading',
   'profile.exchange.demoTag': 'Testnet',
-  'profile.exchange.demoTradingHint': 'Uses each exchange demo/test endpoints where available (e.g. Binance demo hosts, Bybit testnet, OKX simulated-trading header). Bitget, Kraken spot, Bitfinex share the same REST host as live—create paper/demo API keys on the exchange and keep this checked to tag the credential.',
+  'profile.exchange.demoTradingHint':
+    'Uses each exchange demo/test endpoints where available (e.g. Binance demo hosts, Bybit testnet, OKX simulated-trading header). Bitget, Kraken spot, Bitfinex share the same REST host as live—create paper/demo API keys on the exchange and keep this checked to tag the credential.',
   'profile.exchange.whitelistIpLabel': 'API whitelist IP (server egress)',
   'profile.exchange.whitelistIpv4': 'IPv4',
   'profile.exchange.whitelistIpv6': 'IPv6',
-  'profile.exchange.whitelistIpHint': 'Add IPv4 and/or IPv6 to your exchange API whitelist as required (you may add both). These are backend egress addresses, not your browser’s IP. A dash means this environment has no egress for that protocol.',
+  'profile.exchange.whitelistIpHint':
+    'Add IPv4 and/or IPv6 to your exchange API whitelist as required (you may add both). These are backend egress addresses, not your browser’s IP. A dash means this environment has no egress for that protocol.',
   'profile.exchange.whitelistIpCopy': 'Copy',
   'profile.exchange.whitelistIpRefresh': 'Refresh',
   'profile.exchange.whitelistIpCopied': 'Copied to clipboard',
   'profile.exchange.whitelistIpCopyFail': 'Copy failed',
   'profile.exchange.apiDocTitleSuffix': 'API Docs',
-  'profile.exchange.apiDocHint': 'Review the exchange official API guide first, then come back here to fill in your API Key, Secret, and whitelist IP.',
+  'profile.exchange.apiDocHint':
+    'Review the exchange official API guide first, then come back here to fill in your API Key, Secret, and whitelist IP.',
   'profile.exchange.apiDocAction': 'Open Official Docs',
   'profile.exchange.ibkrHost': 'TWS/Gateway Host',
   'profile.exchange.ibkrPort': 'TWS/Gateway Port',
@@ -4843,17 +5156,20 @@ const locale = {
   'profile.exchange.typeCrypto': 'Crypto Exchange',
   'profile.exchange.typeAlpaca': 'US Stock & Crypto (Alpaca)',
   'profile.exchange.alpacaNoLocalTitle': 'No local deployment required',
-  'profile.exchange.alpacaNoLocalHint': 'Alpaca connects via cloud REST API - no TWS/MT5 terminal needed. Recommended US-stock/crypto broker for SaaS deployments. Apply for an API key at https://alpaca.markets — this system auto-routes by prefix: PK* -> paper-api (sandbox), AK* -> api (live).',
+  'profile.exchange.alpacaNoLocalHint':
+    'Alpaca connects via cloud REST API - no TWS/MT5 terminal needed. Recommended US-stock/crypto broker for SaaS deployments. Apply for an API key at https://alpaca.markets — this system auto-routes by prefix: PK* -> paper-api (sandbox), AK* -> api (live).',
   'profile.exchange.alpacaApiKeyPh': 'PKxxxxxxxx (paper) or AKxxxxxxxx (live)',
   'profile.exchange.alpacaSecretKeyPh': 'API Secret',
   'profile.exchange.alpacaBaseUrlOptional': 'Custom Base URL (optional)',
-  'profile.exchange.alpacaBaseUrlHint': 'Defaults are derived from the API key prefix: PK* -> paper-api.alpaca.markets, AK* -> api.alpaca.markets. Only fill this if you need to route through a specific gateway.',
+  'profile.exchange.alpacaBaseUrlHint':
+    'Defaults are derived from the API key prefix: PK* -> paper-api.alpaca.markets, AK* -> api.alpaca.markets. Only fill this if you need to route through a specific gateway.',
   'profile.exchange.typeIBKR': 'US Stocks (IBKR)',
   'profile.exchange.typeMT5': 'Forex (MetaTrader 5)',
   'profile.exchange.localDeploymentRequired': 'Local deployment required',
   'profile.exchange.localDeploymentHint': 'This broker requires local deployment of QuantDinger to use.',
   'profile.exchange.desktopBrokersDisabledTitle': 'IBKR / MT5 disabled on this server',
-  'profile.exchange.desktopBrokersDisabledFallback': 'Deploy QuantDinger on your own machine or private server and install TWS, IB Gateway, or MetaTrader 5.',
+  'profile.exchange.desktopBrokersDisabledFallback':
+    'Deploy QuantDinger on your own machine or private server and install TWS, IB Gateway, or MetaTrader 5.',
   'profile.exchange.desktopBrokersOptionSuffix': 'Unavailable here',
   'profile.exchange.goToManage': 'Go to Profile → Exchange Config to manage',
   'profile.exchange.noCredentialHint': 'Please add an exchange account in Profile first',
@@ -4895,17 +5211,20 @@ const locale = {
   'adminOrders.manualConfirmedNoNote': 'This order was manually confirmed by an admin',
   'adminOrders.manualConfirmTitle': 'Manual confirm USDT order',
   'adminOrders.manualConfirmWarnTitle': 'You are about to grant a membership',
-  'adminOrders.manualConfirmWarnDesc': 'The on-chain reconciler will be bypassed. Only use this when you have independently verified on the block explorer that the buyer paid the correct amount to the receiving address on the chain shown below.',
+  'adminOrders.manualConfirmWarnDesc':
+    'The on-chain reconciler will be bypassed. Only use this when you have independently verified on the block explorer that the buyer paid the correct amount to the receiving address on the chain shown below.',
   'adminOrders.manualConfirmOk': 'Confirm & grant',
   'adminOrders.manualConfirmFinalTitle': 'Activate the membership now?',
-  'adminOrders.manualConfirmFinalDesc': 'The user will be granted the membership immediately. This cannot be undone via the UI. Make sure the on-chain payment is real.',
+  'adminOrders.manualConfirmFinalDesc':
+    'The user will be granted the membership immediately. This cannot be undone via the UI. Make sure the on-chain payment is real.',
   'adminOrders.manualConfirmSuccess': 'Order confirmed and membership granted',
   'adminOrders.manualConfirmFailed': 'Failed to confirm order',
   'adminOrders.txHashLabel': 'On-chain tx hash / signature',
   'adminOrders.txHashPlaceholder': 'Paste the tx hash / signature for the chain (SOL/EVM/TRC20)',
   'adminOrders.txHashRequired': 'Please paste the on-chain tx hash first',
   'adminOrders.adminNoteLabel': 'Note (optional, kept in the audit log)',
-  'adminOrders.adminNotePlaceholder': 'e.g. support ticket #1234, user submitted explorer screenshot, reconciler missed the tx',
+  'adminOrders.adminNotePlaceholder':
+    'e.g. support ticket #1234, user submitted explorer screenshot, reconciler missed the tx',
 
   // ==================== Admin AI Stats ====================
   'adminAiStats.tabTitle': 'AI Analysis',
@@ -4958,7 +5277,8 @@ const locale = {
   'trading-bot.risk.cooldownMin': 'Cooldown (minutes)',
   'trading-assistant.table.notional': 'Position Value (USDT)',
   'settings.field.AKSHARE_TIMEOUT': 'Akshare Timeout (seconds)',
-  'settings.desc.PYTHON_API_HOST': 'Service listening address. 0.0.0.0 allows external access, 127.0.0.1 for local only',
+  'settings.desc.PYTHON_API_HOST':
+    'Service listening address. 0.0.0.0 allows external access, 127.0.0.1 for local only',
   'settings.desc.PYTHON_API_PORT': 'Service listening port, default 5000',
   'settings.desc.PYTHON_API_DEBUG': 'Enable debug mode for development. Disable in production',
   'settings.desc.SECRET_KEY': 'JWT signing key. Must be changed in production for security',
@@ -4967,13 +5287,15 @@ const locale = {
   'settings.desc.OPENROUTER_API_KEY': 'OpenRouter API key for accessing various AI models',
   'settings.desc.OPENROUTER_API_URL': 'OpenRouter API endpoint URL',
   'settings.desc.OPENROUTER_MODEL': 'Default AI model to use, e.g., openai/gpt-4o, anthropic/claude-3.5-sonnet',
-  'settings.desc.OPENROUTER_TEMPERATURE': 'Model creativity (0-1). Lower is more deterministic, higher is more creative',
+  'settings.desc.OPENROUTER_TEMPERATURE':
+    'Model creativity (0-1). Lower is more deterministic, higher is more creative',
   'settings.desc.OPENROUTER_MAX_TOKENS': 'Maximum output tokens per request',
   'settings.desc.OPENROUTER_TIMEOUT': 'API request timeout (seconds)',
   'settings.desc.OPENROUTER_CONNECT_TIMEOUT': 'Connection establishment timeout (seconds)',
   'settings.desc.ENABLE_PENDING_ORDER_WORKER': 'Enable background order processing Worker, required for live trading',
   'settings.desc.PENDING_ORDER_STALE_SEC': 'Pending order timeout, marked as expired after this duration',
-  'settings.desc.DISABLE_RESTORE_RUNNING_STRATEGIES': 'Disable automatic restoration of running strategies on service restart',
+  'settings.desc.DISABLE_RESTORE_RUNNING_STRATEGIES':
+    'Disable automatic restoration of running strategies on service restart',
   'settings.desc.STRATEGY_TICK_INTERVAL_SEC': 'Strategy main loop check interval (seconds)',
   'settings.desc.PRICE_CACHE_TTL_SEC': 'Price data cache validity period (seconds)',
   'settings.desc.MARKET_TYPES_JSON': 'Custom market type configuration, JSON format',
@@ -5053,7 +5375,8 @@ const locale = {
   'indicatorIde.strategyDirectives.title': 'Risk parameters (from code)',
   'indicatorIde.strategyDirectives.empty': 'No # @strategy defaults declared in this indicator yet.',
   'indicatorIde.strategyDirectives.alertTitle': 'About risk, sizing & trailing stop',
-  'indicatorIde.strategyDirectives.alertDesc': 'Stop-loss, take-profit, position sizing and trailing exits live in your indicator code as # @strategy directives — single source of truth, never overridden by the backtest panel.',
+  'indicatorIde.strategyDirectives.alertDesc':
+    'Stop-loss, take-profit, position sizing and trailing exits live in your indicator code as # @strategy directives — single source of truth, never overridden by the backtest panel.',
   'indicatorIde.strategyDirectives.viewDocs': 'View all # @strategy directives',
   'indicatorIde.strategyDirectives.editAction': 'Edit',
   'indicatorIde.strategyDirectives.editHint': 'Click any row to jump to its line in the code editor',
@@ -5070,39 +5393,51 @@ const locale = {
 
   // ===== Trading Assistant: three new built-in templates =====
   'trading-assistant.template.trailingStop': 'Trailing stop',
-  'trading-assistant.template.trailingStopDesc': 'EMA crossover entry with hard stop and trailing stop that arms after a profit threshold.',
+  'trading-assistant.template.trailingStopDesc':
+    'EMA crossover entry with hard stop and trailing stop that arms after a profit threshold.',
   'trading-assistant.template.scaleInOnDip': 'Scale-in on dip',
-  'trading-assistant.template.scaleInOnDipDesc': 'Build a position in tranches as price keeps falling; exit on take-profit vs average cost.',
+  'trading-assistant.template.scaleInOnDipDesc':
+    'Build a position in tranches as price keeps falling; exit on take-profit vs average cost.',
   'trading-assistant.template.takeProfitLadder': 'Take-profit ladder',
-  'trading-assistant.template.takeProfitLadderDesc': 'EMA crossover entry; close partial position at three rising take-profit targets.',
+  'trading-assistant.template.takeProfitLadderDesc':
+    'EMA crossover entry; close partial position at three rising take-profit targets.',
 
   // Parameters used by the new templates
   'trading-assistant.templateParam.hard_stop_pct.label': 'Hard stop',
-  'trading-assistant.templateParam.hard_stop_pct.desc': 'Maximum loss percentage that triggers an immediate full close.',
+  'trading-assistant.templateParam.hard_stop_pct.desc':
+    'Maximum loss percentage that triggers an immediate full close.',
   'trading-assistant.templateParam.trailing_stop_pct.label': 'Trailing distance',
-  'trading-assistant.templateParam.trailing_stop_pct.desc': 'How far price may pull back from its peak before the trailing stop triggers.',
+  'trading-assistant.templateParam.trailing_stop_pct.desc':
+    'How far price may pull back from its peak before the trailing stop triggers.',
   'trading-assistant.templateParam.trailing_arm_pct.label': 'Trailing arm threshold',
-  'trading-assistant.templateParam.trailing_arm_pct.desc': 'Unrealised profit required before the trailing stop becomes active.',
+  'trading-assistant.templateParam.trailing_arm_pct.desc':
+    'Unrealised profit required before the trailing stop becomes active.',
   'trading-assistant.templateParam.entry_pct.label': 'Per-entry size',
   'trading-assistant.templateParam.entry_pct.desc': 'Portion of account equity used for each layer of the position.',
   'trading-assistant.templateParam.dip_step_pct.label': 'Layer step',
-  'trading-assistant.templateParam.dip_step_pct.desc': 'Price drop (vs entry anchor) required before adding the next layer.',
+  'trading-assistant.templateParam.dip_step_pct.desc':
+    'Price drop (vs entry anchor) required before adding the next layer.',
   'trading-assistant.templateParam.tp1_pct.label': 'TP1 trigger',
   'trading-assistant.templateParam.tp1_pct.desc': 'Profit percentage that triggers the first take-profit step.',
   'trading-assistant.templateParam.tp2_pct.label': 'TP2 trigger',
   'trading-assistant.templateParam.tp2_pct.desc': 'Profit percentage that triggers the second take-profit step.',
   'trading-assistant.templateParam.tp3_pct.label': 'TP3 trigger',
-  'trading-assistant.templateParam.tp3_pct.desc': 'Profit percentage that triggers the final take-profit and closes the runner.',
+  'trading-assistant.templateParam.tp3_pct.desc':
+    'Profit percentage that triggers the final take-profit and closes the runner.',
   'trading-assistant.templateParam.tp1_close.label': 'TP1 close ratio',
-  'trading-assistant.templateParam.tp1_close.desc': 'Portion of the original position closed at the first take-profit step.',
+  'trading-assistant.templateParam.tp1_close.desc':
+    'Portion of the original position closed at the first take-profit step.',
   'trading-assistant.templateParam.tp2_close.label': 'TP2 close ratio',
-  'trading-assistant.templateParam.tp2_close.desc': 'Portion of the original position closed at the second take-profit step.',
+  'trading-assistant.templateParam.tp2_close.desc':
+    'Portion of the original position closed at the second take-profit step.',
 
   // ---- Live Broker Accounts ----
   'brokerAccounts.title': 'Live Broker Accounts',
-  'brokerAccounts.subtitle': 'Manage your crypto exchange credentials and live connections to Alpaca / Interactive Brokers / MetaTrader 5 — accounts, positions, and open orders — in one place.',
+  'brokerAccounts.subtitle':
+    'Manage your crypto exchange credentials and live connections to Alpaca / Interactive Brokers / MetaTrader 5 — accounts, positions, and open orders — in one place.',
   'brokerAccounts.cryptoSection.title': 'Crypto Exchange Accounts',
-  'brokerAccounts.cryptoSection.subtitle': 'These accounts are stored as encrypted credentials in the database and used by trading bots and live strategies. Supports Binance / OKX / Bybit / HTX / Bitget / Coinbase / Kraken / KuCoin / Gate.io / Bitfinex / Deepcoin.',
+  'brokerAccounts.cryptoSection.subtitle':
+    'These accounts are stored as encrypted credentials in the database and used by trading bots and live strategies. Supports Binance / OKX / Bybit / HTX / Bitget / Coinbase / Kraken / KuCoin / Gate.io / Bitfinex / Deepcoin.',
   'brokerAccounts.cryptoSection.addAccount': 'Add Exchange Account',
   'brokerAccounts.cryptoSection.empty': 'No crypto exchange accounts yet',
   'brokerAccounts.cryptoSection.emptyCta': 'Add your first exchange account',
@@ -5111,11 +5446,13 @@ const locale = {
   'brokerAccounts.cryptoSection.unnamed': 'Untitled',
   'brokerAccounts.cryptoSection.editName': 'Edit name',
   'brokerAccounts.cryptoSection.delete': 'Delete',
-  'brokerAccounts.cryptoSection.confirmDelete': 'Delete "{name}"? Strategies using this account will stop trading. This cannot be undone.',
+  'brokerAccounts.cryptoSection.confirmDelete':
+    'Delete "{name}"? Strategies using this account will stop trading. This cannot be undone.',
   'brokerAccounts.cryptoSection.deleteSuccess': 'Account deleted',
   'brokerAccounts.cryptoSection.deleteFailed': 'Delete failed',
   'brokerAccounts.restSection.title': 'REST Brokers (Stocks / Forex)',
-  'brokerAccounts.restSection.hint': 'One-off API connection. Once connected, view account, positions, open orders, and place manual orders.',
+  'brokerAccounts.restSection.hint':
+    'One-off API connection. Once connected, view account, positions, open orders, and place manual orders.',
   'brokerAccounts.refreshAll': 'Refresh All',
   'brokerAccounts.refresh': 'Refresh',
   'brokerAccounts.connect': 'Connect',
@@ -5137,8 +5474,10 @@ const locale = {
   'brokerAccounts.noAccount': 'No account data',
   'brokerAccounts.positionsCount': '{count} positions',
   'brokerAccounts.ordersCount': '{count} open orders',
-  'brokerAccounts.cloudOnlyAlert': 'This deployment disables desktop brokers (IBKR / MT5). Only Alpaca REST is available. Set ALLOW_LOCAL_DESKTOP_BROKERS=true on the backend to enable them.',
-  'brokerAccounts.cloudBlockedAlert': '{broker} requires a local terminal, but desktop brokers are disabled on this deployment.',
+  'brokerAccounts.cloudOnlyAlert':
+    'This deployment disables desktop brokers (IBKR / MT5). Only Alpaca REST is available. Set ALLOW_LOCAL_DESKTOP_BROKERS=true on the backend to enable them.',
+  'brokerAccounts.cloudBlockedAlert':
+    '{broker} requires a local terminal, but desktop brokers are disabled on this deployment.',
   'brokerAccounts.tabConnect': 'Connection',
   'brokerAccounts.tabAccount': 'Account',
   'brokerAccounts.tabPositions': 'Positions',
@@ -5152,7 +5491,8 @@ const locale = {
   'brokerAccounts.alpaca.paperOn': 'Using paper-api.alpaca.markets (risk-free)',
   'brokerAccounts.alpaca.paperOff': 'Using live account (real orders)',
   'brokerAccounts.alpaca.baseUrlOptional': 'Custom base URL (optional)',
-  'brokerAccounts.alpaca.helpText': 'Alpaca supports US stocks, ETFs, and crypto with zero commission and a REST API. {docs}',
+  'brokerAccounts.alpaca.helpText':
+    'Alpaca supports US stocks, ETFs, and crypto with zero commission and a REST API. {docs}',
   'brokerAccounts.alpaca.docsLabel': 'Open Alpaca dashboard to get API keys →',
   'brokerAccounts.ibkr.name': 'Interactive Brokers',
   'brokerAccounts.ibkr.host': 'TWS / Gateway host',
@@ -5213,7 +5553,7 @@ const locale = {
   'community.statusPending': 'Pending review',
   'community.statusRejected': 'Rejected',
   'authorDashboard.title': 'My Indicator Studio',
-  'authorDashboard.subtitle': 'Track sales, revenue and ratings for indicators you\'ve published to the marketplace.',
+  'authorDashboard.subtitle': "Track sales, revenue and ratings for indicators you've published to the marketplace.",
   'authorDashboard.stat.published': 'Published',
   'authorDashboard.stat.approved': 'Approved',
   'authorDashboard.stat.pending': 'Pending',
@@ -5246,7 +5586,8 @@ const locale = {
 
   // Profile — login history
   'profile.loginLogs.title': 'Login history',
-  'profile.loginLogs.hint': 'Password, email code, and OAuth sign-ins. You get email and in-app alerts when signing in from a new device or region.',
+  'profile.loginLogs.hint':
+    'Password, email code, and OAuth sign-ins. You get email and in-app alerts when signing in from a new device or region.',
   'profile.loginLogs.time': 'Time',
   'profile.loginLogs.method': 'Method',
   'profile.loginLogs.device': 'Device',
@@ -5256,11 +5597,10 @@ const locale = {
   'profile.loginLogs.newDevice': 'New device',
   'profile.loginLogs.newRegion': 'New region',
   'profile.loginLogs.total': '{total} entries',
-  'profile.loginLogs.loadFailed': 'Failed to load login history'
-
+  'profile.loginLogs.loadFailed': 'Failed to load login history',
 }
 
 export default {
   ...components,
-  ...locale
+  ...locale,
 }
