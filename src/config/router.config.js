@@ -91,7 +91,107 @@ export const asyncRouterMap = [
         component: () => import('@/views/factor-graph'),
         meta: { title: 'menu.dashboard.factorGraph', keepAlive: false, icon: 'share-alt', permission: ['dashboard'] },
       },
-      // 6. 实盘券商账户（Alpaca / IBKR / MT5 统一连接 + 账户/持仓/挂单）
+      // 6. 自主交易控制台（Agent 状态 + 持仓 + 决策日志）
+      {
+        path: '/autonomous-trading',
+        name: 'AutonomousTrading',
+        component: () => import('@/views/autonomous-trading'),
+        meta: {
+          title: 'menu.dashboard.autonomousTrading',
+          keepAlive: false,
+          icon: 'cloud-server',
+          permission: ['dashboard'],
+        },
+      },
+      // 7. 风控面板（熔断 + 告警 + 规则）
+      {
+        path: '/risk-panel',
+        name: 'RiskPanel',
+        component: () => import('@/views/risk-panel'),
+        meta: {
+          title: 'menu.dashboard.riskPanel',
+          keepAlive: false,
+          icon: 'safety-certificate',
+          permission: ['dashboard'],
+        },
+      },
+      // 8. 策略进化引擎（超参优化 + A/B 测试 + 沙盒）
+      {
+        path: '/evolution',
+        name: 'Evolution',
+        component: () => import('@/views/evolution'),
+        meta: { title: 'menu.dashboard.evolution', keepAlive: false, icon: 'experiment', permission: ['dashboard'] },
+      },
+      // 9. 交易记录
+      {
+        path: '/trade-records',
+        name: 'TradeRecords',
+        component: () => import('@/views/trade-records'),
+        meta: { title: 'menu.dashboard.tradeRecords', keepAlive: false, icon: 'file-text', permission: ['dashboard'] },
+      },
+      // 10. 量化工作流（5阶段管道）
+      {
+        path: '/quant-workflow',
+        name: 'QuantWorkflow',
+        component: () => import('@/views/quant-workflow'),
+        meta: { title: 'menu.dashboard.quantWorkflow', keepAlive: false, icon: 'apartment', permission: ['dashboard'] },
+      },
+      // 11. 实盘券商账户（Alpaca / IBKR / MT5 统一连接 + 账户/持仓/挂单）
+      // ---- 中优先级页面 ----
+      {
+        path: '/performance',
+        name: 'Performance',
+        component: () => import('@/views/performance'),
+        meta: { title: 'menu.dashboard.performance', keepAlive: false, icon: 'bar-chart', permission: ['dashboard'] },
+      },
+      {
+        path: '/composite-indicators',
+        name: 'CompositeIndicators',
+        component: () => import('@/views/composite-indicators'),
+        meta: {
+          title: 'menu.dashboard.compositeIndicators',
+          keepAlive: false,
+          icon: 'pie-chart',
+          permission: ['dashboard'],
+        },
+      },
+      {
+        path: '/hot-params',
+        name: 'HotParams',
+        component: () => import('@/views/hot-params'),
+        meta: { title: 'menu.dashboard.hotParams', keepAlive: false, icon: 'tool', permission: ['admin'] },
+      },
+      {
+        path: '/scheduler',
+        name: 'Scheduler',
+        component: () => import('@/views/scheduler'),
+        meta: { title: 'menu.dashboard.scheduler', keepAlive: false, icon: 'schedule', permission: ['admin'] },
+      },
+      {
+        path: '/reconciliation',
+        name: 'Reconciliation',
+        component: () => import('@/views/reconciliation'),
+        meta: { title: 'menu.dashboard.reconciliation', keepAlive: false, icon: 'audit', permission: ['admin'] },
+      },
+      {
+        path: '/news-sentiment',
+        name: 'NewsSentiment',
+        component: () => import('@/views/news-sentiment'),
+        meta: { title: 'menu.dashboard.newsSentiment', keepAlive: false, icon: 'read', permission: ['dashboard'] },
+      },
+      {
+        path: '/market-situation',
+        name: 'MarketSituation',
+        component: () => import('@/views/market-situation'),
+        meta: { title: 'menu.dashboard.marketSituation', keepAlive: false, icon: 'compass', permission: ['dashboard'] },
+      },
+      {
+        path: '/journal',
+        name: 'Journal',
+        component: () => import('@/views/journal'),
+        meta: { title: 'menu.dashboard.journal', keepAlive: false, icon: 'edit', permission: ['dashboard'] },
+      },
+      // 12. 实盘券商账户（Alpaca / IBKR / MT5 统一连接 + 账户/持仓/挂单）
       {
         path: '/broker-accounts',
         name: 'BrokerAccounts',
