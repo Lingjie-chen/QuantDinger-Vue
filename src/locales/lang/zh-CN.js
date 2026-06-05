@@ -56,6 +56,11 @@ const locale = {
   'menu.dashboard.newsSentiment': '新闻情绪',
   'menu.dashboard.marketSituation': '市场态势',
   'menu.dashboard.journal': '交易日志',
+  'menu.dashboard.forex': '外汇交易',
+  'menu.dashboard.aStock': 'A股市场',
+  'menu.dashboard.earn': '理财产品',
+  'menu.dashboard.multiMarket': '多市场',
+  'menu.dashboard.strategyLibrary': '策略库',
   'menu.dashboard.scriptStrategies': 'Python 脚本策略',
   // ---- 交易机器人页 ----
   'trading-bot.pageTitle': '交易机器人',

@@ -198,6 +198,46 @@ export const asyncRouterMap = [
         component: () => import('@/views/broker-accounts'),
         meta: { title: 'menu.dashboard.brokerAccounts', keepAlive: true, icon: 'bank', permission: ['dashboard'] },
       },
+      // 13. 外汇交易（MT5 Bridge）
+      {
+        path: '/forex',
+        name: 'Forex',
+        component: () => import('@/views/forex'),
+        meta: { title: 'menu.dashboard.forex', keepAlive: false, icon: 'dollar', permission: ['dashboard'] },
+      },
+      // 14. A股市场
+      {
+        path: '/a-stock',
+        name: 'AStock',
+        component: () => import('@/views/a-stock'),
+        meta: { title: 'menu.dashboard.aStock', keepAlive: false, icon: 'stock', permission: ['dashboard'] },
+      },
+      // 15. 理财产品（OKX Earn）
+      {
+        path: '/earn',
+        name: 'Earn',
+        component: () => import('@/views/earn'),
+        meta: { title: 'menu.dashboard.earn', keepAlive: false, icon: 'fund', permission: ['dashboard'] },
+      },
+      // 16. 多市场
+      {
+        path: '/multi-market',
+        name: 'MultiMarket',
+        component: () => import('@/views/multi-market'),
+        meta: { title: 'menu.dashboard.multiMarket', keepAlive: false, icon: 'global', permission: ['dashboard'] },
+      },
+      // 17. 策略库
+      {
+        path: '/strategy-library',
+        name: 'StrategyLibrary',
+        component: () => import('@/views/strategy-library'),
+        meta: {
+          title: 'menu.dashboard.strategyLibrary',
+          keepAlive: false,
+          icon: 'experiment',
+          permission: ['dashboard'],
+        },
+      },
       // 旧路由兼容：图表与指标 → 指标 IDE
       {
         path: '/indicator-analysis',

@@ -56,6 +56,11 @@ const locale = {
   'menu.dashboard.newsSentiment': 'News & Sentiment',
   'menu.dashboard.marketSituation': 'Market Situation',
   'menu.dashboard.journal': 'Trading Journal',
+  'menu.dashboard.forex': 'Forex Trading',
+  'menu.dashboard.aStock': 'A-Share Market',
+  'menu.dashboard.earn': 'Earn Products',
+  'menu.dashboard.multiMarket': 'Multi-Market',
+  'menu.dashboard.strategyLibrary': 'Strategy Library',
   'menu.dashboard.scriptStrategies': 'Python Script Strategies',
   // ---- Trading Bot Page ----
   'trading-bot.pageTitle': 'Trading Bots',
