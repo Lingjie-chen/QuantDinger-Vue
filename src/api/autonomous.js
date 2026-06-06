@@ -25,6 +25,10 @@ export function resumeAgent() {
   return request({ url: '/api/quant/autonomous/resume', method: 'post' })
 }
 
+export function precheckAgent(config) {
+  return request({ url: '/api/quant/autonomous/precheck', method: 'post', data: config })
+}
+
 // ==================== 配置管理 ====================
 
 export function getAgentConfig() {
@@ -32,7 +36,35 @@ export function getAgentConfig() {
 }
 
 export function updateAgentConfig(config) {
-  return request({ url: '/api/quant/autonomous/config', method: 'put', data: config })
+  return request({ url: '/api/quant/autonomous/config', method: 'patch', data: config })
+}
+
+export function setAgentConfig(config) {
+  return request({ url: '/api/quant/autonomous/config', method: 'post', data: config })
+}
+
+// ==================== 市场数据 ====================
+
+export function getMarketSnapshot(symbol) {
+  return request({ url: `/api/quant/autonomous/market/${symbol}`, method: 'get' })
+}
+
+export function getIndicators(symbol) {
+  return request({ url: `/api/quant/autonomous/indicators/${symbol}`, method: 'get' })
+}
+
+// ==================== 运行时状态 ====================
+
+export function getRuntimeSummary() {
+  return request({ url: '/api/quant/autonomous/runtime/summary', method: 'get' })
+}
+
+export function getRuntimeStatus() {
+  return request({ url: '/api/quant/autonomous/runtime/status', method: 'get' })
+}
+
+export function setRuntimeStatus(data) {
+  return request({ url: '/api/quant/autonomous/runtime/status', method: 'post', data })
 }
 
 // ==================== 交易记录 ====================
@@ -65,10 +97,6 @@ export function getCredentials() {
 
 export function saveCredentials(data) {
   return request({ url: '/api/quant/autonomous/credentials', method: 'post', data })
-}
-
-export function deleteCredential(credId) {
-  return request({ url: `/api/autonomous/credentials/${credId}`, method: 'delete' })
 }
 
 // ==================== SSE 事件流 ====================
