@@ -32,3 +32,8 @@ export function getGoogleFinanceNews(params) {
 export function getMacroMarketData(params) {
   return request({ url: '/api/news/macro-market', method: 'get', params })
 }
+
+// 兼容别名：前端页面 searchNews 调用
+export function searchNews(query, params) {
+  return request({ url: '/api/news/', method: 'get', params: { q: query, ...params } })
+}

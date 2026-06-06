@@ -42,3 +42,17 @@ export function getTradingImpact(symbol) {
 export function refreshSituation() {
   return request({ url: '/api/situation/refresh', method: 'post' })
 }
+
+// 兼容别名：前端页面旧函数名
+export function getMarketSituation() {
+  return getSituationOverview()
+}
+export function getRegimeDetection(params) {
+  return getCorrelations(params)
+}
+export function getFearGreedIndex() {
+  return request({ url: '/api/news/fear-greed', method: 'get' })
+}
+export function getMarketPhases(params) {
+  return getNarratives(params)
+}

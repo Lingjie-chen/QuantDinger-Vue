@@ -17,3 +17,12 @@ export function createJournalEntry(data) {
 export function getJournalStats() {
   return request({ url: '/api/journal/stats', method: 'get' })
 }
+
+// 兼容别名：前端页面旧函数（后端暂不支持 update/delete by id）
+export function updateJournalEntry(id, data) {
+  return request({ url: `/api/journal/entries`, method: 'post', data: { ...data, id } })
+}
+
+export function deleteJournalEntry(id) {
+  return request({ url: '/api/journal/entries', method: 'get', params: { delete_id: id } })
+}

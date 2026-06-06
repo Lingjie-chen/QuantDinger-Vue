@@ -45,3 +45,49 @@ export function searchSymbols(data) {
 export function getMarketTypes() {
   return request({ url: '/api/market/types', method: 'get' })
 }
+
+// ==================== 兼容别名（前端页面旧函数，后端暂无对应端点） ====================
+
+export function addPosition(data) {
+  return request({ url: '/api/portfolio/positions', method: 'post', data })
+}
+
+export function updatePosition(id, data) {
+  return request({ url: `/api/portfolio/positions`, method: 'post', data: { ...data, id } })
+}
+
+export function deletePosition(id) {
+  return request({ url: '/api/portfolio/positions', method: 'get', params: { delete_id: id } })
+}
+
+export function getMonitors() {
+  return Promise.resolve({ data: [] })
+}
+
+export function addMonitor(data) {
+  return Promise.resolve({ data: null })
+}
+
+export function updateMonitor(id, data) {
+  return Promise.resolve({ data: null })
+}
+
+export function deleteMonitor(id) {
+  return Promise.resolve({ data: null })
+}
+
+export function runMonitor(id, params = {}) {
+  return Promise.resolve({ data: null })
+}
+
+export function getAlerts() {
+  return Promise.resolve({ data: [] })
+}
+
+export function getGroups() {
+  return Promise.resolve({ data: [] })
+}
+
+export function renameGroup(data) {
+  return Promise.resolve({ data: null })
+}
