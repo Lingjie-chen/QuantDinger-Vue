@@ -4,7 +4,7 @@
 import request from '@/utils/request'
 
 export function getHotParams() {
-  return request({ url: '/api/hot-params', method: 'get' })
+  return request({ url: '/api/params', method: 'get' })
 }
 
 export function updateHotParam(key, value) {
