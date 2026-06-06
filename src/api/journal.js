@@ -3,18 +3,17 @@
  */
 import request from '@/utils/request'
 
+// GET /api/journal/entries — 获取日志列表
 export function getJournalEntries(params) {
-  return request({ url: '/api/journal', method: 'get', params })
+  return request({ url: '/api/journal/entries', method: 'get', params })
 }
 
+// POST /api/journal/entries — 创建日志
 export function createJournalEntry(data) {
-  return request({ url: '/api/journal', method: 'post', data })
+  return request({ url: '/api/journal/entries', method: 'post', data })
 }
 
-export function updateJournalEntry(id, data) {
-  return request({ url: `/api/journal/${id}`, method: 'put', data })
-}
-
-export function deleteJournalEntry(id) {
-  return request({ url: `/api/journal/${id}`, method: 'delete' })
+// GET /api/journal/stats — 日志统计
+export function getJournalStats() {
+  return request({ url: '/api/journal/stats', method: 'get' })
 }
