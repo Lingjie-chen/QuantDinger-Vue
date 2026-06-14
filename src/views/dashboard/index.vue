@@ -1492,20 +1492,13 @@ export default {
       .highlight { font-weight: 600; color: @blue; }
     }
 
-    // Primary card with gradient
+    // Primary card — use icon accent instead of full gradient for better contrast
     &.kpi-primary {
-      background: linear-gradient(135deg, var(--emerald-600) 0%, var(--emerald-500) 50%, var(--emerald-400) 100%);
-      border: none;
-
       .kpi-icon {
-        background: rgba(255, 255, 255, 0.2);
-        color: #fff;
+        background: rgba(16, 185, 129, 0.12);
+        color: #059669;
       }
-      .kpi-label { color: rgba(255, 255, 255, 0.8); }
-      .kpi-value {
-        .currency, .amount, .unit { color: #fff; }
-      }
-      .kpi-sub { color: rgba(255, 255, 255, 0.7); }
+      .kpi-sub .highlight { color: #059669; }
     }
 
     // Win rate ring
