@@ -64,299 +64,18 @@
             :lg="8"
             :xl="8"
             class="strategy-list-col">
-            <a-card :bordered="false" class="strategy-list-card">
-              <div slot="title" class="card-title">
-                <span>{{ $t('trading-assistant.strategyList') }}</span>
-                <a-button type="primary" size="small" @click="handleCreateStrategy">
-                  <a-icon type="plus" />
-                  {{ $t('trading-assistant.createStrategy') }}
-                </a-button>
-              </div>
-
-              <!-- 分组方式切换 -->
-              <div class="group-mode-switch">
-                <span class="group-mode-label">{{ $t('trading-assistant.groupBy') }}:</span>
-                <a-radio-group v-model="groupByMode" size="small" button-style="solid">
-                  <a-radio-button value="strategy">
-                    <a-icon type="folder" />
-                    {{ $t('trading-assistant.groupByStrategy') }}
-                  </a-radio-button>
-                  <a-radio-button value="symbol">
-                    <a-icon type="stock" />
-                    {{ $t('trading-assistant.groupBySymbol') }}
-                  </a-radio-button>
-                </a-radio-group>
-              </div>
-
-              <a-spin :spinning="loading">
-                <div v-if="!loading && strategiesForPage.length === 0" class="strategy-empty-state">
-                  <a-empty :description="$t('trading-assistant.empty.title')" />
-                  <div class="strategy-empty-desc">{{ $t('trading-assistant.empty.desc') }}</div>
-                  <a-button type="primary" @click="openCreateStrategyFromGuide">
-                    <a-icon type="plus" />
-                    {{ $t('trading-assistant.empty.primary') }}
-                  </a-button>
-                </div>
-                <div v-else class="strategy-grouped-list">
-                  <!-- 策略组列表 -->
-                  <div v-for="group in groupedStrategies.groups" :key="group.id" class="strategy-group">
-                    <!-- 策略组头部 -->
-                    <div class="strategy-group-header" @click="toggleGroup(group.id)">
-                      <div class="group-header-left">
-                        <a-icon :type="collapsedGroups[group.id] ? 'right' : 'down'" class="collapse-icon" />
-                        <a-icon :type="groupByMode === 'symbol' ? 'stock' : 'folder'" class="group-icon" />
-                        <span class="group-name">{{ group.baseName }}</span>
-                        <a-tag size="small" color="blue">{{ group.strategies.length }} {{
-                          groupByMode === 'symbol' ? $t('trading-assistant.strategyCount') : $t('trading-assistant.symbolCount') }}</a-tag>
-                      </div>
-                      <div class="group-header-right" @click.stop>
-                        <span v-if="group.runningCount > 0" class="group-status running">
-                          {{ group.runningCount }} {{ $t('trading-assistant.status.running') }}
-                        </span>
-                        <span v-if="group.stoppedCount > 0" class="group-status stopped">
-                          {{ group.stoppedCount }} {{ $t('trading-assistant.status.stopped') }}
-                        </span>
-                        <a-dropdown :getPopupContainer="getDropdownContainer" :trigger="['click']">
-                          <a-menu slot="overlay" @click="({ key }) => handleGroupMenuClick(key, group)">
-                            <a-menu-item key="startAll">
-                              <a-icon type="play-circle" />
-                              {{ $t('trading-assistant.startAll') }}
-                            </a-menu-item>
-                            <a-menu-item key="stopAll">
-                              <a-icon type="pause-circle" />
-                              {{ $t('trading-assistant.stopAll') }}
-                            </a-menu-item>
-                            <a-menu-divider />
-                            <a-menu-item key="deleteAll" class="danger-item">
-                              <a-icon type="delete" />
-                              {{ $t('trading-assistant.deleteAll') }}
-                            </a-menu-item>
-                          </a-menu>
-                          <a-button type="link" icon="more" size="small" />
-                        </a-dropdown>
-                      </div>
-                    </div>
-                    <!-- 策略组内的策略列表（可折叠） -->
-                    <div v-show="!collapsedGroups[group.id]" class="strategy-group-content">
-                      <div
-                        v-for="item in group.strategies"
-                        :key="item.id"
-                        :class="[
-                          'strategy-list-item',
-                          { active: selectedStrategy && selectedStrategy.id === item.id },
-                          { 'strategy-list-item--strategy-group': groupByMode === 'strategy' }
-                        ]"
-                        @click="handleSelectStrategy(item)">
-                        <div class="strategy-item-content">
-                          <div class="strategy-item-header">
-                            <div :class="['strategy-name-wrapper', { 'strategy-name-wrapper--grouped': groupByMode === 'symbol' }]">
-                              <template v-if="groupByMode === 'strategy'">
-                                <span class="strategy-name">{{ item.strategy_name }}</span>
-                                <a-tag
-                                  v-if="item.strategy_type === 'PromptBasedStrategy'"
-                                  color="purple"
-                                  size="small"
-                                  class="strategy-type-tag">
-                                  <a-icon type="robot" style="margin-right: 2px;" />
-                                  AI
-                                </a-tag>
-                                <a-tag v-if="item.strategy_mode === 'script'" size="small" color="green" style="margin-left: 4px;">
-                                  <a-icon type="code" style="margin-right: 2px;" />{{ $t('trading-assistant.strategyMode.script') }}
-                                </a-tag>
-                                <a-tag
-                                  v-if="item.strategy_mode === 'script' && scriptTemplateKeyOf(item)"
-                                  size="small"
-                                  color="blue"
-                                  style="margin-left: 4px;">
-                                  {{ scriptTemplateLabel(scriptTemplateKeyOf(item)) }}
-                                </a-tag>
-                                <a-tag
-                                  v-if="isCrossSectionalStrategy(item)"
-                                  size="small"
-                                  color="orange"
-                                  style="margin-left: 4px;">
-                                  {{ $t('trading-assistant.tag.crossSectional') }}
-                                </a-tag>
-                              </template>
-                              <template v-else>
-                                <span class="info-item strategy-name-text">
-                                  <a-icon type="thunderbolt" />
-                                  {{ item.displayInfo ? item.displayInfo.strategyName : item.strategy_name }}
-                                </span>
-                                <a-tag size="small" color="cyan" v-if="item.displayInfo && item.displayInfo.timeframe">
-                                  <a-icon type="clock-circle" style="margin-right: 2px;" />
-                                  {{ item.displayInfo.timeframe }}
-                                </a-tag>
-                                <a-tag size="small" color="purple" v-if="item.displayInfo && item.displayInfo.indicatorName && item.displayInfo.indicatorName !== '-'">
-                                  <a-icon type="line-chart" style="margin-right: 2px;" />
-                                  {{ item.displayInfo.indicatorName }}
-                                </a-tag>
-                                <a-tag v-if="item.strategy_mode === 'script'" size="small" color="green" style="margin-left: 4px;">
-                                  <a-icon type="code" style="margin-right: 2px;" />{{ $t('trading-assistant.strategyMode.script') }}
-                                </a-tag>
-                                <a-tag
-                                  v-if="item.strategy_mode === 'script' && scriptTemplateKeyOf(item)"
-                                  size="small"
-                                  color="blue"
-                                  style="margin-left: 4px;">
-                                  {{ scriptTemplateLabel(scriptTemplateKeyOf(item)) }}
-                                </a-tag>
-                              </template>
-                            </div>
-                          </div>
-                          <div class="strategy-item-info">
-                            <template v-if="groupByMode === 'strategy'">
-                              <span class="info-item" v-if="item.trading_config && item.trading_config.symbol">
-                                <a-icon type="dollar" />
-                                {{ item.trading_config.symbol }}
-                              </span>
-                              <span
-                                class="info-item"
-                                v-if="item.exchange_config && item.exchange_config.exchange_id">
-                                <a-icon type="bank" />
-                                {{ getExchangeDisplayName(item.exchange_config.exchange_id) }}
-                              </span>
-                              <span class="info-item" v-if="item.trading_config && item.trading_config.timeframe">
-                                <a-icon type="clock-circle" />
-                                {{ item.trading_config.timeframe }}
-                              </span>
-                            </template>
-                            <span
-                              class="status-label"
-                              :class="[
-                                item.status ? `status-${item.status}` : '',
-                                { 'status-stopped': item.status === 'stopped' }
-                              ]">
-                              {{ getStatusText(item.status) }}
-                            </span>
-                          </div>
-                        </div>
-                        <div class="strategy-item-actions" @click.stop>
-                          <a-dropdown :getPopupContainer="getDropdownContainer" :trigger="['click']">
-                            <a-menu slot="overlay" @click="({ key }) => handleMenuClick(key, item)">
-                              <a-menu-item v-if="item.status === 'stopped'" key="start">
-                                <a-icon type="play-circle" />
-                                {{ $t('trading-assistant.startStrategy') }}
-                              </a-menu-item>
-                              <a-menu-item v-if="item.status === 'running'" key="stop">
-                                <a-icon type="pause-circle" />
-                                {{ $t('trading-assistant.stopStrategy') }}
-                              </a-menu-item>
-                              <a-menu-divider />
-                              <a-menu-item key="edit">
-                                <a-icon type="edit" />
-                                {{ $t('trading-assistant.editStrategy') }}
-                              </a-menu-item>
-                              <a-menu-item key="backtest">
-                                <a-icon type="experiment" />
-                                {{ $t('dashboard.indicator.action.backtest') }}
-                              </a-menu-item>
-                              <a-menu-divider />
-                              <a-menu-item key="delete" class="danger-item">
-                                <a-icon type="delete" />
-                                {{ $t('trading-assistant.deleteStrategy') }}
-                              </a-menu-item>
-                            </a-menu>
-                            <a-button type="link" icon="more" size="small" />
-                          </a-dropdown>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- 未分组的策略列表 -->
-                  <div
-                    v-for="item in groupedStrategies.ungrouped"
-                    :key="item.id"
-                    :class="['strategy-list-item', { active: selectedStrategy && selectedStrategy.id === item.id }]"
-                    @click="handleSelectStrategy(item)">
-                    <div class="strategy-item-content">
-                      <div class="strategy-item-header">
-                        <div class="strategy-name-wrapper">
-                          <a-tag
-                            v-if="item.exchange_config && item.exchange_config.exchange_id"
-                            :color="getExchangeTagColor(item.exchange_config.exchange_id)"
-                            size="small"
-                            class="exchange-tag">
-                            <a-icon type="bank" style="margin-right: 4px;" />
-                            {{ getExchangeDisplayName(item.exchange_config.exchange_id) }}
-                          </a-tag>
-                          <span class="strategy-name">{{ item.strategy_name }}</span>
-                          <a-tag
-                            v-if="item.strategy_type === 'PromptBasedStrategy'"
-                            color="purple"
-                            size="small"
-                            class="strategy-type-tag">
-                            <a-icon type="robot" style="margin-right: 2px;" />
-                            AI
-                          </a-tag>
-                          <a-tag v-if="item.strategy_mode === 'script'" size="small" color="green" style="margin-left: 4px;">
-                            <a-icon type="code" style="margin-right: 2px;" />{{ $t('trading-assistant.strategyMode.script') }}
-                          </a-tag>
-                          <a-tag
-                            v-if="item.strategy_mode === 'script' && scriptTemplateKeyOf(item)"
-                            size="small"
-                            color="blue"
-                            style="margin-left: 4px;">
-                            {{ scriptTemplateLabel(scriptTemplateKeyOf(item)) }}
-                          </a-tag>
-                          <a-tag
-                            v-if="isCrossSectionalStrategy(item)"
-                            size="small"
-                            color="orange"
-                            style="margin-left: 4px;">
-                            {{ $t('trading-assistant.tag.crossSectional') }}
-                          </a-tag>
-                        </div>
-                      </div>
-                      <div class="strategy-item-info">
-                        <span class="info-item" v-if="item.trading_config && item.trading_config.symbol">
-                          <a-icon type="dollar" />
-                          {{ item.trading_config.symbol }}
-                        </span>
-                        <span
-                          class="status-label"
-                          :class="[
-                            item.status ? `status-${item.status}` : '',
-                            { 'status-stopped': item.status === 'stopped' }
-                          ]">
-                          {{ getStatusText(item.status) }}
-                        </span>
-                      </div>
-                    </div>
-                    <div class="strategy-item-actions" @click.stop>
-                      <a-dropdown :getPopupContainer="getDropdownContainer" :trigger="['click']">
-                        <a-menu slot="overlay" @click="({ key }) => handleMenuClick(key, item)">
-                          <a-menu-item v-if="item.status === 'stopped'" key="start">
-                            <a-icon type="play-circle" />
-                            {{ $t('trading-assistant.startStrategy') }}
-                          </a-menu-item>
-                          <a-menu-item v-if="item.status === 'running'" key="stop">
-                            <a-icon type="pause-circle" />
-                            {{ $t('trading-assistant.stopStrategy') }}
-                          </a-menu-item>
-                          <a-menu-divider />
-                          <a-menu-item key="edit">
-                            <a-icon type="edit" />
-                            {{ $t('trading-assistant.editStrategy') }}
-                          </a-menu-item>
-                          <a-menu-item key="backtest">
-                            <a-icon type="experiment" />
-                            {{ $t('dashboard.indicator.action.backtest') }}
-                          </a-menu-item>
-                          <a-menu-divider />
-                          <a-menu-item key="delete" class="danger-item">
-                            <a-icon type="delete" />
-                            {{ $t('trading-assistant.deleteStrategy') }}
-                          </a-menu-item>
-                        </a-menu>
-                        <a-button type="link" icon="more" size="small" />
-                      </a-dropdown>
-                    </div>
-                  </div>
-                </div>
-              </a-spin>
-            </a-card>
+            <strategy-list-panel
+              :strategies="strategiesForPage"
+              :selected-strategy="selectedStrategy"
+              :loading="loading"
+              :group-by-mode.sync="groupByMode"
+              :collapsed-groups.sync="collapsedGroups"
+              :exchange-options="exchangeOptions"
+              @create="handleCreateStrategy"
+              @select="handleSelectStrategy"
+              @menu-click="handleMenuClick"
+              @group-menu-click="handleGroupMenuClick"
+            />
           </a-col>
 
           <!-- 右侧：策略详情和交易记录 -->
@@ -550,17 +269,16 @@
           />
         </a-modal>
 
-        <!-- 创建/编辑策略弹窗 - 合并版本 -->
-        <a-modal
+        <!-- 创建/编辑策略弹窗 -->
+        <strategy-form-panel
           :visible="showFormModal"
-          :title="editingStrategy ? $t('trading-assistant.editStrategy') : $t('trading-assistant.createStrategy') + (strategyMode === 'script' ? ' - ' + $t('trading-assistant.strategyMode.script') : '')"
-          :width="isMobile ? '95%' : 1120"
-          :confirmLoading="saving"
-          @ok="handleSubmit"
-          @cancel="handleCloseModal"
-          :maskClosable="false"
-          :wrapClassName="strategyFormWrapClass"
-          :bodyStyle="{ maxHeight: '76vh', overflowY: 'auto', paddingBottom: '8px' }">
+          :editing-strategy="editingStrategy"
+          :strategy-mode="strategyMode"
+          :is-dark-theme="isDarkTheme"
+          :is-mobile="isMobile"
+          :saving="saving"
+          @submit="handleSubmit"
+          @cancel="handleCloseModal">
           <a-spin :spinning="loadingIndicators">
             <a-steps :current="displayCurrentStep" class="steps-container">
               <template v-if="strategyMode === 'script'">
@@ -1340,117 +1058,23 @@
               {{ editingStrategy ? $t('trading-assistant.form.confirmEdit') : $t('trading-assistant.form.confirmCreate') }}
             </a-button>
           </template>
-        </a-modal>
+        
+        </strategy-form-panel>
 
         <!-- 添加交易对弹窗 -->
-        <a-modal
-          :title="$t('trading-assistant.form.addSymbolTitle')"
-          :visible="showAddSymbolModal"
-          @ok="handleConfirmAddSymbol"
-          @cancel="handleCloseAddSymbolModal"
-          :confirmLoading="addingSymbol"
-          width="600px"
-          :okText="$t('trading-assistant.form.confirmAdd')"
-          :cancelText="$t('trading-assistant.form.cancel')"
-          :maskClosable="false"
-          :keyboard="false">
-          <div class="add-symbol-modal-content">
-            <!-- 市场类型Tab -->
-            <a-tabs v-model="addSymbolMarket" @change="handleAddSymbolMarketChange" class="market-tabs">
-              <a-tab-pane
-                v-for="marketType in addSymbolMarketTypes"
-                :key="marketType.value"
-                :tab="$t(marketType.i18nKey || `dashboard.analysis.market.${marketType.value}`)">
-              </a-tab-pane>
-            </a-tabs>
-
-            <!-- 搜索输入框 -->
-            <div class="symbol-search-section">
-              <a-input-search
-                v-model="addSymbolKeyword"
-                :placeholder="$t('dashboard.analysis.modal.addStock.searchOrInputPlaceholder')"
-                @search="handleSearchSymbol"
-                @change="handleSymbolSearchInputChange"
-                :loading="searchingSymbol"
-                size="large"
-                allow-clear>
-                <a-button slot="enterButton" type="primary" icon="search">
-                  {{ $t('dashboard.analysis.modal.addStock.search') }}
-                </a-button>
-              </a-input-search>
-            </div>
-
-            <!-- 搜索结果 -->
-            <div v-if="symbolSearchResults.length > 0" class="search-results-section">
-              <div class="section-title">
-                <a-icon type="search" style="margin-right: 4px;" />
-                {{ $t('dashboard.analysis.modal.addStock.searchResults') }}
-              </div>
-              <a-list
-                :data-source="symbolSearchResults"
-                :loading="searchingSymbol"
-                size="small"
-                class="symbol-list">
-                <a-list-item slot="renderItem" slot-scope="item" class="symbol-list-item" @click="handleSelectAddSymbol(item)">
-                  <a-list-item-meta>
-                    <template slot="title">
-                      <div class="symbol-item-content">
-                        <span class="symbol-code">{{ item.symbol }}</span>
-                        <span class="symbol-name">{{ item.name }}</span>
-                        <a-tag v-if="item.exchange" size="small" color="blue" style="margin-left: 8px;">
-                          {{ item.exchange }}
-                        </a-tag>
-                      </div>
-                    </template>
-                  </a-list-item-meta>
-                </a-list-item>
-              </a-list>
-            </div>
-
-            <!-- 热门标的 -->
-            <div class="hot-symbols-section">
-              <div class="section-title">
-                <a-icon type="fire" style="color: #ff4d4f; margin-right: 4px;" />
-                {{ $t('dashboard.analysis.modal.addStock.hotSymbols') }}
-              </div>
-              <a-spin :spinning="loadingHotSymbols">
-                <a-list
-                  v-if="hotSymbols.length > 0"
-                  :data-source="hotSymbols"
-                  size="small"
-                  class="symbol-list">
-                  <a-list-item slot="renderItem" slot-scope="item" class="symbol-list-item" @click="handleSelectAddSymbol(item)">
-                    <a-list-item-meta>
-                      <template slot="title">
-                        <div class="symbol-item-content">
-                          <span class="symbol-code">{{ item.symbol }}</span>
-                          <span class="symbol-name">{{ item.name }}</span>
-                          <a-tag v-if="item.exchange" size="small" color="orange" style="margin-left: 8px;">
-                            {{ item.exchange }}
-                          </a-tag>
-                        </div>
-                      </template>
-                    </a-list-item-meta>
-                  </a-list-item>
-                </a-list>
-                <a-empty v-else :description="$t('dashboard.analysis.modal.addStock.noHotSymbols')" :image="false" />
-              </a-spin>
-            </div>
-
-            <!-- 选中的标的显示 -->
-            <div v-if="selectedAddSymbol" class="selected-symbol-section">
-              <div class="section-title">
-                <a-icon type="check-circle" style="color: #52c41a; margin-right: 4px;" />
-                {{ $t('dashboard.analysis.modal.addStock.selectedSymbol') }}
-              </div>
-              <div class="selected-symbol-info">
-                <a-tag :color="getMarketColor(addSymbolMarket)" style="margin-right: 8px;">{{ addSymbolMarket }}</a-tag>
-                <span class="symbol-code">{{ selectedAddSymbol.symbol }}</span>
-                <span v-if="selectedAddSymbol.name" class="symbol-name">{{ selectedAddSymbol.name }}</span>
-              </div>
-            </div>
-          </div>
-        </a-modal>
+        <add-symbol-modal
+          :visible.sync="showAddSymbolModal"
+          @confirm="handleAddSymbolFromModal"
+          @cancel="showAddSymbolModal = false"
+        />
+      </a-tab-pane>
+      <!-- 交易机器人（从 trading-bot 合并） -->
+      <a-tab-pane
+        v-if="!isScriptStrategiesOnlyPage"
+        key="bot"
+        tab="交易机器人"
+      >
+        <trading-bot-panel v-if="topTab === 'bot'" />
       </a-tab-pane>
     </a-tabs>
 
@@ -1477,6 +1101,10 @@ import PerformanceAnalysis from './components/PerformanceAnalysis.vue'
 import StrategyLogs from './components/StrategyLogs.vue'
 import DashboardOverview from '@/views/dashboard/index.vue'
 import ExchangeAccountModal from '@/components/ExchangeAccountModal/ExchangeAccountModal.vue'
+import TradingBotPanel from '@/views/trading-bot/index.vue'
+import AddSymbolModal from './components/AddSymbolModal.vue'
+import StrategyListPanel from './components/StrategyListPanel.vue'
+import StrategyFormPanel from './components/StrategyFormPanel.vue'
 import { CROSS_SECTIONAL_INDICATOR_TEMPLATE } from '@/constants/crossSectionalIndicatorTemplate'
 
 // 常见加密货币交易对
@@ -1528,7 +1156,11 @@ export default {
     PerformanceAnalysis,
     StrategyLogs,
     DashboardOverview,
-    ExchangeAccountModal
+    ExchangeAccountModal,
+    TradingBotPanel,
+    AddSymbolModal,
+    StrategyListPanel,
+    StrategyFormPanel
   },
   computed: {
     showAssistantGuide () {
@@ -1822,96 +1454,6 @@ export default {
       }
       return list.filter(s => s.strategy_mode !== 'bot')
     },
-    // 策略分组显示
-    groupedStrategies () {
-      if (this.groupByMode === 'symbol') {
-        return this.groupedBySymbol
-      }
-      return this.groupedByStrategy
-    },
-    // 按策略分组（原有逻辑）
-    groupedByStrategy () {
-      const groups = {}
-      const ungrouped = []
-
-      for (const s of this.strategiesForPage) {
-        const groupId = s.strategy_group_id
-        if (groupId && groupId.trim()) {
-          if (!groups[groupId]) {
-            groups[groupId] = {
-              id: groupId,
-              baseName: s.group_base_name || s.strategy_name.split('-')[0],
-              strategies: [],
-              // 统计信息
-              runningCount: 0,
-              stoppedCount: 0
-            }
-          }
-          groups[groupId].strategies.push(s)
-          if (s.status === 'running') {
-            groups[groupId].runningCount++
-          } else {
-            groups[groupId].stoppedCount++
-          }
-        } else {
-          ungrouped.push(s)
-        }
-      }
-
-      // 转换为数组，按创建时间排序
-      const groupList = Object.values(groups).sort((a, b) => {
-        const aTime = Math.max(...a.strategies.map(s => s.created_at || 0))
-        const bTime = Math.max(...b.strategies.map(s => s.created_at || 0))
-        return bTime - aTime
-      })
-
-      return { groups: groupList, ungrouped }
-    },
-    // 按 Symbol 分组
-    groupedBySymbol () {
-      const groups = {}
-      const ungrouped = []
-
-      for (const s of this.strategiesForPage) {
-        const tc = s.trading_config || {}
-        const symbol = tc.symbol
-        if (symbol && symbol.trim()) {
-          if (!groups[symbol]) {
-            groups[symbol] = {
-              id: `symbol_${symbol}`,
-              baseName: symbol,
-              strategies: [],
-              runningCount: 0,
-              stoppedCount: 0
-            }
-          }
-          // 添加策略详情信息
-          const strategyInfo = {
-            ...s,
-            displayInfo: {
-              strategyName: s.strategy_name || s.group_base_name || 'Unnamed',
-              timeframe: tc.timeframe || '-',
-              indicatorName: s.indicator_name || (s.indicator_config && s.indicator_config.name) || '-'
-            }
-          }
-          groups[symbol].strategies.push(strategyInfo)
-          if (s.status === 'running') {
-            groups[symbol].runningCount++
-          } else {
-            groups[symbol].stoppedCount++
-          }
-        } else {
-          ungrouped.push(s)
-        }
-      }
-
-      // 转换为数组，按 symbol 名称排序
-      const groupList = Object.values(groups).sort((a, b) => {
-        return a.baseName.localeCompare(b.baseName)
-      })
-
-      return { groups: groupList, ungrouped }
-    },
     // Check if selected channels are configured in user profile
     unconfiguredChannels () {
       const missing = []
@@ -2030,24 +1572,8 @@ export default {
       collapsedGroups: {},
       // 分组模式: 'strategy' 或 'symbol'
       groupByMode: 'strategy',
-      // 添加交易对弹窗相关
+      // 添加交易对弹窗可见性（由子组件管理内部状态）
       showAddSymbolModal: false,
-      addSymbolMarket: 'Crypto',
-      addSymbolMarketTypes: [
-        { value: 'Crypto', i18nKey: 'dashboard.analysis.market.Crypto' },
-        { value: 'USStock', i18nKey: 'dashboard.analysis.market.USStock' },
-        { value: 'Forex', i18nKey: 'dashboard.analysis.market.Forex' },
-        { value: 'Futures', i18nKey: 'dashboard.analysis.market.Futures' }
-      ],
-      addSymbolKeyword: '',
-      searchingSymbol: false,
-      symbolSearchResults: [],
-      selectedAddSymbol: null,
-      hasSearchedSymbol: false,
-      addingSymbol: false,
-      hotSymbols: [],
-      loadingHotSymbols: false,
-      searchTimer: null,
       assistantGuideDismissed: false
       // Market category is inferred from Step 1 watchlist symbol ("Market:SYMBOL").
     }
@@ -2149,218 +1675,27 @@ export default {
         this.loadingWatchlist = false
       }
     },
-    // ====== 添加交易对弹窗相关方法 ======
-    handleCloseAddSymbolModal () {
-      this.showAddSymbolModal = false
-      this.addSymbolKeyword = ''
-      this.symbolSearchResults = []
-      this.selectedAddSymbol = null
-      this.hasSearchedSymbol = false
-    },
-    handleAddSymbolMarketChange (market) {
-      this.addSymbolMarket = market
-      this.addSymbolKeyword = ''
-      this.symbolSearchResults = []
-      this.selectedAddSymbol = null
-      this.hasSearchedSymbol = false
-      // 加载该市场的热门标的
-      this.loadHotSymbols(market)
-    },
-    // 搜索输入框变化时的处理（防抖）
-    handleSymbolSearchInputChange (e) {
-      const keyword = e.target.value
-      this.addSymbolKeyword = keyword
-
-      // 清除之前的定时器
-      if (this.searchTimer) {
-        clearTimeout(this.searchTimer)
-      }
-
-      // 如果关键词为空，清空搜索结果和状态
-      if (!keyword || keyword.trim() === '') {
-        this.symbolSearchResults = []
-        this.hasSearchedSymbol = false
-        this.selectedAddSymbol = null
-        return
-      }
-
-      // 防抖：500ms后执行搜索
-      this.searchTimer = setTimeout(() => {
-        this.searchSymbolsInModal(keyword)
-      }, 500)
-    },
-    // 搜索或直接添加（整合逻辑）
-    async handleSearchSymbol (keyword) {
-      if (!keyword || !keyword.trim()) {
-        return
-      }
-
-      if (!this.addSymbolMarket) {
-        this.$message.warning(this.$t('dashboard.analysis.modal.addStock.pleaseSelectMarket'))
-        return
-      }
-
-      // 如果有搜索结果，不处理（让用户选择）
-      if (this.symbolSearchResults.length > 0) {
-        return
-      }
-
-      // 如果没有搜索结果，直接添加
-      if (this.hasSearchedSymbol && this.symbolSearchResults.length === 0) {
-        this.handleDirectAdd()
+    // ====== 添加交易对弹窗回调（来自 AddSymbolModal 子组件） ======
+    async handleAddSymbolFromModal ({ market, symbol }) {
+      // Reload watchlist to pick up the newly added symbol
+      await this.loadWatchlist()
+      const newValue = `${market}:${symbol}`
+      // Auto-select the newly added symbol in the appropriate form field
+      if (this.isEditMode) {
+        this.form.setFieldsValue({ symbol: newValue })
+        this.handleWatchlistSymbolChange(newValue)
+      } else if (this.csStrategyTypeUi === 'cross_sectional') {
+        if (!this.crossSectionalSymbols.includes(newValue)) {
+          this.crossSectionalSymbols = [...this.crossSectionalSymbols, newValue]
+        }
+        this.handleCrossSectionalSymbolChange(this.crossSectionalSymbols)
       } else {
-        // 执行搜索
-        this.searchSymbolsInModal(keyword)
-      }
-    },
-    // 搜索标的（在添加股票弹窗中）
-    async searchSymbolsInModal (keyword) {
-      if (!keyword || keyword.trim() === '') {
-        this.symbolSearchResults = []
-        this.hasSearchedSymbol = false
-        return
-      }
-
-      if (!this.addSymbolMarket) {
-        return
-      }
-
-      this.searchingSymbol = true
-      this.hasSearchedSymbol = true
-
-      try {
-        const res = await searchSymbols({
-          market: this.addSymbolMarket,
-          keyword: keyword.trim()
-        })
-        if (res && res.code === 1 && Array.isArray(res.data)) {
-          this.symbolSearchResults = res.data
-        } else {
-          this.symbolSearchResults = []
+        if (!this.selectedSymbols.includes(newValue)) {
+          this.selectedSymbols = [...this.selectedSymbols, newValue]
         }
-      } catch (e) {
-        this.symbolSearchResults = []
-      } finally {
-        this.searchingSymbol = false
+        this.handleMultiSymbolChange(this.selectedSymbols)
       }
     },
-    // 直接添加（搜索无结果时）
-    handleDirectAdd () {
-      if (!this.addSymbolKeyword || !this.addSymbolKeyword.trim()) {
-        this.$message.warning(this.$t('dashboard.analysis.modal.addStock.pleaseEnterSymbol'))
-        return
-      }
-
-      if (!this.addSymbolMarket) {
-        this.$message.warning(this.$t('dashboard.analysis.modal.addStock.pleaseSelectMarket'))
-        return
-      }
-
-      // 设置选中的标的（手动输入，名称会在后端获取）
-      this.selectedAddSymbol = {
-        market: this.addSymbolMarket,
-        symbol: this.addSymbolKeyword.trim().toUpperCase(),
-        name: '' // 名称由后端通过API获取
-      }
-    },
-    handleSelectAddSymbol (item) {
-      this.selectedAddSymbol = {
-        market: this.addSymbolMarket,
-        symbol: item.symbol,
-        name: item.name || ''
-      }
-    },
-    // 加载热门标的
-    async loadHotSymbols (market) {
-      if (!market) {
-        market = this.addSymbolMarket || 'Crypto'
-      }
-
-      if (!market) {
-        return
-      }
-
-      this.loadingHotSymbols = true
-      try {
-        const res = await getHotSymbols({
-          market: market,
-          limit: 10
-        })
-        if (res && res.code === 1 && res.data) {
-          this.hotSymbols = res.data
-        } else {
-          this.hotSymbols = []
-        }
-      } catch (error) {
-        this.hotSymbols = []
-      } finally {
-        this.loadingHotSymbols = false
-      }
-    },
-    async handleConfirmAddSymbol () {
-      // 确定要添加的交易对
-      let market = ''
-      let symbol = ''
-
-      // 检查是否选中了标的（从数据库选择或手动输入）
-      if (this.selectedAddSymbol) {
-        market = this.selectedAddSymbol.market
-        symbol = this.selectedAddSymbol.symbol.toUpperCase()
-      } else if (this.addSymbolKeyword && this.addSymbolKeyword.trim()) {
-        // 如果没有选中，但搜索框有输入，使用搜索框的值
-        if (!this.addSymbolMarket) {
-          this.$message.warning(this.$t('dashboard.analysis.modal.addStock.pleaseSelectMarket'))
-          return
-        }
-        market = this.addSymbolMarket
-        symbol = this.addSymbolKeyword.trim().toUpperCase()
-      } else {
-        this.$message.warning(this.$t('dashboard.analysis.modal.addStock.pleaseSelectOrEnterSymbol'))
-        return
-      }
-
-      this.addingSymbol = true
-      try {
-        // 调用添加自选API
-        const res = await addWatchlist({
-          userid: 1,
-          market: market,
-          symbol: symbol
-        })
-        if (res && res.code === 1) {
-          this.$message.success(this.$t('dashboard.analysis.message.addStockSuccess'))
-          // 重新加载自选列表
-          await this.loadWatchlist()
-          // 自动选中新添加的交易对
-          const newValue = `${market}:${symbol}`
-          if (this.isEditMode) {
-            this.form.setFieldsValue({ symbol: newValue })
-            this.handleWatchlistSymbolChange(newValue)
-          } else if (this.csStrategyTypeUi === 'cross_sectional') {
-            if (!this.crossSectionalSymbols.includes(newValue)) {
-              this.crossSectionalSymbols = [...this.crossSectionalSymbols, newValue]
-            }
-            this.handleCrossSectionalSymbolChange(this.crossSectionalSymbols)
-          } else {
-            // 多选模式：添加到已选列表
-            if (!this.selectedSymbols.includes(newValue)) {
-              this.selectedSymbols = [...this.selectedSymbols, newValue]
-            }
-            this.handleMultiSymbolChange(this.selectedSymbols)
-          }
-          // 关闭弹窗
-          this.handleCloseAddSymbolModal()
-        } else {
-          this.$message.error(res?.msg || this.$t('dashboard.analysis.message.addStockFailed'))
-        }
-      } catch (e) {
-        const errorMsg = e?.response?.data?.msg || e?.message || this.$t('dashboard.analysis.message.addStockFailed')
-        this.$message.error(errorMsg)
-      } finally {
-        this.addingSymbol = false
-      }
-    },
-    // ====== 添加交易对弹窗相关方法 END ======
     filterWatchlistOption (input, option) {
       const value = option.componentOptions?.propsData?.value || ''
       // 始终显示"添加"选项
@@ -2381,7 +1716,7 @@ export default {
         // 打开添加弹窗
         this.showAddSymbolModal = true
         // 加载热门标的
-        this.loadHotSymbols(this.addSymbolMarket)
+        // AddSymbolModal handles hot symbols internally
         return
       }
       this.handleMultiSymbolChange(vals)
@@ -2412,7 +1747,7 @@ export default {
         // 打开添加弹窗
         this.showAddSymbolModal = true
         // 加载热门标的
-        this.loadHotSymbols(this.addSymbolMarket)
+        // AddSymbolModal handles hot symbols internally
         return
       }
       this.crossSectionalSymbols = vals || []
@@ -2446,7 +1781,7 @@ export default {
         // 打开添加弹窗
         this.showAddSymbolModal = true
         // 加载热门标的
-        this.loadHotSymbols(this.addSymbolMarket)
+        // AddSymbolModal handles hot symbols internally
         return
       }
       // val format: "Market:SYMBOL" (same as indicator-analysis page)
@@ -2490,7 +1825,7 @@ export default {
     handleSimpleSymbolChange (val) {
       if (val === '__add_symbol_option__') {
         this.showAddSymbolModal = true
-        this.loadHotSymbols(this.addSymbolMarket)
+        // AddSymbolModal handles hot symbols internally
         return
       }
       const values = val ? [val] : []
@@ -3257,9 +2592,6 @@ export default {
           this.handleDeleteStrategy(strategy)
           break
       }
-    },
-    toggleGroup (groupId) {
-      this.$set(this.collapsedGroups, groupId, !this.collapsedGroups[groupId])
     },
     handleBacktestStrategy (strategy) {
       if (!strategy || !strategy.id) return
@@ -4313,10 +3645,6 @@ export default {
         })
       })
     },
-    getDropdownContainer (triggerNode) {
-      // 始终将下拉菜单挂载到body，避免被父容器裁剪
-      return document.body
-    }
   }
 }
 </script>
@@ -7090,79 +6418,6 @@ export default {
   }
 }
 
-// 添加交易对弹窗样式
-.add-symbol-modal-content {
-  .market-tabs {
-    margin-bottom: 16px;
-  }
-
-  .symbol-search-section {
-    margin-bottom: 16px;
-  }
-
-  .section-title {
-    font-weight: 500;
-    margin-bottom: 8px;
-    color: rgba(0, 0, 0, 0.85);
-    display: flex;
-    align-items: center;
-  }
-
-  .search-results-section,
-  .hot-symbols-section {
-    margin-bottom: 16px;
-  }
-
-  .symbol-list {
-    .symbol-list-item {
-      cursor: pointer;
-      transition: background-color 0.3s;
-      padding: 8px 12px;
-      border-radius: 4px;
-
-      &:hover {
-        background-color: #f5f5f5;
-      }
-    }
-  }
-
-  .symbol-item-content {
-    display: flex;
-    align-items: center;
-
-    .symbol-code {
-      font-weight: 500;
-      margin-right: 8px;
-    }
-
-    .symbol-name {
-      color: rgba(0, 0, 0, 0.45);
-    }
-  }
-
-  .selected-symbol-section {
-    padding: 12px;
-    background-color: #f6ffed;
-    border: 1px solid #b7eb8f;
-    border-radius: 4px;
-    margin-top: 16px;
-
-    .selected-symbol-info {
-      display: flex;
-      align-items: center;
-      margin-top: 8px;
-
-      .symbol-code {
-        font-weight: 500;
-        margin-right: 8px;
-      }
-
-      .symbol-name {
-        color: rgba(0, 0, 0, 0.45);
-      }
-    }
-  }
-}
 </style>
 
 <style lang="less">
