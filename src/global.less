@@ -24,6 +24,73 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizelegibility;
+
+  /* Layer 1: Global gradient background */
+  background: var(--bg-gradient, #fafafa);
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+/* Ensure #app inherits gradient */
+#app,
+#root {
+  background: transparent;
+}
+
+/* Subtle noise texture overlay for depth (dark mode) */
+body.dark::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.015;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ========== Global Glass Card Enhancement ========== */
+/* Apply glassmorphism to Ant Design cards globally */
+body.dark .ant-card,
+body .ant-card.ant-card-bordered {
+  backdrop-filter: blur(var(--glass-blur, 20px));
+  -webkit-backdrop-filter: blur(var(--glass-blur, 20px));
+  box-shadow: var(--panel-glow, none), var(--shadow-card, none);
+}
+
+/* Card hover lift */
+.ant-card.ant-card-bordered {
+  transition: border-color 0.3s var(--ease-premium, ease), box-shadow 0.3s var(--ease-premium, ease), transform 0.3s var(--ease-premium, ease);
+}
+
+.ant-card.ant-card-bordered:hover {
+  border-color: var(--glass-border-hover, var(--border-color-active));
+  box-shadow: var(--shadow-hover, var(--shadow-elevated));
+}
+
+/* ========== Global Panel Glow for Chart Containers ========== */
+.chart-panel,
+.chart-section,
+.kpi-card,
+.bt-chart-card,
+.bt-config-card,
+.bt-metric-card,
+.bt-history-section,
+.sentiment-bar {
+  box-shadow: var(--panel-glow, none), var(--shadow-card, none);
+  transition: border-color 0.3s var(--ease-premium, ease), box-shadow 0.3s var(--ease-premium, ease);
+}
+
+.chart-panel:hover,
+.chart-section:hover,
+.kpi-card:hover,
+.bt-chart-card:hover,
+.bt-metric-card:hover,
+.bt-history-section:hover,
+.sentiment-bar:hover {
+  border-color: var(--glass-border-hover, var(--border-color-active)) !important;
 }
 
 ul,
@@ -117,16 +184,18 @@ ol {
 }
 
 // ========== 暗黑主题全局纯黑覆盖 ==========
-// 覆盖 Ant Design Pro Layout 的 #001529 深蓝色
+// 覆盖 Ant Design Pro Layout 的 var(--bg-sidebar) 深蓝色
 body.dark,
 body.realdark {
-  // 侧边栏
+  // 侧边栏 — deep glass
   .ant-layout-sider,
   .ant-layout-sider-dark,
   .ant-pro-sider-menu-sider,
   .ant-pro-sider-menu-sider.ant-layout-sider-dark,
   aside.ant-layout-sider.ant-layout-sider-dark {
-    background: #0a0a0a !important;
+    background: rgba(10, 10, 11, 0.85) !important;
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
   }
   .ant-layout-sider-children {
     background: #0a0a0a !important;
@@ -149,54 +218,61 @@ body.realdark {
     border-top: 1px solid #1c1c1c;
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
   }
-  // 顶栏 - 与侧栏「亮黑」#111 一致 + 顶缘内高光
+  // 顶栏 — glass header
   .ant-layout-header {
-    background: #111111 !important;
-    border-bottom: 1px solid #1c1c1c !important;
+    background: rgba(17, 17, 18, 0.72) !important;
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
   }
   .ant-pro-global-header {
-    background: #111111 !important;
+    background: rgba(17, 17, 18, 0.72) !important;
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
     border-bottom: none !important;
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
   }
-  // 主内容区域
+  // 主内容区域 — transparent so gradient shows through
   .ant-layout {
-    background: #0a0a0a !important;
+    background: transparent !important;
   }
   .ant-layout-content,
   .ant-pro-basicLayout-content {
-    background: #141414 !important;
+    background: transparent !important;
   }
-  // 各页面通用卡片、表格背景
+  // 各页面通用卡片、表格背景 — glassmorphism
   .ant-card {
-    background: #1c1c1c !important;
-    border-color: #2a2a2a !important;
+    background: rgba(28, 28, 31, 0.72) !important;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-color: rgba(255, 255, 255, 0.06) !important;
+    box-shadow: 0 0 40px rgba(52, 211, 153, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.04);
     color: rgba(255, 255, 255, 0.85);
     .ant-card-head {
-      background: #1c1c1c !important;
-      border-bottom-color: #2a2a2a !important;
+      background: transparent !important;
+      border-bottom-color: rgba(255, 255, 255, 0.06) !important;
       color: rgba(255, 255, 255, 0.85) !important;
     }
     .ant-card-body { color: rgba(255, 255, 255, 0.85); }
   }
   .ant-table {
-    background: #1c1c1c !important;
+    background: transparent !important;
     color: rgba(255, 255, 255, 0.85);
     .ant-table-thead > tr > th {
-      background: #141414 !important;
-      border-bottom-color: #2a2a2a !important;
+      background: rgba(20, 20, 22, 0.60) !important;
+      border-bottom-color: rgba(255, 255, 255, 0.06) !important;
       color: rgba(255, 255, 255, 0.85) !important;
     }
     .ant-table-tbody > tr > td {
-      border-bottom-color: #2a2a2a !important;
+      border-bottom-color: rgba(255, 255, 255, 0.04) !important;
       color: rgba(255, 255, 255, 0.85);
     }
     .ant-table-tbody > tr:hover > td {
-      background: #252525 !important;
+      background: rgba(37, 37, 40, 0.50) !important;
     }
     .ant-table-placeholder {
-      background: #1c1c1c !important;
+      background: transparent !important;
       color: #666 !important;
     }
   }
@@ -206,7 +282,7 @@ body.realdark {
     a { color: rgba(255, 255, 255, 0.85) !important; }
   }
   .ant-pagination-item-active {
-    border-color: #1890ff !important;
+    border-color: var(--emerald-500) !important;
   }
   .ant-pagination-prev .ant-pagination-item-link,
   .ant-pagination-next .ant-pagination-item-link {
@@ -214,12 +290,12 @@ body.realdark {
     border-color: #2a2a2a !important;
     color: rgba(255, 255, 255, 0.85) !important;
   }
-  // 表单元素
+  // 表单元素 — translucent for glass aesthetic
   .ant-input,
   .ant-input-number,
   .ant-select-selection {
-    background: #1c1c1c !important;
-    border-color: #2a2a2a !important;
+    background: rgba(28, 28, 31, 0.60) !important;
+    border-color: rgba(255, 255, 255, 0.08) !important;
     color: rgba(255, 255, 255, 0.85) !important;
   }
   .ant-input::placeholder { color: #555 !important; }
@@ -249,8 +325,8 @@ body.realdark {
     border-color: #2a2a2a !important;
     color: rgba(255, 255, 255, 0.85) !important;
     &:hover {
-      border-color: #1890ff !important;
-      color: #1890ff !important;
+      border-color: var(--emerald-500) !important;
+      color: var(--emerald-500) !important;
     }
   }
   // Breadcrumb & PageHeader
@@ -274,7 +350,7 @@ body.realdark {
     &:hover { color: #d4d4d4 !important; }
   }
   .ant-tabs-tab-active {
-    color: #1890ff !important;
+    color: var(--emerald-500) !important;
   }
   // Modal
   .ant-modal-content {
@@ -298,7 +374,7 @@ body.realdark {
       color: rgba(255, 255, 255, 0.85) !important;
       &:hover { background: #252525 !important; }
       &-active { background: #252525 !important; }
-      &-selected { background: rgba(24, 144, 255, 0.1) !important; color: #1890ff !important; }
+      &-selected { background: rgba(24, 144, 255, 0.1) !important; color: var(--emerald-500) !important; }
     }
   }
 }

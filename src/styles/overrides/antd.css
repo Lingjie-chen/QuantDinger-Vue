@@ -35,13 +35,14 @@ body.dark .ant-pro-top-nav-header {
 /* 内容区 */
 body.dark .ant-layout-content,
 body.dark .ant-pro-content {
-  background: var(--bg-content) !important;
+  background: transparent !important;
 }
 
 /* 整个 Layout 背景 */
 body.dark .ant-layout,
 body.dark .ant-pro-layout {
-  background: var(--bg-app) !important;
+  background: var(--bg-gradient) !important;
+  background-attachment: fixed !important;
 }
 
 /* ============================================================

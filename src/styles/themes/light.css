@@ -1,36 +1,74 @@
 /* ============================================================
- * 亮色主题 — 覆盖 tokens.css 中的 --bg-*, --text-*, --border-*
- *
- * 用法: import './styles/themes/light.css' (或由切换逻辑动态加载)
+ * 亮色主题 — 对齐 DESIGN.md 规范
+ * Mist Canvas / Pure Surface / Emerald Pulse
  * ============================================================ */
 
 .theme-light {
   /* Backgrounds */
-  --bg-app: #f0f2f5;
-  --bg-content: #f0f2f5;
-  --bg-sidebar: #001529;
+  --bg-app: #fafafa;
+  --bg-content: #fafafa;
+  --bg-sidebar: #0a0a0b;
   --bg-header: #ffffff;
   --bg-card: #ffffff;
-  --bg-card-hover: rgba(0, 0, 0, 0.04);
+  --bg-card-hover: rgba(0, 0, 0, 0.03);
   --bg-elevated: #ffffff;
   --bg-input: #ffffff;
-  --bg-disabled: #f5f5f5;
+  --bg-disabled: #f4f4f5;
 
-  /* Borders */
-  --border-color: #e8e8e8;
-  --border-color-light: #f0f0f0;
-  --border-color-lighter: #e2e8f0;   /* dashboard 用 */
+  /* Borders — Zinc-based */
+  --border-color: #e4e4e7;
+  --border-color-light: #f4f4f5;
+  --border-color-lighter: #f4f4f5;
+  --border-color-active: rgba(16, 185, 129, 0.4);
 
   /* Text */
-  --text-primary: rgba(0, 0, 0, 0.85);
-  --text-secondary: rgba(0, 0, 0, 0.45);
+  --text-primary: rgba(0, 0, 0, 0.88);
+  --text-secondary: rgba(0, 0, 0, 0.50);
   --text-tertiary: rgba(0, 0, 0, 0.25);
   --text-disabled: rgba(0, 0, 0, 0.25);
-  --text-placeholder: #bfbfbf;
+  --text-placeholder: #a1a1aa;
+  --text-link: var(--emerald-600);
 
-  /* Tag / badge backgrounds (for code tags, status badges) */
-  --tag-bg: #f5f5f5;
+  /* Tag / badge backgrounds */
+  --tag-bg: #f4f4f5;
 
   /* Chart grid lines */
-  --chart-grid: #e8e8e8;
+  --chart-grid: #e4e4e7;
+
+  /* Shadows — lighter in light theme */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 16px -4px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 8px 32px -8px rgba(0, 0, 0, 0.08);
+  --shadow-card: 0 2px 12px -4px rgba(0, 0, 0, 0.04);
+  --shadow-elevated: 0 16px 48px -12px rgba(0, 0, 0, 0.10);
+
+  /* Skeleton shimmer */
+  --skeleton-from: #f4f4f5;
+  --skeleton-to: #e4e4e7;
+
+  /* Glassmorphism */
+  --glass-bg: rgba(255, 255, 255, 0.72);
+  --glass-bg-hover: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(0, 0, 0, 0.06);
+  --glass-border-hover: rgba(16, 185, 129, 0.22);
+
+  /* Soft mesh gradient background */
+  --bg-gradient: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(59, 130, 246, 0.06) 0%, transparent 60%),
+                 radial-gradient(ellipse 60% 50% at 80% 100%, rgba(16, 185, 129, 0.05) 0%, transparent 60%),
+                 radial-gradient(ellipse 50% 40% at 20% 50%, rgba(139, 92, 246, 0.03) 0%, transparent 50%),
+                 linear-gradient(135deg, #fafafa 0%, #f1f5f9 50%, #f8fafc 100%);
+
+  /* Panel glow */
+  --panel-glow: 0 0 40px rgba(16, 185, 129, 0.04);
+  --panel-inner-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.60);
+
+  /* Card layering */
+  --card-bg-base: #f8fafc;
+  --card-bg-surface: #ffffff;
+  --card-bg-elevated: #ffffff;
+
+  /* Grid pattern for chart panels */
+  --grid-pattern:
+    linear-gradient(rgba(0, 0, 0, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.025) 1px, transparent 1px);
 }

@@ -269,8 +269,13 @@ export default {
 @import '@/assets/design-tokens.less';
 
 .backtest-center {
-  padding: 20px; background: @qd-bg-light; min-height: 100vh;
-  &.theme-dark { background: @qd-bg-dark; }
+  padding: 20px; min-height: 100vh;
+  background: @qd-bg-gradient-light;
+  background-attachment: fixed;
+  &.theme-dark {
+    background: @qd-bg-gradient-dark;
+    background-attachment: fixed;
+  }
 
   .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;
     h3 { margin: 0; font-size: 18px; font-weight: 700; color: @qd-text-primary-light; }
@@ -278,9 +283,10 @@ export default {
   }
 
   .bt-config-card {
-    background: @qd-bg-card-light; border: 1px solid @qd-border-light; border-radius: @qd-radius-lg;
+    .qd-glass-light(); border-radius: @qd-radius-lg;
     padding: 20px; margin-bottom: 16px;
-    .theme-dark & { background: @qd-bg-card-dark; border-color: @qd-border-dark; }
+    .qd-card-hover-light();
+    .theme-dark & { .qd-glass-dark(); .qd-panel-glow(); .qd-card-hover(); }
   }
 
   .bt-result-section { margin-bottom: 16px; }
@@ -290,8 +296,9 @@ export default {
   }
 
   .bt-metric-card {
-    background: @qd-bg-card-light; border: 1px solid @qd-border-light; border-radius: @qd-radius-md; padding: 14px; text-align: center;
-    .theme-dark & { background: @qd-bg-card-dark; border-color: @qd-border-dark; }
+    .qd-glass-light(); border-radius: @qd-radius-md; padding: 14px; text-align: center;
+    .qd-card-hover-light();
+    .theme-dark & { .qd-glass-dark(); .qd-panel-glow(); .qd-card-hover(); }
     .bt-metric-label { font-size: @qd-font-sm; color: @qd-text-secondary-light; text-transform: uppercase; margin-bottom: 6px; }
     .theme-dark & .bt-metric-label { color: @qd-text-secondary-dark; }
     .bt-metric-value { font-size: @qd-font-lg; font-weight: @qd-font-bold; color: @qd-text-primary-light; font-feature-settings: 'tnum'; }
@@ -299,9 +306,10 @@ export default {
   }
 
   .bt-chart-card {
-    background: @qd-bg-card-light; border: 1px solid @qd-border-light; border-radius: @qd-radius-lg;
+    .qd-glass-light(); border-radius: @qd-radius-lg;
     padding: 16px; margin-bottom: 16px;
-    .theme-dark & { background: @qd-bg-card-dark; border-color: @qd-border-dark; }
+    .qd-card-hover-light();
+    .theme-dark & { .qd-glass-dark(); .qd-panel-glow(); .qd-grid-bg-dark(); .qd-card-hover(); }
   }
 
   .bt-chart-title {
@@ -310,8 +318,9 @@ export default {
   }
 
   .bt-history-section {
-    background: @qd-bg-card-light; border: 1px solid @qd-border-light; border-radius: @qd-radius-lg; padding: 16px;
-    .theme-dark & { background: @qd-bg-card-dark; border-color: @qd-border-dark; }
+    .qd-glass-light(); border-radius: @qd-radius-lg; padding: 16px;
+    .qd-card-hover-light();
+    .theme-dark & { .qd-glass-dark(); .qd-panel-glow(); .qd-card-hover(); }
   }
 
   .positive { color: @qd-green !important; }

@@ -715,11 +715,11 @@ export default {
       // Modern gradient colors
       const colors = [
         new echarts.graphic.LinearGradient(0, 0, 1, 1, [
-          { offset: 0, color: '#3b82f6' },
+          { offset: 0, color: 'var(--emerald-500)' },
           { offset: 1, color: '#1d4ed8' }
         ]),
         new echarts.graphic.LinearGradient(0, 0, 1, 1, [
-          { offset: 0, color: '#8b5cf6' },
+          { offset: 0, color: 'var(--rose-500)' },
           { offset: 1, color: '#6d28d9' }
         ]),
         new echarts.graphic.LinearGradient(0, 0, 1, 1, [
@@ -1032,8 +1032,8 @@ export default {
             itemStyle: {
               borderRadius: [3, 3, 0, 0],
               color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                { offset: 0, color: '#60a5fa' },
-                { offset: 1, color: '#3b82f6' }
+                { offset: 0, color: 'var(--emerald-400)' },
+                { offset: 1, color: 'var(--emerald-500)' }
               ])
             }
           },
@@ -1060,10 +1060,10 @@ export default {
 
 <style lang="less" scoped>
 // Design tokens
-@bg-dark: #141414;
-@bg-card-dark: #1c1c1c;
-@bg-card-hover-dark: #252525;
-@border-dark: #2a2a2a;
+@bg-dark: var(--bg-content);
+@bg-card-dark: var(--bg-card);
+@bg-card-hover-dark: var(--bg-card-hover);
+@border-dark: var(--border-color);
 @text-primary-dark: #f1f5f9;
 @text-secondary-dark: #888888;
 
@@ -1073,28 +1073,48 @@ export default {
 @text-primary-light: #1e293b;
 @text-secondary-light: #64748b;
 
+// Glassmorphism tokens
+@glass-blur: 20px;
+@glass-bg-dark: rgba(28, 28, 31, 0.72);
+@glass-border-dark: rgba(255, 255, 255, 0.06);
+@glass-bg-light: rgba(255, 255, 255, 0.72);
+@glass-border-light: rgba(0, 0, 0, 0.06);
+@glass-border-hover: rgba(52, 211, 153, 0.22);
+@panel-glow: 0 0 40px rgba(52, 211, 153, 0.05);
+@panel-inner-dark: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+
 // Colors
 @green: #10b981;
 @green-light: #34d399;
 @red: #ef4444;
 @red-light: #f87171;
-@blue: #3b82f6;
-@purple: #8b5cf6;
+@blue: var(--emerald-500);
+@purple: var(--rose-500);
 @amber: #f59e0b;
 @cyan: #06b6d4;
 
 .dashboard-pro {
   min-height: 100vh;
   padding: 20px;
-  background: @bg-light;
+  background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(59, 130, 246, 0.06) 0%, transparent 60%),
+             radial-gradient(ellipse 60% 50% at 80% 100%, rgba(16, 185, 129, 0.05) 0%, transparent 60%),
+             linear-gradient(135deg, #fafafa 0%, #f1f5f9 50%, #f8fafc 100%);
+  background-attachment: fixed;
   transition: background 0.3s;
 
   &.theme-dark {
-    background: @bg-dark;
+    background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(16, 185, 129, 0.08) 0%, transparent 60%),
+               radial-gradient(ellipse 60% 50% at 80% 100%, rgba(59, 130, 246, 0.06) 0%, transparent 60%),
+               radial-gradient(ellipse 50% 40% at 20% 50%, rgba(139, 92, 246, 0.04) 0%, transparent 50%),
+               linear-gradient(180deg, #0a0a0b 0%, #0f0f10 50%, #0a0a0b 100%);
+    background-attachment: fixed;
 
     .kpi-card {
-      background: @bg-card-dark;
-      border-color: @border-dark;
+      background: @glass-bg-dark;
+      backdrop-filter: blur(@glass-blur);
+      -webkit-backdrop-filter: blur(@glass-blur);
+      border-color: @glass-border-dark;
+      box-shadow: @panel-glow, @panel-inner-dark;
 
       .kpi-label { color: @text-secondary-dark; }
       .kpi-value .amount { color: @text-primary-dark; }
@@ -1102,8 +1122,11 @@ export default {
     }
 
     .chart-panel, .table-panel {
-      background: @bg-card-dark;
-      border-color: @border-dark;
+      background: @glass-bg-dark;
+      backdrop-filter: blur(@glass-blur);
+      -webkit-backdrop-filter: blur(@glass-blur);
+      border-color: @glass-border-dark;
+      box-shadow: @panel-glow, @panel-inner-dark;
 
       .panel-header {
         border-color: @border-dark;
@@ -1246,7 +1269,7 @@ export default {
         color: @text-primary-dark;
       }
       ::v-deep .ant-table-thead > tr > th {
-        background: #141414;
+        background: var(--bg-content);
         color: @text-secondary-dark;
         border-color: @border-dark;
       }
@@ -1255,7 +1278,7 @@ export default {
         color: @text-primary-dark;
       }
       ::v-deep .ant-table-tbody > tr:hover > td {
-        background: #252525;
+        background: var(--bg-card-hover);
       }
       ::v-deep .ant-table-placeholder {
         background: transparent;
@@ -1359,16 +1382,20 @@ export default {
 
   .kpi-card {
     position: relative;
-    background: @bg-card-light;
-    border: 1px solid @border-light;
+    background: @glass-bg-light;
+    backdrop-filter: blur(@glass-blur);
+    -webkit-backdrop-filter: blur(@glass-blur);
+    border: 1px solid @glass-border-light;
     border-radius: 16px;
     padding: 20px;
     overflow: hidden;
+    box-shadow: 0 0 40px rgba(16, 185, 129, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.60);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
     &:hover {
       transform: translateY(-2px);
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+      border-color: @glass-border-hover;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.10);
     }
 
     &.clickable {
@@ -1467,7 +1494,7 @@ export default {
 
     // Primary card with gradient
     &.kpi-primary {
-      background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%);
+      background: linear-gradient(135deg, var(--emerald-600) 0%, var(--emerald-500) 50%, var(--emerald-400) 100%);
       border: none;
 
       .kpi-icon {
@@ -1542,10 +1569,18 @@ export default {
   }
 
   .chart-panel {
-    background: @bg-card-light;
-    border: 1px solid @border-light;
+    background: @glass-bg-light;
+    backdrop-filter: blur(@glass-blur);
+    -webkit-backdrop-filter: blur(@glass-blur);
+    border: 1px solid @glass-border-light;
     border-radius: 16px;
     overflow: hidden;
+    box-shadow: 0 0 40px rgba(16, 185, 129, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.60);
+    transition: border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+
+    &:hover {
+      border-color: @glass-border-hover;
+    }
 
     &.chart-main { flex: 2; }
     &.chart-side { flex: 1; min-width: 300px; }
@@ -1912,10 +1947,18 @@ export default {
 
   .table-panel {
     flex: 1;
-    background: @bg-card-light;
-    border: 1px solid @border-light;
+    background: @glass-bg-light;
+    backdrop-filter: blur(@glass-blur);
+    -webkit-backdrop-filter: blur(@glass-blur);
+    border: 1px solid @glass-border-light;
     border-radius: 16px;
     overflow: hidden;
+    box-shadow: 0 0 40px rgba(16, 185, 129, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.60);
+    transition: border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+
+    &:hover {
+      border-color: @glass-border-hover;
+    }
 
     .panel-header {
       display: flex;

@@ -350,29 +350,35 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@bg-light: #f8fafc; @bg-card-light: #fff; @border-light: #e2e8f0;
-@text-primary: #1e293b; @text-secondary: #64748b;
-@green: #10b981; @red: #ef4444; @blue: var(--emerald-500);
+@import '@/assets/design-tokens.less';
 
 .autonomous-trading {
-  padding: 20px; background: @bg-light; min-height: 100vh;
-  &.theme-dark { background: #141414; }
+  padding: 20px; min-height: 100vh;
+  background: @qd-bg-gradient-light;
+  background-attachment: fixed;
+  &.theme-dark {
+    background: @qd-bg-gradient-dark;
+    background-attachment: fixed;
+  }
 
   .top-view-tabs { margin-bottom: 16px; }
 
   .status-bar {
     display: flex; justify-content: space-between; align-items: center;
-    padding: 16px 20px; background: @bg-card-light; border: 1px solid @border-light;
+    padding: 16px 20px;
+    .qd-glass-light();
     border-radius: 12px; margin-bottom: 16px;
+    .qd-card-hover-light();
+    .theme-dark & { .qd-glass-dark(); .qd-panel-glow(); .qd-card-hover(); }
   }
 
   .status-indicator {
     display: flex; align-items: center; gap: 8px;
-    .status-dot { width: 10px; height: 10px; border-radius: 50%; background: @text-secondary; }
-    &.running .status-dot { background: @green; animation: pulse 2s infinite; }
+    .status-dot { width: 10px; height: 10px; border-radius: 50%; background: @qd-text-secondary-light; }
+    &.running .status-dot { background: @qd-green; animation: pulse 2s infinite; }
     &.paused .status-dot { background: #f59e0b; }
-    &.error .status-dot { background: @red; }
-    .status-text { font-weight: 600; color: @text-primary; }
+    &.error .status-dot { background: @qd-red; }
+    .status-text { font-weight: 600; color: @qd-text-primary-light; .theme-dark & { color: @qd-text-primary-dark; } }
   }
 
   .kpi-grid {
@@ -381,25 +387,32 @@ export default {
   }
 
   .kpi-card {
-    background: @bg-card-light; border: 1px solid @border-light; border-radius: 12px;
+    .qd-glass-light(); border-radius: 12px;
     padding: 16px; text-align: center;
-    .kpi-label { font-size: 11px; color: @text-secondary; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
-    .kpi-value { font-size: 22px; font-weight: 700; color: @text-primary; font-feature-settings: 'tnum'; }
+    .qd-card-hover-light();
+    .theme-dark & { .qd-glass-dark(); .qd-panel-glow(); .qd-card-hover(); }
+    .kpi-label { font-size: 11px; color: @qd-text-secondary-light; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; .theme-dark & { color: @qd-text-secondary-dark; } }
+    .kpi-value { font-size: 22px; font-weight: 700; color: @qd-text-primary-light; font-feature-settings: 'tnum'; .theme-dark & { color: @qd-text-primary-dark; } }
   }
 
-  .positive { color: @green !important; }
-  .negative { color: @red !important; }
+  .positive { color: @qd-green !important; }
+  .negative { color: @qd-red !important; }
 
-  .main-tabs { background: @bg-card-light; border: 1px solid @border-light; border-radius: 12px; padding: 16px; }
+  .main-tabs {
+    .qd-glass-light(); border-radius: 12px; padding: 16px;
+    .qd-card-hover-light();
+    .theme-dark & { .qd-glass-dark(); .qd-panel-glow(); .qd-card-hover(); }
+  }
 
   .config-form { max-width: 600px; }
 
   .chart-section {
-    background: @bg-card-light; border: 1px solid @border-light;
+    .qd-glass-light();
     border-radius: 12px; padding: 12px; margin-bottom: 16px;
+    .qd-card-hover-light();
     .chart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .theme-dark & { .qd-glass-dark(); .qd-panel-glow(); .qd-grid-bg-dark(); .qd-card-hover(); }
   }
-  &.theme-dark .chart-section { background: #1a1a1a; border-color: #2a2a2a; }
 }
 
 @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }

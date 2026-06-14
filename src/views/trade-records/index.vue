@@ -72,8 +72,15 @@ export default {
 @import '@/assets/design-tokens.less';
 
 .trade-records {
-  padding: @qd-space-lg; background: @qd-bg-light; min-height: 100vh;
-  &.theme-dark { background: @qd-bg-dark; }
+  padding: @qd-space-lg; min-height: 100vh;
+  background: @qd-bg-gradient-light;
+  background-attachment: fixed;
+  &.theme-dark {
+    background: @qd-bg-gradient-dark;
+    background-attachment: fixed;
+    /deep/ .ant-card { .qd-glass-dark(); .qd-panel-glow(); .qd-card-hover(); }
+  }
+  /deep/ .ant-card { .qd-glass-light(); .qd-card-hover-light(); }
   .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: @qd-space-md; h3 { margin: 0; } }
   .positive { .qd-positive-text(); }
   .negative { .qd-negative-text(); }

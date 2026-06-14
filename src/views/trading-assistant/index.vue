@@ -3685,6 +3685,10 @@ export default {
   border: 1px solid rgba(24, 144, 255, 0.14);
   border-radius: 16px;
   background: linear-gradient(135deg, rgba(24, 144, 255, 0.08) 0%, rgba(114, 46, 209, 0.06) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 0 40px rgba(52, 211, 153, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  transition: border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 
   .assistant-guide-copy {
     min-width: 0;
@@ -3730,8 +3734,16 @@ export default {
     padding: 12px;
     border-radius: 14px;
     background: rgba(255, 255, 255, 0.66);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(148, 163, 184, 0.16);
-    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.60);
+    transition: border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+
+    &:hover {
+      border-color: rgba(52, 211, 153, 0.22);
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+    }
   }
 
   .assistant-step-index {
@@ -4187,12 +4199,16 @@ export default {
       display: flex;
       flex-direction: column;
       border-radius: @border-radius-lg;
-      box-shadow: @card-shadow;
-      border: none;
+      background: rgba(255, 255, 255, 0.72);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: @card-shadow, 0 0 40px rgba(52, 211, 153, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.60);
+      border: 1px solid rgba(0, 0, 0, 0.06);
       overflow: hidden;
-      transition: box-shadow 0.3s ease;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
 
       &:hover {
+        border-color: rgba(52, 211, 153, 0.22);
         box-shadow: @card-shadow-hover;
       }
 
@@ -4873,13 +4889,16 @@ export default {
 
       .strategy-header-card {
         flex-shrink: 0; // 防止头部被压缩
-        background: linear-gradient(135deg, #fff 0%, #f8fafc 100%);
-        border: none;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.72) 0%, rgba(248, 250, 252, 0.72) 100%);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(0, 0, 0, 0.06);
         border-radius: @border-radius-lg;
-        box-shadow: @card-shadow;
+        box-shadow: @card-shadow, 0 0 40px rgba(52, 211, 153, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.60);
         transition: all 0.3s ease;
 
         &:hover {
+          border-color: rgba(52, 211, 153, 0.22);
           box-shadow: @card-shadow-hover;
         }
 
@@ -4984,13 +5003,17 @@ export default {
                 align-items: center;
                 gap: 10px;
                 padding: 10px 14px;
-                background: #fff;
+                background: rgba(255, 255, 255, 0.72);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
                 border-radius: @border-radius-sm;
-                border: 1px solid #f0f0f0;
+                border: 1px solid rgba(0, 0, 0, 0.06);
+                box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.60);
                 transition: all 0.2s ease;
 
                 &:hover {
-                  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+                  border-color: rgba(52, 211, 153, 0.22);
+                  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 0 20px rgba(52, 211, 153, 0.04);
                 }
 
                 .stat-icon {
@@ -5141,14 +5164,17 @@ export default {
         flex: 1;
         display: flex;
         flex-direction: column;
-        background: #fff;
-        border: none;
+        background: rgba(255, 255, 255, 0.72);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(0, 0, 0, 0.06);
         border-radius: @border-radius-lg;
-        box-shadow: @card-shadow;
+        box-shadow: @card-shadow, 0 0 40px rgba(52, 211, 153, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.60);
         transition: all 0.3s ease;
         min-height: 400px; // 确保有足够的最小高度
 
         &:hover {
+          border-color: rgba(52, 211, 153, 0.22);
           box-shadow: @card-shadow-hover;
         }
 
@@ -5211,9 +5237,11 @@ export default {
     // 左侧策略列表卡片
     .strategy-list-col {
       .strategy-list-card {
-        background: #1c1c1c;
+        background: rgba(28, 28, 31, 0.72);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
         border: 1px solid rgba(255, 255, 255, 0.06);
-        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25), 0 0 40px rgba(52, 211, 153, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.04);
 
         .card-title span {
           background: linear-gradient(135deg, #e0e6ed 0%, #c5ccd6 100%);
@@ -5484,9 +5512,11 @@ export default {
     // 右侧策略详情卡片
     .strategy-detail-col {
       .strategy-header-card {
-        background: #1c1c1c;
+        background: rgba(28, 28, 31, 0.72);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
         border: 1px solid rgba(255, 255, 255, 0.06);
-        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25), 0 0 40px rgba(52, 211, 153, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.04);
 
         /deep/ .ant-card-head {
           background: transparent;
@@ -5508,12 +5538,14 @@ export default {
 
         .key-stats-grid {
           .stat-card {
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(28, 28, 31, 0.72);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border-color: rgba(255, 255, 255, 0.06);
 
             &:hover {
-              background: rgba(255, 255, 255, 0.06);
-              border-color: rgba(255, 255, 255, 0.1);
+              background: rgba(37, 37, 40, 0.78);
+              border-color: rgba(52, 211, 153, 0.22);
             }
 
             .stat-content {
@@ -5543,9 +5575,11 @@ export default {
       }
 
       .strategy-content-card {
-        background: #1c1c1c;
+        background: rgba(28, 28, 31, 0.72);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
         border: 1px solid rgba(255, 255, 255, 0.06);
-        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25), 0 0 40px rgba(52, 211, 153, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.04);
 
         /deep/ .ant-card-head {
           background: #1c1c1c;
