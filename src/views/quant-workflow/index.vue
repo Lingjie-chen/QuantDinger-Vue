@@ -37,11 +37,13 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 import { runWorkflow, getWorkflowStatus } from '@/api/quant-workflow'
 
 export default {
   name: 'QuantWorkflow',
+  props: {
+    isDark: { type: Boolean, default: false },
+  },
   data () {
     return {
       runLoading: false,
@@ -62,8 +64,7 @@ export default {
     }
   },
   computed: {
-    ...mapState({ navTheme: state => state.app.theme }),
-    isDarkTheme () { return this.navTheme === 'dark' || this.navTheme === 'realdark' },
+    isDarkTheme () { return this.isDark },
   },
   methods: {
     async runWorkflow () {
@@ -83,7 +84,7 @@ export default {
 
 <style lang="less" scoped>
 @bg-light: #f8fafc; @bg-card: #fff; @border: #e2e8f0;
-@text-primary: #1e293b; @text-secondary: #64748b; @blue: #3b82f6;
+@text-primary: #1e293b; @text-secondary: #64748b; @blue: var(--emerald-500);
 
 .quant-workflow {
   padding: 20px; background: @bg-light; min-height: 100vh;

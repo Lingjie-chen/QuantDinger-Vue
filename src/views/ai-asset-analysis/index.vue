@@ -528,7 +528,7 @@ export default {
         font-size: 11px;
         font-weight: 700;
         color: #fff;
-        background: linear-gradient(135deg, #6366f1, #8b5cf6);
+        background: linear-gradient(135deg, #6366f1, var(--rose-500));
         padding: 4px 12px;
         border-radius: 8px;
         white-space: nowrap;
@@ -551,7 +551,7 @@ export default {
     width: 48px;
     height: 48px;
     border-radius: 14px;
-    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    background: linear-gradient(135deg, #6366f1, var(--rose-500));
     color: #fff;
     display: flex;
     align-items: center;

@@ -1799,8 +1799,8 @@ export default {
 
 @green: #10b981;
 @red: #ef4444;
-@blue: #3b82f6;
-@purple: #8b5cf6;
+@blue: var(--emerald-500);
+@purple: var(--rose-500);
 
 .portfolio-container {
   padding: 20px;
@@ -1823,7 +1823,7 @@ export default {
         background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
         border: 1px solid rgba(59, 130, 246, 0.3);
 
-        .card-icon { background: rgba(59, 130, 246, 0.2); color: #60a5fa; }
+        .card-icon { background: rgba(59, 130, 246, 0.2); color: var(--emerald-400); }
         .card-label { color: rgba(255, 255, 255, 0.7); }
         .card-value { color: #fff; }
         .card-sub {
@@ -1976,7 +1976,7 @@ export default {
 
   // 总市值卡片 - 鲜艳渐变风格
   &.total-value {
-    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
+    background: linear-gradient(135deg, #6366f1 0%, var(--rose-500) 50%, #a855f7 100%);
     border: none;
     position: relative;
     overflow: hidden;

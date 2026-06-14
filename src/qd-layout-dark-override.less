@@ -1,5 +1,5 @@
 /**
- * 必须在 main.js 中于 global.less 之后引入，确保覆盖 Ant Design Vue / Pro Layout 默认 #001529 等。
+ * 必须在 main.js 中于 global.less 之后引入，确保覆盖 Ant Design Vue / Pro Layout 默认 var(--bg-sidebar) 等。
  * 选择器以 .basic-layout-wrapper.{dark|realdark|light} 为准（与 BasicLayout 根节点 settings.theme 同步），
  * 不依赖 body.dark，避免不同步时顶栏、侧栏底部 footer 仍是浅灰/深蓝。
  */
@@ -139,13 +139,13 @@ body.realdark .ant-modal-confirm {
     border-color: #434343 !important;
     color: rgba(255, 255, 255, 0.85) !important;
     &:hover {
-      border-color: #1890ff !important;
-      color: #1890ff !important;
+      border-color: var(--emerald-500) !important;
+      color: var(--emerald-500) !important;
     }
   }
   .ant-btn-primary {
-    background: #1890ff !important;
-    border-color: #1890ff !important;
+    background: var(--emerald-500) !important;
+    border-color: var(--emerald-500) !important;
     color: #fff !important;
     &:hover {
       background: #40a9ff !important;

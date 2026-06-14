@@ -1295,7 +1295,7 @@ export default {
         .price-hint { font-size: 9px; color: #bbb; margin-top: 4px; .anticon { margin-right: 2px; } }
         .price-change { font-size: 13px; margin-top: 3px; font-weight: 700; font-family: @rpt-mono; &.positive { color: @rpt-green; } &.negative { color: @rpt-red; } }
 
-        &.current .price-label { color: #3b82f6; }
+        &.current .price-label { color: var(--emerald-500); }
         &.entry .price-label { color: var(--primary-color, #1890ff); }
         &.stop .price-label { color: @rpt-red; }
         &.target .price-label { color: @rpt-green; }
@@ -1356,14 +1356,14 @@ export default {
         &::before {
           content: ''; position: absolute; left: 0; top: 20px; bottom: 20px; width: 3px; border-radius: 2px;
         }
-        &.technical::before { background: #3b82f6; }
+        &.technical::before { background: var(--emerald-500); }
         &.fundamental::before { background: var(--primary-color, #1890ff); }
         &.sentiment::before { background: @rpt-pink; }
 
         .analysis-card-header {
           display: flex; align-items: center; gap: 8px; margin-bottom: 10px; font-size: 14px; font-weight: 700; color: @rpt-text; padding-left: 12px;
           .anticon { font-size: 16px; }
-          &.technical .anticon { color: #3b82f6; }
+          &.technical .anticon { color: var(--emerald-500); }
           &.fundamental .anticon { color: var(--primary-color, #1890ff); }
           &.sentiment .anticon { color: @rpt-pink; }
         }
@@ -1644,7 +1644,7 @@ export default {
         .price-value { color: #f0f0f2; &.positive { color: #34d399; } &.negative { color: #f87171; } }
         .price-hint { color: #555; }
         .price-change { &.positive { color: #34d399; } &.negative { color: #f87171; } }
-        &.current .price-label { color: #60a5fa; }
+        &.current .price-label { color: var(--emerald-400); }
         &.entry .price-label { color: var(--primary-color, #1890ff); }
         &.stop .price-label { color: #f87171; }
         &.target .price-label { color: #34d399; }

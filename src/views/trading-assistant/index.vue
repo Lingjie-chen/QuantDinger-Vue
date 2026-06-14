@@ -463,7 +463,7 @@
                             </div>
                           </a-select-option>
                           <a-select-option key="__add_symbol_option__" value="__add_symbol_option__" class="add-symbol-option">
-                            <div style="width: 100%; text-align: center; padding: 4px 0; color: #1890ff; cursor: pointer;">
+                            <div style="width: 100%; text-align: center; padding: 4px 0; color: #10b981; cursor: pointer;">
                               <a-icon type="plus" style="margin-right: 4px;" />
                               <span>{{ $t('trading-assistant.form.addSymbol') }}</span>
                             </div>
@@ -550,7 +550,7 @@
                         </a-select-option>
                         <!-- 添加交易对选项 -->
                         <a-select-option key="__add_symbol_option__" value="__add_symbol_option__" class="add-symbol-option">
-                          <div style="width: 100%; text-align: center; padding: 4px 0; color: #1890ff; cursor: pointer;">
+                          <div style="width: 100%; text-align: center; padding: 4px 0; color: #10b981; cursor: pointer;">
                             <a-icon type="plus" style="margin-right: 4px;" />
                             <span>{{ $t('trading-assistant.form.addSymbol') }}</span>
                           </div>
@@ -582,7 +582,7 @@
                         </a-select-option>
                         <!-- 添加交易对选项 -->
                         <a-select-option key="__add_symbol_option__" value="__add_symbol_option__" class="add-symbol-option">
-                          <div style="width: 100%; text-align: center; padding: 4px 0; color: #1890ff; cursor: pointer;">
+                          <div style="width: 100%; text-align: center; padding: 4px 0; color: #10b981; cursor: pointer;">
                             <a-icon type="plus" style="margin-right: 4px;" />
                             <span>{{ $t('trading-assistant.form.addSymbol') }}</span>
                           </div>
@@ -3825,7 +3825,7 @@ export default {
 }
 
 // 主色调变量
-@primary-color: #1890ff;
+@primary-color: #10b981;
 @primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 @success-color: #0ecb81;
 @danger-color: #f6465d;
@@ -5605,7 +5605,7 @@ export default {
 
               &.ant-tabs-tab-active {
                 .ant-tabs-tab-btn {
-                  color: #1890ff;
+                  color: #10b981;
                 }
               }
             }
@@ -5752,7 +5752,7 @@ export default {
 }
 
 .ai-filter-title .anticon {
-  color: #1890ff;
+  color: #10b981;
 }
 
 .ai-filter-hint {
@@ -5849,7 +5849,7 @@ export default {
 .simple-mode-kicker {
   font-size: 12px;
   font-weight: 600;
-  color: #1890ff;
+  color: #10b981;
   margin-bottom: 4px;
 }
 
@@ -5930,7 +5930,7 @@ export default {
       transition: color 0.2s;
       margin-bottom: 0;
 
-      &:hover { color: #1890ff; }
+      &:hover { color: #10b981; }
     }
 
     .collapse-arrow {
@@ -5984,7 +5984,7 @@ export default {
   }
 
   &.active {
-    border-color: #1890ff;
+    border-color: #10b981;
     background: linear-gradient(135deg, rgba(24, 144, 255, 0.08) 0%, rgba(24, 144, 255, 0.03) 100%);
     box-shadow: 0 10px 28px rgba(24, 144, 255, 0.12);
   }
@@ -6012,7 +6012,7 @@ export default {
   font-size: 18px;
 
   &.signal {
-    color: #1890ff;
+    color: #10b981;
     background: rgba(24, 144, 255, 0.1);
   }
 
@@ -6044,7 +6044,7 @@ export default {
   position: absolute;
   top: 12px;
   right: 12px;
-  color: #1890ff;
+  color: #10b981;
   font-size: 18px;
 }
 
@@ -6176,12 +6176,12 @@ export default {
     justify-content: center;
 
     &:hover {
-      border-color: #1890ff;
+      border-color: #10b981;
       box-shadow: 0 2px 8px rgba(24, 144, 255, 0.2);
     }
 
     &.selected {
-      border-color: #1890ff;
+      border-color: #10b981;
       background-color: #e6f7ff;
       box-shadow: 0 2px 8px rgba(24, 144, 255, 0.3);
     }
@@ -6192,7 +6192,7 @@ export default {
 
       .strategy-type-icon {
         font-size: 48px;
-        color: #1890ff;
+        color: #10b981;
         margin-bottom: 16px;
       }
 
@@ -6301,7 +6301,7 @@ export default {
 
     &.active {
       background: linear-gradient(135deg, rgba(24, 144, 255, 0.16) 0%, rgba(24, 144, 255, 0.08) 100%);
-      border-color: #1890ff;
+      border-color: #10b981;
     }
 
     &.disabled {
@@ -6372,12 +6372,12 @@ export default {
   border: 1px solid #91d5ff;
   border-radius: 4px;
   font-size: 13px;
-  color: #1890ff;
+  color: #10b981;
   line-height: 1.6;
 
   .anticon {
     margin-right: 6px;
-    color: #1890ff;
+    color: #10b981;
   }
 
   .ip-list {
@@ -6576,8 +6576,8 @@ body.dark {
     }
 
     .ant-steps-item-process .ant-steps-item-icon {
-      background: #1890ff;
-      border-color: #1890ff;
+      background: #10b981;
+      border-color: #10b981;
 
       .ant-steps-icon {
         color: #fff;
@@ -6586,10 +6586,10 @@ body.dark {
 
     .ant-steps-item-finish .ant-steps-item-icon {
       background: transparent;
-      border-color: #1890ff;
+      border-color: #10b981;
 
       .ant-steps-icon {
-        color: #1890ff;
+        color: #10b981;
       }
     }
 
@@ -6627,7 +6627,7 @@ body.dark {
 
       &:hover,
       &:focus {
-        border-color: #1890ff;
+        border-color: #10b981;
       }
     }
 
@@ -6640,7 +6640,7 @@ body.dark {
         color: rgba(255, 255, 255, 0.45);
 
         &:hover {
-          color: #1890ff;
+          color: #10b981;
         }
       }
     }
@@ -6656,7 +6656,7 @@ body.dark {
         }
 
         &:hover {
-          border-color: #1890ff;
+          border-color: #10b981;
         }
       }
     }
@@ -6668,12 +6668,12 @@ body.dark {
         color: rgba(255, 255, 255, 0.65);
 
         &:hover {
-          color: #1890ff;
+          color: #10b981;
         }
 
         &.ant-radio-button-wrapper-checked {
-          background: #1890ff;
-          border-color: #1890ff;
+          background: #10b981;
+          border-color: #10b981;
           color: #fff;
         }
       }
@@ -6687,7 +6687,7 @@ body.dark {
       background: rgba(255, 255, 255, 0.15);
 
       &.ant-switch-checked {
-        background: #1890ff;
+        background: #10b981;
       }
     }
 
@@ -6871,7 +6871,7 @@ body.dark {
 
       &.active {
         background: linear-gradient(135deg, rgba(24, 144, 255, 0.16) 0%, rgba(24, 144, 255, 0.08) 100%);
-        border-color: #1890ff;
+        border-color: #10b981;
       }
 
       &.disabled {
@@ -6952,7 +6952,7 @@ body.dark {
 
       &-selected {
         background: rgba(24, 144, 255, 0.15);
-        color: #1890ff;
+        color: #10b981;
       }
 
       &-disabled {

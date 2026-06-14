@@ -84,6 +84,18 @@ export function getAlerts() {
   return Promise.resolve({ data: [] })
 }
 
+export function addAlert(data) {
+  return Promise.resolve({ data })
+}
+
+export function updateAlert(id, data) {
+  return Promise.resolve({ data: { id, ...data } })
+}
+
+export function deleteAlert(id) {
+  return Promise.resolve({ data: null })
+}
+
 export function getGroups() {
   return Promise.resolve({ data: [] })
 }
