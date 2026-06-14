@@ -39,10 +39,9 @@ export default {
         { title: '时间', dataIndex: 'timestamp', width: 160 },
         { title: '标的', dataIndex: 'symbol', width: 140 },
         { title: '方向', dataIndex: 'side', width: 80, scopedSlots: { customRender: 'side' } },
-        { title: '数量', dataIndex: 'size', width: 100 },
+        { title: '数量', dataIndex: 'quantity', width: 100 },
         { title: '价格', dataIndex: 'price', width: 120 },
-        { title: '盈亏', dataIndex: 'pnl', scopedSlots: { customRender: 'pnl' } },
-        { title: '状态', dataIndex: 'status', width: 100, scopedSlots: { customRender: 'status' } },
+        { title: '置信度', dataIndex: 'confidence', width: 100 },
       ],
     }
   },
@@ -55,9 +54,10 @@ export default {
     async fetchTrades () {
       this.loading = true
       try {
-        const res = await getTradeList({ page: this.pagination.current, pageSize: this.pagination.pageSize })
+        const offset = (this.pagination.current - 1) * this.pagination.pageSize
+        const res = await getTradeList({ limit: this.pagination.pageSize, offset })
         const d = res.data || res || {}
-        this.trades = d.list || []
+        this.trades = d.trades || d.list || []
         this.pagination.total = d.total || 0
       } catch (e) { console.error(e) } finally { this.loading = false }
     },
@@ -69,13 +69,13 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@bg-light: #f8fafc; @bg-card: #fff; @border: #e2e8f0; @text-primary: #1e293b;
-@green: #10b981; @red: #ef4444;
+@import '@/assets/design-tokens.less';
 
 .trade-records {
-  padding: 20px; background: @bg-light; min-height: 100vh;
-  .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; h3 { margin: 0; } }
-  .positive { color: @green !important; }
-  .negative { color: @red !important; }
+  padding: @qd-space-lg; background: @qd-bg-light; min-height: 100vh;
+  &.theme-dark { background: @qd-bg-dark; }
+  .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: @qd-space-md; h3 { margin: 0; } }
+  .positive { .qd-positive-text(); }
+  .negative { .qd-negative-text(); }
 }
 </style>

@@ -3,10 +3,10 @@
     <a-tabs v-model="activeTab" class="main-tabs">
       <a-tab-pane key="dashboard" tab="进化仪表盘">
         <div class="kpi-grid">
-          <div class="kpi-card"><div class="kpi-label">进化代数</div><div class="kpi-value">{{ dashboard.generation || 0 }}</div></div>
-          <div class="kpi-card"><div class="kpi-label">最佳 Sharpe</div><div class="kpi-value positive">{{ formatNumber(dashboard.best_sharpe) }}</div></div>
-          <div class="kpi-card"><div class="kpi-label">策略变体</div><div class="kpi-value">{{ dashboard.total_variants || 0 }}</div></div>
-          <div class="kpi-card"><div class="kpi-label">活跃 A/B 测试</div><div class="kpi-value">{{ abTests.filter(t => t.status === 'running').length }}</div></div>
+          <div class="kpi-card"><div class="kpi-label">进化状态</div><div class="kpi-value">{{ (dashboard.auto_evolver || {}).status || '—' }}</div></div>
+          <div class="kpi-card"><div class="kpi-label">因子数量</div><div class="kpi-value">{{ (dashboard.auto_evolver || {}).factors_count || 0 }}</div></div>
+          <div class="kpi-card"><div class="kpi-label">超参状态</div><div class="kpi-value">{{ (dashboard.hyperopt || {}).status || '—' }}</div></div>
+          <div class="kpi-card"><div class="kpi-label">沙盒状态</div><div class="kpi-value">{{ (dashboard.sandbox || {}).status || '—' }}</div></div>
         </div>
       </a-tab-pane>
 
@@ -14,8 +14,8 @@
         <div class="hyperopt-panel">
           <div class="hyperopt-status">
             <span>状态:</span>
-            <a-tag :color="hyperopt.is_running ? 'blue' : 'default'">{{ hyperopt.is_running ? '运行中' : '空闲' }}</a-tag>
-            <a-progress v-if="hyperopt.is_running" :percent="Math.round((hyperopt.progress / (hyperopt.total || 1)) * 100)" :stroke-color="'#3b82f6'" style="max-width:400px" />
+            <a-tag :color="hyperopt.status === 'running' ? 'blue' : 'default'">{{ hyperopt.status === 'running' ? '运行中' : (hyperopt.status === 'completed' ? '已完成' : '空闲') }}</a-tag>
+            <span v-if="hyperopt.trials != null">试验次数: {{ hyperopt.trials }}</span>
           </div>
           <a-form layout="inline" style="margin:16px 0">
             <a-form-item label="算法">
@@ -29,8 +29,8 @@
               <a-input-number v-model="hyperoptConfig.n_trials" :min="5" :max="500" />
             </a-form-item>
             <a-form-item>
-              <a-button v-if="!hyperopt.is_running" type="primary" @click="startHyperopt">开始优化</a-button>
-              <a-button v-else danger @click="stopHyperopt">停止</a-button>
+              <a-button v-if="hyperopt.status !== 'running'" type="primary" @click="startHyperopt">开始优化</a-button>
+              <a-button v-else danger @click="stopHyperoptRun">停止</a-button>
             </a-form-item>
           </a-form>
           <div v-if="hyperopt.best_params" class="best-params">
@@ -54,7 +54,7 @@
       <a-tab-pane key="sandbox" tab="沙盒">
         <a-descriptions bordered size="small" :column="2">
           <a-descriptions-item label="状态">{{ sandbox.status || '—' }}</a-descriptions-item>
-          <a-descriptions-item label="运行策略数">{{ sandbox.strategy_count || 0 }}</a-descriptions-item>
+          <a-descriptions-item label="运行实验数">{{ sandbox.running_experiments || 0 }}</a-descriptions-item>
         </a-descriptions>
         <a-button @click="fetchSandbox" style="margin-top:12px"><a-icon type="reload" /> 刷新</a-button>
       </a-tab-pane>
@@ -75,7 +75,7 @@ export default {
     return {
       activeTab: 'dashboard',
       dashboard: {},
-      hyperopt: { is_running: false, progress: 0, total: 0, best_params: null },
+      hyperopt: { status: 'idle', trials: 0, best_params: null },
       hyperoptConfig: { algorithm: 'bayesian', n_trials: 20 },
       abTests: [],
       sandbox: {},
@@ -123,20 +123,20 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@bg-light: #f8fafc; @bg-card: #fff; @border: #e2e8f0;
-@text-primary: #1e293b; @text-secondary: #64748b; @green: #10b981;
+@import '@/assets/design-tokens.less';
 
 .evolution-engine {
-  padding: 20px; background: @bg-light; min-height: 100vh;
-  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 16px; }
-  .kpi-card { background: @bg-card; border: 1px solid @border; border-radius: 12px; padding: 16px;
-    .kpi-label { font-size: 11px; color: @text-secondary; text-transform: uppercase; margin-bottom: 8px; }
-    .kpi-value { font-size: 24px; font-weight: 700; color: @text-primary; }
+  padding: @qd-space-lg; background: @qd-bg-light; min-height: 100vh;
+  &.theme-dark { background: @qd-bg-dark; }
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: @qd-space-md; margin-bottom: @qd-space-md; }
+  .kpi-card { .qd-card-base();
+    .kpi-label { .qd-kpi-label(); }
+    .kpi-value { font-size: @qd-font-xl; font-weight: @qd-font-bold; color: @qd-text-primary-light; }
   }
-  .main-tabs { background: @bg-card; border: 1px solid @border; border-radius: 12px; padding: 16px; }
-  .hyperopt-status { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
-  .best-params { margin-top: 16px; pre { background: #f1f5f9; padding: 12px; border-radius: 8px; font-size: 12px; } }
-  .ab-header { margin-bottom: 12px; }
-  .positive { color: @green !important; }
+  .main-tabs { background: @qd-bg-card-light; border: 1px solid @qd-border-light; border-radius: @qd-radius-lg; padding: @qd-space-md; }
+  .hyperopt-status { display: flex; align-items: center; gap: @qd-space-md; margin-bottom: @qd-space-md; }
+  .best-params { margin-top: @qd-space-md; pre { background: @qd-bg-light; padding: @qd-space-md; border-radius: @qd-radius-md; font-size: @qd-font-sm; } }
+  .ab-header { margin-bottom: @qd-space-md; }
+  .positive { .qd-positive-text(); }
 }
 </style>
