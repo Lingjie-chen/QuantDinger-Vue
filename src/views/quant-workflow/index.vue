@@ -87,7 +87,7 @@ export default {
 @text-primary: #1e293b; @text-secondary: #64748b; @blue: var(--emerald-500);
 
 .quant-workflow {
-  padding: 20px; background: @bg-light; min-height: 100vh;
+  padding: 24px; background: @bg-light; min-height: 100vh;
   .page-header { margin-bottom: 16px; h3 { margin: 0; } }
   .workflow-steps { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
   .step-card {

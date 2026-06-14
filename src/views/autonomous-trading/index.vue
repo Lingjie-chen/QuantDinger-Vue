@@ -353,7 +353,7 @@ export default {
 @import '@/assets/design-tokens.less';
 
 .autonomous-trading {
-  padding: 20px; min-height: 100vh;
+  padding: 24px; min-height: 100vh;
   background: @qd-bg-gradient-light;
   background-attachment: fixed;
   &.theme-dark {
@@ -408,7 +408,7 @@ export default {
 
   .chart-section {
     .qd-glass-light();
-    border-radius: 12px; padding: 12px; margin-bottom: 16px;
+    border-radius: 12px; padding: 16px; margin-bottom: 16px;
     .qd-card-hover-light();
     .chart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
     .theme-dark & { .qd-glass-dark(); .qd-panel-glow(); .qd-grid-bg-dark(); .qd-card-hover(); }

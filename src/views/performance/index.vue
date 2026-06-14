@@ -52,7 +52,7 @@ export default {
 </script>
 <style lang="less" scoped>
 @bg:#f8fafc;@card:#fff;@border:#e2e8f0;@tp:#1e293b;@ts:#64748b;@g:#10b981;@r:#ef4444;
-.performance-page{padding:20px;background:@bg;min-height:100vh;
+.performance-page{padding:24px;background:@bg;min-height:100vh;
   .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:16px;}
   .kpi-card{background:@card;border:1px solid @border;border-radius:12px;padding:16px;
     .kpi-label{font-size:11px;color:@ts;text-transform:uppercase;margin-bottom:8px}

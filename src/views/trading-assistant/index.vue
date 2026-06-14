@@ -3809,7 +3809,7 @@ export default {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  padding: 28px 16px 32px;
+  padding: 24px 16px;
   text-align: center;
 
   .strategy-empty-desc {
@@ -5915,7 +5915,7 @@ export default {
 }
 
 .execution-section-card {
-  padding: 18px 20px;
+  padding: 16px 24px;
   border-radius: 12px;
   background: #fafcff;
   border: 1px solid rgba(24, 144, 255, 0.12);

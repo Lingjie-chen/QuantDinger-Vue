@@ -50,7 +50,7 @@ export default {
 </script>
 <style lang="less" scoped>
 @bg:#f8fafc;@card:#fff;@border:#e2e8f0;@tp:#1e293b;
-.hot-params-page{padding:20px;background:@bg;min-height:100vh;
+.hot-params-page{padding:24px;background:@bg;min-height:100vh;
   .page-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;h3{margin:0}}
 }
 </style>

@@ -1095,7 +1095,7 @@ export default {
 
 .dashboard-pro {
   min-height: 100vh;
-  padding: 20px;
+  padding: 24px;
   background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(59, 130, 246, 0.06) 0%, transparent 60%),
              radial-gradient(ellipse 60% 50% at 80% 100%, rgba(16, 185, 129, 0.05) 0%, transparent 60%),
              linear-gradient(135deg, #fafafa 0%, #f1f5f9 50%, #f8fafc 100%);
@@ -1346,7 +1346,7 @@ export default {
     justify-content: space-between;
     gap: 16px;
     margin-bottom: 20px;
-    padding: 18px 20px;
+    padding: 16px 24px;
     background: linear-gradient(135deg, rgba(59, 130, 246, 0.08) 0%, rgba(139, 92, 246, 0.08) 100%);
     border: 1px solid rgba(59, 130, 246, 0.16);
     border-radius: 16px;
@@ -1387,7 +1387,7 @@ export default {
     -webkit-backdrop-filter: blur(@glass-blur);
     border: 1px solid @glass-border-light;
     border-radius: 16px;
-    padding: 20px;
+    padding: 24px;
     overflow: hidden;
     box-shadow: 0 0 40px rgba(16, 185, 129, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.60);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);

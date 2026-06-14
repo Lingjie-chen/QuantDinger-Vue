@@ -36,7 +36,7 @@ export default {
 </script>
 <style lang="less" scoped>
 @bg:#f8fafc;@card:#fff;@border:#e2e8f0;@tp:#1e293b;@g:#10b981;@r:#ef4444;
-.composite-page{padding:20px;background:@bg;min-height:100vh;
+.composite-page{padding:24px;background:@bg;min-height:100vh;
   .page-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;h3{margin:0}}
   .main-tabs{background:@card;border:1px solid @border;border-radius:12px;padding:16px}
   .positive{color:@g!important}.negative{color:@r!important}

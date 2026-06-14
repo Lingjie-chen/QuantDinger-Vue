@@ -151,7 +151,7 @@ export default {
 @text-primary: #1e293b; @text-secondary: #64748b; @green: #10b981; @red: #ef4444;
 
 .risk-panel {
-  padding: 20px; background: @bg-light; min-height: 100vh;
+  padding: 24px; background: @bg-light; min-height: 100vh;
   .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 16px; }
   .kpi-card {
     background: @bg-card; border: 1px solid @border; border-radius: 12px; padding: 16px;

@@ -269,7 +269,7 @@ export default {
 @import '@/assets/design-tokens.less';
 
 .backtest-center {
-  padding: 20px; min-height: 100vh;
+  padding: 24px; min-height: 100vh;
   background: @qd-bg-gradient-light;
   background-attachment: fixed;
   &.theme-dark {
