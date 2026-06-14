@@ -1,5 +1,8 @@
 <template>
   <div class="autonomous-trading" :class="{ 'theme-dark': isDarkTheme }">
+    <!-- 顶层视图切换 -->
+    <a-tabs v-model="topView" class="top-view-tabs" :animated="false">
+      <a-tab-pane key="console" tab="控制台">
     <!-- 顶部状态栏 -->
     <div class="status-bar">
       <div class="status-indicator" :class="agentState">
@@ -58,7 +61,39 @@
     <!-- Tab 内容 -->
     <a-tabs v-model="activeTab" class="main-tabs">
       <a-tab-pane key="positions" tab="持仓">
-        <a-table :columns="positionColumns" :data-source="positions" :pagination="false" size="small" class="pro-table" row-key="symbol">
+        <!-- K线图区域 -->
+        <div class="chart-section" v-if="positions.length">
+          <div class="chart-header">
+            <a-select v-model="chartSymbol" style="width:200px" @change="fetchKlineData" size="small">
+              <a-select-option v-for="p in positions" :key="p.symbol" :value="p.symbol">{{ p.symbol }}</a-select-option>
+            </a-select>
+            <a-radio-group v-model="chartInterval" size="small" @change="fetchKlineData">
+              <a-radio-button value="1m">1m</a-radio-button>
+              <a-radio-button value="5m">5m</a-radio-button>
+              <a-radio-button value="15m">15m</a-radio-button>
+              <a-radio-button value="1H">1H</a-radio-button>
+              <a-radio-button value="4H">4H</a-radio-button>
+              <a-radio-button value="1D">1D</a-radio-button>
+            </a-radio-group>
+          </div>
+          <k-line-chart
+            :data="klineData"
+            :signals="klineSignals"
+            :theme="navTheme"
+            height="360px"
+            v-if="klineData.length"
+          />
+          <a-empty v-else description="选择持仓标的查看K线" style="padding:60px" />
+        </div>
+        <a-table
+          :columns="positionColumns"
+          :data-source="positions"
+          :pagination="false"
+          size="small"
+          class="pro-table"
+          row-key="symbol"
+          :row-selection="{ selectedRowKeys: [chartSymbol], onSelect: onPositionSelect }"
+        >
           <template slot="pnl" slot-scope="text">
             <span :class="text >= 0 ? 'positive' : 'negative'">{{ text >= 0 ? '+' : '' }}{{ formatNumber(text) }}</span>
           </template>
@@ -102,6 +137,11 @@
         </a-form-model>
       </a-tab-pane>
     </a-tabs>
+      </a-tab-pane>
+      <a-tab-pane key="workflow" tab="工作流">
+        <quant-workflow-panel :is-dark="isDarkTheme" />
+      </a-tab-pane>
+    </a-tabs>
   </div>
 </template>
 
@@ -112,11 +152,16 @@ import {
   getTradeHistory, getPositions, getDecisionLog, getPerformanceMetrics,
   getAgentConfig, updateAgentConfig
 } from '@/api/autonomous'
+import QuantWorkflowPanel from '@/views/quant-workflow/index.vue'
+import { KLineChart } from '@/components/QdCharts'
+import request from '@/utils/request'
 
 export default {
   name: 'AutonomousTrading',
+  components: { QuantWorkflowPanel, KLineChart },
   data () {
     return {
+      topView: 'console',
       activeTab: 'positions',
       agentState: 'idle',
       statusLoading: false,
@@ -129,6 +174,11 @@ export default {
       decisions: [],
       config: { symbols: ['BTC-USDT-SWAP'], cycle_interval_s: 60, max_leverage: 5, max_position_pct: 10 },
       pollTimer: null,
+      // K线图状态
+      chartSymbol: '',
+      chartInterval: '15m',
+      klineData: [],
+      klineSignals: [],
       positionColumns: [
         { title: '标的', dataIndex: 'symbol', width: 140 },
         { title: '方向', dataIndex: 'side', width: 80 },
@@ -139,10 +189,10 @@ export default {
       tradeColumns: [
         { title: '时间', dataIndex: 'timestamp', width: 160 },
         { title: '标的', dataIndex: 'symbol', width: 140 },
-        { title: '方向', dataIndex: 'side', width: 80 },
+        { title: '方向', dataIndex: 'action', width: 80 },
         { title: '数量', dataIndex: 'size', width: 100 },
         { title: '价格', dataIndex: 'price', width: 120 },
-        { title: '盈亏', dataIndex: 'pnl', scopedSlots: { customRender: 'pnl' } },
+        { title: '置信度', dataIndex: 'confidence', width: 100, scopedSlots: { customRender: 'confidence' } },
       ],
       decisionColumns: [
         { title: '时间', dataIndex: 'timestamp', width: 160 },
@@ -198,13 +248,43 @@ export default {
         const [posRes, tradeRes, perfRes] = await Promise.all([
           getPositions(), getTradeHistory({ limit: 50 }), getPerformanceMetrics()
         ])
-        if (posRes.success || posRes.code === 1) this.positions = (posRes.data || posRes) || []
-        if (tradeRes.success || tradeRes.code === 1) this.trades = ((tradeRes.data || tradeRes) || {}).list || []
-        if (perfRes.success || perfRes.code === 1) this.perf = { ...this.perf, ...(perfRes.data || perfRes) }
+        if (posRes.success || posRes.code === 1) {
+          const posData = posRes.data || posRes
+          const rawPos = posData.positions || posData || {}
+          // 后端返回 Dict<symbol, PositionInfo>，转为数组
+          this.positions = Array.isArray(rawPos)
+            ? rawPos
+            : Object.values(rawPos).map(p => ({
+                ...p,
+                avgPrice: p.entry_price ?? p.avgPrice,
+                pnl: p.unrealized_pnl ?? p.pnl,
+              }))
+          // Auto-select first position for chart
+          if (this.positions.length && !this.chartSymbol) {
+            this.chartSymbol = this.positions[0].symbol
+            this.fetchKlineData()
+          }
+        }
+        if (tradeRes.success || tradeRes.code === 1) {
+          const tradeData = tradeRes.data || tradeRes
+          this.trades = tradeData.trades || tradeData.list || []
+        }
+        if (perfRes.success || perfRes.code === 1) {
+          const perfData = perfRes.data || perfRes
+          this.perf = {
+            totalEquity: perfData.total_equity ?? perfData.totalEquity ?? 0,
+            totalPnl: perfData.total_pnl ?? perfData.totalPnl ?? 0,
+            winRate: perfData.win_rate ?? perfData.winRate ?? 0,
+            totalTrades: perfData.total_trades ?? perfData.totalTrades ?? 0,
+          }
+        }
       } catch (e) { console.error('fetchData error:', e) }
       try {
         const decRes = await getDecisionLog({ limit: 50 })
-        if (decRes.success || decRes.code === 1) this.decisions = ((decRes.data || decRes) || {}).list || []
+        if (decRes.success || decRes.code === 1) {
+          const decData = decRes.data || decRes
+          this.decisions = decData.decisions || decData.list || []
+        }
       } catch (e) { console.error('fetchDecisions error:', e) }
       try {
         const cfgRes = await getAgentConfig()
@@ -234,6 +314,37 @@ export default {
       if (v == null) return '—'
       return Number(v).toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d })
     },
+    onPositionSelect (record) {
+      this.chartSymbol = record.symbol
+      this.fetchKlineData()
+    },
+    async fetchKlineData () {
+      if (!this.chartSymbol) return
+      try {
+        const res = await request({
+          url: '/api/quant/market/candles',
+          method: 'get',
+          params: { symbol: this.chartSymbol, interval: this.chartInterval, limit: 200 },
+        })
+        const d = res.data || res || {}
+        const candles = d.candles || d.data || d || []
+        this.klineData = candles.map(c => ({
+          timestamp: c[0] || c.timestamp,
+          open: parseFloat(c[1] || c.open),
+          high: parseFloat(c[2] || c.high),
+          low: parseFloat(c[3] || c.low),
+          close: parseFloat(c[4] || c.close),
+          volume: parseFloat(c[5] || c.volume || 0),
+        }))
+        // Map trade signals for this symbol
+        this.klineSignals = this.trades
+          .filter(t => t.symbol === this.chartSymbol)
+          .map(t => ({
+            timestamp: t.timestamp,
+            side: t.action || t.side,
+          }))
+      } catch (e) { console.error('fetchKline error:', e) }
+    },
   },
 }
 </script>
@@ -241,11 +352,13 @@ export default {
 <style lang="less" scoped>
 @bg-light: #f8fafc; @bg-card-light: #fff; @border-light: #e2e8f0;
 @text-primary: #1e293b; @text-secondary: #64748b;
-@green: #10b981; @red: #ef4444; @blue: #3b82f6;
+@green: #10b981; @red: #ef4444; @blue: var(--emerald-500);
 
 .autonomous-trading {
   padding: 20px; background: @bg-light; min-height: 100vh;
   &.theme-dark { background: #141414; }
+
+  .top-view-tabs { margin-bottom: 16px; }
 
   .status-bar {
     display: flex; justify-content: space-between; align-items: center;
@@ -280,6 +393,13 @@ export default {
   .main-tabs { background: @bg-card-light; border: 1px solid @border-light; border-radius: 12px; padding: 16px; }
 
   .config-form { max-width: 600px; }
+
+  .chart-section {
+    background: @bg-card-light; border: 1px solid @border-light;
+    border-radius: 12px; padding: 12px; margin-bottom: 16px;
+    .chart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+  }
+  &.theme-dark .chart-section { background: #1a1a1a; border-color: #2a2a2a; }
 }
 
 @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }

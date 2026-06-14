@@ -1,0 +1,166 @@
+/**
+ * QuantDinger 全局设计 Token
+ * 统一所有页面的颜色、间距、圆角等设计变量
+ * 引用方式: @import '@/assets/design-tokens.less';
+ */
+
+// ========== 语义色 ==========
+@qd-green: #10b981;
+@qd-red: #ef4444;
+@qd-blue: #3b82f6;
+@qd-amber: #f59e0b;
+@qd-purple: #8b5cf6;
+
+// ========== 浅色主题 ==========
+@qd-bg-light: #f8fafc;
+@qd-bg-card-light: #ffffff;
+@qd-border-light: #e2e8f0;
+@qd-text-primary-light: #1e293b;
+@qd-text-secondary-light: #64748b;
+@qd-text-tertiary-light: #94a3b8;
+
+// ========== 暗色主题 ==========
+@qd-bg-dark: #0f0f0f;
+@qd-bg-card-dark: #1a1a1a;
+@qd-bg-elevated-dark: #242424;
+@qd-border-dark: #2a2a2a;
+@qd-text-primary-dark: rgba(255, 255, 255, 0.92);
+@qd-text-secondary-dark: rgba(255, 255, 255, 0.65);
+@qd-text-tertiary-dark: rgba(255, 255, 255, 0.40);
+
+// ========== 功能色 ==========
+@qd-positive: @qd-green;
+@qd-negative: @qd-red;
+@qd-warning: @qd-amber;
+@qd-info: @qd-blue;
+
+// ========== 间距系统（8px 基准） ==========
+@qd-space-xs: 4px;
+@qd-space-sm: 8px;
+@qd-space-md: 16px;
+@qd-space-lg: 24px;
+@qd-space-xl: 32px;
+@qd-space-2xl: 48px;
+
+// ========== 圆角 ==========
+@qd-radius-sm: 6px;
+@qd-radius-md: 8px;
+@qd-radius-lg: 12px;
+@qd-radius-xl: 16px;
+
+// ========== 字号 ==========
+@qd-font-xs: 10px;
+@qd-font-sm: 11px;
+@qd-font-base: 13px;
+@qd-font-md: 14px;
+@qd-font-lg: 18px;
+@qd-font-xl: 22px;
+@qd-font-2xl: 28px;
+@qd-font-3xl: 36px;
+
+// ========== 字重 ==========
+@qd-font-normal: 400;
+@qd-font-medium: 500;
+@qd-font-semibold: 600;
+@qd-font-bold: 700;
+
+// ========== 阴影 ==========
+@qd-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+@qd-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
+@qd-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.10), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+@qd-shadow-dark: 0 4px 12px rgba(0, 0, 0, 0.5);
+
+// ========== 过渡 ==========
+@qd-transition-fast: 0.15s ease;
+@qd-transition-normal: 0.25s ease;
+@qd-transition-slow: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+
+// ========== Z-index 层级 ==========
+@qd-z-dropdown: 1000;
+@qd-z-sticky: 1020;
+@qd-z-fixed: 1030;
+@qd-z-modal: 1040;
+@qd-z-popover: 1050;
+@qd-z-tooltip: 1060;
+
+// ========== 混入 (Mixins) ==========
+.qd-card-base() {
+  background: @qd-bg-card-light;
+  border: 1px solid @qd-border-light;
+  border-radius: @qd-radius-lg;
+  padding: @qd-space-md;
+}
+
+.qd-kpi-label() {
+  font-size: @qd-font-sm;
+  color: @qd-text-secondary-light;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: @qd-space-sm;
+}
+
+.qd-kpi-value() {
+  font-size: @qd-font-xl;
+  font-weight: @qd-font-bold;
+  color: @qd-text-primary-light;
+  font-feature-settings: 'tnum';
+}
+
+.qd-positive-text() {
+  color: @qd-green !important;
+}
+
+.qd-negative-text() {
+  color: @qd-red !important;
+}
+
+.qd-truncate() {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// ========== 暗色主题覆盖混入 ==========
+.qd-dark-overrides() {
+  background: @qd-bg-dark !important;
+
+  .qd-card-base,
+  .ant-card,
+  .ant-table,
+  .ant-descriptions {
+    background: @qd-bg-card-dark !important;
+    border-color: @qd-border-dark !important;
+    color: @qd-text-primary-dark !important;
+  }
+
+  .ant-table-thead > tr > th {
+    background: @qd-bg-elevated-dark !important;
+    border-color: @qd-border-dark !important;
+    color: @qd-text-secondary-dark !important;
+  }
+
+  .ant-table-tbody > tr > td {
+    border-color: @qd-border-dark !important;
+    color: @qd-text-primary-dark !important;
+  }
+
+  .ant-tabs-tab {
+    color: @qd-text-secondary-dark !important;
+
+    &.ant-tabs-tab-active .ant-tabs-tab-btn {
+      color: @qd-green !important;
+    }
+  }
+
+  .ant-tabs-ink-bar {
+    background-color: @qd-green !important;
+  }
+
+  .ant-input,
+  .ant-input-number,
+  .ant-select-selection {
+    background: @qd-bg-elevated-dark !important;
+    border-color: @qd-border-dark !important;
+    color: @qd-text-primary-dark !important;
+  }
+}

@@ -64,75 +64,85 @@
     </pro-layout>
 
     <!-- 菜单底部 footer - 直接写，不依赖插槽 -->
-    <div class="custom-menu-footer" :class="{ 'collapsed': collapsed, 'drawer-open': isMobile && isDrawerOpen, 'drawer-animating': isMobile && isDrawerAnimating }">
+    <div class="custom-menu-footer" :class="{ 'collapsed': collapsed, 'expanded': footerExpanded, 'drawer-open': isMobile && isDrawerOpen, 'drawer-animating': isMobile && isDrawerAnimating }">
       <div v-if="!collapsed" class="menu-footer-content">
-        <!-- 联系我们 -->
-        <div class="footer-section">
-          <div class="section-title">{{ $t('menu.footer.contactUs') }}</div>
-          <div class="section-links">
-            <a :href="menuFooterConfig.contact.support_url" target="_blank">{{ $t('menu.footer.support') }}</a>
-            <span class="separator">|</span>
-            <a :href="menuFooterConfig.contact.feature_request_url" target="_blank">{{ $t('menu.footer.featureRequest') }}</a>
-          </div>
+        <!-- 精简模式：版权 + 版本 + 展开按钮 -->
+        <div class="footer-compact" v-if="!footerExpanded">
+          <span class="compact-copyright">{{ menuFooterConfig.copyright }}</span>
+          <a-icon type="up" class="expand-toggle" @click="footerExpanded = true; $nextTick(() => updateMenuFooterPosition())" />
         </div>
 
-        <!-- 获取支持 -->
-        <div class="footer-section">
-          <div class="section-title">{{ $t('menu.footer.getSupport') }}</div>
-          <div class="section-links">
-            <a :href="'mailto:' + menuFooterConfig.contact.email">{{ $t('menu.footer.email') }}</a>
-            <span class="separator">|</span>
-            <a :href="menuFooterConfig.contact.live_chat_url" target="_blank">{{ $t('menu.footer.liveChat') }}</a>
+        <!-- 展开模式：完整 footer -->
+        <template v-if="footerExpanded">
+          <!-- 联系我们 -->
+          <div class="footer-section">
+            <div class="section-title">{{ $t('menu.footer.contactUs') }}</div>
+            <div class="section-links">
+              <a :href="menuFooterConfig.contact.support_url" target="_blank">{{ $t('menu.footer.support') }}</a>
+              <span class="separator">|</span>
+              <a :href="menuFooterConfig.contact.feature_request_url" target="_blank">{{ $t('menu.footer.featureRequest') }}</a>
+            </div>
           </div>
-        </div>
 
-        <!-- 社交账户 -->
-        <div class="footer-section" v-if="menuFooterConfig.social_accounts && menuFooterConfig.social_accounts.length > 0">
-          <div class="section-title">{{ $t('menu.footer.socialAccounts') }}</div>
-          <div class="social-icons">
-            <a
-              v-for="(account, index) in menuFooterConfig.social_accounts"
-              :key="index"
-              :href="account.url"
-              target="_blank"
-              rel="noopener noreferrer"
-              :title="account.name"
-              class="social-icon"
-            >
-              <Icon :icon="`simple-icons:${account.icon}`" class="social-icon-svg" />
-            </a>
+          <!-- 获取支持 -->
+          <div class="footer-section">
+            <div class="section-title">{{ $t('menu.footer.getSupport') }}</div>
+            <div class="section-links">
+              <a :href="'mailto:' + menuFooterConfig.contact.email">{{ $t('menu.footer.email') }}</a>
+              <span class="separator">|</span>
+              <a :href="menuFooterConfig.contact.live_chat_url" target="_blank">{{ $t('menu.footer.liveChat') }}</a>
+            </div>
           </div>
-        </div>
 
-        <!-- 用户协议和隐私条例 -->
-        <div class="footer-section">
-          <div class="section-links">
-            <a
-              v-if="menuFooterConfig.legal.user_agreement_url"
-              :href="menuFooterConfig.legal.user_agreement_url"
-              target="_blank"
-              rel="noopener noreferrer"
-            >{{ $t('menu.footer.userAgreement') }}</a>
-            <a v-else @click="showLegalModal = true">{{ $t('menu.footer.userAgreement') }}</a>
-            <span class="separator">&</span>
-            <a
-              v-if="menuFooterConfig.legal.privacy_policy_url"
-              :href="menuFooterConfig.legal.privacy_policy_url"
-              target="_blank"
-              rel="noopener noreferrer"
-            >{{ $t('menu.footer.privacyPolicy') }}</a>
-            <a v-else @click="showPrivacyModal = true">{{ $t('menu.footer.privacyPolicy') }}</a>
+          <!-- 社交账户 -->
+          <div class="footer-section" v-if="menuFooterConfig.social_accounts && menuFooterConfig.social_accounts.length > 0">
+            <div class="section-title">{{ $t('menu.footer.socialAccounts') }}</div>
+            <div class="social-icons">
+              <a
+                v-for="(account, index) in menuFooterConfig.social_accounts"
+                :key="index"
+                :href="account.url"
+                target="_blank"
+                rel="noopener noreferrer"
+                :title="account.name"
+                class="social-icon"
+              >
+                <Icon :icon="`simple-icons:${account.icon}`" class="social-icon-svg" />
+              </a>
+            </div>
           </div>
-        </div>
 
-        <!-- 版权信息 -->
-        <div class="footer-section copyright">
-          {{ menuFooterConfig.copyright }}
-        </div>
-        <!-- 版本号 -->
-        <div class="footer-section version">
-          V{{ appVersion }}
-        </div>
+          <!-- 用户协议和隐私条例 -->
+          <div class="footer-section">
+            <div class="section-links">
+              <a
+                v-if="menuFooterConfig.legal.user_agreement_url"
+                :href="menuFooterConfig.legal.user_agreement_url"
+                target="_blank"
+                rel="noopener noreferrer"
+              >{{ $t('menu.footer.userAgreement') }}</a>
+              <a v-else @click="showLegalModal = true">{{ $t('menu.footer.userAgreement') }}</a>
+              <span class="separator">&</span>
+              <a
+                v-if="menuFooterConfig.legal.privacy_policy_url"
+                :href="menuFooterConfig.legal.privacy_policy_url"
+                target="_blank"
+                rel="noopener noreferrer"
+              >{{ $t('menu.footer.privacyPolicy') }}</a>
+              <a v-else @click="showPrivacyModal = true">{{ $t('menu.footer.privacyPolicy') }}</a>
+            </div>
+          </div>
+
+          <!-- 版权信息 -->
+          <div class="footer-section copyright">
+            {{ menuFooterConfig.copyright }}
+          </div>
+          <!-- 版本号 -->
+          <div class="footer-section version">
+            V{{ appVersion }}
+            <a-icon type="down" class="expand-toggle" @click="footerExpanded = false; $nextTick(() => updateMenuFooterPosition())" />
+          </div>
+        </template>
       </div>
     </div>
   </div>
@@ -216,7 +226,9 @@ export default {
       // drawer 是否正在动画中（手机端）
       isDrawerAnimating: false,
       // 是否是首次初始化主题色（用于决定是否显示"正在切换主题"提示）
-      isInitialThemeColorLoad: true
+      isInitialThemeColorLoad: true,
+      // 侧栏 footer 默认折叠（精简模式），节省菜单空间
+      footerExpanded: false
     }
   },
   computed: {
@@ -763,6 +775,35 @@ export default {
       max-height: none;
       overflow: visible;
 
+      /* 精简模式 footer */
+      .footer-compact {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 2px 0;
+
+        .compact-copyright {
+          font-size: 10px;
+          opacity: 0.5;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          max-width: 180px;
+        }
+
+        .expand-toggle {
+          font-size: 11px;
+          opacity: 0.4;
+          cursor: pointer;
+          transition: opacity 0.2s;
+
+          &:hover {
+            opacity: 0.8;
+          }
+        }
+      }
+
       /* 隐藏滚动条但保持滚动功能 */
       scrollbar-width: thin;
       scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
@@ -883,6 +924,18 @@ export default {
           opacity: 0.4;
           text-align: center;
           letter-spacing: 1px;
+
+          .expand-toggle {
+            font-size: 10px;
+            opacity: 0.6;
+            cursor: pointer;
+            margin-left: 4px;
+            transition: opacity 0.2s;
+
+            &:hover {
+              opacity: 1;
+            }
+          }
         }
       }
     }
