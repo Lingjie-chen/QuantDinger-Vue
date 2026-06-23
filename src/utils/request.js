@@ -17,7 +17,7 @@ let isRedirectingToLogin = false
 /**
  * 获取 token，处理 token 可能是字符串或对象的情况
  */
-function getToken () {
+function getToken() {
   let token = storage.get(ACCESS_TOKEN)
   if (!token) {
     return null
@@ -31,7 +31,7 @@ function getToken () {
     }
   }
   // 确保 token 是字符串且不为空
-  return (typeof token === 'string' && token.length > 0) ? token : null
+  return typeof token === 'string' && token.length > 0 ? token : null
 }
 
 // 创建 axios 实例
@@ -40,7 +40,7 @@ const request = axios.create({
   // 生产环境应由 Nginx 处理，开发环境由 devServer proxy 处理
   baseURL: '/',
   timeout: 30000, // Default request timeout 30s (can be overridden per request)
-  withCredentials: true // 允许携带 cookies
+  withCredentials: true, // 允许携带 cookies
 })
 
 // Extended timeout for long-running AI analysis APIs
@@ -54,13 +54,15 @@ export const BACKTEST_TIMEOUT = 600000 // 10 minutes for backtest
 
 // Translate via i18n with a hard-coded fallback so this util works even if a
 // locale file failed to load (we never want the user to stare at a raw key).
-function tt (key, fallback) {
+function tt(key, fallback) {
   try {
     if (i18n && typeof i18n.t === 'function') {
       const v = i18n.t(key)
       if (v && v !== key) return v
     }
-  } catch (e) { /* noop */ }
+  } catch (e) {
+    /* noop */
+  }
   return fallback
 }
 
@@ -76,8 +78,8 @@ const errorHandler = (error) => {
       // msg as the description so users see the real cause.
       notification.error({
         message: tt('request.forbiddenTitle', 'Operation not allowed'),
-        description: data.msg || data.message ||
-          tt('request.forbiddenDesc', 'You do not have permission to perform this action.')
+        description:
+          data.msg || data.message || tt('request.forbiddenDesc', 'You do not have permission to perform this action.'),
       })
     }
     if (error.response.status === 401 && !(data.result && data.result.isLogin)) {
@@ -94,8 +96,8 @@ const errorHandler = (error) => {
 
         notification.error({
           message: tt('request.unauthorizedTitle', 'Unauthorized'),
-          description: data.msg || data.message ||
-            tt('request.unauthorizedDesc', 'Token invalid or expired, please login again.')
+          description:
+            data.msg || data.message || tt('request.unauthorizedDesc', 'Token invalid or expired, please login again.'),
         })
 
         // 项目使用 hash 模式，需要跳转到 /#/user/login
@@ -111,7 +113,7 @@ const errorHandler = (error) => {
 }
 
 // request interceptor
-request.interceptors.request.use(config => {
+request.interceptors.request.use((config) => {
   // axios 会把实例默认 timeout 挂到每个请求上，因此这里需要识别
   // “仍然是默认值”的情况，再按接口类型覆盖成更长超时。
   const isDefaultTimeout = !config.timeout || config.timeout === request.defaults.timeout
@@ -217,22 +219,27 @@ request.interceptors.response.use((response) => {
         }
       }
     }
-  } catch (e) {
+  } catch (e) {}
+
+  // ── 协议归一化 ──
+  // 后端新格式 {success, data, error} → 前端统一消费 {code, data, msg}
+  // 后端旧格式 {code:1, data, msg} 和裸 dict 保持原样
+  var body = response.data
+  if (body && typeof body === 'object' && body.success !== undefined && body.code === undefined) {
+    body.code = body.success ? 1 : 0
+    body.msg = body.msg || body.error || (body.success ? 'success' : 'error')
   }
 
-  return response.data
+  return body
 }, errorHandler)
 
 const installer = {
   vm: {},
-  install (Vue) {
+  install(Vue) {
     Vue.use(VueAxios, request)
-  }
+  },
 }
 
 export default request
 
-export {
-  installer as VueAxios,
-  request as axios
-}
+export { installer as VueAxios, request as axios }
