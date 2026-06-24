@@ -122,14 +122,11 @@
             <a-select v-model="config.symbols" mode="tags" placeholder="输入交易对">
             </a-select>
           </a-form-model-item>
-          <a-form-model-item label="循环间隔（秒）">
-            <a-input-number v-model="config.cycle_interval_s" :min="5" :max="3600" />
+          <a-form-model-item label="分析间隔（秒）">
+            <a-input-number v-model="config.analysis_interval" :min="5" :max="3600" />
           </a-form-model-item>
-          <a-form-model-item label="最大杠杆">
-            <a-input-number v-model="config.max_leverage" :min="1" :max="125" />
-          </a-form-model-item>
-          <a-form-model-item label="单笔最大仓位（%）">
-            <a-slider v-model="config.max_position_pct" :min="1" :max="100" />
+          <a-form-model-item label="单笔最大仓位（0.01=1%）">
+            <a-slider v-model="config.max_position_size" :min="0.01" :max="1" :step="0.01" />
           </a-form-model-item>
           <a-form-model-item>
             <a-button type="primary" @click="saveConfig" :loading="configSaving">保存配置</a-button>
@@ -137,7 +134,7 @@
         </a-form-model>
       </a-tab-pane>
     </a-tabs>
-      </a-tab-pane>
+      </a-tab-pane><!-- 关闭外层 top-view-tabs 的 console 标签页 -->
       <a-tab-pane key="workflow" tab="工作流">
         <quant-workflow-panel :is-dark="isDarkTheme" />
       </a-tab-pane>
@@ -149,6 +146,7 @@
 import { mapState } from 'vuex'
 import {
   getAgentStatus, startAgent, stopAgent, pauseAgent, resumeAgent,
+  precheckAgent,
   getTradeHistory, getPositions, getDecisionLog, getPerformanceMetrics,
   getAgentConfig, updateAgentConfig
 } from '@/api/autonomous'
@@ -172,7 +170,8 @@ export default {
       positions: [],
       trades: [],
       decisions: [],
-      config: { symbols: ['BTC-USDT-SWAP'], cycle_interval_s: 60, max_leverage: 5, max_position_pct: 10 },
+      // config 字段名与后端 AgentConfigRequest 对齐
+      config: { symbols: ['ETH-USDT-SWAP'], analysis_interval: 60, max_position_size: 0.1 },
       pollTimer: null,
       // K线图状态
       chartSymbol: '',
@@ -273,9 +272,10 @@ export default {
           const perfData = perfRes.data || perfRes
           this.perf = {
             totalEquity: perfData.total_equity ?? perfData.totalEquity ?? 0,
-            totalPnl: perfData.total_pnl ?? perfData.totalPnl ?? 0,
-            winRate: perfData.win_rate ?? perfData.winRate ?? 0,
-            totalTrades: perfData.total_trades ?? perfData.totalTrades ?? 0,
+            // 后端在有 PerformanceTracker 前返回 daily_pnl，降级时显示此值
+            totalPnl: perfData.total_pnl ?? perfData.totalPnl ?? perfData.daily_pnl ?? 0,
+            winRate: (perfData.win_rate ?? perfData.winRate ?? 0) * 100,
+            totalTrades: perfData.total_trades ?? perfData.totalTrades ?? perfData.daily_trades ?? 0,
           }
         }
       } catch (e) { console.error('fetchData error:', e) }
@@ -294,10 +294,39 @@ export default {
     async handleStart () {
       this.actionLoading = true
       try {
-        const res = await startAgent(this.config)
+        // 字段名和单位转换：与后端 AgentConfigRequest 对齐
+        const payload = {
+          symbols: this.config.symbols,
+          analysis_interval: this.config.analysis_interval,
+          // max_position_size 后端期望 0-1 小数，若前端为百分比则转换
+          max_position_size: this.config.max_position_size > 1
+            ? this.config.max_position_size / 100
+            : this.config.max_position_size,
+          // 明确传策略，避免后端走 auto 慢路径
+          strategy: this.config.strategy || 'mean_reversion',
+        }
+        // 启动前先 precheck
+        try {
+          const precheck = await precheckAgent(payload)
+          const pcData = precheck.data || precheck
+          if (pcData && pcData.errors && pcData.errors.length > 0) {
+            this.$message.error('预检失败: ' + pcData.errors.join('；'))
+            return
+          }
+        } catch (e) { /* precheck 失败不阻塞启动 */ }
+        const res = await startAgent(payload)
         if (res.success || res.code === 1) { this.$message.success('代理已启动'); this.fetchStatus() }
-        else this.$message.error(res.message || '启动失败')
-      } catch (e) { this.$message.error('启动失败') } finally { this.actionLoading = false }
+        else this.$message.error(this._extractErrorMsg(res, '启动失败'))
+      } catch (e) { this.$message.error(this._extractErrorMsg(e, '启动失败')) } finally { this.actionLoading = false }
+    },
+    _extractErrorMsg (error, fallback = '操作失败') {
+      const data = error?.response?.data || error?.data
+      const detail = data?.detail
+      if (Array.isArray(detail)) {
+        return detail.map(item => item?.msg || item?.message || JSON.stringify(item)).join('；') || fallback
+      }
+      if (typeof detail === 'string' && detail) return detail
+      return data?.message || data?.msg || error?.message || fallback
     },
     async handleStop () { this.actionLoading = true; try { await stopAgent(); this.$message.success('代理已停止'); this.fetchStatus() } finally { this.actionLoading = false } },
     async handlePause () { this.actionLoading = true; try { await pauseAgent(); this.$message.success('代理已暂停'); this.fetchStatus() } finally { this.actionLoading = false } },

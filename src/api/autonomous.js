@@ -10,7 +10,7 @@ export function getAgentStatus() {
 }
 
 export function startAgent(config) {
-  return request({ url: '/api/quant/autonomous/start', method: 'post', data: config })
+  return request({ url: '/api/quant/autonomous/start', method: 'post', data: config, timeout: 180000 })
 }
 
 export function stopAgent() {

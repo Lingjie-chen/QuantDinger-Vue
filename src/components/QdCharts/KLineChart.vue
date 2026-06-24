@@ -78,19 +78,25 @@ export default {
     },
     updateSignals () {
       if (!this.chart || !this.signals.length) return
-      const overlay = this.signals.map(s => ({
-        timestamp: s.timestamp || s.time,
-        position: s.side === 'buy' ? 'belowBar' : 'aboveBar',
-        text: s.side === 'buy' ? 'B' : 'S',
-        styles: {
-          color: s.side === 'buy' ? '#10b981' : '#ef4444',
-          background: s.side === 'buy' ? '#10b981' : '#ef4444',
-          fontSize: 10,
-        },
-      }))
-      this.chart.createOverlay({
-        name: 'simpleAnnotation',
-        points: overlay,
+      // klinecharts 9.x: 每个信号作为独立 overlay，逐个创建
+      this.signals.forEach(s => {
+        try {
+          this.chart.createOverlay({
+            name: 'simpleAnnotation',
+            points: [{ timestamp: s.timestamp || s.time, value: 0 }],
+            extendData: s.side,
+            styles: {
+              symbol: {
+                type: s.side === 'buy' ? 'triangle' : 'triangle',
+                size: 8,
+                color: s.side === 'buy' ? '#10b981' : '#ef4444',
+              },
+            },
+          })
+        } catch (e) {
+          // overlay API 不可用时静默跳过，不影响主图显示
+          console.warn('[KLineChart] overlay 创建失败（klinecharts API 变更）:', e.message)
+        }
       })
     },
     resize () {

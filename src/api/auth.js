@@ -1,7 +1,10 @@
 import request from '@/utils/request'
 
-function joinApiBase (path) {
-  const base = (process.env.VUE_APP_API_BASE_URL || '').trim()
+function joinApiBase(path) {
+  // Support both Vue CLI (process.env.VUE_APP_*) and Vite (import.meta.env.VITE_*)
+  const env = (typeof process !== 'undefined' && process.env) || {}
+  const importMetaEnv = (typeof import.meta !== 'undefined' && import.meta.env) || {}
+  const base = (env.VUE_APP_API_BASE_URL || importMetaEnv.VITE_API_BASE_URL || '').trim()
   const p = path.startsWith('/') ? path : `/${path}`
   if (!base) return p
 
@@ -16,10 +19,10 @@ function joinApiBase (path) {
 /**
  * Get security configuration (Turnstile, OAuth settings)
  */
-export function getSecurityConfig () {
+export function getSecurityConfig() {
   return request({
     url: '/api/auth/security-config',
-    method: 'get'
+    method: 'get',
   })
 }
 
@@ -27,31 +30,31 @@ export function getSecurityConfig () {
  * User login
  * @param {Object} data - { username, password, turnstile_token }
  */
-export function login (data) {
+export function login(data) {
   return request({
     url: '/api/auth/login',
     method: 'post',
-    data
+    data,
   })
 }
 
 /**
  * User logout
  */
-export function logout () {
+export function logout() {
   return request({
     url: '/api/auth/logout',
-    method: 'post'
+    method: 'post',
   })
 }
 
 /**
  * Get current user info
  */
-export function getUserInfo () {
+export function getUserInfo() {
   return request({
     url: '/api/auth/info',
-    method: 'get'
+    method: 'get',
   })
 }
 
@@ -60,11 +63,11 @@ export function getUserInfo () {
  * @param {Object} data - { email, type, turnstile_token }
  * type: 'register' | 'login' | 'reset_password' | 'change_password' | 'change_email'
  */
-export function sendVerificationCode (data) {
+export function sendVerificationCode(data) {
   return request({
     url: '/api/auth/send-code',
     method: 'post',
-    data
+    data,
   })
 }
 
@@ -72,11 +75,11 @@ export function sendVerificationCode (data) {
  * Login with email verification code (quick login)
  * @param {Object} data - { email, code, turnstile_token }
  */
-export function loginWithCode (data) {
+export function loginWithCode(data) {
   return request({
     url: '/api/auth/login-code',
     method: 'post',
-    data
+    data,
   })
 }
 
@@ -84,11 +87,11 @@ export function loginWithCode (data) {
  * User registration
  * @param {Object} data - { email, code, username, password, turnstile_token }
  */
-export function register (data) {
+export function register(data) {
   return request({
     url: '/api/auth/register',
     method: 'post',
-    data
+    data,
   })
 }
 
@@ -96,11 +99,11 @@ export function register (data) {
  * Reset password
  * @param {Object} data - { email, code, new_password, turnstile_token }
  */
-export function resetPassword (data) {
+export function resetPassword(data) {
   return request({
     url: '/api/auth/reset-password',
     method: 'post',
-    data
+    data,
   })
 }
 
@@ -108,24 +111,24 @@ export function resetPassword (data) {
  * Change password (for logged-in users)
  * @param {Object} data - { code, new_password }
  */
-export function changePassword (data) {
+export function changePassword(data) {
   return request({
     url: '/api/auth/change-password',
     method: 'post',
-    data
+    data,
   })
 }
 
 /**
  * Get Google OAuth URL
  */
-export function getGoogleOAuthUrl () {
+export function getGoogleOAuthUrl() {
   return joinApiBase('/api/auth/oauth/google')
 }
 
 /**
  * Get GitHub OAuth URL
  */
-export function getGitHubOAuthUrl () {
+export function getGitHubOAuthUrl() {
   return joinApiBase('/api/auth/oauth/github')
 }
