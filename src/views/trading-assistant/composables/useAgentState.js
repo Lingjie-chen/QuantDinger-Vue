@@ -1,9 +1,17 @@
 import { ref } from 'vue'
 import {
-  getAgentStatus, startAgent, stopAgent, pauseAgent, resumeAgent,
+  getAgentStatus,
+  startAgent,
+  stopAgent,
+  pauseAgent,
+  resumeAgent,
   precheckAgent,
-  getTradeHistory, getPositions, getDecisionLog, getPerformanceMetrics,
-  getAgentConfig, updateAgentConfig
+  getTradeHistory,
+  getPositions,
+  getDecisionLog,
+  getPerformanceMetrics,
+  getAgentConfig,
+  updateAgentConfig,
 } from '@/api/autonomous'
 import request from '@/utils/request'
 
@@ -11,7 +19,7 @@ import request from '@/utils/request'
  * 自主交易 Agent 状态管理 composable
  * 封装状态机、轮询、API 调用，与 strategy API 完全隔离。
  */
-export function useAgentState () {
+export function useAgentState() {
   const agentState = ref('idle')
   const statusLoading = ref(false)
   const actionLoading = ref(false)
@@ -25,21 +33,24 @@ export function useAgentState () {
     symbols: ['ETH-USDT-SWAP'],
     analysis_interval: 60,
     max_position_size: 0.1,
-    strategy: 'mean_reversion'
+    strategy: 'mean_reversion',
   })
 
   let pollTimer = null
 
-  function startPolling (interval = 5000) {
+  function startPolling(interval = 5000) {
     if (pollTimer) return
     pollTimer = setInterval(() => fetchStatus(), interval)
   }
 
-  function stopPolling () {
-    if (pollTimer) { clearInterval(pollTimer); pollTimer = null }
+  function stopPolling() {
+    if (pollTimer) {
+      clearInterval(pollTimer)
+      pollTimer = null
+    }
   }
 
-  async function fetchStatus () {
+  async function fetchStatus() {
     statusLoading.value = true
     try {
       const res = await getAgentStatus()
@@ -55,23 +66,23 @@ export function useAgentState () {
     }
   }
 
-  async function fetchData () {
+  async function fetchData() {
     try {
       const [posRes, tradeRes, perfRes] = await Promise.all([
         getPositions(),
         getTradeHistory({ limit: 50 }),
-        getPerformanceMetrics()
+        getPerformanceMetrics(),
       ])
       if (posRes.success || posRes.code === 1) {
         const posData = posRes.data || posRes
         const rawPos = posData.positions || posData || {}
         positions.value = Array.isArray(rawPos)
           ? rawPos
-          : Object.values(rawPos).map(p => ({
-            ...p,
-            avgPrice: p.entry_price ?? p.avgPrice,
-            pnl: p.unrealized_pnl ?? p.pnl
-          }))
+          : Object.values(rawPos).map((p) => ({
+              ...p,
+              avgPrice: p.entry_price ?? p.avgPrice,
+              pnl: p.unrealized_pnl ?? p.pnl,
+            }))
       }
       if (tradeRes.success || tradeRes.code === 1) {
         const tradeData = tradeRes.data || tradeRes
@@ -83,7 +94,7 @@ export function useAgentState () {
           totalEquity: perfData.total_equity ?? perfData.totalEquity ?? 0,
           totalPnl: perfData.total_pnl ?? perfData.totalPnl ?? perfData.daily_pnl ?? 0,
           winRate: (perfData.win_rate ?? perfData.winRate ?? 0) * 100,
-          totalTrades: perfData.total_trades ?? perfData.totalTrades ?? perfData.daily_trades ?? 0
+          totalTrades: perfData.total_trades ?? perfData.totalTrades ?? perfData.daily_trades ?? 0,
         }
       }
     } catch (e) {
@@ -108,26 +119,25 @@ export function useAgentState () {
     }
   }
 
-  function _extractErrorMsg (error, fallback = '操作失败') {
+  function _extractErrorMsg(error, fallback = '操作失败') {
     const data = error?.response?.data || error?.data
     const detail = data?.detail
     if (Array.isArray(detail)) {
-      return detail.map(item => item?.msg || item?.message || JSON.stringify(item)).join('；') || fallback
+      return detail.map((item) => item?.msg || item?.message || JSON.stringify(item)).join('；') || fallback
     }
     if (typeof detail === 'string' && detail) return detail
     return data?.message || data?.msg || error?.message || fallback
   }
 
-  async function handleStart () {
+  async function handleStart() {
     actionLoading.value = true
     try {
       const payload = {
         symbols: config.value.symbols,
         analysis_interval: config.value.analysis_interval,
-        max_position_size: config.value.max_position_size > 1
-          ? config.value.max_position_size / 100
-          : config.value.max_position_size,
-        strategy: config.value.strategy || 'mean_reversion'
+        max_position_size:
+          config.value.max_position_size > 1 ? config.value.max_position_size / 100 : config.value.max_position_size,
+        strategy: config.value.strategy || 'mean_reversion',
       }
       try {
         const precheck = await precheckAgent(payload)
@@ -135,7 +145,9 @@ export function useAgentState () {
         if (pcData && pcData.errors && pcData.errors.length > 0) {
           return { success: false, message: '预检失败: ' + pcData.errors.join('；') }
         }
-      } catch (e) { /* precheck 失败不阻塞启动 */ }
+      } catch (e) {
+        /* precheck 失败不阻塞启动 */
+      }
       const res = await startAgent(payload)
       if (res.success || res.code === 1) {
         await fetchStatus()
@@ -149,7 +161,7 @@ export function useAgentState () {
     }
   }
 
-  async function handleStop () {
+  async function handleStop() {
     actionLoading.value = true
     try {
       await stopAgent()
@@ -160,7 +172,7 @@ export function useAgentState () {
     }
   }
 
-  async function handlePause () {
+  async function handlePause() {
     actionLoading.value = true
     try {
       await pauseAgent()
@@ -171,7 +183,7 @@ export function useAgentState () {
     }
   }
 
-  async function handleResume () {
+  async function handleResume() {
     actionLoading.value = true
     try {
       await resumeAgent()
@@ -182,7 +194,7 @@ export function useAgentState () {
     }
   }
 
-  async function saveConfig (newConfig) {
+  async function saveConfig(newConfig) {
     configSaving.value = true
     try {
       const merged = { ...config.value, ...newConfig }
@@ -203,27 +215,27 @@ export function useAgentState () {
    * 获取 K 线数据（autonomous 专用，不走 strategy API）
    * 返回 Promise，由调用方持有 state，避免多实例重复请求。
    */
-  async function fetchKlineData (symbol, interval = '15m') {
+  async function fetchKlineData(symbol, interval = '15m') {
     if (!symbol) return { klineData: [], klineSignals: [] }
     try {
       const res = await request({
         url: '/api/quant/market/candles',
         method: 'get',
-        params: { symbol, interval, limit: 200 }
+        params: { symbol, interval, limit: 200 },
       })
       const d = res.data || res || {}
       const candles = d.candles || d.data || d || []
-      const klineData = candles.map(c => ({
+      const klineData = candles.map((c) => ({
         timestamp: c[0] || c.timestamp,
         open: parseFloat(c[1] || c.open),
         high: parseFloat(c[2] || c.high),
         low: parseFloat(c[3] || c.low),
         close: parseFloat(c[4] || c.close),
-        volume: parseFloat(c[5] || c.volume || 0)
+        volume: parseFloat(c[5] || c.volume || 0),
       }))
       const klineSignals = trades.value
-        .filter(t => t.symbol === symbol)
-        .map(t => ({ timestamp: t.timestamp, side: t.action || t.side }))
+        .filter((t) => t.symbol === symbol)
+        .map((t) => ({ timestamp: t.timestamp, side: t.action || t.side }))
       return { klineData, klineSignals }
     } catch (e) {
       console.error('fetchKline error:', e)
@@ -251,6 +263,6 @@ export function useAgentState () {
     handlePause,
     handleResume,
     saveConfig,
-    fetchKlineData
+    fetchKlineData,
   }
 }
