@@ -24,7 +24,6 @@
     </a-steps>
 
     <div class="wizard-content">
-      <!-- Step 1: 基础配置 -->
       <div v-show="currentStep === 0" class="step-panel">
         <a-form-model
           ref="baseForm"
@@ -86,7 +85,7 @@
               </a-select-option>
             </a-select>
             <div class="form-hint" style="margin-top: 6px;">
-              <router-link to="/profile?tab=exchange">
+              <router-link to="/broker-accounts">
                 <a-icon type="setting" /> {{ $t('trading-bot.wizard.manageCredentials') }}
               </router-link>
             </div>
@@ -142,7 +141,7 @@
             </div>
           </a-form-model-item>
 
-          <a-form-model-item v-if="!isGridOrMartingaleBot" :label="$t('trading-bot.wizard.timeframe')">
+          <a-form-model-item v-if="needsTimeframe" :label="$t('trading-bot.wizard.timeframe')">
             <a-select v-model="baseForm.timeframe">
               <a-select-option value="1m">1 {{ $t('trading-bot.timeframe.min') }}</a-select-option>
               <a-select-option value="5m">5 {{ $t('trading-bot.timeframe.min') }}</a-select-option>
@@ -152,18 +151,17 @@
               <a-select-option value="1d">1 {{ $t('trading-bot.timeframe.day') }}</a-select-option>
             </a-select>
           </a-form-model-item>
-          <a-form-model-item v-else :label="$t('trading-bot.wizard.timeframe')">
-            <a-input :value="$t('trading-bot.wizard.gridTickMode')" disabled />
-            <div class="form-hint" style="margin-top: 4px; font-size: 12px; color: #8c8c8c;">
-              <a-icon type="info-circle" /> {{ $t('trading-bot.wizard.gridTickModeHint') }}
-            </div>
-          </a-form-model-item>
 
           <a-form-model-item :label="$t('trading-bot.wizard.marketType')">
-            <a-radio-group v-model="baseForm.marketType" :disabled="!swapAvailableForCurrentSelection && !spotAvailableForCurrentSelection">
+            <template v-if="shouldShowMarketTypeSelector">
+              <a-radio-group v-model="baseForm.marketType" :disabled="!swapAvailableForCurrentSelection && !spotAvailableForCurrentSelection">
               <a-radio value="swap" :disabled="!swapAvailableForCurrentSelection">{{ $t('trading-bot.wizard.futures') }}</a-radio>
               <a-radio value="spot" :disabled="!spotAvailableForCurrentSelection">{{ $t('trading-bot.wizard.spot') }}</a-radio>
-            </a-radio-group>
+              </a-radio-group>
+            </template>
+            <template v-else>
+              <a-tag color="cyan">{{ $t('trading-bot.wizard.spot') }}</a-tag>
+            </template>
             <div v-if="marketTypeHint" class="form-hint" style="margin-top: 6px; color: #8c8c8c;">
               {{ marketTypeHint }}
             </div>
@@ -196,7 +194,6 @@
         </a-form-model>
       </div>
 
-      <!-- Step 2: 策略参数 -->
       <div v-show="currentStep === 1" class="step-panel">
         <div class="step-hint">
           <a-icon type="info-circle" /> {{ typeInfo.configHint }}
@@ -210,7 +207,6 @@
         />
       </div>
 
-      <!-- Step 3: 风控设置 -->
       <div v-show="currentStep === 2" class="step-panel">
         <a-form-model
           ref="riskForm"
@@ -269,22 +265,6 @@
               />
               <div class="form-hint">{{ gridOobBufferHint }}</div>
             </a-form-model-item>
-            <a-form-model-item
-              v-if="isGridLikeBot"
-              :label="$t('trading-bot.risk.tickIntervalSec')"
-            >
-              <a-input-number
-                v-model="riskForm.tickIntervalSec"
-                :min="1"
-                :max="60"
-                :step="1"
-                :precision="0"
-                style="width: 100%"
-                :formatter="v => `${v}s`"
-                :parser="v => String(v).replace('s', '')"
-              />
-              <div class="form-hint">{{ tickIntervalHint }}</div>
-            </a-form-model-item>
             <a-form-model-item :label="$t('trading-bot.risk.maxPosition')">
               <a-input-number
                 v-model="riskForm.maxPosition"
@@ -318,7 +298,6 @@
         </a-form-model>
       </div>
 
-      <!-- Step 4: 确认 -->
       <div v-show="currentStep === 3" class="step-panel">
         <div class="confirm-section">
           <h4>{{ $t('trading-bot.wizard.confirmTitle') }}</h4>
@@ -335,8 +314,8 @@
             <a-descriptions-item :label="$t('trading-bot.wizard.symbol')">
               {{ baseForm.symbol }}
             </a-descriptions-item>
-            <a-descriptions-item :label="$t('trading-bot.wizard.timeframe')">
-              {{ isGridOrMartingaleBot ? $t('trading-bot.wizard.gridTickMode') : baseForm.timeframe }}
+            <a-descriptions-item v-if="needsTimeframe" :label="$t('trading-bot.wizard.timeframe')">
+              {{ baseForm.timeframe }}
             </a-descriptions-item>
             <a-descriptions-item :label="$t('trading-bot.wizard.marketType')">
               {{ baseForm.marketType === 'swap' ? $t('trading-bot.wizard.futures') : $t('trading-bot.wizard.spot') }}
@@ -373,9 +352,6 @@
             </a-descriptions-item>
             <a-descriptions-item v-if="isGridLikeBot" :label="$t('trading-bot.risk.gridOobBufferPct')">
               {{ riskForm.gridOobBufferPct }}%
-            </a-descriptions-item>
-            <a-descriptions-item v-if="isGridLikeBot" :label="$t('trading-bot.risk.tickIntervalSec')">
-              {{ riskForm.tickIntervalSec }}s
             </a-descriptions-item>
             <a-descriptions-item v-if="botType !== 'martingale'" :label="$t('trading-bot.risk.maxPosition')">
               ${{ riskForm.maxPosition }}
@@ -490,6 +466,7 @@ import GridConfig from './configs/GridConfig.vue'
 import MartingaleConfig from './configs/MartingaleConfig.vue'
 import TrendConfig from './configs/TrendConfig.vue'
 import DCAConfig from './configs/DCAConfig.vue'
+import { formatPercentDisplay, ratioOrPercentToUiPercent } from '@/utils/numberFormat'
 
 const BOT_TYPE_MAP = {
   grid: {
@@ -565,16 +542,11 @@ export default {
         maxPosition: 5000,
         maxDailyLoss: 500,
         // grid-bot-only (P0-2 / P1-2):
-        gridOobBufferPct: 5,
-        tickIntervalSec: 1
+        gridOobBufferPct: 5
       },
-      // 自选标的列表（从 qd_watchlist 拉取，按 market 过滤后只展示 Crypto）
       watchlist: [],
       loadingWatchlist: false,
-      // a-select 的内部 v-model；其值与 baseForm.symbol 等价，但拦截
-      // 特殊值 `__add__` 用于触发添加弹窗，避免直接污染表单 symbol。
       selectedSymbolKey: undefined,
-      // 添加自选弹窗状态
       showAddSymbolModal: false,
       addSearchKeyword: '',
       addSearchResults: [],
@@ -694,7 +666,18 @@ export default {
     swapAvailableForCurrentSelection () {
       return this.allowedMarketTypesForCurrentSelection.has('swap')
     },
+    isStockMarketCategory () {
+      return ['usstock', 'cnstock', 'hkstock'].includes(String(this.baseForm.marketCategory || '').toLowerCase())
+    },
+    shouldShowMarketTypeSelector () {
+      return !this.isStockMarketCategory
+    },
     marketTypeHint () {
+      if (this.isStockMarketCategory) {
+        return this.isZhLocale
+          ? '股票类标的默认按现货/现金账户处理，不显示合约类型。'
+          : 'Stock instruments are treated as spot/cash products. Contract type is hidden.'
+      }
       if (!this.swapAvailableForCurrentSelection && this.spotAvailableForCurrentSelection) {
         return this.isZhLocale
           ? '当前市场/券商组合仅支持现货。'
@@ -755,8 +738,8 @@ export default {
       const meta = BOT_TYPE_MAP[this.botType]
       return meta ? meta.component : 'GridConfig'
     },
-    isGridOrMartingaleBot () {
-      return this.botType === 'grid' || this.botType === 'martingale'
+    needsTimeframe () {
+      return this.botType === 'trend'
     },
     // grid + dca share the equity-drawdown SL/TP semantics (P0-2), so the
     // risk form uses the same hints / extra fields for both.
@@ -832,11 +815,6 @@ export default {
         ? '价格突破 upperPrice × (1 + 缓冲)  或跌破 lowerPrice × (1 - 缓冲) 时，服务端平掉所有腿。默认 5%。设 0 关闭。'
         : 'When price exceeds upperPrice × (1 + buffer) or falls below lowerPrice × (1 - buffer), the server closes both legs. Defaults to 5%. Set 0 to disable.'
     },
-    tickIntervalHint () {
-      return this.isZhLocale
-        ? '策略主循环轮询间隔。网格机器人默认 1 秒（价格驱动），趋势 / 普通策略默认 10 秒。越小越快但越耗算力。'
-        : 'Strategy loop polling interval. Grid bots default to 1s (price-driven); trend / generic strategies default to 10s. Smaller = faster reaction but more CPU.'
-    },
     martingaleRiskTitle () {
       return this.isZhLocale ? '高级风控' : 'Advanced Risk Control'
     },
@@ -889,8 +867,6 @@ export default {
       }
       this.riskForm.maxDailyLoss = Math.round(val * 0.1)
     },
-    // baseForm.symbol 与下拉框选中值双向同步：编辑机器人 / AI 预设
-    // 都会先改 baseForm.symbol，这里再把它映射回下拉显示值。
     'baseForm.symbol': {
       immediate: true,
       handler (val) {
@@ -941,7 +917,14 @@ export default {
       })
     },
     shouldShowStrategyParam (key) {
-      if (key === 'referencePrice') return this.botType === 'grid'
+      if (key === 'gridExecutionMode' || key === 'grid_execution_mode' || key === 'referencePrice') {
+        return false
+      }
+      if (key === 'initialPositionPct') {
+        const dir = this.strategyParams && this.strategyParams.gridDirection
+        const pct = Number(this.strategyParams && this.strategyParams.initialPositionPct)
+        return (dir === 'long' || dir === 'short') && Number.isFinite(pct) && pct > 0
+      }
       // Hide the trailing TP activation / callback details on the confirm
       // screen when trailing TP is OFF — otherwise users would see stray
       // "0.8%" rows for a feature they didn't enable, which is confusing.
@@ -961,6 +944,12 @@ export default {
         amountPerGrid: this.$t('trading-bot.grid.amountPerGrid'),
         gridMode: this.$t('trading-bot.grid.mode'),
         gridDirection: this.$t('trading-bot.grid.direction'),
+        initialPositionPct: this.$t('trading-bot.grid.initialPositionPct'),
+        boundaryAction: this.$t('trading-bot.grid.boundaryAction'),
+        adaptiveBounds: this.$t('trading-bot.grid.adaptiveBounds'),
+        adaptiveAtrMult: this.$t('trading-bot.grid.adaptiveAtrMult'),
+        waterfallProtection: this.$t('trading-bot.grid.waterfallProtection'),
+        waterfallDropPct: this.$t('trading-bot.grid.waterfallDropPct'),
         orderMode: this.$t('trading-bot.grid.orderType'),
         referencePrice: this.fallbackLabel('锚定参考价', 'Anchor Reference Price'),
         initialAmount: this.fallbackLabel('首单金额（自动计算）', 'First Order Amount (Auto)'),
@@ -1024,6 +1013,14 @@ export default {
         }
         return map[value] || value
       }
+      if (key === 'boundaryAction') {
+        const map = {
+          pause: this.$t('trading-bot.grid.boundaryPause'),
+          stop_loss: this.$t('trading-bot.grid.boundaryStopLoss'),
+          hold: this.$t('trading-bot.grid.boundaryHold')
+        }
+        return map[value] || value
+      }
       if (key === 'frequency') {
         const map = {
           every_bar: this.fallbackLabel('每根K线', 'Every Bar'),
@@ -1040,13 +1037,11 @@ export default {
         return value ? this.fallbackLabel('开启', 'Enabled') : this.fallbackLabel('关闭', 'Disabled')
       }
       if (key === 'waterfallDropPct') {
-        const pct = Number(value)
-        if (!Number.isFinite(pct)) return value
-        const display = pct <= 1 ? pct * 100 : pct
-        return `${display}%`
+        const display = ratioOrPercentToUiPercent(value, 3)
+        return `${formatPercentDisplay(display, 2)}%`
       }
       if (['priceDropPct', 'takeProfitPct', 'stopLossPct', 'dipThreshold', 'positionPct',
-           'trailingTpActivationPct', 'trailingTpCallbackPct'].includes(key)) {
+           'trailingTpActivationPct', 'trailingTpCallbackPct', 'initialPositionPct'].includes(key)) {
         return `${value}%`
       }
       if ([
@@ -1072,6 +1067,11 @@ export default {
       if (this.botType === 'trend') {
         delete next.timeframe
       }
+      if (this.botType === 'grid') {
+        delete next.gridExecutionMode
+        delete next.grid_execution_mode
+        delete next.referencePrice
+      }
       // Spot markets cannot short, and long-only brokers also can't short
       // even on swap. Coerce direction params accordingly so the script
       // template doesn't emit short signals that the worker will reject.
@@ -1079,6 +1079,9 @@ export default {
       if (forceLong) {
         if (this.botType === 'grid') next.gridDirection = 'long'
         if (this.botType === 'martingale' || this.botType === 'trend') next.direction = 'long'
+      }
+      if (next.waterfallDropPct != null && next.waterfallDropPct !== '') {
+        next.waterfallDropPct = ratioOrPercentToUiPercent(next.waterfallDropPct, 4)
       }
       return next
     },
@@ -1122,9 +1125,6 @@ export default {
       if (tc.grid_oob_buffer_pct != null) {
         this.riskForm.gridOobBufferPct = tc.grid_oob_buffer_pct
       }
-      if (tc.tick_interval_sec != null) {
-        this.riskForm.tickIntervalSec = tc.tick_interval_sec
-      }
     },
     applyAiPreset () {
       if (!this.aiPreset) return
@@ -1150,14 +1150,13 @@ export default {
             params.stopLossPct = (p.riskConfig || {}).stopLossPct
           }
         }
-        this.strategyParams = params
+        this.strategyParams = this.normalizeStrategyParams(params)
       }
       this.riskForm.stopLossPct = this.botType === 'martingale' ? 0 : ((p.riskConfig || {}).stopLossPct ?? 10)
       this.riskForm.takeProfitPct = this.botType === 'martingale' ? 0 : ((p.riskConfig || {}).takeProfitPct ?? 20)
       this.riskForm.maxPosition = this.botType === 'martingale' ? 0 : null
       this.riskForm.maxDailyLoss = null
     },
-    // ===== 自选标的（watchlist 模式） =====
     async loadWatchlist () {
       this.loadingWatchlist = true
       try {
@@ -1166,7 +1165,6 @@ export default {
           this.watchlist = res.data
         }
       } catch (e) {
-        // 静默失败：用户没收藏过任何自选时也可能 401/空，保持空数组即可
       } finally {
         this.loadingWatchlist = false
       }
@@ -1176,14 +1174,12 @@ export default {
       if (val === '__add__') return true
       const q = String(input || '').trim().toLowerCase()
       if (!q) return true
-      // 拼接 symbol + 显示名一起做匹配，避免用户只记得名称的情况漏匹配。
       const row = this.cryptoWatchlist.find(w => w.symbol === option.componentOptions.propsData.value)
       const haystack = (val + ' ' + ((row && row.name) || '')).toLowerCase()
       return haystack.includes(q)
     },
     handleSymbolChange (val) {
       if (val === '__add__') {
-        // 触发添加自选弹窗；同时把下拉值回退到旧 symbol，避免 select 显示成 "__add__"
         this.$nextTick(() => {
           this.selectedSymbolKey = this.baseForm.symbol || undefined
         })
@@ -1194,15 +1190,12 @@ export default {
       this.selectedSymbolKey = val || undefined
     },
     symbolSelectGetPopupContainer (trigger) {
-      // 弹窗模式下挂载到当前 wizard 容器，避免 modal 关闭时下拉残留
       if (this.isModal) {
         return trigger.parentNode || document.body
       }
       return document.body
     },
     addSymbolModalGetContainer () {
-      // 让 modal 始终挂到 body（默认行为）但保留扩展点，
-      // wizard 自身嵌在父 modal 里时 ant 也能正确叠放层级。
       return document.body
     },
     openAddSymbolModal () {
@@ -1244,8 +1237,6 @@ export default {
         this.addSearchResults = list
         this.addSearched = true
         if (list.length === 0) {
-          // 没搜到也允许用户原样添加（例如非常冷门的交易对），
-          // 与 indicator-ide 行为保持一致，符合用户对"自由补充"的预期。
           this.addSelectedItem = { market, symbol: kw.toUpperCase(), name: '' }
         } else if (!this.addSelectedItem || !list.some(x => x.symbol === this.addSelectedItem.symbol)) {
           this.addSelectedItem = list[0]
@@ -1278,7 +1269,6 @@ export default {
         this.selectedSymbolKey = symbol
         this.$message.success(this.$t('trading-bot.wizard.addSymbolSuccess'))
         this.closeAddSymbolModal()
-        // 让 a-form-model 重新校验 symbol，去掉之前的红框提示
         this.$nextTick(() => {
           if (this.$refs.baseForm) {
             try { this.$refs.baseForm.clearValidate(['symbol']) } catch (_) {}
@@ -1339,6 +1329,11 @@ export default {
       this.refilterCredentials()
       this.baseForm.symbol = ''
       this.selectedSymbolKey = undefined
+      if (this.isStockMarketCategory) {
+        this.baseForm.marketType = 'spot'
+        this.baseForm.leverage = 1
+        return
+      }
       // Force the strongest legal market_type for the new market.
       if (!this.swapAvailableForCurrentSelection) {
         this.baseForm.marketType = 'spot'
@@ -1395,31 +1390,26 @@ export default {
     async buildPayload () {
       const strategyParams = this.normalizeStrategyParams(this.strategyParams)
       const scriptParams = { ...strategyParams }
-      if (this.botType === 'grid') {
-        const existingRef = parseFloat(strategyParams.referencePrice)
-        const fetchedRef = this.isEditMode ? null : await this.fetchGridReferencePrice()
-        const refPrice = fetchedRef || (existingRef > 0 ? existingRef : null)
-        if (refPrice > 0) {
-          strategyParams.referencePrice = refPrice
-          scriptParams.referencePrice = refPrice
-        }
-      }
       if (this.baseForm.initialCapital > 0) {
         scriptParams._initialCapital = this.baseForm.initialCapital
       }
-      const effectiveTimeframe = this.isGridOrMartingaleBot ? '1m' : this.baseForm.timeframe
+      const effectiveTimeframe = this.needsTimeframe
+        ? this.baseForm.timeframe
+        : (this.botType === 'dca' ? '1h' : '1m')
       const strategyCode = generateBotScript(this.botType, scriptParams, {
         timeframe: effectiveTimeframe
       })
-      const leverage = this.baseForm.marketType === 'spot' ? 1 : (this.baseForm.leverage || 5)
-      const tradeDirection = this.resolveTradeDirection(strategyParams)
+      const market = this.baseForm.marketCategory || 'Crypto'
+      const isStockMarket = ['usstock', 'cnstock', 'hkstock'].includes(String(market || '').toLowerCase())
+      const marketType = isStockMarket ? 'spot' : this.baseForm.marketType
+      const leverage = marketType === 'spot' ? 1 : (this.baseForm.leverage || 5)
+      const tradeDirection = isStockMarket ? 'long' : this.resolveTradeDirection(strategyParams)
 
       // Validate broker x market compatibility against the policy snapshot.
       // The backend will re-validate via broker_market_policy.validate_strategy_config
       // at create time, but failing fast here prevents a half-saved strategy
       // from existing and gives a more readable error.
       const exId = (this.currentExchangeId || '').toLowerCase()
-      const market = this.baseForm.marketCategory || 'Crypto'
       if (!this.eligibleExchangeIdsForMarket.has(exId)) {
         throw new Error(
           this.$t('trading-bot.wizard.cryptoCredentialRequired', { market: this.currentMarketLabel })
@@ -1445,7 +1435,7 @@ export default {
         trading_config: {
           symbol: this.baseForm.symbol,
           timeframe: effectiveTimeframe,
-          market_type: this.baseForm.marketType,
+          market_type: marketType,
           leverage: leverage,
           trade_direction: tradeDirection,
           initial_capital: this.baseForm.initialCapital,
@@ -1460,12 +1450,9 @@ export default {
           // of 1s for grid bots, so only attach them on grid/dca.
           ...((this.botType === 'grid' || this.botType === 'dca')
             ? {
-                grid_oob_buffer_pct: this.riskForm.gridOobBufferPct,
-                tick_interval_sec: this.riskForm.tickIntervalSec
+                grid_oob_buffer_pct: this.riskForm.gridOobBufferPct
               }
             : {}),
-          // 马丁/趋势机器人依赖即时成交触发加仓/平仓,强制市价;
-          // 网格/DCA 保留用户选择(默认 maker 更省手续费)
           order_mode: (this.botType === 'martingale' || this.botType === 'trend')
             ? 'market'
             : (strategyParams.orderMode || 'maker'),
