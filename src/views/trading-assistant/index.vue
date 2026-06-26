@@ -52,7 +52,19 @@
         v-if="!isScriptStrategiesOnlyPage"
         key="overview"
         :tab="$t('trading-assistant.tabs.overview')">
-        <dashboard-overview v-if="topTab === 'overview'" :hide-setup-guide="true" />
+        <div v-if="topTab === 'overview'" class="overview-entry-cards">
+          <a-card class="agent-entry-card" :bordered="false" hoverable @click="enterAgentConsole">
+            <div class="agent-entry-body">
+              <div class="agent-entry-icon"><a-icon type="cloud-server" /></div>
+              <div class="agent-entry-text">
+                <div class="agent-entry-title">自主交易 Agent</div>
+                <div class="agent-entry-desc">启动全局 Agent，5阶段工作流自动化执行</div>
+              </div>
+              <a-icon type="arrow-right" class="agent-entry-arrow" />
+            </div>
+          </a-card>
+          <dashboard-overview :hide-setup-guide="true" />
+        </div>
       </a-tab-pane>
       <a-tab-pane key="strategy" :tab="$t('trading-assistant.tabs.strategyManage')">
         <a-row :gutter="24" class="strategy-layout">
@@ -75,7 +87,15 @@
               @select="handleSelectStrategy"
               @menu-click="handleMenuClick"
               @group-menu-click="handleGroupMenuClick"
-            />
+            >
+              <template #pinned-node>
+                <agent-node-item
+                  :agent-state="agentStateText"
+                  :selected="isAgentSelected"
+                  @select="selectAgentNode"
+                />
+              </template>
+            </strategy-list-panel>
           </a-col>
 
           <!-- 右侧：策略详情和交易记录 -->
@@ -86,7 +106,33 @@
             :lg="16"
             :xl="16"
             class="strategy-detail-col">
-            <div v-if="!selectedStrategy" class="strategy-empty-detail">
+            <!-- 自主交易 Agent 视图 -->
+            <agent-console-view
+              v-if="isAgentSelected"
+              :agent-state="agentInstanceState"
+              :status-loading="agentApi.statusLoading.value"
+              :action-loading="agentApi.actionLoading.value"
+              :config-saving="agentApi.configSaving.value"
+              :status="agentApi.status.value"
+              :perf="agentApi.perf.value"
+              :positions="agentApi.positions.value"
+              :trades="agentApi.trades.value"
+              :decisions="agentApi.decisions.value"
+              :config="agentApi.config.value"
+              :kline-data="agentKlineData"
+              :kline-signals="agentKlineSignals"
+              :chart-symbol="agentChartSymbol"
+              :chart-interval="agentChartInterval"
+              @start="onAgentStart"
+              @pause="onAgentPause"
+              @resume="onAgentResume"
+              @stop="onAgentStop"
+              @refresh="agentApi.fetchStatus"
+              @save-config="onAgentSaveConfig"
+              @symbol-change="onAgentSymbolChange"
+              @interval-change="onAgentIntervalChange"
+            />
+            <div v-else-if="!selectedStrategy" class="strategy-empty-detail">
               <div class="strategy-empty-detail-card">
                 <div class="strategy-empty-detail-icon">
                   <a-icon type="deployment-unit" />
@@ -1105,6 +1151,10 @@ import TradingBotPanel from '@/views/trading-bot/index.vue'
 import AddSymbolModal from './components/AddSymbolModal.vue'
 import StrategyListPanel from './components/StrategyListPanel.vue'
 import StrategyFormPanel from './components/StrategyFormPanel.vue'
+import AgentNodeItem from './components/AgentNodeItem.vue'
+import AgentConsoleView from './components/AgentConsoleView.vue'
+import { useAgentState } from './composables/useAgentState'
+import { message } from 'ant-design-vue'
 import { CROSS_SECTIONAL_INDICATOR_TEMPLATE } from '@/constants/crossSectionalIndicatorTemplate'
 
 // 常见加密货币交易对
@@ -1160,9 +1210,21 @@ export default {
     TradingBotPanel,
     AddSymbolModal,
     StrategyListPanel,
-    StrategyFormPanel
+    StrategyFormPanel,
+    AgentNodeItem,
+    AgentConsoleView
+  },
+  setup () {
+    const agentApi = useAgentState()
+    return { agentApi }
   },
   computed: {
+    isAgentSelected () {
+      return this.selectedStrategy && this.selectedStrategy.id === '__agent__'
+    },
+    agentStateText () {
+      return this.agentInstanceState || this.agentApi.agentState.value || 'idle'
+    },
     showAssistantGuide () {
       if (this.$route.meta && this.$route.meta.scriptStrategiesOnly) return false
       return !this.assistantGuideDismissed
@@ -1485,6 +1547,16 @@ export default {
     }
   },
   watch: {
+    isAgentSelected: {
+      handler (val) {
+        if (val) {
+          this.activateAgent()
+        } else {
+          this.agentApi.stopPolling()
+        }
+      },
+      immediate: false
+    },
     '$route.path' (to, from) {
       if (!from || to === from) return
       this.selectedStrategy = null
@@ -1501,6 +1573,12 @@ export default {
   },
   data () {
     return {
+      agentSentinel: { id: '__agent__', strategy_name: '自主交易 Agent', status: 'agent' },
+      agentInstanceState: 'idle',
+      agentChartSymbol: '',
+      agentChartInterval: '15m',
+      agentKlineData: [],
+      agentKlineSignals: [],
       topTab: 'overview',
       loading: false,
       loadingRecords: false,
@@ -1589,6 +1667,10 @@ export default {
     if (this.$route.query.tab === 'strategy' || this.$route.query.mode === 'create') {
       this.topTab = 'strategy'
     }
+    if (this.$route.query.agent === 'true') {
+      this.topTab = 'strategy'
+      this.selectedStrategy = this.agentSentinel
+    }
     this.loadStrategies()
     this.loadUserNotificationSettings()
 
@@ -1614,7 +1696,14 @@ export default {
       })
     }
   },
+  activated () {
+    if (this.isAgentSelected) this.agentApi.startPolling()
+  },
+  deactivated () {
+    this.agentApi.stopPolling()
+  },
   beforeDestroy () {
+    this.agentApi.stopPolling()
     this.stopEquityPolling()
   },
   methods: {
@@ -1633,6 +1722,62 @@ export default {
     },
     goToStrategyTab () {
       this.topTab = 'strategy'
+    },
+    enterAgentConsole () {
+      this.topTab = 'strategy'
+      this.selectedStrategy = this.agentSentinel
+    },
+    selectAgentNode () {
+      this.selectedStrategy = this.agentSentinel
+    },
+    async activateAgent () {
+      await this.agentApi.fetchStatus()
+      await this.agentApi.fetchData()
+      this.agentInstanceState = this.agentApi.agentState.value
+      if (this.agentApi.positions.value.length && !this.agentChartSymbol) {
+        this.agentChartSymbol = this.agentApi.positions.value[0].symbol
+        await this.refreshAgentKline()
+      }
+      this.agentApi.startPolling()
+    },
+    async refreshAgentKline () {
+      const { klineData, klineSignals } = await this.agentApi.fetchKlineData(
+        this.agentChartSymbol,
+        this.agentChartInterval
+      )
+      this.agentKlineData = klineData
+      this.agentKlineSignals = klineSignals
+    },
+    async onAgentSymbolChange (val) {
+      this.agentChartSymbol = val
+      await this.refreshAgentKline()
+    },
+    async onAgentIntervalChange (val) {
+      this.agentChartInterval = val
+      await this.refreshAgentKline()
+    },
+    async onAgentStart () {
+      const res = await this.agentApi.handleStart()
+      if (res.success) message.success('代理已启动')
+      else if (res.message) message.error(res.message)
+      this.agentInstanceState = this.agentApi.agentState.value
+    },
+    async onAgentPause () {
+      await this.agentApi.handlePause()
+      this.agentInstanceState = this.agentApi.agentState.value
+    },
+    async onAgentResume () {
+      await this.agentApi.handleResume()
+      this.agentInstanceState = this.agentApi.agentState.value
+    },
+    async onAgentStop () {
+      await this.agentApi.handleStop()
+      this.agentInstanceState = this.agentApi.agentState.value
+    },
+    async onAgentSaveConfig (cfg) {
+      const res = await this.agentApi.saveConfig(cfg)
+      if (res.success) message.success('配置已保存')
+      else if (res.message) message.error(res.message)
     },
     openCreateStrategyFromGuide () {
       this.topTab = 'strategy'
@@ -3840,6 +3985,50 @@ export default {
   padding: 0px;
   height: calc(100vh - 120px);
   background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+
+  .overview-entry-cards {
+    padding: 16px;
+  }
+  .agent-entry-card {
+    margin-bottom: 16px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(168, 85, 247, 0.06) 100%);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    &:hover {
+      border-color: rgba(99, 102, 241, 0.5);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(99, 102, 241, 0.15);
+    }
+    .agent-entry-body {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .agent-entry-icon {
+      font-size: 32px;
+      color: #6366f1;
+      line-height: 1;
+    }
+    .agent-entry-text {
+      flex: 1;
+    }
+    .agent-entry-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 4px;
+    }
+    .agent-entry-desc {
+      font-size: 13px;
+      color: #64748b;
+    }
+    .agent-entry-arrow {
+      color: #94a3b8;
+      font-size: 16px;
+    }
+  }
 
   .strategy-layout {
     height: calc(100vh - 120px);

@@ -24,6 +24,8 @@
     </div>
 
     <a-spin :spinning="loading">
+      <!-- 置顶节点（如自主交易 Agent） -->
+      <slot name="pinned-node" />
       <div v-if="!loading && strategies.length === 0" class="strategy-empty-state">
         <a-empty :description="$t('trading-assistant.empty.title')" />
         <div class="strategy-empty-desc">{{ $t('trading-assistant.empty.desc') }}</div>

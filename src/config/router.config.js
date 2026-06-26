@@ -36,11 +36,12 @@ export const asyncRouterMap = [
           permission: ['dashboard'],
         },
       },
-      // 4. 自主交易控制台（含 Agent 控制台 + 5阶段工作流）
+      // 4. 自主交易控制台 — 已合并到 /strategy-live，保留 redirect 兼容旧链接
       {
         path: '/autonomous-trading',
         name: 'AutonomousTrading',
-        component: () => import('@/views/autonomous-trading'),
+        redirect: '/strategy-live?tab=strategy&agent=true',
+        hidden: true,
         meta: {
           title: 'menu.dashboard.autonomousTrading',
           keepAlive: false,
