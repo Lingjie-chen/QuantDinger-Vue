@@ -60,6 +60,7 @@ export default defineConfig(({ mode }) => {
       preprocessorOptions: {
         less: {
           javascriptEnabled: true,
+          additionalData: "@import '@/styles/antd-vars.less';\n",
           modifyVars: {
             'border-radius-base': '2px',
           },
