@@ -1,4 +1,4 @@
-import { ref } from 'vue'
+import { ref, onUnmounted } from 'vue'
 import {
   getAgentStatus,
   startAgent,
@@ -12,8 +12,9 @@ import {
   getPerformanceMetrics,
   getAgentConfig,
   updateAgentConfig,
+  getPhaseEventsUrl,
 } from '@/api/autonomous'
-import request from '@/utils/request'
+import request, { getToken } from '@/utils/request'
 
 /**
  * 自主交易 Agent 状态管理 composable
@@ -35,6 +36,15 @@ export function useAgentState() {
     max_position_size: 0.1,
     strategy: 'mean_reversion',
   })
+
+  const phaseEvents = ref([])
+  const sseConnected = ref(false)
+  /** @type {AbortController|null} */
+  let phaseEventController = null
+  /** @type {ReturnType<typeof setTimeout>|null} */
+  let sseReconnectTimer = null
+  /** @type {string|null} */
+  let sseLastEventId = null
 
   let pollTimer = null
 
@@ -58,6 +68,10 @@ export function useAgentState() {
         const d = res.data || res
         agentState.value = d.state || 'idle'
         status.value = d
+        // 页面刷新后如果 Agent 正在运行，自动连接 SSE
+        if (agentState.value === 'running' && !phaseEventController) {
+          connectPhaseEvents()
+        }
       }
     } catch (e) {
       console.error('fetchStatus error:', e)
@@ -119,6 +133,228 @@ export function useAgentState() {
     }
   }
 
+  /**
+   * 使用 fetch + ReadableStream 模拟 SSE 连接，可携带 Authorization 头
+   */
+  function connectPhaseEvents() {
+    disconnectPhaseEvents()
+    const url = getPhaseEventsUrl()
+    phaseEvents.value = []
+    sseConnected.value = false
+
+    const token = getToken()
+    if (!token) {
+      console.warn('connectPhaseEvents: no auth token, cannot connect SSE')
+      return
+    }
+
+    const controller = new AbortController()
+    phaseEventController = controller
+
+    const fullUrl = url.startsWith('http') ? url : `${window.location.origin}${url}`
+
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      Accept: 'text/event-stream',
+      'Cache-Control': 'no-cache',
+    }
+    // 重连时带上最后收到的 event id，避免重复推送
+    if (sseLastEventId) {
+      headers['Last-Event-ID'] = sseLastEventId
+    }
+
+    fetch(fullUrl, { headers, signal: controller.signal })
+      .then((response) => {
+        if (!response.ok) {
+          sseConnected.value = false
+          // 401/403 表示认证失效，不应重连
+          if (response.status === 401 || response.status === 403) {
+            console.warn('SSE auth failed (401/403), not reconnecting')
+            return
+          }
+          throw new Error(`SSE connection failed: ${response.status} ${response.statusText}`)
+        }
+        sseConnected.value = true
+
+        if (!response.body) {
+          throw new Error('SSE response body is null')
+        }
+        const reader = response.body.getReader()
+        const decoder = new TextDecoder()
+        let buffer = ''
+        let currentEvent = { type: 'message', dataLines: [] }
+
+        function dispatchCurrentEvent() {
+          if (currentEvent.dataLines.length === 0) return
+          const dataStr = currentEvent.dataLines.join('\n')
+          const eventType = currentEvent.type
+
+          // 将 SSE 数据解析分发给各个事件类型，与原 EventSource 语义一致
+          try {
+            const data = JSON.parse(dataStr)
+            _handleSSEEvent(eventType, data)
+          } catch (_) { /* ignore malformed JSON */ }
+
+          currentEvent = { type: 'message', dataLines: [] }
+        }
+
+        function processChunk(chunk) {
+          buffer += decoder.decode(chunk, { stream: true })
+          const lines = buffer.split('\n')
+          // 最后一个元素可能是未完成的行，保留到下一块
+          buffer = lines.pop() || ''
+
+          for (const rawLine of lines) {
+            const line = rawLine.trimEnd()
+            if (line === '') {
+              // 空行 → 派发事件
+              dispatchCurrentEvent()
+              continue
+            }
+
+            if (line.startsWith(':')) {
+              // SSE 注释行，忽略
+              continue
+            }
+
+            const colonIdx = line.indexOf(':')
+            let field, value
+            if (colonIdx === -1) {
+              field = line
+              value = ''
+            } else {
+              field = line.substring(0, colonIdx)
+              value = line.substring(colonIdx + 1)
+              // 按 SSE 规范，value 如果以空格开头则去掉一个空格
+              if (value.startsWith(' ')) value = value.substring(1)
+            }
+
+            switch (field) {
+              case 'event':
+                currentEvent.type = value
+                break
+              case 'data':
+                currentEvent.dataLines.push(value)
+                break
+              case 'id':
+                currentEvent.lastEventId = value
+                sseLastEventId = value
+                break
+              case 'retry':
+                // retry 值在 fetch 模式下暂不处理
+                break
+            }
+          }
+        }
+
+        function pump() {
+          reader
+            .read()
+            .then(({ done, value }) => {
+              if (controller.signal.aborted) return
+
+              if (done) {
+                // 处理残留 buffer
+                if (buffer) {
+                  processChunk(new TextEncoder().encode(buffer + '\n'))
+                  buffer = ''
+                }
+                dispatchCurrentEvent()
+                sseConnected.value = false
+                _scheduleSSEReconnect()
+                return
+              }
+
+              processChunk(value)
+              pump()
+            })
+            .catch((err) => {
+              if (err.name === 'AbortError' || controller.signal.aborted) return
+              console.error('SSE read error:', err)
+              sseConnected.value = false
+              _scheduleSSEReconnect()
+            })
+        }
+
+        pump()
+      })
+      .catch((err) => {
+        if (err.name === 'AbortError' || controller.signal.aborted) return
+        console.error('connectPhaseEvents error:', err)
+        sseConnected.value = false
+        _scheduleSSEReconnect()
+      })
+  }
+
+  /** 按事件类型分发 SSE 数据 */
+  function _handleSSEEvent(eventType, data) {
+    const timestamp = data.timestamp || Date.now()
+
+    switch (eventType) {
+      case 'phase_progress':
+        phaseEvents.value.push({
+          type: 'progress',
+          phase: data.phase || '',
+          message: data.message || '',
+          timestamp,
+        })
+        break
+      case 'phase_completed':
+        phaseEvents.value.push({
+          type: 'completed',
+          phase: data.phase || '',
+          message: data.message || '',
+          timestamp,
+        })
+        break
+      case 'cycle_completed':
+        phaseEvents.value.push({
+          type: 'cycle_completed',
+          phase: 'cycle',
+          message: `决策周期完成，生成了 ${(data.decisions || []).length} 条决策`,
+          timestamp,
+          decisions: data.decisions || [],
+        })
+        break
+      case 'cycle_failed':
+        phaseEvents.value.push({
+          type: 'cycle_failed',
+          phase: 'cycle',
+          message: `决策周期失败: ${data.error || '未知错误'}`,
+          timestamp,
+          error: data.error,
+        })
+        break
+    }
+
+    // 保留最近 200 条，防止内存泄漏
+    if (phaseEvents.value.length > 200) {
+      phaseEvents.value = phaseEvents.value.slice(-200)
+    }
+  }
+
+  /** 断线自动重连（5 秒后） */
+  function _scheduleSSEReconnect() {
+    if (sseReconnectTimer) return
+    sseReconnectTimer = setTimeout(() => {
+      sseReconnectTimer = null
+      connectPhaseEvents()
+    }, 5000)
+  }
+
+  function disconnectPhaseEvents() {
+    if (sseReconnectTimer) {
+      clearTimeout(sseReconnectTimer)
+      sseReconnectTimer = null
+    }
+    if (phaseEventController) {
+      phaseEventController.abort()
+      phaseEventController = null
+    }
+    sseConnected.value = false
+    sseLastEventId = null
+  }
+
   function _extractErrorMsg(error, fallback = '操作失败') {
     const data = error?.response?.data || error?.data
     const detail = data?.detail
@@ -151,6 +387,7 @@ export function useAgentState() {
       const res = await startAgent(payload)
       if (res.success || res.code === 1) {
         await fetchStatus()
+        connectPhaseEvents()
         return { success: true }
       }
       return { success: false, message: _extractErrorMsg(res, '启动失败') }
@@ -168,6 +405,7 @@ export function useAgentState() {
       await fetchStatus()
       return { success: true }
     } finally {
+      disconnectPhaseEvents()
       actionLoading.value = false
     }
   }
@@ -243,6 +481,12 @@ export function useAgentState() {
     }
   }
 
+  // 组件卸载时自动清理 SSE 和轮询，防止内存泄漏
+  onUnmounted(() => {
+    disconnectPhaseEvents()
+    stopPolling()
+  })
+
   return {
     agentState,
     statusLoading,
@@ -254,6 +498,8 @@ export function useAgentState() {
     trades,
     decisions,
     config,
+    phaseEvents,
+    sseConnected,
     startPolling,
     stopPolling,
     fetchStatus,
@@ -264,5 +510,7 @@ export function useAgentState() {
     handleResume,
     saveConfig,
     fetchKlineData,
+    connectPhaseEvents,
+    disconnectPhaseEvents,
   }
 }

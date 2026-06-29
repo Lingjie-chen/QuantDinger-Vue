@@ -1888,7 +1888,7 @@ registerOverlay({
             }
           })
 
-          if (response.code === 1 && response.data && Array.isArray(response.data)) {
+          if ((response.code === 1 || response.success === true) && response.data && Array.isArray(response.data)) {
             formattedData = formatKlineData(response.data)
           } else {
             let errMsg = response.msg || '获取K线数据失败'
@@ -2011,7 +2011,7 @@ registerOverlay({
           }
         })
 
-        if (response.code === 1 && response.data && Array.isArray(response.data)) {
+        if ((response.code === 1 || response.success === true) && response.data && Array.isArray(response.data)) {
           const newData = formatKlineData(response.data)
 
           if (newData.length === 0) {
@@ -2116,7 +2116,7 @@ registerOverlay({
           }
         })
 
-        if (response.code === 1 && response.data && Array.isArray(response.data)) {
+        if ((response.code === 1 || response.success === true) && response.data && Array.isArray(response.data)) {
           const newData = formatKlineData(response.data)
 
           if (newData.length === 0) {

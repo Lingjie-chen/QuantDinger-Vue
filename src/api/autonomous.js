@@ -102,5 +102,5 @@ export function saveCredentials(data) {
 // ==================== SSE 事件流 ====================
 
 export function getPhaseEventsUrl() {
-  return '/api/quant/autonomous/phases/stream'
+  return '/api/quant/autonomous/cycle/stream'
 }

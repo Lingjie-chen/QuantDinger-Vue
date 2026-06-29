@@ -17,7 +17,7 @@ let isRedirectingToLogin = false
 /**
  * 获取 token，处理 token 可能是字符串或对象的情况
  */
-function getToken() {
+export function getToken() {
   let token = storage.get(ACCESS_TOKEN)
   if (!token) {
     return null

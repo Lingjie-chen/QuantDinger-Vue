@@ -920,20 +920,16 @@ export default {
         return
       }
       try {
-        console.log('Loading position:', { credential_id: this.selectedCredentialId, symbol: this.currentSymbol, market_type: this.effectiveMarketType })
         const res = await getQuickTradePosition({
           credential_id: this.selectedCredentialId,
           symbol: this.currentSymbol,
           market_type: this.effectiveMarketType
         })
-        console.log('Position response:', res)
         if (res.code === 1 && res.data && res.data.positions && res.data.positions.length > 0) {
           this.currentPositions = res.data.positions
-          console.log('Positions loaded:', this.currentPositions.length)
           return true
         } else {
           this.currentPositions = []
-          console.log('No position found')
           return false
         }
       } catch (e) {
