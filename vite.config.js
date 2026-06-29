@@ -99,6 +99,7 @@ export default defineConfig(({ mode }) => {
     },
     build: {
       target: 'es2020',
+      cssMinify: false,
       sourcemap: false,
       chunkSizeWarningLimit: 1500,
       commonjsOptions: {
