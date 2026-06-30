@@ -78,9 +78,9 @@ export default {
   &.theme-dark {
     background: @qd-bg-gradient-dark;
     background-attachment: fixed;
-    /deep/ .ant-card { .qd-glass-dark(); .qd-panel-glow(); .qd-card-hover(); }
+    ::v-deep .ant-card { .qd-glass-dark(); .qd-panel-glow(); .qd-card-hover(); }
   }
-  /deep/ .ant-card { .qd-glass-light(); .qd-card-hover-light(); }
+  ::v-deep .ant-card { .qd-glass-light(); .qd-card-hover-light(); }
   .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: @qd-space-md; h3 { margin: 0; } }
   .positive { .qd-positive-text(); }
   .negative { .qd-negative-text(); }

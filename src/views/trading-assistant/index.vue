@@ -3797,26 +3797,26 @@ export default {
 <style lang="less" scoped>
 // 顶层 Tab 样式
 .top-level-tabs {
-  /deep/ .ant-tabs-bar {
+  ::v-deep .ant-tabs-bar {
     margin-bottom: 16px;
     border-bottom: 1px solid #e8e8e8;
   }
-  /deep/ .ant-tabs-tab {
+  ::v-deep .ant-tabs-tab {
     font-size: 15px;
     padding: 12px 20px;
   }
 }
 .theme-dark .top-level-tabs {
-  /deep/ .ant-tabs-bar {
+  ::v-deep .ant-tabs-bar {
     border-bottom-color: #303030;
   }
-  /deep/ .ant-tabs-tab {
+  ::v-deep .ant-tabs-tab {
     color: rgba(255,255,255,0.65);
   }
-  /deep/ .ant-tabs-tab-active {
+  ::v-deep .ant-tabs-tab-active {
     color: #177ddc;
   }
-  /deep/ .ant-tabs-ink-bar {
+  ::v-deep .ant-tabs-ink-bar {
     background: #177ddc;
   }
 }
@@ -4091,14 +4091,14 @@ export default {
           }
         }
 
-        /deep/ .ant-card-body {
+        ::v-deep .ant-card-body {
           max-height: calc(50vh - 60px);
           overflow-y: auto;
           padding: 8px;
           -webkit-overflow-scrolling: touch;
         }
 
-        /deep/ .ant-card-head {
+        ::v-deep .ant-card-head {
           padding: 0;
           min-height: 48px;
         }
@@ -4108,11 +4108,11 @@ export default {
           margin-bottom: 4px;
           border-radius: 8px;
 
-          /deep/ .ant-list-item-meta {
+          ::v-deep .ant-list-item-meta {
             width: 100%;
           }
 
-          /deep/ .ant-list-item-action {
+          ::v-deep .ant-list-item-action {
             margin-left: 8px;
           }
 
@@ -4158,7 +4158,7 @@ export default {
             }
           }
 
-          /deep/ .ant-list-item-meta-description {
+          ::v-deep .ant-list-item-meta-description {
             .strategy-item-info {
               display: flex !important;
               flex-direction: row;
@@ -4199,11 +4199,11 @@ export default {
         gap: 12px;
 
         .strategy-header-card {
-          /deep/ .ant-card-body {
+          ::v-deep .ant-card-body {
             padding: 16px 12px;
           }
 
-          /deep/ .ant-card-head {
+          ::v-deep .ant-card-head {
             padding: 0;
           }
 
@@ -4228,7 +4228,7 @@ export default {
                 gap: 8px;
                 align-items: start;
 
-                /deep/ .ant-tag {
+                ::v-deep .ant-tag {
                   grid-column: 1 / -1;
                   justify-self: start;
                   margin: 0;
@@ -4269,7 +4269,7 @@ export default {
                 @media (max-width: 480px) {
                   grid-template-columns: 1fr;
 
-                  /deep/ .ant-tag {
+                  ::v-deep .ant-tag {
                     grid-column: 1;
                   }
                 }
@@ -4300,16 +4300,16 @@ export default {
         }
 
         .strategy-content-card {
-          /deep/ .ant-card-body {
+          ::v-deep .ant-card-body {
             padding: 12px 8px;
             overflow-x: hidden;
           }
 
-          /deep/ .ant-card-head {
+          ::v-deep .ant-card-head {
             padding: 0 8px;
           }
 
-          /deep/ .ant-tabs {
+          ::v-deep .ant-tabs {
             .ant-tabs-nav {
               padding: 0 4px;
 
@@ -4344,7 +4344,7 @@ export default {
       .strategy-list-card {
         max-height: 45vh;
 
-        /deep/ .ant-card-body {
+        ::v-deep .ant-card-body {
           max-height: calc(45vh - 60px);
         }
       }
@@ -4444,7 +4444,7 @@ export default {
           font-weight: 500;
         }
 
-        /deep/ .ant-radio-group {
+        ::v-deep .ant-radio-group {
           .ant-radio-button-wrapper {
             font-size: 12px;
             padding: 0 10px;
@@ -4467,14 +4467,14 @@ export default {
         }
       }
 
-      /deep/ .ant-card-body {
+      ::v-deep .ant-card-body {
         flex: 1;
         overflow-y: auto;
         background: #fff;
         padding: 12px;
       }
 
-      /deep/ .ant-card-head {
+      ::v-deep .ant-card-head {
         background: linear-gradient(180deg, #fff 0%, #fafbfc 100%);
         border-bottom: 1px solid #f0f0f0;
       }
@@ -4607,7 +4607,7 @@ export default {
                 padding-top: 0;
                 margin-left: 4px;
 
-                /deep/ .ant-btn {
+                ::v-deep .ant-btn {
                   display: inline-flex;
                   align-items: center;
                   justify-content: center;
@@ -4730,7 +4730,7 @@ export default {
           align-self: center;
           margin-left: 4px;
 
-          /deep/ .ant-btn {
+          ::v-deep .ant-btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -4887,7 +4887,7 @@ export default {
               column-gap: 6px;
               width: 100%;
 
-              /deep/ .ant-tag {
+              ::v-deep .ant-tag {
                 margin-right: 0;
               }
 
@@ -4897,13 +4897,13 @@ export default {
             }
           }
 
-          /deep/ .status-stopped {
+          ::v-deep .status-stopped {
             color: @danger-color !important;
             border-color: @danger-color !important;
           }
         }
 
-        /deep/ .ant-list-item-meta-description {
+        ::v-deep .ant-list-item-meta-description {
           max-width: calc(100% - 20px); // 留出空间给右侧操作按钮和选中边框
           overflow: hidden;
 
@@ -4997,7 +4997,7 @@ export default {
               }
             }
 
-            /deep/ .ant-tag {
+            ::v-deep .ant-tag {
               margin-right: 0;
               font-size: 11px;
               line-height: 18px;
@@ -5091,12 +5091,12 @@ export default {
           box-shadow: @card-shadow-hover;
         }
 
-        /deep/ .ant-card-head {
+        ::v-deep .ant-card-head {
           background: transparent;
           border-bottom: none;
         }
 
-        /deep/ .ant-card-body {
+        ::v-deep .ant-card-body {
           background: transparent;
           padding: 20px;
         }
@@ -5367,13 +5367,13 @@ export default {
           box-shadow: @card-shadow-hover;
         }
 
-        /deep/ .ant-card-head {
+        ::v-deep .ant-card-head {
           background: linear-gradient(180deg, #fafbfc 0%, #fff 100%);
           border-bottom: 1px solid #f0f0f0;
           flex-shrink: 0;
         }
 
-        /deep/ .ant-card-body {
+        ::v-deep .ant-card-body {
           flex: 1;
           display: flex;
           flex-direction: column;
@@ -5439,7 +5439,7 @@ export default {
           background-clip: text;
         }
 
-        /deep/ .ant-card-head {
+        ::v-deep .ant-card-head {
           background: #1c1c1c;
           border-bottom-color: rgba(255, 255, 255, 0.06);
 
@@ -5448,11 +5448,11 @@ export default {
           }
         }
 
-        /deep/ .ant-card-body {
+        ::v-deep .ant-card-body {
           background: transparent;
         }
 
-        /deep/ .ant-empty-description {
+        ::v-deep .ant-empty-description {
           color: #868993;
         }
 
@@ -5537,7 +5537,7 @@ export default {
           }
         }
 
-        /deep/ .ant-list {
+        ::v-deep .ant-list {
           .ant-list-item {
             border-bottom-color: rgba(255, 255, 255, 0.06);
 
@@ -5559,7 +5559,7 @@ export default {
           color: rgba(255, 255, 255, 0.45);
         }
 
-        /deep/ .ant-radio-button-wrapper {
+        ::v-deep .ant-radio-button-wrapper {
           background: rgba(255, 255, 255, 0.04);
           border-color: rgba(255, 255, 255, 0.12);
           color: rgba(255, 255, 255, 0.65);
@@ -5569,7 +5569,7 @@ export default {
           }
         }
 
-        /deep/ .ant-radio-button-wrapper-checked {
+        ::v-deep .ant-radio-button-wrapper-checked {
           background: rgba(24, 144, 255, 0.25) !important;
           border-color: @primary-color !important;
           color: #fff !important;
@@ -5707,12 +5707,12 @@ export default {
         border: 1px solid rgba(255, 255, 255, 0.06);
         box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25), 0 0 40px rgba(52, 211, 153, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.04);
 
-        /deep/ .ant-card-head {
+        ::v-deep .ant-card-head {
           background: transparent;
           border-bottom: none;
         }
 
-        /deep/ .ant-card-body {
+        ::v-deep .ant-card-body {
           background: transparent;
         }
 
@@ -5770,7 +5770,7 @@ export default {
         border: 1px solid rgba(255, 255, 255, 0.06);
         box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25), 0 0 40px rgba(52, 211, 153, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.04);
 
-        /deep/ .ant-card-head {
+        ::v-deep .ant-card-head {
           background: #1c1c1c;
           border-bottom-color: rgba(255, 255, 255, 0.06);
 
@@ -5779,11 +5779,11 @@ export default {
           }
         }
 
-        /deep/ .ant-card-body {
+        ::v-deep .ant-card-body {
           background: transparent;
         }
 
-        /deep/ .ant-tabs {
+        ::v-deep .ant-tabs {
           .ant-tabs-nav {
             .ant-tabs-tab {
               color: #868993;
@@ -5809,7 +5809,7 @@ export default {
           }
         }
 
-        /deep/ .ant-empty-description {
+        ::v-deep .ant-empty-description {
           color: #868993;
         }
       }
@@ -5898,20 +5898,20 @@ export default {
   border-radius: 10px;
   overflow: hidden;
 
-  /deep/ .ant-collapse-item {
+  ::v-deep .ant-collapse-item {
     border-bottom-color: #f0f0f0;
   }
 
-  /deep/ .ant-collapse-header {
+  ::v-deep .ant-collapse-header {
     font-weight: 500;
     font-size: 13px;
   }
 
-  /deep/ .ant-collapse-content-box {
+  ::v-deep .ant-collapse-content-box {
     padding: 12px 16px;
   }
 
-  /deep/ .ant-input-number {
+  ::v-deep .ant-input-number {
     width: 100%;
   }
 }
@@ -6244,11 +6244,11 @@ export default {
   @media (max-width: 768px) {
     margin-bottom: 16px;
 
-    /deep/ .ant-steps-item-title {
+    ::v-deep .ant-steps-item-title {
       font-size: 12px;
     }
 
-    /deep/ .ant-steps-item-icon {
+    ::v-deep .ant-steps-item-icon {
       width: 24px;
       height: 24px;
       line-height: 24px;
@@ -6265,7 +6265,7 @@ export default {
     animation: fadeIn 0.3s;
   }
 
-  /deep/ .ant-form-item {
+  ::v-deep .ant-form-item {
     margin-bottom: 20px;
   }
 
@@ -6295,7 +6295,7 @@ export default {
       padding: 16px;
     }
 
-    /deep/ .ant-form-item-label {
+    ::v-deep .ant-form-item-label {
       padding-bottom: 4px;
 
       label {
@@ -6303,13 +6303,13 @@ export default {
       }
     }
 
-    /deep/ .ant-input,
-    /deep/ .ant-input-number,
-    /deep/ .ant-select {
+    ::v-deep .ant-input,
+    ::v-deep .ant-input-number,
+    ::v-deep .ant-select {
       font-size: 14px;
     }
 
-    /deep/ .ant-radio-group {
+    ::v-deep .ant-radio-group {
       display: flex;
       flex-direction: column;
       gap: 8px;
@@ -6324,13 +6324,13 @@ export default {
     min-height: 250px;
     padding: 12px 0;
 
-    /deep/ .ant-form-item-label label {
+    ::v-deep .ant-form-item-label label {
       font-size: 12px;
     }
 
-    /deep/ .ant-input,
-    /deep/ .ant-input-number,
-    /deep/ .ant-select {
+    ::v-deep .ant-input,
+    ::v-deep .ant-input-number,
+    ::v-deep .ant-select {
       font-size: 13px;
     }
   }
@@ -6348,7 +6348,7 @@ export default {
       color: #262626;
     }
 
-    /deep/ .ant-radio-group {
+    ::v-deep .ant-radio-group {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
@@ -6601,12 +6601,12 @@ export default {
   }
 }
 
-/deep/ .danger-item {
+::v-deep .danger-item {
   color: #ff4d4f;
 }
 
 // 移动端弹窗样式
-/deep/ .mobile-modal {
+::v-deep .mobile-modal {
   .ant-modal {
     top: 20px;
     padding-bottom: 0;
