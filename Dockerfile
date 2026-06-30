@@ -11,8 +11,8 @@
 # does no compilation — only file copies and a small apk add — so the
 # arm64 manifest entry is cheap.
 
-ARG NODE_IMAGE=node:18-alpine
-ARG NGINX_IMAGE=nginx:1.25-alpine
+ARG NODE_IMAGE=node:22-alpine
+ARG NGINX_IMAGE=nginx:1.27-alpine
 
 FROM --platform=$BUILDPLATFORM ${NODE_IMAGE} AS builder
 ARG APP_VERSION=""
@@ -43,7 +43,7 @@ RUN apk add --no-cache curl
 # Pin the envsubst filter so only ${BACKEND_URL} is substituted — otherwise
 # nginx's own $-variables ($host, $remote_addr, ...) would also be clobbered.
 ENV NGINX_ENVSUBST_FILTER=BACKEND_URL \
-    BACKEND_URL=http://backend:5000
+    BACKEND_URL=http://backend:8010
 
 COPY deploy/nginx-docker.conf.template /etc/nginx/templates/default.conf.template
 COPY --from=builder /app/dist /usr/share/nginx/html
