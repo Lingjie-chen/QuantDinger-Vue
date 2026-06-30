@@ -19,7 +19,7 @@
                 {{ $t('app.setting.pagestyle.dark') }}
               </template>
               <div class="setting-drawer-index-item" @click="handleMenuTheme('dark')">
-                <img src="https://gw.alipayobjects.com/zos/rmsportal/LCkqqYNmvBEbokSDscrm.svg" alt="dark" />
+                <img src="https://gw.alipayobjects.com/zos/rmsportal/LCkqqYNmvBEbokSDscrm.svg" alt="dark" width="80" height="36" />
                 <div class="setting-drawer-index-selectIcon" v-if="currentNavTheme === 'dark'">
                   <a-icon type="check"/>
                 </div>
@@ -31,7 +31,7 @@
                 {{ $t('app.setting.pagestyle.light') }}
               </template>
               <div class="setting-drawer-index-item" @click="handleMenuTheme('light')">
-                <img src="https://gw.alipayobjects.com/zos/rmsportal/jpRkZQMyYRryryPNtyIC.svg" alt="light" />
+                <img src="https://gw.alipayobjects.com/zos/rmsportal/jpRkZQMyYRryryPNtyIC.svg" alt="light" width="80" height="36" />
                 <div class="setting-drawer-index-selectIcon" v-if="currentNavTheme !== 'dark'">
                   <a-icon type="check"/>
                 </div>
@@ -73,7 +73,7 @@
                 {{ $t('app.setting.sidemenu.nav') }}
               </template>
               <div class="setting-drawer-index-item" @click="handleLayout('sidemenu')">
-                <img src="https://gw.alipayobjects.com/zos/rmsportal/JopDzEhOqwOjeNTXkoje.svg" alt="sidemenu" />
+                <img src="https://gw.alipayobjects.com/zos/rmsportal/JopDzEhOqwOjeNTXkoje.svg" alt="sidemenu" width="80" height="36" />
                 <div class="setting-drawer-index-selectIcon" v-if="layoutMode === 'sidemenu'">
                   <a-icon type="check"/>
                 </div>
@@ -85,7 +85,7 @@
                 {{ $t('app.setting.topmenu.nav') }}
               </template>
               <div class="setting-drawer-index-item" @click="handleLayout('topmenu')">
-                <img src="https://gw.alipayobjects.com/zos/rmsportal/KDNDBbriJhLwuqMoxcAr.svg" alt="topmenu" />
+                <img src="https://gw.alipayobjects.com/zos/rmsportal/KDNDBbriJhLwuqMoxcAr.svg" alt="topmenu" width="80" height="36" />
                 <div class="setting-drawer-index-selectIcon" v-if="layoutMode !== 'sidemenu'">
                   <a-icon type="check"/>
                 </div>

@@ -348,7 +348,7 @@
 </template>
 
 <script>
-import * as echarts from 'echarts'
+import echarts from '@/utils/echarts'
 import { getDashboardSummary, getPendingOrders } from '@/api/dashboard'
 import { mapState } from 'vuex'
 import { formatUserDateTime } from '@/utils/userTime'

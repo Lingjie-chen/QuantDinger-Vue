@@ -13,7 +13,7 @@
       <a-col :xs="24" :md="8" class="profile-card-col">
         <a-card :bordered="false" class="profile-card">
           <div class="avatar-section">
-            <a-avatar :size="100" :src="profile.avatar || '/avatar2.jpg'" />
+            <a-avatar :size="100" :src="profile.avatar || '/avatar2.webp'" />
             <h3 class="username">{{ profile.nickname || profile.username }}</h3>
             <p class="user-role">
               <a-tag :color="getRoleColor(profile.role)">
@@ -583,7 +583,7 @@
                 <!-- Avatar & Name Column -->
                 <template slot="user" slot-scope="text, record">
                   <div class="referral-user-cell">
-                    <a-avatar :size="32" :src="record.avatar || '/avatar2.jpg'" />
+                    <a-avatar :size="32" :src="record.avatar || '/avatar2.webp'" />
                     <div class="user-info">
                       <span class="nickname">{{ record.nickname || record.username }}</span>
                       <span class="username">@{{ record.username }}</span>

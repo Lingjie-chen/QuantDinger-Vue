@@ -13,8 +13,8 @@
 
       <template #menuHeaderRender>
         <div class="sidebar-logo-wrapper" :class="{ 'sidebar-logo-wrapper--collapsed': collapsed }">
-          <img v-if="collapsed" :src="collapsedLogo" class="sidebar-logo sidebar-logo--collapsed" :alt="brandConfig.app_name" />
-          <img v-else :src="currentLogo" class="sidebar-logo" :alt="brandConfig.app_name" />
+          <img v-if="collapsed" :src="collapsedLogo" class="sidebar-logo sidebar-logo--collapsed" :alt="brandConfig.app_name" width="40" height="40" />
+          <img v-else :src="currentLogo" class="sidebar-logo" :alt="brandConfig.app_name" width="120" height="40" />
         </div>
       </template>
       <!-- 1.0.0+ 版本 pro-layout 提供 API,

@@ -1155,7 +1155,7 @@
 import { getUserList, exportUsers, createUser, updateUser, deleteUser, resetUserPassword, getRoles, setUserCredits, setUserVip, getSystemStrategies, adminToggleStrategy, getAdminOrders, manualConfirmOrder, getAdminAiStats, getUserAdminStats } from '@/api/user'
 import { baseMixin } from '@/store/app-mixin'
 import { mapGetters } from 'vuex'
-import * as echarts from 'echarts'
+import echarts from '@/utils/echarts'
 import { getExchangeDisplayName } from '@/utils/exchangeCredential'
 
 export default {

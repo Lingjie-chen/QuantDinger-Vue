@@ -501,7 +501,8 @@ export default {
       const el = this.$refs.equityChart
       if (!el) return
       try {
-        const echarts = await import('echarts')
+        const echartsModule = await import('@/utils/echarts')
+        const echarts = echartsModule.default
         this.disposeEquityChart()
         const inst = echarts.init(el)
         const points = this.performance.equity_curve || []

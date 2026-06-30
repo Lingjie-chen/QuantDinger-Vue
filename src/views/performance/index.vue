@@ -14,7 +14,7 @@
   </div>
 </template>
 <script>
-import * as echarts from 'echarts'
+import echarts from '@/utils/echarts'
 import { mapState } from 'vuex'
 import request from '@/utils/request'
 export function getPerformanceOverview () { return request({ url: '/api/performance/overview', method: 'get' }) }

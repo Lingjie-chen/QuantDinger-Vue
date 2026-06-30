@@ -13,6 +13,47 @@ import { i18nRender } from '@/locales'
 export default {
   data () {
     return {
+      _ariaObserver: null
+    }
+  },
+  mounted () {
+    this.fixAriaIssues()
+    this._ariaObserver = new MutationObserver(() => this.fixAriaIssues())
+    this._ariaObserver.observe(document.body, { childList: true, subtree: true })
+  },
+  beforeDestroy () {
+    if (this._ariaObserver) {
+      this._ariaObserver.disconnect()
+    }
+  },
+  methods: {
+    fixAriaIssues () {
+      // 1. aria-prohibited-attr: <i aria-label> without role → add role="img"
+      document.querySelectorAll('.anticon[aria-label]:not([role])').forEach(el => {
+        el.setAttribute('role', 'img')
+      })
+      // 2. aria-required-attr: role="switch" needs aria-checked
+      document.querySelectorAll('[role="switch"]:not([aria-checked])').forEach(el => {
+        const checked = el.classList.contains('ant-switch-checked')
+        el.setAttribute('aria-checked', String(checked))
+      })
+      // Sync aria-checked on click for ant-switch
+      document.querySelectorAll('.ant-switch[role="switch"]').forEach(el => {
+        if (!el._ariaSynced) {
+          el._ariaSynced = true
+          el.addEventListener('click', () => {
+            el.setAttribute('aria-checked', String(el.classList.contains('ant-switch-checked')))
+          })
+        }
+      })
+      // 3. listitem: wrap stray <li class="ant-list-item"> — they should be in <ul>
+      // Ant Design List renders <div><li> — add role="list" to the parent div
+      document.querySelectorAll('li.ant-list-item').forEach(li => {
+        const parent = li.parentElement
+        if (parent && parent.tagName !== 'UL' && parent.tagName !== 'OL' && !parent.getAttribute('role')) {
+          parent.setAttribute('role', 'list')
+        }
+      })
     }
   },
   computed: {

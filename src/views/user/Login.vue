@@ -960,7 +960,7 @@ export default {
 
         const name = userInfoData.nickname || userInfoData.username || 'User'
         this.$store.commit('SET_NAME', { name, welcome: timeFix() })
-        this.$store.commit('SET_AVATAR', userInfoData.avatar || '/avatar2.jpg')
+        this.$store.commit('SET_AVATAR', userInfoData.avatar || '/avatar2.webp')
 
         let roles = [{ id: 'default', permissionList: [] }]
         if (userInfoData.role) {

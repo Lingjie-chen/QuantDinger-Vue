@@ -3,6 +3,7 @@ import vue2 from '@vitejs/plugin-vue2'
 import vue2Jsx from '@vitejs/plugin-vue2-jsx'
 import svgLoader from 'vite-svg-loader'
 import { viteMockServe } from 'vite-plugin-mock'
+import vitePluginImp from 'vite-plugin-imp'
 import { fileURLToPath, URL } from 'node:url'
 import { execSync } from 'node:child_process'
 import { readFileSync } from 'node:fs'
@@ -71,6 +72,19 @@ export default defineConfig(({ mode }) => {
       vue2(),
       vue2Jsx(),
       svgLoader({ defaultImport: 'url' }),
+      // 按需引入 ant-design-vue 1.x：自动把 `import { Button } from 'ant-design-vue'`
+      // 重写为 `import Button from 'ant-design-vue/es/button'` + 对应 style
+      vitePluginImp({
+        libList: [
+          {
+            libName: 'ant-design-vue',
+            style(name) {
+              // ant-design-vue 1.x es 目录用 kebab-case：button → ant-design-vue/es/button/style/css
+              return `ant-design-vue/es/${name}/style/css`
+            },
+          },
+        ],
+      }),
       viteMockServe({
         mockPath: 'src/mock/services',
         enable: enableMock,
@@ -98,8 +112,8 @@ export default defineConfig(({ mode }) => {
       exclude: ['pyodide'],
     },
     build: {
-      target: 'es2020',
-      cssMinify: false,
+      target: 'es2021',
+      cssMinify: 'esbuild',
       sourcemap: false,
       chunkSizeWarningLimit: 1500,
       commonjsOptions: {
@@ -107,11 +121,27 @@ export default defineConfig(({ mode }) => {
       },
       rollupOptions: {
         output: {
-          manualChunks: {
-            'ant-design-vue': ['ant-design-vue'],
-            echarts: ['echarts'],
-            klinecharts: ['klinecharts'],
-            codemirror: ['codemirror'],
+          manualChunks(id) {
+            if (!id.includes('node_modules')) return
+            // Vue core ecosystem
+            if (id.includes('/vue/') || id.includes('/vue-router/') || id.includes('/vuex/')) return 'vue-core'
+            if (id.includes('/vue-i18n/')) return 'vue-i18n'
+            // Ant Design (largest UI lib)
+            if (id.includes('ant-design-vue') || id.includes('@ant-design') || id.includes('ant-design')) return 'antd'
+            if (id.includes('@ant-design-vue/pro-layout')) return 'antd'
+            // Heavy chart libs — echarts/core tree-shaking: don't force-chunk echarts subpackages
+            if (id.includes('zrender')) return 'zrender'
+            if (id.includes('/klinecharts/')) return 'klinecharts'
+            if (id.includes('viser-vue') || id.includes('@antv')) return 'antv'
+            // Editor libs
+            if (id.includes('/codemirror/')) return 'codemirror'
+            if (id.includes('wangeditor') || id.includes('vue-quill-editor')) return 'editors'
+            // Utils
+            if (id.includes('/moment/')) return 'moment'
+            if (id.includes('lodash-es') || id.includes('/lodash/')) return 'lodash'
+            if (id.includes('/axios/')) return 'axios'
+            // Pyodide - isolated
+            if (id.includes('pyodide')) return 'pyodide'
           },
         },
       },

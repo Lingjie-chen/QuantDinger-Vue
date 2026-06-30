@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import 'ant-design-vue/dist/antd.css'
+// ant-design-vue 样式由 vite-plugin-imp 按组件自动注入，不再全量引入 dist/antd.css
 import App from './App.vue'
 import router from './router'
 import store from './store/'
@@ -19,7 +19,7 @@ Vue.config.productionTip = false
 // Suppress noisy ResizeObserver loop errors (harmless in most cases on responsive layouts)
 if (typeof window !== 'undefined') {
   const ignoreResizeObserverError = (e) => {
-    const msg = (e && (e.reason && e.reason.message || e.message)) || ''
+    const msg = (e && ((e.reason && e.reason.message) || e.message)) || ''
     if (msg.includes('ResizeObserver loop') || msg.includes('ResizeObserver loop limit exceeded')) {
       e.preventDefault && e.preventDefault()
       e.stopImmediatePropagation && e.stopImmediatePropagation()
@@ -43,5 +43,5 @@ new Vue({
   i18n,
   // init localstorage, vuex, Logo message
   created: bootstrap,
-  render: h => h(App)
+  render: (h) => h(App),
 }).$mount('#app')

@@ -8,25 +8,25 @@ storage.addPlugin(expirePlugin)
 
 const DEFAULT_ROLE = { id: 'default', permissionList: [] }
 
-function normalizeRoles (roles) {
+function normalizeRoles(roles) {
   if (!roles) return []
   if (Array.isArray(roles)) return roles
   return [roles]
 }
 
-function getStoredInfo () {
+function getStoredInfo() {
   const info = storage.get(USER_INFO) || {}
-  return (info && typeof info === 'object') ? info : {}
+  return info && typeof info === 'object' ? info : {}
 }
 
-function getStoredRoles () {
+function getStoredRoles() {
   const roles = storage.get(USER_ROLES) || []
   return normalizeRoles(roles)
 }
 
-function getStoredToken () {
+function getStoredToken() {
   const token = storage.get(ACCESS_TOKEN)
-  return typeof token === 'string' ? token : (token && token.token) ? token.token : token
+  return typeof token === 'string' ? token : token && token.token ? token.token : token
 }
 
 const initialInfo = getStoredInfo()
@@ -46,7 +46,7 @@ const user = {
     welcome: initialWelcome,
     avatar: initialAvatar,
     roles: initialRoles,
-    info: initialInfo
+    info: initialInfo,
   },
 
   mutations: {
@@ -65,58 +65,62 @@ const user = {
     },
     SET_INFO: (state, info) => {
       state.info = info
-    }
+    },
   },
 
   actions: {
-    Login ({ commit, dispatch }, userInfo) {
+    Login({ commit, dispatch }, userInfo) {
       return new Promise((resolve, reject) => {
-        login(userInfo).then(response => {
-          if (response && response.code === 1 && response.data) {
-            const result = response.data
-            if (result.mfa_required) {
+        login(userInfo)
+          .then((response) => {
+            if (response && response.code === 1 && response.data) {
+              const result = response.data
+              if (result.mfa_required) {
+                resolve(response)
+                return
+              }
+              const token = result.token
+              const info = result.userinfo || {}
+
+              const expiresAt = new Date().getTime() + 7 * 24 * 60 * 60 * 1000
+              storage.set(ACCESS_TOKEN, token, expiresAt)
+              commit('SET_TOKEN', token)
+              commit('SET_INFO', info)
+              storage.set(USER_INFO, info, expiresAt)
+
+              const name = info.nickname || info.username || 'User'
+              commit('SET_NAME', { name: name, welcome: welcome() })
+              commit('SET_AVATAR', info.avatar || '/avatar2.webp')
+
+              let roles = [DEFAULT_ROLE]
+              if (info.role) {
+                // role: { id: 'admin', permissions: [...] }
+                const roleId = info.role.id || info.role
+                const permissions = info.role.permissions || []
+                roles = [
+                  {
+                    id: roleId,
+                    permissionList: permissions.length > 0 ? permissions : ['dashboard'],
+                  },
+                ]
+              }
+              commit('SET_ROLES', roles)
+              storage.set(USER_ROLES, roles, expiresAt)
+
+              dispatch('ResetRoutes')
+
               resolve(response)
-              return
+            } else {
+              reject(new Error((response && response.msg) || 'Login failed'))
             }
-            const token = result.token
-            const info = result.userinfo || {}
-
-            const expiresAt = new Date().getTime() + 7 * 24 * 60 * 60 * 1000
-            storage.set(ACCESS_TOKEN, token, expiresAt)
-            commit('SET_TOKEN', token)
-            commit('SET_INFO', info)
-            storage.set(USER_INFO, info, expiresAt)
-
-            const name = info.nickname || info.username || 'User'
-            commit('SET_NAME', { name: name, welcome: welcome() })
-            commit('SET_AVATAR', info.avatar || '/avatar2.jpg')
-
-            let roles = [DEFAULT_ROLE]
-            if (info.role) {
-              // role: { id: 'admin', permissions: [...] }
-              const roleId = info.role.id || info.role
-              const permissions = info.role.permissions || []
-              roles = [{
-                id: roleId,
-                permissionList: permissions.length > 0 ? permissions : ['dashboard']
-              }]
-            }
-            commit('SET_ROLES', roles)
-            storage.set(USER_ROLES, roles, expiresAt)
-
-            dispatch('ResetRoutes')
-
-            resolve(response)
-          } else {
-            reject(new Error((response && response.msg) || 'Login failed'))
-          }
-        }).catch(error => {
-          reject(error)
-        })
+          })
+          .catch((error) => {
+            reject(error)
+          })
       })
     },
 
-    Web3LoginFinalize ({ commit }, payload) {
+    Web3LoginFinalize({ commit }, payload) {
       return new Promise((resolve, reject) => {
         try {
           const { token, userInfo } = payload
@@ -155,31 +159,33 @@ const user = {
       })
     },
 
-    FetchUserInfo ({ commit }) {
+    FetchUserInfo({ commit }) {
       return new Promise((resolve, reject) => {
-        getUserInfo().then(res => {
-          if (res && res.code === 1 && res.data) {
-            const info = res.data
-            commit('SET_INFO', info)
-            const expiresAt = new Date().getTime() + 7 * 24 * 60 * 60 * 1000
-            storage.set(USER_INFO, info, expiresAt)
-            if (info.nickname) {
-              commit('SET_NAME', { name: info.nickname, welcome: welcome() })
-            } else if (info.username) {
-              commit('SET_NAME', { name: info.username, welcome: welcome() })
+        getUserInfo()
+          .then((res) => {
+            if (res && res.code === 1 && res.data) {
+              const info = res.data
+              commit('SET_INFO', info)
+              const expiresAt = new Date().getTime() + 7 * 24 * 60 * 60 * 1000
+              storage.set(USER_INFO, info, expiresAt)
+              if (info.nickname) {
+                commit('SET_NAME', { name: info.nickname, welcome: welcome() })
+              } else if (info.username) {
+                commit('SET_NAME', { name: info.username, welcome: welcome() })
+              }
+              if (info.avatar) {
+                commit('SET_AVATAR', info.avatar)
+              }
+              resolve(info)
+            } else {
+              reject(new Error((res && res.msg) || '获取用户信息失败'))
             }
-            if (info.avatar) {
-              commit('SET_AVATAR', info.avatar)
-            }
-            resolve(info)
-          } else {
-            reject(new Error((res && res.msg) || '获取用户信息失败'))
-          }
-        }).catch(err => reject(err))
+          })
+          .catch((err) => reject(err))
       })
     },
 
-    GetInfo ({ commit, state }) {
+    GetInfo({ commit, state }) {
       return new Promise((resolve, reject) => {
         if (
           state.info &&
@@ -202,65 +208,68 @@ const user = {
           }
           resolve(state.info)
         } else {
-          getUserInfo().then(res => {
-            if (res && res.code === 1 && res.data) {
-              const info = res.data
-              commit('SET_INFO', info)
-              storage.set(USER_INFO, info, new Date().getTime() + 7 * 24 * 60 * 60 * 1000)
-              if (info.nickname) {
-                commit('SET_NAME', { name: info.nickname, welcome: welcome() })
-              } else if (info.username) {
-                commit('SET_NAME', { name: info.username, welcome: welcome() })
-              }
-              if (info.avatar) {
-                commit('SET_AVATAR', info.avatar)
-              }
-              if (info.role) {
-                const roles = normalizeRoles(info.role)
-                commit('SET_ROLES', roles)
-                storage.set(USER_ROLES, roles, new Date().getTime() + 7 * 24 * 60 * 60 * 1000)
-              } else if (info.roles) {
-                const roles = normalizeRoles(info.roles)
-                commit('SET_ROLES', roles)
-                storage.set(USER_ROLES, roles, new Date().getTime() + 7 * 24 * 60 * 60 * 1000)
+          getUserInfo()
+            .then((res) => {
+              if (res && res.code === 1 && res.data) {
+                const info = res.data
+                commit('SET_INFO', info)
+                storage.set(USER_INFO, info, new Date().getTime() + 7 * 24 * 60 * 60 * 1000)
+                if (info.nickname) {
+                  commit('SET_NAME', { name: info.nickname, welcome: welcome() })
+                } else if (info.username) {
+                  commit('SET_NAME', { name: info.username, welcome: welcome() })
+                }
+                if (info.avatar) {
+                  commit('SET_AVATAR', info.avatar)
+                }
+                if (info.role) {
+                  const roles = normalizeRoles(info.role)
+                  commit('SET_ROLES', roles)
+                  storage.set(USER_ROLES, roles, new Date().getTime() + 7 * 24 * 60 * 60 * 1000)
+                } else if (info.roles) {
+                  const roles = normalizeRoles(info.roles)
+                  commit('SET_ROLES', roles)
+                  storage.set(USER_ROLES, roles, new Date().getTime() + 7 * 24 * 60 * 60 * 1000)
+                } else {
+                  commit('SET_ROLES', [DEFAULT_ROLE])
+                  storage.set(USER_ROLES, [DEFAULT_ROLE], new Date().getTime() + 7 * 24 * 60 * 60 * 1000)
+                }
+                resolve(info)
               } else {
-                commit('SET_ROLES', [DEFAULT_ROLE])
-                storage.set(USER_ROLES, [DEFAULT_ROLE], new Date().getTime() + 7 * 24 * 60 * 60 * 1000)
+                reject(new Error((res && res.msg) || '用户信息不存在'))
               }
-              resolve(info)
-            } else {
-              reject(new Error((res && res.msg) || '用户信息不存在'))
-            }
-          }).catch(err => reject(err))
+            })
+            .catch((err) => reject(err))
         }
       })
     },
 
-    Logout ({ commit, dispatch }) {
+    Logout({ commit, dispatch }) {
       return new Promise((resolve) => {
-        logout().then(() => {
-          commit('SET_TOKEN', '')
-          commit('SET_ROLES', [])
-          commit('SET_INFO', {})
-          commit('SET_NAME', { name: '', welcome: '' })
-          commit('SET_AVATAR', '')
-          storage.remove(ACCESS_TOKEN)
-          storage.remove(USER_INFO)
-          storage.remove(USER_ROLES)
-          dispatch('ResetRoutes')
-          resolve()
-        }).catch(() => {
-          storage.remove(ACCESS_TOKEN)
-          storage.remove(USER_INFO)
-          storage.remove(USER_ROLES)
-          dispatch('ResetRoutes')
-          resolve()
-        }).finally(() => {
-        })
+        logout()
+          .then(() => {
+            commit('SET_TOKEN', '')
+            commit('SET_ROLES', [])
+            commit('SET_INFO', {})
+            commit('SET_NAME', { name: '', welcome: '' })
+            commit('SET_AVATAR', '')
+            storage.remove(ACCESS_TOKEN)
+            storage.remove(USER_INFO)
+            storage.remove(USER_ROLES)
+            dispatch('ResetRoutes')
+            resolve()
+          })
+          .catch(() => {
+            storage.remove(ACCESS_TOKEN)
+            storage.remove(USER_INFO)
+            storage.remove(USER_ROLES)
+            dispatch('ResetRoutes')
+            resolve()
+          })
+          .finally(() => {})
       })
-    }
-
-  }
+    },
+  },
 }
 
 export default user

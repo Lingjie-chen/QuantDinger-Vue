@@ -513,7 +513,7 @@ export default {
     async getEcharts () {
       if (window.echarts) return window.echarts
       try {
-        const mod = await import('echarts')
+        const mod = await import('@/utils/echarts')
         window.echarts = mod.default || mod
         return window.echarts
       } catch {
