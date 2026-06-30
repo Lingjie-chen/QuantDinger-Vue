@@ -61,23 +61,23 @@ export function deletePosition(id) {
 }
 
 export function getMonitors() {
-  return Promise.resolve({ data: [] })
+  return request({ url: '/api/ai/monitor', method: 'get' })
 }
 
 export function addMonitor(data) {
-  return Promise.resolve({ data: null })
+  return request({ url: '/api/ai/monitor', method: 'post', data })
 }
 
 export function updateMonitor(id, data) {
-  return Promise.resolve({ data: null })
+  return request({ url: `/api/ai/monitor/${id}`, method: 'patch', data })
 }
 
 export function deleteMonitor(id) {
-  return Promise.resolve({ data: null })
+  return request({ url: `/api/ai/monitor/${id}`, method: 'delete' })
 }
 
 export function runMonitor(id, params = {}) {
-  return Promise.resolve({ data: null })
+  return request({ url: `/api/ai/monitor/${id}/run`, method: 'post', params })
 }
 
 export function getAlerts() {
