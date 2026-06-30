@@ -224,8 +224,7 @@ export default {
           this.opportunities = next
           sessionCache.write(OPP_CACHE_KEY, next, OPP_CACHE_TTL_MS)
         }
-          this.updateLastUpdated()
-        }
+        this.updateLastUpdated()
       } catch (e) {
         console.warn('Load opportunities failed:', e)
       } finally {

@@ -1260,10 +1260,18 @@ export default {
       this.sessionId = null
       this.messages = []
     },
-    seedSymbolOptions () {
+    async seedSymbolOptions () {
       this.symbolOptions = (this.watchlist || []).filter(item => !this.context.market || item.market === this.context.market)
       if (!this.symbolOptions.length && this.context.symbol) {
         this.symbolOptions = [{ market: this.context.market, symbol: this.context.symbol }]
+      }
+      // watchlist 为空时加载热门 symbols
+      if (!this.symbolOptions.length) {
+        try {
+          const res = await getHotSymbols({ market: this.context.market || 'Crypto', limit: 20 })
+          const data = res.data || res || []
+          this.symbolOptions = Array.isArray(data) ? data.map(x => this.normalizeSymbolOption(x)).filter(Boolean) : []
+        } catch (_) { /* silent */ }
       }
     },
     handleSymbolSearch (keyword) {
