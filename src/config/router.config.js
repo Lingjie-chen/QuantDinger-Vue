@@ -58,11 +58,12 @@ export const asyncRouterMap = [
         component: () => import('@/views/news-sentiment'),
         meta: { title: 'menu.dashboard.newsSentiment', keepAlive: false, icon: 'read', permission: ['dashboard'] },
       },
-      // 8. 交易记录
+      // 8. 交易记录（已合并到策略与实盘，隐藏侧边栏入口）
       {
         path: '/trade-records',
         name: 'TradeRecords',
         component: () => import('@/views/trade-records'),
+        hidden: true,
         meta: { title: 'menu.dashboard.tradeRecords', keepAlive: false, icon: 'file-text', permission: ['dashboard'] },
       },
 

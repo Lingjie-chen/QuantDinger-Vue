@@ -54,3 +54,16 @@ export function createAbTest(data) {
 export function getAbTestResults(testId) {
   return request({ url: `/api/evolution/ab-tests/${testId}/results`, method: 'get' })
 }
+
+// ── 真实交易数据 ──
+export function getTradeHistory(params = {}) {
+  return request({ url: '/api/trade/history', method: 'get', params })
+}
+
+export function getPerformance() {
+  return request({ url: '/api/autonomous/performance', method: 'get' })
+}
+
+export function getPositions() {
+  return request({ url: '/api/autonomous/positions', method: 'get' })
+}
