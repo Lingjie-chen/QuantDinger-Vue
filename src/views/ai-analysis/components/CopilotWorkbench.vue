@@ -1176,7 +1176,8 @@ export default {
       this.loadingMonitors = true
       try {
         const res = await getMonitors()
-        this.monitors = res && res.code === 1 ? (res.data || []) : []
+        const raw = res && res.code === 1 ? res.data : null
+        this.monitors = Array.isArray(raw) ? raw : (raw && Array.isArray(raw.items) ? raw.items : [])
       } catch (_) {
         this.monitors = []
       } finally {
