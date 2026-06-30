@@ -5,7 +5,7 @@
         <button type="button" class="sidebar-new-chat" @click="newSession">
           <a-icon type="plus" /> {{ text.newChat }}
         </button>
-        <button type="button" class="sidebar-collapse-btn" @click="toggleSidebar">
+        <button type="button" class="sidebar-collapse-btn" :aria-label="sidebarCollapsed ? text.expandSidebar : text.collapseSidebar" @click="toggleSidebar">
           <a-icon :type="sidebarCollapsed ? 'menu-unfold' : 'menu-fold'" />
         </button>
       </div>
@@ -36,7 +36,7 @@
                   @confirm="removeSession(session)"
                 >
                   <a-tooltip :title="text.remove">
-                    <button type="button" class="session-delete" @click.stop><a-icon type="delete" /></button>
+                    <button type="button" class="session-delete" :aria-label="text.remove" @click.stop><a-icon type="delete" /></button>
                   </a-tooltip>
                 </a-popconfirm>
               </div>
@@ -73,10 +73,10 @@
                 </button>
                 <div class="watch-actions">
                   <a-tooltip :title="text.ask">
-                    <button type="button" @click="askWatch(item)"><a-icon type="message" /></button>
+                    <button type="button" :aria-label="text.ask" @click="askWatch(item)"><a-icon type="message" /></button>
                   </a-tooltip>
                   <a-tooltip :title="text.schedule">
-                    <button type="button" @click="openTaskModal(item)"><a-icon type="clock-circle" /></button>
+                    <button type="button" :aria-label="text.schedule" @click="openTaskModal(item)"><a-icon type="clock-circle" /></button>
                   </a-tooltip>
                   <a-popconfirm
                     :title="text.removeWatchConfirm"
@@ -85,7 +85,7 @@
                     @confirm="removeWatch(item)"
                   >
                     <a-tooltip :title="text.remove">
-                      <button type="button" class="danger" @click.stop><a-icon type="delete" /></button>
+                      <button type="button" class="danger" :aria-label="text.remove" @click.stop><a-icon type="delete" /></button>
                     </a-tooltip>
                   </a-popconfirm>
                 </div>
@@ -108,8 +108,8 @@
                   <span>{{ intervalText(m) }} · {{ m.is_active ? text.running : text.paused }}</span>
                 </div>
                 <div class="monitor-actions">
-                  <button type="button" @click="toggleMonitor(m)"><a-icon :type="m.is_active ? 'pause' : 'caret-right'" /></button>
-                  <button type="button" @click="removeMonitor(m)"><a-icon type="delete" /></button>
+                  <button type="button" :aria-label="m.is_active ? text.pauseMonitor : text.resumeMonitor" @click="toggleMonitor(m)"><a-icon :type="m.is_active ? 'pause' : 'caret-right'" /></button>
+                  <button type="button" :aria-label="text.deleteMonitor" @click="removeMonitor(m)"><a-icon type="delete" /></button>
                 </div>
               </div>
             </div>
@@ -120,7 +120,7 @@
 
     <main class="chat-panel">
       <header class="chat-topbar">
-        <button v-if="sidebarCollapsed" type="button" class="topbar-menu-btn" @click="toggleSidebar">
+        <button v-if="sidebarCollapsed" type="button" class="topbar-menu-btn" :aria-label="text.expandSidebar" @click="toggleSidebar">
           <a-icon type="menu" />
         </button>
         <div class="topbar-symbol">
@@ -236,7 +236,7 @@
       <div v-if="attachments.length" class="pending-attachments">
         <div v-for="(att, idx) in attachments" :key="att.name + idx" class="pending-thumb">
           <img :src="att.data_url" :alt="att.name">
-          <button type="button" @click="removeAttachment(idx)"><a-icon type="close" /></button>
+          <button type="button" :aria-label="text.removeAttachment" @click="removeAttachment(idx)"><a-icon type="close" /></button>
         </div>
       </div>
 
@@ -256,14 +256,14 @@
           <div class="composer-bar">
             <div class="composer-tools">
               <input ref="fileInput" type="file" accept="image/png,image/jpeg,image/webp" multiple @change="handleFiles">
-              <button type="button" class="composer-tool-btn" @click="$refs.fileInput.click()">
+              <button type="button" class="composer-tool-btn" :aria-label="text.uploadImage" @click="$refs.fileInput.click()">
                 <a-icon type="picture" /> {{ uploadImageLabel }}
               </button>
               <button v-if="messages.length" type="button" class="composer-tool-btn" @click="quickToolsVisible = true">
                 <a-icon type="appstore" /> {{ text.quickTools || 'Quick tools' }}
               </button>
             </div>
-            <button type="button" class="composer-send" :disabled="!canSend || sending" @click="sendMessage">
+            <button type="button" class="composer-send" :disabled="!canSend || sending" :aria-label="text.sendMessage" @click="sendMessage">
               <a-icon :type="sending ? 'loading' : 'arrow-up'" />
             </button>
           </div>
@@ -642,6 +642,14 @@ export default {
         aiPreview: t('aiPreview', 'AI Preview'),
         askAiEvent: t('askAiEvent', 'Ask AI about this event'),
         close: t('close', 'Close'),
+        expandSidebar: t('expandSidebar', 'Expand sidebar'),
+        collapseSidebar: t('collapseSidebar', 'Collapse sidebar'),
+        pauseMonitor: t('pauseMonitor', 'Pause monitor'),
+        resumeMonitor: t('resumeMonitor', 'Resume monitor'),
+        deleteMonitor: t('deleteMonitor', 'Delete monitor'),
+        removeAttachment: t('removeAttachment', 'Remove attachment'),
+        sendMessage: t('sendMessage', 'Send message'),
+        uploadImage: t('uploadImage', 'Upload image'),
         createMonitor: t('createMonitor', 'Create scheduled analysis'),
         interval: t('interval', 'Interval'),
         notify: t('notify', 'Notify'),
