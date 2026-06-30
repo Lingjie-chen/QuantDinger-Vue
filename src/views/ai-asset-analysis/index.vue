@@ -6,9 +6,12 @@
       <div class="radar-header">
         <div class="radar-header-left">
           <h2 class="radar-title">{{ $t('aiAssetAnalysis.opportunities.title') }}</h2>
-          <p class="radar-subtitle">{{ $t('aiAssetAnalysis.opportunities.updateHint') }}</p>
+          <p class="radar-subtitle">
+            <span v-if="lastUpdatedText" class="radar-last-updated">{{ lastUpdatedText }}</span>
+            <span v-else>{{ $t('aiAssetAnalysis.opportunities.updateHint') }}</span>
+          </p>
         </div>
-        <a-button class="radar-refresh-btn" size="small" :loading="oppLoading" @click="loadOpportunities(true)">
+        <a-button class="radar-refresh-btn" :class="{ 'is-polling': pollTimer && oppLoading }" size="small" :loading="oppLoading" @click="loadOpportunities(true)">
           <a-icon type="sync" /> {{ $t('common.refresh') || 'Refresh' }}
         </a-button>
       </div>
@@ -119,6 +122,9 @@ import sessionCache from '@/utils/sessionCache'
 // instant while still keeping the carousel reasonably fresh.
 const OPP_CACHE_KEY = 'aiAsset.opportunities'
 const OPP_CACHE_TTL_MS = 3 * 60 * 1000
+// Auto-polling interval — when the page is active the radar refreshes
+// itself every 60 seconds so the user always sees current signals.
+const OPP_POLL_MS = 60 * 1000
 
 export default {
   name: 'AIAssetAnalysis',
@@ -133,6 +139,9 @@ export default {
       opportunities: [],
       oppLoading: false,
       oppHover: false,
+      // Auto-poll
+      pollTimer: null,
+      lastUpdatedText: '',
       // Props passed to AnalysisView
       presetSymbol: '',
       autoAnalyzeSignal: 0,
@@ -176,18 +185,26 @@ export default {
     const cached = sessionCache.read(OPP_CACHE_KEY)
     if (Array.isArray(cached) && cached.length > 0) {
       this.opportunities = cached
+      this.updateLastUpdated()
     }
+    if (!sessionCache.isFresh(OPP_CACHE_KEY)) {
+      this.loadOpportunities(true) // force so polling starts after a real fetch
+    }
+  },
+  activated () {
+    // keep-alive re-entry: restart polling timer; the cache check inside
+    // loadOpportunities will suppress redundant requests if data is fresh.
+    this.startPolling()
     if (!sessionCache.isFresh(OPP_CACHE_KEY)) {
       this.loadOpportunities()
     }
   },
-  activated () {
-    // keep-alive re-entry: only refresh when the cache has aged past its TTL.
-    // This is the "user came back after a while" path — they want fresh
-    // signals but we don't want to spam the backend if they just bounced.
-    if (!sessionCache.isFresh(OPP_CACHE_KEY)) {
-      this.loadOpportunities()
-    }
+  deactivated () {
+    // Pause polling while the tab is hidden to conserve resources.
+    this.stopPolling()
+  },
+  beforeDestroy () {
+    this.stopPolling()
   },
   methods: {
     // ==================== Trading Opportunities (Carousel) ====================
@@ -207,11 +224,33 @@ export default {
           this.opportunities = next
           sessionCache.write(OPP_CACHE_KEY, next, OPP_CACHE_TTL_MS)
         }
+          this.updateLastUpdated()
+        }
       } catch (e) {
         console.warn('Load opportunities failed:', e)
       } finally {
         this.oppLoading = false
       }
+    },
+    startPolling () {
+      this.stopPolling()
+      this.pollTimer = setInterval(() => {
+        this.loadOpportunities(true)
+      }, OPP_POLL_MS)
+    },
+    stopPolling () {
+      if (this.pollTimer) {
+        clearInterval(this.pollTimer)
+        this.pollTimer = null
+      }
+    },
+    updateLastUpdated () {
+      const now = new Date()
+      const hh = String(now.getHours()).padStart(2, '0')
+      const mm = String(now.getMinutes()).padStart(2, '0')
+      const key = 'aiAssetAnalysis.opportunities.updatedAt'
+      const tpl = this.$t(key)
+      this.lastUpdatedText = tpl !== key ? tpl.replace('{time}', `${hh}:${mm}`) : `更新于 ${hh}:${mm}`
     },
     getSignalColor (signal) {
       const map = {
@@ -369,6 +408,13 @@ export default {
         font-size: 12px;
         font-weight: 500;
         &:hover { border-color: #6366f1; color: #6366f1; }
+        &.is-polling {
+          border-color: #52c41a;
+          color: #52c41a;
+          .anticon-sync {
+            animation: radar-opp-spin 1.5s linear infinite;
+          }
+        }
       }
     }
 
@@ -616,6 +662,13 @@ export default {
         border-color: #2a2a2a;
         color: #999;
         &:hover { border-color: #6366f1; color: #a78bfa; }
+        &.is-polling {
+          border-color: #52c41a;
+          color: #52c41a;
+          .anticon-sync {
+            animation: radar-opp-spin 1.5s linear infinite;
+          }
+        }
       }
       .radar-carousel {
         &::before { background: linear-gradient(to right, #141414, transparent); }
@@ -776,5 +829,11 @@ export default {
       }
     }
   }
+}
+
+/* ── Polling animation ── */
+@keyframes radar-opp-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 </style>

@@ -715,11 +715,11 @@ export default {
       // Modern gradient colors
       const colors = [
         new echarts.graphic.LinearGradient(0, 0, 1, 1, [
-          { offset: 0, color: 'var(--emerald-500)' },
+          { offset: 0, color: '#10b981' },
           { offset: 1, color: '#1d4ed8' }
         ]),
         new echarts.graphic.LinearGradient(0, 0, 1, 1, [
-          { offset: 0, color: 'var(--rose-500)' },
+          { offset: 0, color: '#f43f5e' },
           { offset: 1, color: '#6d28d9' }
         ]),
         new echarts.graphic.LinearGradient(0, 0, 1, 1, [
@@ -1032,8 +1032,8 @@ export default {
             itemStyle: {
               borderRadius: [3, 3, 0, 0],
               color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                { offset: 0, color: 'var(--emerald-400)' },
-                { offset: 1, color: 'var(--emerald-500)' }
+                { offset: 0, color: '#34d399' },
+                { offset: 1, color: '#10b981' }
               ])
             }
           },

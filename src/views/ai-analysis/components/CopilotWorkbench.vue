@@ -1,88 +1,166 @@
 <template>
-  <div class="copilot-workbench">
-    <aside class="left-rail">
-      <section class="rail-panel sessions-panel">
-        <div class="panel-head">
-          <span><a-icon type="history" /> {{ text.sessions }}</span>
-          <a-button size="small" type="link" @click="newSession">{{ text.newChat }}</a-button>
-        </div>
-        <div v-if="sessions.length === 0" class="empty-mini">{{ text.noSessions }}</div>
-        <div v-else class="session-list">
-          <div
-            v-for="session in sessions.slice(0, 30)"
-            :key="session.id"
-            class="session-row"
-            :class="{ active: session.id === sessionId }"
-          >
-            <button type="button" class="session-card" @click="loadHistory(session.id)">
-              <strong>{{ session.title || text.untitled }}</strong>
-              <span>{{ session.context_symbol || session.context_market || text.chatSession }}</span>
-            </button>
-            <a-popconfirm
-              :title="text.deleteSessionConfirm"
-              :ok-text="text.remove"
-              :cancel-text="text.cancel"
-              @confirm="removeSession(session)"
-            >
-              <a-tooltip :title="text.remove">
-                <button type="button" class="session-delete" @click.stop><a-icon type="delete" /></button>
-              </a-tooltip>
-            </a-popconfirm>
-          </div>
-        </div>
-      </section>
+  <div class="copilot-workbench" :class="{ 'sidebar-collapsed': sidebarCollapsed }">
+    <aside class="copilot-sidebar">
+      <div class="sidebar-header">
+        <button type="button" class="sidebar-new-chat" @click="newSession">
+          <a-icon type="plus" /> {{ text.newChat }}
+        </button>
+        <button type="button" class="sidebar-collapse-btn" @click="toggleSidebar">
+          <a-icon :type="sidebarCollapsed ? 'menu-unfold' : 'menu-fold'" />
+        </button>
+      </div>
 
+      <div class="sidebar-body">
+        <section class="sidebar-section sessions-section">
+          <div class="section-head" @click="sectionToggle.sessions = !sectionToggle.sessions">
+            <span><a-icon type="history" /> {{ text.sessions }}</span>
+            <a-icon :type="sectionToggle.sessions ? 'down' : 'right'" class="section-chevron" />
+          </div>
+          <div v-show="sectionToggle.sessions" class="section-content">
+            <div v-if="sessions.length === 0" class="empty-mini">{{ text.noSessions }}</div>
+            <div v-else class="session-list">
+              <div
+                v-for="session in sessions.slice(0, 30)"
+                :key="session.id"
+                class="session-row"
+                :class="{ active: session.id === sessionId }"
+              >
+                <button type="button" class="session-card" @click="loadHistory(session.id)">
+                  <strong>{{ session.title || text.untitled }}</strong>
+                  <span>{{ session.context_symbol || session.context_market || text.chatSession }}</span>
+                </button>
+                <a-popconfirm
+                  :title="text.deleteSessionConfirm"
+                  :ok-text="text.remove"
+                  :cancel-text="text.cancel"
+                  @confirm="removeSession(session)"
+                >
+                  <a-tooltip :title="text.remove">
+                    <button type="button" class="session-delete" @click.stop><a-icon type="delete" /></button>
+                  </a-tooltip>
+                </a-popconfirm>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="sidebar-section watch-section">
+          <div class="section-head" @click="sectionToggle.watch = !sectionToggle.watch">
+            <span><a-icon type="star" theme="filled" /> {{ text.watchlist }}</span>
+            <a-icon :type="sectionToggle.watch ? 'down' : 'right'" class="section-chevron" />
+          </div>
+          <div v-show="sectionToggle.watch" class="section-content">
+            <a-button size="small" type="primary" block icon="plus" @click="openAddWatchModal" style="margin-bottom:8px">{{ text.addWatch }}</a-button>
+            <div v-if="watchlist.length === 0" class="empty-mini">{{ text.noWatchlist }}</div>
+            <div v-else class="watch-list">
+              <div
+                v-for="item in watchlist.slice(0, 12)"
+                :key="watchKey(item)"
+                class="watch-card"
+                :class="{ active: watchKey(item) === selectedSymbolValue }"
+              >
+                <button type="button" class="watch-main" @click="selectWatch(item)">
+                  <span class="watch-identity">
+                    <strong>{{ item.symbol }}</strong>
+                    <em>{{ item.name || marketLabel(item.market) }}</em>
+                  </span>
+                  <span class="watch-market-data">
+                    <strong class="watch-price">{{ formatPriceValue(priceFor(item) && priceFor(item).price) }}</strong>
+                    <em :class="watchChangeClass(item)" class="watch-change">
+                      {{ formatChangePercent(priceFor(item)) }}
+                    </em>
+                  </span>
+                </button>
+                <div class="watch-actions">
+                  <a-tooltip :title="text.ask">
+                    <button type="button" @click="askWatch(item)"><a-icon type="message" /></button>
+                  </a-tooltip>
+                  <a-tooltip :title="text.schedule">
+                    <button type="button" @click="openTaskModal(item)"><a-icon type="clock-circle" /></button>
+                  </a-tooltip>
+                  <a-popconfirm
+                    :title="text.removeWatchConfirm"
+                    :ok-text="text.remove"
+                    :cancel-text="text.cancel"
+                    @confirm="removeWatch(item)"
+                  >
+                    <a-tooltip :title="text.remove">
+                      <button type="button" class="danger" @click.stop><a-icon type="delete" /></button>
+                    </a-tooltip>
+                  </a-popconfirm>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="sidebar-section monitor-section">
+          <div class="section-head" @click="sectionToggle.monitors = !sectionToggle.monitors">
+            <span><a-icon type="clock-circle" /> {{ text.monitors }}</span>
+            <a-icon :type="sectionToggle.monitors ? 'down' : 'right'" class="section-chevron" />
+          </div>
+          <div v-show="sectionToggle.monitors" class="section-content">
+            <div v-if="monitors.length === 0" class="empty-mini">{{ text.noMonitors }}</div>
+            <div v-else class="monitor-list">
+              <div v-for="m in monitors.slice(0, 8)" :key="m.id" class="monitor-card">
+                <div>
+                  <strong>{{ monitorSymbol(m) }}</strong>
+                  <span>{{ intervalText(m) }} · {{ m.is_active ? text.running : text.paused }}</span>
+                </div>
+                <div class="monitor-actions">
+                  <button type="button" @click="toggleMonitor(m)"><a-icon :type="m.is_active ? 'pause' : 'caret-right'" /></button>
+                  <button type="button" @click="removeMonitor(m)"><a-icon type="delete" /></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
     </aside>
 
     <main class="chat-panel">
-      <header class="chat-hero">
-        <div class="hero-main">
-          <div class="hero-copy">
-            <span class="eyebrow">{{ text.title }}</span>
-            <p>{{ text.subtitle }}</p>
-          </div>
-          <div class="context-bar">
-            <div class="context-status">
-              <a-icon type="database" />
-              <span>{{ text.focusSymbol }}</span>
-              <strong>{{ currentContextLabel }}</strong>
-            </div>
-            <div class="symbol-picker hero-symbol-picker">
-              <a-select
-                ref="contextSymbolSelect"
-                v-model="selectedSymbolValue"
-                show-search
-                allow-clear
-                size="large"
-                dropdown-class-name="copilot-symbol-dropdown"
-                :placeholder="text.symbolPlaceholder"
-                :filter-option="false"
-                :not-found-content="symbolSearching ? undefined : text.noSymbol"
-                @focus="seedSymbolOptions"
-                @search="handleSymbolSearch"
-                @change="handleSymbolChange"
-              >
-                <a-spin v-if="symbolSearching" slot="notFoundContent" size="small" />
-                <a-select-option
-                  v-for="item in selectableSymbols"
-                  :key="symbolOptionValue(item)"
-                  :value="symbolOptionValue(item)"
-                >
-                  <div class="symbol-option">
-                    <strong>{{ item.symbol }}</strong>
-                    <span>{{ item.name || item.market }}</span>
-                    <em :class="['symbol-market-pill', marketPillClass(item.market)]">{{ marketLabel(item.market) }}</em>
-                  </div>
-                </a-select-option>
-              </a-select>
-            </div>
-          </div>
+      <header class="chat-topbar">
+        <button v-if="sidebarCollapsed" type="button" class="topbar-menu-btn" @click="toggleSidebar">
+          <a-icon type="menu" />
+        </button>
+        <div class="topbar-symbol">
+          <a-select
+            ref="contextSymbolSelect"
+            v-model="selectedSymbolValue"
+            show-search
+            allow-clear
+            size="default"
+            dropdown-class-name="copilot-symbol-dropdown"
+            :placeholder="text.symbolPlaceholder"
+            :filter-option="false"
+            :not-found-content="symbolSearching ? undefined : text.noSymbol"
+            @focus="seedSymbolOptions"
+            @search="handleSymbolSearch"
+            @change="handleSymbolChange"
+          >
+            <a-spin v-if="symbolSearching" slot="notFoundContent" size="small" />
+            <a-select-option
+              v-for="item in selectableSymbols"
+              :key="symbolOptionValue(item)"
+              :value="symbolOptionValue(item)"
+            >
+              <div class="symbol-option">
+                <strong>{{ item.symbol }}</strong>
+                <span>{{ item.name || item.market }}</span>
+                <em :class="['symbol-market-pill', marketPillClass(item.market)]">{{ marketLabel(item.market) }}</em>
+              </div>
+            </a-select-option>
+          </a-select>
+        </div>
+        <div class="topbar-status">
+          <a-icon type="database" />
+          <span>{{ currentContextLabel }}</span>
         </div>
       </header>
 
       <div ref="messages" class="messages">
         <div v-if="messages.length === 0" class="welcome">
-          <a-icon type="robot" />
+          <div class="welcome-icon"><a-icon type="robot" /></div>
           <h3>{{ text.welcomeTitle }}</h3>
           <p>{{ text.welcomeDesc }}</p>
           <div class="welcome-prompts">
@@ -163,109 +241,36 @@
       </div>
 
       <footer class="composer">
-        <textarea
-          ref="composerInput"
-          v-model="draft"
-          :placeholder="text.placeholder"
-          :style="{ height: composerHeight + 'px' }"
-          @input="resizeComposer"
-          @keydown.enter.exact.prevent="sendMessage"
-          @keydown.ctrl.enter.prevent="sendMessage"
-          @keydown.meta.enter.prevent="sendMessage"
-          @paste="handlePaste"
-        />
-        <div class="composer-foot">
-          <p class="risk-disclaimer">
-            <a-icon type="safety-certificate" />
-            {{ text.riskDisclaimer }}
-          </p>
-          <div class="composer-actions">
-            <input ref="fileInput" type="file" accept="image/png,image/jpeg,image/webp" multiple @change="handleFiles">
-            <a-button v-if="messages.length" @click="quickToolsVisible = true">
-              <a-icon type="appstore" /> {{ text.quickTools || 'Quick tools' }}
-            </a-button>
-            <a-button @click="$refs.fileInput.click()">
-              <a-icon type="picture" /> {{ uploadImageLabel }}
-            </a-button>
-            <a-button type="primary" :loading="sending" :disabled="!canSend" @click="sendMessage">
-              <a-icon type="thunderbolt" /> {{ text.send }}
-            </a-button>
+        <div class="composer-card">
+          <textarea
+            ref="composerInput"
+            v-model="draft"
+            :placeholder="text.placeholder"
+            :style="{ height: composerHeight + 'px' }"
+            @input="resizeComposer"
+            @keydown.enter.exact.prevent="sendMessage"
+            @keydown.ctrl.enter.prevent="sendMessage"
+            @keydown.meta.enter.prevent="sendMessage"
+            @paste="handlePaste"
+          />
+          <div class="composer-bar">
+            <div class="composer-tools">
+              <input ref="fileInput" type="file" accept="image/png,image/jpeg,image/webp" multiple @change="handleFiles">
+              <button type="button" class="composer-tool-btn" @click="$refs.fileInput.click()">
+                <a-icon type="picture" /> {{ uploadImageLabel }}
+              </button>
+              <button v-if="messages.length" type="button" class="composer-tool-btn" @click="quickToolsVisible = true">
+                <a-icon type="appstore" /> {{ text.quickTools || 'Quick tools' }}
+              </button>
+            </div>
+            <button type="button" class="composer-send" :disabled="!canSend || sending" @click="sendMessage">
+              <a-icon :type="sending ? 'loading' : 'arrow-up'" />
+            </button>
           </div>
         </div>
+        <p class="risk-disclaimer">{{ text.riskDisclaimer }}</p>
       </footer>
     </main>
-
-    <aside class="right-rail">
-      <section class="rail-panel watch-panel">
-        <div class="panel-head">
-          <span><a-icon type="star" theme="filled" /> {{ text.watchlist }}</span>
-          <a-button size="small" type="link" @click="loadWatchlist"><a-icon type="reload" /></a-button>
-        </div>
-        <div class="add-watch">
-          <a-button type="primary" block icon="plus" @click="openAddWatchModal">{{ text.addWatch }}</a-button>
-        </div>
-        <div v-if="watchlist.length === 0" class="empty-mini">{{ text.noWatchlist }}</div>
-        <div v-else class="watch-list">
-          <div
-            v-for="item in watchlist.slice(0, 12)"
-            :key="watchKey(item)"
-            class="watch-card"
-            :class="{ active: watchKey(item) === selectedSymbolValue }"
-          >
-            <button type="button" class="watch-main" @click="selectWatch(item)">
-              <span class="watch-identity">
-                <strong>{{ item.symbol }}</strong>
-                <em>{{ item.name || marketLabel(item.market) }}</em>
-              </span>
-              <span class="watch-market-data">
-                <strong class="watch-price">{{ formatPriceValue(priceFor(item) && priceFor(item).price) }}</strong>
-                <em :class="watchChangeClass(item)" class="watch-change">
-                  {{ formatChangePercent(priceFor(item)) }}
-                </em>
-              </span>
-            </button>
-            <div class="watch-actions">
-              <a-tooltip :title="text.ask">
-                <button type="button" @click="askWatch(item)"><a-icon type="message" /></button>
-              </a-tooltip>
-              <a-tooltip :title="text.schedule">
-                <button type="button" @click="openTaskModal(item)"><a-icon type="clock-circle" /></button>
-              </a-tooltip>
-              <a-popconfirm
-                :title="text.removeWatchConfirm"
-                :ok-text="text.remove"
-                :cancel-text="text.cancel"
-                @confirm="removeWatch(item)"
-              >
-                <a-tooltip :title="text.remove">
-                  <button type="button" class="danger" @click.stop><a-icon type="delete" /></button>
-                </a-tooltip>
-              </a-popconfirm>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="rail-panel monitor-panel">
-        <div class="panel-head">
-          <span><a-icon type="clock-circle" /> {{ text.monitors }}</span>
-          <a-button size="small" type="link" :loading="loadingMonitors" @click="loadMonitors"><a-icon type="reload" /></a-button>
-        </div>
-        <div v-if="monitors.length === 0" class="empty-mini">{{ text.noMonitors }}</div>
-        <div v-else class="monitor-list">
-          <div v-for="m in monitors.slice(0, 8)" :key="m.id" class="monitor-card">
-            <div>
-              <strong>{{ monitorSymbol(m) }}</strong>
-              <span>{{ intervalText(m) }} · {{ m.is_active ? text.running : text.paused }}</span>
-            </div>
-            <div class="monitor-actions">
-              <button type="button" @click="toggleMonitor(m)"><a-icon :type="m.is_active ? 'pause' : 'caret-right'" /></button>
-              <button type="button" @click="removeMonitor(m)"><a-icon type="delete" /></button>
-            </div>
-          </div>
-        </div>
-      </section>
-    </aside>
 
     <a-modal
       v-model="eventModalVisible"
@@ -528,6 +533,8 @@ export default {
       symbolOptions: [],
       symbolSearching: false,
       symbolSearchTimer: null,
+      sidebarCollapsed: false,
+      sectionToggle: { sessions: true, watch: true, monitors: false },
       draft: '',
       attachments: [],
       messages: [],
@@ -952,6 +959,7 @@ export default {
     }
   },
   mounted () {
+    try { this.sidebarCollapsed = localStorage.getItem('copilot_sidebar_collapsed') === 'true' } catch (_) { /* silent */ }
     this.loadMarketModules()
     this.seedSymbolOptions()
     this.loadBilling()
@@ -968,6 +976,10 @@ export default {
     if (this.addWatchSearchTimer) clearTimeout(this.addWatchSearchTimer)
   },
   methods: {
+    toggleSidebar () {
+      this.sidebarCollapsed = !this.sidebarCollapsed
+      try { localStorage.setItem('copilot_sidebar_collapsed', String(this.sidebarCollapsed)) } catch (_) { /* silent */ }
+    },
     quickTaskPromptKey (id) {
       const key = String(id || '').toLowerCase()
       const aliases = {
@@ -3575,10 +3587,11 @@ export default {
   --qd-green: #0aa375;
   --qd-red: #e54b4b;
   --qd-shadow: 0 12px 34px rgba(20, 43, 72, 0.08);
+  --sidebar-w: 264px;
 
   display: grid;
-  grid-template-columns: minmax(240px, 280px) minmax(560px, 1fr) minmax(270px, 320px);
-  gap: 10px;
+  grid-template-columns: var(--sidebar-w) minmax(0, 1fr);
+  gap: 0;
   height: 100%;
   min-height: 0;
   overflow: hidden;
@@ -3587,81 +3600,155 @@ export default {
     linear-gradient(180deg, rgba(255, 255, 255, 0.7), rgba(238, 243, 248, 0.88)),
     var(--qd-bg);
   color: var(--qd-text);
+  transition: grid-template-columns 0.24s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &.sidebar-collapsed {
+    grid-template-columns: 0 minmax(0, 1fr);
+    .copilot-sidebar { transform: translateX(-100%); opacity: 0; pointer-events: none; }
+  }
 }
 
-.left-rail,
-.right-rail,
-.chat-panel {
-  min-width: 0;
-  min-height: 0;
-}
-
-.left-rail,
-.right-rail {
+// ── Sidebar ──────────────────────────────────────
+.copilot-sidebar {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  height: 100%;
+  min-height: 0;
   overflow: hidden;
-}
-
-.rail-panel,
-.chat-panel {
-  background: color-mix(in srgb, var(--qd-panel) 82%, transparent);
-  border: 1px solid var(--qd-border-soft);
-  border-radius: 8px;
-  box-shadow: var(--qd-shadow);
+  background: color-mix(in srgb, var(--qd-panel) 92%, transparent);
+  border-right: 1px solid var(--qd-border-soft);
   backdrop-filter: blur(18px);
+  transition: transform 0.24s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.18s ease;
 }
 
-.rail-panel {
-  padding: 12px;
-  overflow: hidden;
-}
-
-.sessions-panel {
-  flex: 1 1 330px;
-  min-height: 280px;
-  display: flex;
-  flex-direction: column;
-}
-
-.calendar-panel {
-  flex: 0 1 42%;
-  min-height: 220px;
-}
-
-.watch-panel {
-  flex: 0 0 58%;
-  min-height: 0;
-}
-
-.monitor-panel {
-  flex: 1 1 270px;
-  min-height: 240px;
-}
-
-.panel-head {
+.sidebar-header {
   flex: 0 0 auto;
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 8px;
-  min-height: 30px;
-  margin-bottom: 10px;
-  color: var(--qd-text);
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--qd-border-soft);
+}
+
+.sidebar-new-chat {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 38px;
+  border: 1px solid var(--qd-accent-border);
+  border-radius: 8px;
+  background: var(--qd-accent-soft);
+  color: var(--qd-accent);
   font-size: 13px;
   font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  &:hover { background: var(--qd-accent); color: #fff; }
 }
 
-.panel-head .anticon {
-  color: var(--qd-accent);
+.sidebar-collapse-btn {
+  flex: 0 0 32px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--qd-border-soft);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--qd-text-muted);
+  cursor: pointer;
+  &:hover { background: var(--qd-panel-soft); color: var(--qd-text); }
 }
 
-.panel-head ::v-deep .ant-btn-link {
-  height: 28px;
-  padding: 0 4px;
-  color: var(--qd-accent);
-  font-weight: 600;
+.sidebar-body {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 8px 0;
+}
+
+.sidebar-section {
+  & + & { border-top: 1px solid var(--qd-border-soft); margin-top: 4px; padding-top: 4px; }
+}
+
+.section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 14px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--qd-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  user-select: none;
+  &:hover { background: var(--qd-panel-soft); }
+  .anticon { font-size: 13px; }
+  .section-chevron { font-size: 10px; opacity: 0.6; }
+}
+
+.section-content {
+  padding: 4px 10px 10px;
+}
+
+// ── Chat Panel ───────────────────────────────────
+.chat-panel {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.chat-topbar {
+  flex: 0 0 52px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 16px;
+  background: color-mix(in srgb, var(--qd-panel) 88%, transparent);
+  border-bottom: 1px solid var(--qd-border-soft);
+  backdrop-filter: blur(12px);
+}
+
+.topbar-menu-btn {
+  flex: 0 0 36px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--qd-border-soft);
+  border-radius: 8px;
+  background: var(--qd-panel-soft);
+  color: var(--qd-text-muted);
+  cursor: pointer;
+  &:hover { color: var(--qd-accent); border-color: var(--qd-accent-border); }
+}
+
+.topbar-symbol {
+  flex: 0 1 240px;
+  min-width: 0;
+  ::v-deep .ant-select { width: 100%; }
+}
+
+.topbar-status {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--qd-text-subtle);
+  font-size: 12px;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  .anticon { color: var(--qd-accent); opacity: 0.6; }
 }
 
 .segmented {
@@ -3877,100 +3964,7 @@ export default {
   overflow: hidden;
 }
 
-.chat-hero {
-  padding: 9px 16px;
-  border-bottom: 1px solid var(--qd-border-soft);
-  background:
-    linear-gradient(135deg, color-mix(in srgb, var(--qd-accent) 7%, transparent), rgba(255, 255, 255, 0.08)),
-    color-mix(in srgb, var(--qd-panel) 76%, transparent);
-}
-
-.hero-main {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(280px, 390px);
-  gap: 14px;
-  align-items: center;
-}
-
-.hero-copy {
-  min-width: 0;
-}
-
-.eyebrow {
-  display: inline-flex;
-  align-items: center;
-  min-height: 17px;
-  margin-bottom: 3px;
-  padding: 1px 7px;
-  border: 1px solid color-mix(in srgb, var(--qd-accent) 28%, transparent);
-  border-radius: 999px;
-  background: var(--qd-accent-soft);
-  color: var(--qd-accent);
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0;
-}
-
-.chat-hero h2 {
-  margin: 0 0 2px;
-  color: var(--qd-text);
-  font-size: 18px;
-  font-weight: 800;
-  line-height: 1.25;
-}
-
-.chat-hero p {
-  max-width: 680px;
-  margin: 0;
-  color: var(--qd-text-muted);
-  font-size: 12px;
-  line-height: 1.35;
-}
-
-.context-bar {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 5px;
-  align-items: stretch;
-  min-width: 0;
-  margin-top: 0;
-}
-
-.context-status {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  min-width: 0;
-  height: 20px;
-  padding: 0;
-  border: 0;
-  border-radius: 0;
-  background: transparent;
-  color: var(--qd-text-muted);
-  font-size: 11px;
-}
-
-.context-status .anticon {
-  color: var(--qd-accent);
-}
-
-.context-status span {
-  flex: 0 0 auto;
-  font-weight: 700;
-}
-
-.context-status strong {
-  min-width: 0;
-  overflow: hidden;
-  color: var(--qd-text-muted);
-  font-weight: 800;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.hero-symbol-picker {
-  min-width: 0;
-}
+/* old hero styles removed — replaced by .chat-topbar */
 
 .composer-actions ::v-deep .ant-btn,
 .add-watch ::v-deep .ant-btn {
@@ -3988,14 +3982,6 @@ export default {
 
 .symbol-picker ::v-deep .ant-select {
   width: 100%;
-}
-
-.hero-symbol-picker ::v-deep .ant-select-selection {
-  height: 32px;
-}
-
-.hero-symbol-picker ::v-deep .ant-select-selection__rendered {
-  line-height: 30px;
 }
 
 .symbol-option {
@@ -4565,63 +4551,105 @@ export default {
 
 .composer {
   flex: 0 0 auto;
-  border-top: 1px solid var(--qd-border-soft);
-  padding: 12px 14px;
+  padding: 8px 16px 12px;
+  background: transparent;
+}
+
+.composer-card {
+  max-width: 820px;
+  margin: 0 auto;
+  border: 1px solid var(--qd-border);
+  border-radius: 16px;
   background: var(--qd-panel);
+  box-shadow: 0 2px 12px rgba(20, 43, 72, 0.06);
+  overflow: hidden;
+  transition: border-color 0.18s, box-shadow 0.18s;
+  &:focus-within {
+    border-color: color-mix(in srgb, var(--qd-accent) 50%, transparent);
+    box-shadow: 0 0 0 3px var(--qd-accent-ring);
+  }
 }
 
 .composer textarea {
   width: 100%;
-  min-height: 98px;
-  max-height: 236px;
-  overflow-y: hidden;
+  min-height: 52px;
+  max-height: 200px;
+  overflow-y: auto;
   resize: none;
-  padding: 12px 13px;
-  border: 1px solid var(--qd-border);
-  border-radius: 8px;
+  padding: 12px 16px 4px;
+  border: 0;
   outline: none;
-  background: var(--qd-panel-soft);
+  background: transparent;
   color: var(--qd-text);
+  font-size: 14px;
   line-height: 1.55;
-  transition: border-color 0.18s, background 0.18s, box-shadow 0.18s;
 }
 
-.composer textarea:focus {
-  border-color: color-mix(in srgb, var(--qd-accent) 58%, transparent);
-  background: var(--qd-panel);
-  box-shadow: 0 0 0 3px var(--qd-accent-ring);
-}
-
-.composer-foot {
+.composer-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  margin-top: 8px;
+  padding: 6px 8px 6px 12px;
+}
+
+.composer-tools {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.composer-tool-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  height: 32px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--qd-text-muted);
+  font-size: 12px;
+  cursor: pointer;
+  &:hover { background: var(--qd-panel-soft); color: var(--qd-text); }
+}
+
+.composer-tool-btn input[type='file'],
+.composer input[type='file'] {
+  display: none;
+}
+
+.composer-send {
+  flex: 0 0 36px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 10px;
+  background: var(--qd-accent);
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.15s;
+  &:hover:not(:disabled) { transform: scale(1.05); }
+  &:disabled { opacity: 0.4; cursor: not-allowed; }
 }
 
 .risk-disclaimer {
-  min-width: 0;
-  margin: 0;
+  max-width: 820px;
+  margin: 6px auto 0;
+  text-align: center;
   color: var(--qd-text-subtle);
-  font-size: 12px;
-  line-height: 1.45;
+  font-size: 11px;
+  line-height: 1.4;
 }
 
 .risk-disclaimer .anticon {
-  margin-right: 5px;
+  margin-right: 4px;
   color: var(--qd-accent);
-}
-
-.composer-actions {
-  display: flex;
-  flex: 0 0 auto;
-  justify-content: flex-end;
-  gap: 8px;
-}
-
-.composer-actions input[type='file'] {
-  display: none;
+  opacity: 0.5;
 }
 
 .add-watch {
@@ -5242,50 +5270,12 @@ export default {
   pointer-events: none;
 }
 
-.rail-panel,
+.copilot-sidebar,
 .chat-panel {
   border-color: rgba(148, 163, 184, 0.24);
   background: rgba(255, 255, 255, 0.88);
   box-shadow: 0 12px 32px rgba(15, 23, 42, 0.075);
   backdrop-filter: blur(14px);
-}
-
-.rail-panel {
-  padding: 13px;
-}
-
-.left-rail,
-.right-rail {
-  gap: 12px;
-}
-
-.panel-head {
-  min-height: 28px;
-  margin-bottom: 11px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid rgba(148, 163, 184, 0.16);
-  font-size: 12px;
-  letter-spacing: 0;
-  text-transform: none;
-}
-
-.sessions-panel {
-  flex-basis: 54%;
-  min-height: 330px;
-}
-
-.calendar-panel {
-  flex-basis: 35%;
-  min-height: 230px;
-}
-
-.watch-panel {
-  flex-basis: 60%;
-}
-
-.monitor-panel {
-  flex-basis: 36%;
-  min-height: 250px;
 }
 
 .session-row,
@@ -5306,88 +5296,16 @@ export default {
 
 .chat-panel {
   position: relative;
-  border-color: rgba(148, 163, 184, 0.22);
   overflow: hidden;
   background: rgba(255, 255, 255, 0.7);
 }
 
-.chat-panel::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background:
-    radial-gradient(circle at 52% 18%, color-mix(in srgb, var(--qd-accent) 11%, transparent), transparent 32%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.52), rgba(255, 255, 255, 0));
-  pointer-events: none;
-}
-
-.chat-hero,
+.chat-topbar,
 .messages,
 .pending-attachments,
 .composer {
   position: relative;
   z-index: 1;
-}
-
-.chat-hero {
-  min-height: 104px;
-  padding: 18px 20px 16px;
-  border-bottom-color: rgba(148, 163, 184, 0.18);
-  background:
-    radial-gradient(circle at 71% 0%, rgba(20, 184, 166, 0.14), transparent 34%),
-    radial-gradient(circle at 36% 0%, color-mix(in srgb, var(--qd-accent) 16%, transparent), transparent 34%),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.72), rgba(238, 246, 255, 0.7));
-}
-
-.chat-hero::after {
-  content: "";
-  position: absolute;
-  right: 380px;
-  top: 18px;
-  width: 92px;
-  height: 92px;
-  border: 1px solid color-mix(in srgb, var(--qd-accent) 24%, transparent);
-  border-radius: 50%;
-  background:
-    radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.9), transparent 16%),
-    radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--qd-accent) 28%, transparent), transparent 47%),
-    linear-gradient(135deg, rgba(20, 184, 166, 0.26), color-mix(in srgb, var(--qd-accent) 24%, transparent));
-  box-shadow: 0 18px 38px color-mix(in srgb, var(--qd-accent) 16%, transparent);
-  opacity: 0.72;
-  pointer-events: none;
-}
-
-.hero-main {
-  grid-template-columns: minmax(0, 1fr) minmax(320px, 360px);
-}
-
-.eyebrow {
-  min-height: 20px;
-  margin-bottom: 7px;
-  background: color-mix(in srgb, var(--qd-accent) 12%, #ffffff);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.46);
-}
-
-.chat-hero h2 {
-  font-size: 24px;
-  line-height: 1.18;
-}
-
-.chat-hero p {
-  max-width: 700px;
-  font-size: 13px;
-}
-
-.context-status {
-  height: 22px;
-  color: var(--qd-text-muted);
-}
-
-.hero-symbol-picker ::v-deep .ant-select-selection {
-  height: 38px;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.78);
 }
 
 .hero-symbol-picker ::v-deep .ant-select-selection__rendered {

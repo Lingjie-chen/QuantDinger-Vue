@@ -68,7 +68,8 @@ export function getTradingOpportunities (params) {
   return request({
     url: `${BASE_URL}/opportunities`,
     method: 'get',
-    params
+    params,
+    timeout: 90000
   })
 }
 
