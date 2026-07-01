@@ -4,7 +4,7 @@ import momentCN from 'moment/locale/zh-cn'
 const components = {
   antLocale: antd,
   momentName: 'zh-cn',
-  momentLocale: momentCN,
+  momentLocale: momentCN
 }
 
 const locale = {
@@ -2144,7 +2144,7 @@ const locale = {
     futu: '富途证券 (Futu)',
     tiger: '老虎证券 (Tiger Brokers)',
     td: 'TD Ameritrade',
-    schwab: 'Charles Schwab',
+    schwab: 'Charles Schwab'
   },
   'trading-assistant.form.ibkrHost': '主机地址',
   'trading-assistant.form.ibkrPort': '端口',
@@ -2174,7 +2174,6 @@ const locale = {
   'trading-assistant.validation.mt5ServerRequired': '请输入 MT5 服务器',
   'trading-assistant.validation.mt5LoginRequired': '请输入 MT5 账户号',
   'trading-assistant.validation.mt5PasswordRequired': '请输入 MT5 密码',
-  'trading-assistant.validation.portfolioSizeRequired': '请输入持仓组合大小',
   'trading-assistant.validation.longRatioRequired': '请输入做多比例',
   'trading-assistant.exchange.mt5ConnectionSuccess': 'MT5 连接成功',
   'trading-assistant.exchange.mt5ConnectionFailed': 'MT5 连接失败，请检查终端是否运行',
@@ -2410,7 +2409,7 @@ const locale = {
     binancecoinm: 'Binance COIN-M',
     binanceusdm: 'Binance USDⓈ-M',
     ibkr: '盈透证券 (IBKR)',
-    deepcoin: 'Deepcoin',
+    deepcoin: 'Deepcoin'
   },
   'ai-trading-assistant.title': 'AI交易助手',
   'ai-trading-assistant.strategyList': '策略列表',
@@ -5237,10 +5236,10 @@ const locale = {
   'profile.loginLogs.newDevice': '新设备',
   'profile.loginLogs.newRegion': '新地区',
   'profile.loginLogs.total': '共 {total} 条',
-  'profile.loginLogs.loadFailed': '加载登录日志失败',
+  'profile.loginLogs.loadFailed': '加载登录日志失败'
 }
 
 export default {
   ...components,
-  ...locale,
+  ...locale
 }

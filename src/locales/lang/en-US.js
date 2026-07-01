@@ -4,7 +4,7 @@ import momentEU from 'moment/locale/eu'
 const components = {
   antLocale: antdEnUS,
   momentName: 'eu',
-  momentLocale: momentEU,
+  momentLocale: momentEU
 }
 
 const locale = {
@@ -2339,7 +2339,7 @@ const locale = {
     futu: 'Futu Securities',
     tiger: 'Tiger Brokers',
     td: 'TD Ameritrade',
-    schwab: 'Charles Schwab',
+    schwab: 'Charles Schwab'
   },
   'trading-assistant.form.ibkrHost': 'Host',
   'trading-assistant.form.ibkrPort': 'Port',
@@ -2371,7 +2371,6 @@ const locale = {
   'trading-assistant.validation.mt5ServerRequired': 'Please enter MT5 server',
   'trading-assistant.validation.mt5LoginRequired': 'Please enter MT5 account number',
   'trading-assistant.validation.mt5PasswordRequired': 'Please enter MT5 password',
-  'trading-assistant.validation.portfolioSizeRequired': 'Please enter portfolio size',
   'trading-assistant.validation.longRatioRequired': 'Please enter long ratio',
   'trading-assistant.exchange.mt5ConnectionSuccess': 'MT5 connected successfully',
   'trading-assistant.exchange.mt5ConnectionFailed': 'MT5 connection failed. Please check if terminal is running.',
@@ -2598,7 +2597,7 @@ const locale = {
     binancecoinm: 'Binance COIN-M',
     binanceusdm: 'Binance USDⓈ-M',
     ibkr: 'Interactive Brokers (IBKR)',
-    deepcoin: 'Deepcoin',
+    deepcoin: 'Deepcoin'
   },
   'ai-trading-assistant.title': 'AI Trading Assistant',
   'ai-trading-assistant.strategyList': 'Strategy List',
@@ -5615,10 +5614,10 @@ const locale = {
   'profile.loginLogs.newDevice': 'New device',
   'profile.loginLogs.newRegion': 'New region',
   'profile.loginLogs.total': '{total} entries',
-  'profile.loginLogs.loadFailed': 'Failed to load login history',
+  'profile.loginLogs.loadFailed': 'Failed to load login history'
 }
 
 export default {
   ...components,
-  ...locale,
+  ...locale
 }
